@@ -15,8 +15,8 @@ public class Mentor extends User{
     ArrayList<Mentee> myMentees;
     
     
-    public Mentor(String userName, String userType, String password) {
-        super(userName, password);
+    public Mentor(String userName, String password, String email) {
+        super(userName, password, email);
     }
     
     //gets all the mentees of this mentor
