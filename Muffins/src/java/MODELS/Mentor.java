@@ -13,11 +13,10 @@ import java.util.*;
 public class Mentor extends User{
     
     ArrayList<Mentee> myMentees;
-    
-    
-    public Mentor(String userName, String password, String email) {
-        super(userName, password, email);
-    }
+
+    public Mentor(String userName, String password, String email, String nric) {
+        super(userName, password, email, nric);
+    } 
     
     //gets all the mentees of this mentor
     public ArrayList<Mentee> getMentees(){

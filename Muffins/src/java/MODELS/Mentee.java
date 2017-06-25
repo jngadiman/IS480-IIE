@@ -13,13 +13,18 @@ import java.util.ArrayList;
  */
 public class Mentee extends User {
     
-    ArrayList<Mentor> myMentors;
-    Mentor myMentor;
-    
-    public Mentee(String userName, String userType, String password, String email) {
-        super(userName,password,email);
+    private ArrayList<Mentor> myMentors;
+    private Mentor myMentor;
+    private String company;
+
+    public Mentee(String userName, String password, String email, String nric) {
+        super(userName, password, email, nric);
     }
     
+    public Mentee(String userName, String password, String email, String nric, String company) {
+        super(userName, password, email, nric);
+    }
+      
     //gets all the mentors of this mentee (if have more that one mentors)
     public ArrayList<Mentor> getMentors(){
         
@@ -34,6 +39,12 @@ public class Mentee extends User {
         
     }
     
+    public String getCompany(){
+        
+        return company;
+        
+    }
+    
     public void setMentor(Mentor mentor){
         
         myMentor = mentor;
@@ -43,6 +54,12 @@ public class Mentee extends User {
     public void addMentor(Mentor mentor){
         
         myMentors.add(mentor);
+        
+    }
+    
+    public void setCompany(String company){
+        
+        this.company = company;
         
     }
     

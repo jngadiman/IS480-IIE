@@ -13,9 +13,9 @@ import java.util.*;
  */
 public class Contract {
     
-    Mentor mentor;
-    Admin admin;
-    Date signedDate;
+    private Mentor mentor;
+    private Admin admin;
+    private Date signedDate;
     
     public Contract(Mentor mentor, Admin admin, Date signedDate){
         this.mentor = mentor;

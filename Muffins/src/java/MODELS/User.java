@@ -11,14 +11,16 @@ package MODELS;
  */
 public class User {
     
-    String userName;
-    String password;
-    String email;
+    private String userName;
+    private String password;
+    private String email;
+    private String nric;
     
-    User(String userName, String password, String email){
+    User(String userName, String password, String email, String nric){
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.nric = nric;
     }
     
     public String getUserName(){
@@ -30,8 +32,12 @@ public class User {
         return password;
     }
     
-     public String getEmail(){
+    public String getEmail(){
         return email;
+    }
+    
+    public String getNric(){
+        return nric;
     }
     
     public void setUserName(String username){
@@ -46,4 +52,7 @@ public class User {
         this.email = email;
     }
     
+    public void setNric(String nric){
+        this.nric = nric;
+    }
 }
