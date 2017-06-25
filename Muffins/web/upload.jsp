@@ -15,8 +15,12 @@
         <%@include file="navbar.jsp" %>
         <h1>Upload your documents</h1>
         <label class="btn btn-primary btn-xs" for="my-file-selector">
-    <input id="my-file-selector" type="file" style="display:none;">
-    Select
-</label>
+            <input id="my-file-selector" type="file" style="display:none;">
+            Select
+        </label>
+         <label class="btn btn-primary btn-xs">
+            <input id="file" type="submit" style="display:none;">
+            Submit
+        </label>
     </body>
 </html>
