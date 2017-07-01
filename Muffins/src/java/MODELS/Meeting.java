@@ -17,7 +17,7 @@ public class Meeting {
     private String date;
     private Date startTime;
     private Date endTime;
-    private User[] attendees;
+    private ArrayList<User> attendees;
     private MeetingMinutes mm;
     
     public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, MeetingMinutes mm) {
@@ -29,7 +29,7 @@ public class Meeting {
         this.mm = mm;
     }
     
-    public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, Task[] tasksToBeDiscussed, User[] attendees, Task[] tasksToBeCompleted, MeetingMinutes mm) {
+    public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, Task[] tasksToBeDiscussed, ArrayList<User> attendees, Task[] tasksToBeCompleted, MeetingMinutes mm) {
         this.meetingName = meetingName;
         this.meetingType = meetingType;
         this.date = date;
@@ -79,11 +79,11 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public User[] getAttendees() {
+    public ArrayList<User> getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(User[] attendees) {
+    public void setAttendees(ArrayList<User> attendees) {
         this.attendees = attendees;
     }
 

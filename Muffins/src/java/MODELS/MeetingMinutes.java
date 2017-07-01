@@ -5,6 +5,8 @@
  */
 package MODELS;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Hui Min
@@ -13,12 +15,12 @@ public class MeetingMinutes {
     private String title;
     private Meeting m;
     private Mentor mentor;
-    private Task[] tasksToBeDiscussed;
-    private Task[] tasksToComplete;
+    private ArrayList<Task> tasksToBeDiscussed;
+    private ArrayList<Task> tasksToComplete;
     private String comments;
     private User submittedUser;
     
-    public MeetingMinutes(String title, Meeting m, Mentor mentor, Task[] tasksToBeDiscussed, Task[] tasksToComplete, String comments, User submittedUser) {
+    public MeetingMinutes(String title, Meeting m, Mentor mentor, ArrayList<Task> tasksToBeDiscussed, ArrayList<Task> tasksToComplete, String comments, User submittedUser) {
         this.title = title;
         this.m = m;
         this.mentor = mentor;
@@ -52,19 +54,19 @@ public class MeetingMinutes {
         this.mentor = mentor;
     }
 
-    public Task[] getTasksToBeDiscussed() {
+    public ArrayList<Task> getTasksToBeDiscussed() {
         return tasksToBeDiscussed;
     }
 
-    public void setTasksToBeDiscussed(Task[] tasksToBeDiscussed) {
+    public void setTasksToBeDiscussed(ArrayList<Task> tasksToBeDiscussed) {
         this.tasksToBeDiscussed = tasksToBeDiscussed;
     }
 
-    public Task[] getTasksToComplete() {
+    public ArrayList<Task> getTasksToComplete() {
         return tasksToComplete;
     }
 
-    public void setTasksToComplete(Task[] tasksToComplete) {
+    public void setTasksToComplete(ArrayList<Task> tasksToComplete) {
         this.tasksToComplete = tasksToComplete;
     }
 
