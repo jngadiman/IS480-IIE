@@ -14,7 +14,7 @@ public class Task {
     private String dateline;
     private String description;
     private boolean isCompleted;
-    private String stage;
+    private int stage;
     
     public Task(String name, String dateline, String description, boolean isCompleted) {
         this.name = name;
@@ -23,7 +23,7 @@ public class Task {
         this.isCompleted = isCompleted;
     }
     
-    public Task(String name, String dateline, String description, boolean isCompleted, String stage) {
+    public Task(String name, String dateline, String description, boolean isCompleted, int stage) {
         this.name = name;
         this.dateline = dateline;
         this.description = description;
@@ -63,11 +63,11 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
-    public String getStage() {
+    public int getStage() {
         return stage;
     }
 
-    public void setStage(String stage) {
+    public void setStage(int stage) {
         this.stage = stage;
     }
     
