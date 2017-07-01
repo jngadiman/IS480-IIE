@@ -5,6 +5,8 @@
  */
 package MODELS;
 
+import java.util.*;
+
 /**
  *
  * @author Hui Min
@@ -13,12 +15,12 @@ public class Meeting {
     private String meetingName;
     private String meetingType;
     private String date;
-    private String startTime;
-    private String endTime;
+    private Date startTime;
+    private Date endTime;
     private User[] attendees;
     private MeetingMinutes mm;
     
-    public Meeting(String meetingName, String meetingType, String date, String startTime, String endTime, MeetingMinutes mm) {
+    public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, MeetingMinutes mm) {
         this.meetingName = meetingName;
         this.meetingType = meetingType;
         this.date = date;
@@ -27,7 +29,7 @@ public class Meeting {
         this.mm = mm;
     }
     
-    public Meeting(String meetingName, String meetingType, String date, String startTime, String endTime, Task[] tasksToBeDiscussed, User[] attendees, Task[] tasksToBeCompleted, MeetingMinutes mm) {
+    public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, Task[] tasksToBeDiscussed, User[] attendees, Task[] tasksToBeCompleted, MeetingMinutes mm) {
         this.meetingName = meetingName;
         this.meetingType = meetingType;
         this.date = date;
@@ -61,19 +63,19 @@ public class Meeting {
         this.date = date;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

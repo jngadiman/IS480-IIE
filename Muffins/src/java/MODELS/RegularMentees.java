@@ -5,23 +5,24 @@
  */
 package MODELS;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  *
  * @author JJAY
  */
-public class Mentee extends User {
+public class RegularMentees extends User {
     
     private ArrayList<Mentor> myMentors;
     private Mentor myMentor;
-    private String company;
+    private Company company;
 
-    public Mentee(String userName, String password, String email, String nric) {
+    
+    public RegularMentees(String userName, String password, String email, String nric) {
         super(userName, password, email, nric);
     }
     
-    public Mentee(String userName, String password, String email, String nric, String company) {
+    public RegularMentees(String userName, String password, String email, String nric, String company) {
         super(userName, password, email, nric);
     }
       
@@ -39,7 +40,7 @@ public class Mentee extends User {
         
     }
     
-    public String getCompany(){
+    public Company getCompany(){
         
         return company;
         
@@ -57,7 +58,7 @@ public class Mentee extends User {
         
     }
     
-    public void setCompany(String company){
+    public void setCompany(Company company){
         
         this.company = company;
         
