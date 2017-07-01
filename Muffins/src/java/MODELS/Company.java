@@ -21,9 +21,18 @@ public class Company {
     private String industry;
     private Date startDate;
     private int currentStage;
-    private ArrayList<User> users;
-    
-    public Company (int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage, ArrayList<User> users){
+
+    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.vision = vision;
+        this.mission = mission;
+        this.industry = industry;
+        this.startDate = startDate;
+    }
+
+    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,7 +41,6 @@ public class Company {
         this.industry = industry;
         this.startDate = startDate;
         this.currentStage = currentStage;
-        this.users = users;
     }
 
     public int getId() {
@@ -97,14 +105,6 @@ public class Company {
 
     public void setCurrentStage(int currentStage) {
         this.currentStage = currentStage;
-    }
-
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
     }
     
 }
