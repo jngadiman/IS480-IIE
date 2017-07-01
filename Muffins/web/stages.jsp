@@ -88,7 +88,62 @@
                                 <p class="text-center">
                                     <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
+                                <!DOCTYPE html>
+                            <html lang="en">
+                            <body>
 
+                            <div class="container">
+                              <h2>Task List</h2>
+                              <p>The tasks for the current stage are shown below:</p>            
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Task Index</th>
+                                    <th>Task Name</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Click to change task status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Update Company Profile</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>3 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>First Meeting with Mentor</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>1 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>Sign contract</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>2 June 2017</td>
+                                    <td>Incomplete</td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">complete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Delete Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Add Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            </body>
+                            </html>
                             </div>
                             <div class="tab-pane fade" id="three">
                                 <h3 class="head text-center">Stage 2</h3>
@@ -100,6 +155,56 @@
                                 <p class="text-center">
                                     <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here  <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
+                                <div class="container">
+                              <h2>Task List</h2>
+                              <p>The tasks for the current stage are shown below:</p>            
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Task Index</th>
+                                    <th>Task Name</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Click to change task status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Update Company Profile</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>3 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>First Meeting with Mentor</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>1 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>Sign contract</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>2 June 2017</td>
+                                    <td>Incomplete</td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">complete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Delete Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Add Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
                             </div>
                             <div class="tab-pane fade" id="four">
                                 <h3 class="head text-center">Stage 3</h3>
@@ -111,6 +216,55 @@
                                 <p class="text-center">
                                     <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
+                                <div class="container">
+                                <h2>Task List</h2>
+                                <p>The tasks for the current stage are shown below:</p>            
+                                 <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Task Index</th>
+                                    <th>Task Name</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Click to change task status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Update Company Profile</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>3 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>First Meeting with Mentor</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>1 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>Sign contract</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>2 June 2017</td>
+                                    <td>Incomplete</td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">complete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                   <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Delete Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Add Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    
+                                  </tr>
+                                </tbody>
+                              </table>
                             </div>
                             <div class="tab-pane fade" id="five">
                                 <div class="text-center">
@@ -127,6 +281,57 @@
                                 </p>
                             </div>
                             <div class="clearfix"></div>
+                            <div class="container">
+                              <h2>Task List</h2>
+                              <p>The tasks for the current stage are shown below:</p>            
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Task Index</th>
+                                    <th>Task Name</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Click to change task status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Update Company Profile</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>3 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>First Meeting with Mentor</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>1 June 2017</td>
+                                    <td>Completed</td>
+                                          <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  <tr>
+                                    <td>3</td>
+                                    <td>Sign contract</td>
+                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
+                                    <td>2 June 2017</td>
+                                    <td>Incomplete</td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow">complete<span style="margin-left:10px;" class=""></span></a></p></td>
+                                  </tr>
+                                  
+                                   <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Delete Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded green"> Add Tasks <span style="margin-left:10px;" class=""></span></a></p></td>
+                                    
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
                         </div>
 
                     </div>
