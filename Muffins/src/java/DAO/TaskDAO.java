@@ -33,6 +33,7 @@ public class TaskDAO {
         String taskdesc = "";
         String deadline = "";
         int programstage = 0;
+        String isCompleted = "";
         boolean iscompleted = true;
         
         
@@ -46,10 +47,10 @@ public class TaskDAO {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
                 taskdesc = result.getString("task_description");
-                deadline = result.getString("task_dateline");
+                deadline = result.getString("task_deadline");
                 programstage = Integer.parseInt(result.getString("program_stage"));
-                iscompleted = Boolean.parseBoolean(result.getString("is_completed"));
-                
+                isCompleted = result.getString("is_completed");
+                iscompleted = isCompleted.equals("Y");
                 Task task = new Task(taskname, deadline, taskdesc, iscompleted, programstage);
                 tasks.add(task);
             }
@@ -75,6 +76,7 @@ public class TaskDAO {
         String taskdesc = "";
         String deadline = "";
         int programstage = 0;
+        String isCompleted = "";
         boolean iscompleted = true;
         
         
@@ -89,9 +91,10 @@ public class TaskDAO {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
                 taskdesc = result.getString("task_description");
-                deadline = result.getString("task_dateline");
+                deadline = result.getString("task_deadline");
                 programstage = Integer.parseInt(result.getString("program_stage"));
-                iscompleted = Boolean.parseBoolean(result.getString("is_completed"));
+                isCompleted = result.getString("is_completed");
+                iscompleted = isCompleted.equals("Y");
                 
                 Task task = new Task(taskname, deadline, taskdesc, iscompleted, programstage);
                 tasks.add(task);
@@ -110,7 +113,14 @@ public class TaskDAO {
     
     
     public static void main(String[] args){
-        System.out.println(TaskDAO.getTasks(1));
+        ArrayList<Task> tasks = TaskDAO.getAllTasks();
+        for(Task t: tasks){
+            System.out.println(t.getName());
+            System.out.println(t.getDescription());
+            System.out.println(t.getDateline());
+            System.out.println(t.getStage());
+            System.out.println(t.isIsCompleted());
+        }
     }
 
 }

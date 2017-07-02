@@ -241,5 +241,14 @@ public class UserDAO {
         return u;
     }
     
+    public static void main(String[] args){
+        User u = UserDAO.getUserByUsername("profKang");
+            System.out.println(u.getUserName());
+            System.out.println(u.getPassword());
+            System.out.println(u.getName());
+            System.out.println(u.getEmail());
+            System.out.println(u.getNric());
+            System.out.println(u.getUser_type());
+    }
     
 }

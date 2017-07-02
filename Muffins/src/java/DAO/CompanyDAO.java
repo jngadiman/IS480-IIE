@@ -17,6 +17,7 @@ import MODELS.Company;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.lang.Object;
 /**
  *
  * @author Hui Min
@@ -34,7 +35,7 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
-        Date startDate = new Date();
+        Date date = new Date();
         int currentstage = 0;
 
         try {
@@ -51,16 +52,19 @@ public class CompanyDAO {
                 mission = result.getString("mission");
                 industry = result.getString("industry");
                 start_date = result.getString("start_date");  
-                try{
-                    DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                    startDate = format.parse(start_date);
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = dateformat.parse(start_date);
                 }catch(ParseException e){
                     e.printStackTrace();
                 }  
-                currentstage = Integer.parseInt(result.getString("current_stage"));
+                if(result.getString("current_stage") == null){
+                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date);
+                }else{
+                    currentstage = Integer.parseInt(result.getString("current_stage"));
+                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
+                }
             }
-                        c = new Company(company_id, company_name, company_description, vision, mission, industry, startDate, currentstage);
-
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -82,7 +86,7 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
-        Date startDate = new Date();
+        Date date = new Date();
         int currentstage = 0;
 
         try {
@@ -98,15 +102,18 @@ public class CompanyDAO {
                 mission = result.getString("mission");
                 industry = result.getString("industry");
                 start_date = result.getString("start_date");  
-                try{
-                    DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                    startDate = format.parse(start_date);
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = dateformat.parse(start_date);
                 }catch(ParseException e){
                     e.printStackTrace();
+                }  
+                if(result.getString("current_stage") == null){
+                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date);
+                }else{
+                    currentstage = Integer.parseInt(result.getString("current_stage"));
+                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
                 }
-                currentstage = Integer.parseInt(result.getString("current_stage"));
-
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, startDate, currentstage);
                 companies.add(c);
             }
 
@@ -132,11 +139,10 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
-        Date startDate = new Date();
-
+        Date date = new Date();
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Company where current_stage = null;");
+            stmt = conn.prepareStatement("select * from Company where current_stage IS NULL;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -146,14 +152,14 @@ public class CompanyDAO {
                 vision = result.getString("vision");
                 mission = result.getString("mission");
                 industry = result.getString("industry");
-                start_date = result.getString("start_date");  
-                try{
-                    DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                    startDate = format.parse(start_date);
+                start_date = result.getString("start_date");            
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = dateformat.parse(start_date);
                 }catch(ParseException e){
                     e.printStackTrace();
                 }  
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, startDate);
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date);
                 companies.add(c);
             }
 
@@ -178,12 +184,12 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
-        Date startDate = new Date();
+        Date date = new Date();
         int currentstage = 0;
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Company where current_stage != null;");
+            stmt = conn.prepareStatement("select * from Company where current_stage IS NOT NULL;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -194,14 +200,14 @@ public class CompanyDAO {
                 mission = result.getString("mission");
                 industry = result.getString("industry");
                 start_date = result.getString("start_date");  
-                try{
-                    DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                    startDate = format.parse(start_date);
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = dateformat.parse(start_date);
                 }catch(ParseException e){
                     e.printStackTrace();
-                }
+                } 
                 currentstage = Integer.parseInt(result.getString("current_stage"));
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, startDate, currentstage);
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
                 companies.add(c);
             }
 
@@ -226,7 +232,7 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
-        Date startDate = new Date();
+        Date date = new Date();
         int currentstage = 0;
 
         try {
@@ -243,14 +249,14 @@ public class CompanyDAO {
                 mission = result.getString("mission");
                     industry = result.getString("industry");
                 start_date = result.getString("start_date");  
-                try{
-                    DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                    startDate = format.parse(start_date);
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = dateformat.parse(start_date);
                 }catch(ParseException e){
                     e.printStackTrace();
                 } 
                 currentstage = Integer.parseInt(result.getString("current_stage"));
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, startDate, currentstage);
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
                 companies.add(c);
             }
 
@@ -260,5 +266,20 @@ public class CompanyDAO {
             ConnectionManager.close(conn, stmt, result);
         }
         return companies;
+    }
+    
+    public static void main(String[] args){
+        ArrayList<Company> companies = CompanyDAO.getCompaniesInStage(2);
+        System.out.println(companies);
+        for(Company c: companies){
+            System.out.println(c.getId());
+            System.out.println(c.getName());
+            System.out.println(c.getDescription());
+            System.out.println(c.getVision());
+            System.out.println(c.getMission());
+            System.out.println(c.getIndustry());
+            System.out.println(c.getStartDate());
+            System.out.println(c.getCurrentStage());
+        }
     }
 }
