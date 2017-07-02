@@ -18,12 +18,12 @@ public class RegularMentees extends User {
     private Company company;
 
     
-    public RegularMentees(String userName, String password, String email, String nric) {
-        super(userName, password, email, nric);
+    public RegularMentees(String userName, String password, String name, String email, String nric, String user_type) {
+        super(userName, password, name, email, nric, user_type);
     }
     
-    public RegularMentees(String userName, String password, String email, String nric, String company) {
-        super(userName, password, email, nric);
+    public RegularMentees(String userName, String password, String name, String email, String nric, String user_type, String company) {
+        super(userName, password, name, email, nric, user_type);
     }
       
     //gets all the mentors of this mentee (if have more that one mentors)

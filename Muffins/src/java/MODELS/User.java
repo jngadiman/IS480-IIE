@@ -13,14 +13,18 @@ public class User {
     
     private String userName;
     private String password;
+    private String name;
     private String email;
     private String nric;
+    private String user_type;
     
-    User(String userName, String password, String email, String nric){
+    public User(String userName, String password, String name, String email, String nric, String user_type){
         this.userName = userName;
         this.password = password;
+        this.name = name;
         this.email = email;
         this.nric = nric;
+        this.user_type = user_type;
     }
     
     public String getUserName(){
@@ -32,12 +36,20 @@ public class User {
         return password;
     }
     
+    public String getName() {
+        return name;
+    }
+
     public String getEmail(){
         return email;
     }
     
     public String getNric(){
         return nric;
+    }
+    
+    public String getUser_type() {
+        return user_type;
     }
     
     public void setUserName(String username){
@@ -48,11 +60,19 @@ public class User {
         this.password = password;
     }
     
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public void setEmail(String email){
         this.email = email;
     }
     
     public void setNric(String nric){
         this.nric = nric;
+    }
+    
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 }

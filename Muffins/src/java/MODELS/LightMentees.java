@@ -18,12 +18,12 @@ public class LightMentees extends User{
     private Company company;
 
     
-    public LightMentees(String userName, String password, String email, String nric) {
-        super(userName, password, email, nric);
+    public LightMentees(String userName, String password, String name, String email, String nric, String user_type) {
+        super(userName, password, name, email, nric, user_type);
     }
     
-    public LightMentees(String userName, String password, String email, String nric, String company) {
-        super(userName, password, email, nric);
+    public LightMentees(String userName, String password, String name, String email, String nric, String user_type, String company) {
+        super(userName, password, name, email, nric, user_type);
     }
       
     //gets all the mentors of this mentee (if have more that one mentors)
