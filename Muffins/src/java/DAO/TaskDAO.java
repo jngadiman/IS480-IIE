@@ -14,7 +14,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import MODELS.*;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -31,7 +32,8 @@ public class TaskDAO {
         int taskid = 0;
         String taskname = "";
         String taskdesc = "";
-        String deadline = "";
+        String deadLine = "";
+        Date deadline = new Date();
         int programstage = 0;
         String isCompleted = "";
         boolean iscompleted = true;
@@ -47,7 +49,13 @@ public class TaskDAO {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
                 taskdesc = result.getString("task_description");
-                deadline = result.getString("task_deadline");
+                deadLine = result.getString("task_deadline");
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    deadline = dateformat.parse(deadLine);
+                }catch(ParseException e){
+                    e.printStackTrace();
+                }  
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
@@ -74,7 +82,8 @@ public class TaskDAO {
         int taskid = 0;
         String taskname = "";
         String taskdesc = "";
-        String deadline = "";
+        String deadLine = "";
+        Date deadline = new Date();
         int programstage = 0;
         String isCompleted = "";
         boolean iscompleted = true;
@@ -91,7 +100,13 @@ public class TaskDAO {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
                 taskdesc = result.getString("task_description");
-                deadline = result.getString("task_deadline");
+                deadLine = result.getString("task_deadline");
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    deadline = dateformat.parse(deadLine);
+                }catch(ParseException e){
+                    e.printStackTrace();
+                }  
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
@@ -117,7 +132,7 @@ public class TaskDAO {
         for(Task t: tasks){
             System.out.println(t.getName());
             System.out.println(t.getDescription());
-            System.out.println(t.getDateline());
+            System.out.println(t.getDeadline());
             System.out.println(t.getStage());
             System.out.println(t.isIsCompleted());
         }

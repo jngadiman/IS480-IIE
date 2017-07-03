@@ -5,27 +5,29 @@
  */
 package MODELS;
 
+import java.util.Date;
+
 /**
  *
  * @author Hui Min
  */
 public class Task {
     private String name;
-    private String dateline;
+    private Date deadline;
     private String description;
     private boolean isCompleted;
     private int stage;
     
-    public Task(String name, String dateline, String description, boolean isCompleted) {
+    public Task(String name, Date deadline, String description, boolean isCompleted) {
         this.name = name;
-        this.dateline = dateline;
+        this.deadline = deadline;
         this.description = description;
         this.isCompleted = isCompleted;
     }
     
-    public Task(String name, String dateline, String description, boolean isCompleted, int stage) {
+    public Task(String name, Date deadline, String description, boolean isCompleted, int stage) {
         this.name = name;
-        this.dateline = dateline;
+        this.deadline = deadline;
         this.description = description;
         this.isCompleted = isCompleted;
         this.stage = stage;
@@ -39,12 +41,12 @@ public class Task {
         this.name = name;
     }
 
-    public String getDateline() {
-        return dateline;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setDateline(String dateline) {
-        this.dateline = dateline;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public String getDescription() {
