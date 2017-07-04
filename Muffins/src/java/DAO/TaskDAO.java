@@ -5,7 +5,6 @@
  */
 package DAO;
 
-import CONTROLLER.taskController;
 import Utility.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +14,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import MODELS.*;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -23,6 +23,58 @@ import java.text.SimpleDateFormat;
  * @author JJAY
  */
 public class TaskDAO {
+    
+    public static Task getTask(int taskid){
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String taskname = "";
+        String taskdesc = "";
+        Date deadLine = new Date();
+        int programstage = 0;
+        int companyID = 0;
+        String isCompleted = "";
+        Task task = null;
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from task where task_id = ?;"); 
+            stmt.setInt(1,taskid);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                taskid = Integer.parseInt(result.getString("task_id"));
+                taskname = result.getString("task_name");
+                taskdesc = result.getString("task_description");
+                Timestamp dl = result.getTimestamp("task_deadline");
+                deadLine = new Date(dl.getTime());
+                
+                programstage = Integer.parseInt(result.getString("program_stage"));
+                companyID = Integer.parseInt(result.getString("company_id"));
+                isCompleted = result.getString("is_completed");
+                
+                if (isCompleted.equals("no")){
+                    task = new Task(taskname, taskdesc, deadLine, programstage, companyID, false);
+                }else{
+                    task = new Task(taskname, taskdesc, deadLine, programstage, companyID, true);
+                }
+ 
+                
+            }
+            
+            //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
+            //System.out.println("TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted);
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return task;
+       
+    }
 
     public static ArrayList<Task> getAllTasks() {
 
@@ -294,7 +346,87 @@ public class TaskDAO {
         return true;
     }
     
+    public static int addTask(Task task) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        int result = 0;
+        int taskid = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select count(*) from task;");
+            count = stmt.executeQuery();
+            count.next();
+            taskid = count.getInt(1)+1;
+            String status = "";
+            if(task.isIsCompleted()){
+                status.equals("Y");
+            }else{
+                status.equals("N");
+            }
+            stmt = conn.prepareStatement("INSERT INTO task (task_id, task_name, task_description, task_deadline, program_stage, company_id, is_completed)" + "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            stmt.setInt(1, taskid);
+            stmt.setString(2, task.getName());
+            stmt.setString(3, task.getDescription());
+            stmt.setString(4, df.format(task.getDeadline()));
+            stmt.setInt(5, task.getStage());
+            stmt.setInt(6, task.getCompanyID());
+            stmt.setString(7, status);
+            
+            result = stmt.executeUpdate();
+          
+            //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
+            //System.out.println("TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted);
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+        return result;
+    }
+    
+    public static int editTask(int taskid, String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        Task task = null;
+        int result = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            String status = "";
+            if(isCompleted){
+                status.equals("Y");
+            }else{
+                status.equals("N");
+            }
+            stmt = conn.prepareStatement("UPDATE task SET  task_name = ?, task_description = ?, task_deadline = ?, program_stage = ?, company_id = ?, is_completed = ? WHERE task_id = ?;");
+            stmt.setString(1, taskName);
+            stmt.setString(2, desc);
+            stmt.setString(3, df.format(deadline));
+            stmt.setInt(4, stage);
+            stmt.setInt(5, companyID);
+            stmt.setString(6, status);
+            stmt.setInt(7, taskid);
+            
+            result = stmt.executeUpdate();
+            //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
     public static void main(String[] args){
+
         ArrayList<Task> tasks = TaskDAO.getTasksByProgramStage(1);
         for(Task t: tasks){
             System.out.println(t.getName());

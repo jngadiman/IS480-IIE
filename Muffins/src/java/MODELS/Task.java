@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Hui Min
  */
 public class Task {
+    private int taskid;
     private String name;
     private String description;
     private Date deadline;
@@ -33,6 +34,10 @@ public class Task {
         this.stage = stage;
         this.companyID = companyID;
         this.isCompleted = isCompleted;
+    }
+    
+    public int getTaskId() {
+        return taskid;
     }
     
     public String getName() {

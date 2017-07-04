@@ -5,16 +5,15 @@
  */
 package CONTROLLER;
 
-import MODELS.Task;
-import DAO.ProgramStageDAO;
-import DAO.TaskDAO;
-import java.util.ArrayList;
+import MODELS.*;
+import DAO.*;
+import java.util.*;
 
 /**
  *
  * @author Hui Min
  */
-public class taskController {
+public class TaskController {
     
     public static ArrayList<Task> displayTasksByStageAndCompany(int programStage, int company_id){
         ArrayList<Task> tasks = TaskDAO.getTasksByCompanyAndStage(programStage, company_id);
@@ -47,15 +46,61 @@ public class taskController {
         return returnMsg;
     }
     
+    public static HashMap<ArrayList<Task>, String> addTaskToCompany(String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID){
+        
+        Task task = new Task(taskName, desc, deadline, stage, companyID, isCompleted);
+       
+        TaskDAO taskDAO = new TaskDAO();
+        HashMap map = new HashMap<ArrayList<Task>, String>();
+        String returnMsg = "";
+        int result = taskDAO.addTask(task);
+        
+        if(result == 0){
+            returnMsg = "An error have occured, kindly try again!"; 
+            map.put( "", returnMsg);
+        }else{
+            returnMsg = "Task had been added successfully";
+            map.put( taskDAO.getTasksByCompanyAndStage(stage, companyID), returnMsg);
+        }
+        return map;
+        
+    }
+    
+    public static HashMap<ArrayList<Task>, String> editTaskOfCompany(int taskID, String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID){
+       
+       
+        TaskDAO taskDAO = new TaskDAO();
+        HashMap map = new HashMap<Task, String>();
+        String returnMsg = "";
+        int result = taskDAO.editTask(taskID, taskName, deadline, desc, isCompleted, stage,companyID);
+        
+        if(result == 0){
+            returnMsg = "An error have occured, kindly try again!"; 
+            map.put( "", returnMsg);
+        }else{
+            returnMsg = "Task had been edited successfully";
+            map.put(taskDAO.getTasksByCompanyAndStage(stage, companyID), returnMsg);
+        }
+        return map;
+        
+    }
+    
     public static void main(String[] args){
-        ArrayList<Task> tasks = taskController.displayTasksByStage(1);
-        for(Task t: tasks){
-            System.out.println(t.getName());
-            System.out.println(t.getDescription());
-            System.out.println(t.getDeadline());
-            System.out.println(t.getStage());
-            System.out.println(t.getCompanyID());
-            System.out.println(t.isIsCompleted());
+        HashMap<ArrayList<Task>, String> tasks = TaskController.editTaskOfCompany(3, "byeeee", new Date(),"testing", true, 3, 122);
+        if (tasks!= null){
+            for(ArrayList<Task> temp: tasks.keySet()){
+                for(Task t: temp){
+                    System.out.println(t.getName());
+                System.out.println(t.getDescription());
+                System.out.println(t.getDeadline());
+                System.out.println(t.getStage());
+                System.out.println(t.getCompanyID());
+                System.out.println(t.isIsCompleted());
+                }
+                 
+            }
+        }else{
+            System.out.println("NOPE"); 
         }
     }
         
