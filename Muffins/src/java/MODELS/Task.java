@@ -13,24 +13,26 @@ import java.util.Date;
  */
 public class Task {
     private String name;
-    private Date deadline;
     private String description;
-    private boolean isCompleted;
+    private Date deadline;
     private int stage;
+    private int companyID;
+    private boolean isCompleted;
     
-    public Task(String name, Date deadline, String description, boolean isCompleted) {
+    public Task(String name, String description, Date deadline, boolean isCompleted) {
         this.name = name;
-        this.deadline = deadline;
         this.description = description;
+        this.deadline = deadline;
         this.isCompleted = isCompleted;
     }
     
-    public Task(String name, Date deadline, String description, boolean isCompleted, int stage) {
+    public Task(String name, String description, Date deadline, int stage, int companyID, boolean isCompleted) {
         this.name = name;
-        this.deadline = deadline;
         this.description = description;
-        this.isCompleted = isCompleted;
+        this.deadline = deadline;
         this.stage = stage;
+        this.companyID = companyID;
+        this.isCompleted = isCompleted;
     }
     
     public String getName() {
@@ -41,14 +43,6 @@ public class Task {
         this.name = name;
     }
 
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -57,14 +51,14 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isIsCompleted() {
-        return isCompleted;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setIsCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
-
+    
     public int getStage() {
         return stage;
     }
@@ -72,5 +66,20 @@ public class Task {
     public void setStage(int stage) {
         this.stage = stage;
     }
+
+    public int getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
+    }
     
+    public boolean isIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
 }
