@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2017 at 10:41 AM
+-- Generation Time: Jul 04, 2017 at 09:16 AM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.19
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `company` (
-  `company_id` int(11) NOT NULL,
+  `company_id` int(100) NOT NULL,
   `company_name` varchar(45) DEFAULT NULL,
   `company_description` varchar(200) DEFAULT NULL,
   `vision` varchar(100) DEFAULT NULL,
@@ -82,6 +82,7 @@ CREATE TABLE `task` (
   `task_description` varchar(200) NOT NULL,
   `task_deadline` datetime DEFAULT NULL,
   `program_stage` int(11) DEFAULT NULL,
+  `company_id` int(100) DEFAULT NULL,
   `is_completed` char(2) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
