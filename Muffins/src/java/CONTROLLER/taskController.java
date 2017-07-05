@@ -13,7 +13,7 @@ import java.util.*;
  *
  * @author Hui Min
  */
-public class TaskController {
+public class taskController {
     
     public static ArrayList<Task> displayTasksByStageAndCompany(int programStage, int company_id){
         ArrayList<Task> tasks = TaskDAO.getTasksByCompanyAndStage(programStage, company_id);
@@ -86,7 +86,7 @@ public class TaskController {
     }
     
     public static void main(String[] args){
-        HashMap<ArrayList<Task>, String> tasks = TaskController.editTaskOfCompany(3, "byeeee", new Date(),"testing", true, 3, 122);
+        HashMap<ArrayList<Task>, String> tasks = taskController.editTaskOfCompany(3, "byeeee", new Date(),"testing", true, 3, 122);
         if (tasks!= null){
             for(ArrayList<Task> temp: tasks.keySet()){
                 for(Task t: temp){
