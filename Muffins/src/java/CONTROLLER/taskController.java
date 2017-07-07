@@ -33,6 +33,16 @@ public class taskController {
         return tasks;
     }
     
+    public static Task displayTask(int taskID){
+        Task task = null;
+        
+        if(taskID == 0){
+            return task;
+        }
+        task = TaskDAO.getTask(taskID);
+        return task;
+    }
+    
     public static String deleteTask(int taskID){
         String returnMsg = "";
         boolean taskDeleted = TaskDAO.deleteTaskByID(taskID);
@@ -86,21 +96,14 @@ public class taskController {
     }
     
     public static void main(String[] args){
-        HashMap<ArrayList<Task>, String> tasks = taskController.editTaskOfCompany(3, "byeeee", new Date(),"testing", true, 3, 122);
-        if (tasks!= null){
-            for(ArrayList<Task> temp: tasks.keySet()){
-                for(Task t: temp){
-                    System.out.println(t.getName());
-                System.out.println(t.getDescription());
-                System.out.println(t.getDeadline());
-                System.out.println(t.getStage());
-                System.out.println(t.getCompanyID());
-                System.out.println(t.isIsCompleted());
-                }
-                 
-            }
-        }else{
-            System.out.println("NOPE"); 
+        Task t = taskController.displayTask(3);
+        if(t != null){
+            System.out.println(t.getName());
+            System.out.println(t.getDescription());
+            System.out.println(t.getDeadline());
+            System.out.println(t.getStage());
+            System.out.println(t.getCompanyID());
+            System.out.println(t.isIsCompleted());
         }
     }
         

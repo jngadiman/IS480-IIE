@@ -31,10 +31,12 @@ public class TaskDAO {
         ResultSet result = null;
         String taskname = "";
         String taskdesc = "";
-        Date deadLine = new Date();
+        String deadLine = "";
+        Date deadline = new Date();
         int programstage = 0;
         int companyID = 0;
         String isCompleted = "";
+        boolean iscompleted = true;
         Task task = null;
         
         
@@ -49,20 +51,19 @@ public class TaskDAO {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
                 taskdesc = result.getString("task_description");
-                Timestamp dl = result.getTimestamp("task_deadline");
-                deadLine = new Date(dl.getTime());
-                
+                deadLine = result.getString("task_deadline");
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    deadline = dateformat.parse(deadLine);
+                }catch(ParseException e){
+                    e.printStackTrace();
+                }
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
+                iscompleted = isCompleted.equals("Y");
                 
-                if (isCompleted.equals("no")){
-                    task = new Task(taskname, taskdesc, deadLine, programstage, companyID, false);
-                }else{
-                    task = new Task(taskname, taskdesc, deadLine, programstage, companyID, true);
-                }
- 
-                
+                task = new Task(taskname, taskdesc, deadline, programstage, companyID, iscompleted);
             }
             
             //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
@@ -426,16 +427,14 @@ public class TaskDAO {
         return result;
     }
     public static void main(String[] args){
-
-        ArrayList<Task> tasks = TaskDAO.getTasksByProgramStage(1);
-        for(Task t: tasks){
-            System.out.println(t.getName());
-            System.out.println(t.getDescription());
-            System.out.println(t.getDeadline());
-            System.out.println(t.getStage());
-            System.out.println(t.getCompanyID());
-            System.out.println(t.isIsCompleted());
-        }
+        Task t = TaskDAO.getTask(2);
+        
+        System.out.println(t.getName());
+        System.out.println(t.getDescription());
+        System.out.println(t.getDeadline());
+        System.out.println(t.getStage());
+        System.out.println(t.getCompanyID());
+        System.out.println(t.isIsCompleted());
     }
 
 }
