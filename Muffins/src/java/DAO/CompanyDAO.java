@@ -23,7 +23,7 @@ import java.lang.Object;
  * @author Hui Min
  */
 public class CompanyDAO {
-    public static Company getCompany(String companyID){
+    public static Company getCompany(int companyID){
         Company c = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -41,7 +41,7 @@ public class CompanyDAO {
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement("select * from Company where company_id = ?;");
-            stmt.setString(1, companyID);
+            stmt.setInt(1, companyID);
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -269,17 +269,14 @@ public class CompanyDAO {
     }
     
     public static void main(String[] args){
-        ArrayList<Company> companies = CompanyDAO.getCompaniesInStage(2);
-        System.out.println(companies);
-        for(Company c: companies){
-            System.out.println(c.getId());
-            System.out.println(c.getName());
-            System.out.println(c.getDescription());
-            System.out.println(c.getVision());
-            System.out.println(c.getMission());
-            System.out.println(c.getIndustry());
-            System.out.println(c.getStartDate());
-            System.out.println(c.getCurrentStage());
-        }
+        Company c = CompanyDAO.getCompany(2);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getDescription());
+        System.out.println(c.getVision());
+        System.out.println(c.getMission());
+        System.out.println(c.getIndustry());
+        System.out.println(c.getStartDate());
+        System.out.println(c.getCurrentStage());
     }
 }
