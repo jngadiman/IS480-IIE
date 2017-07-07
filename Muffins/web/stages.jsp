@@ -4,6 +4,11 @@
     Author     : JEN
 --%>
 
+<%@page import="DAO.TaskDAO"%>
+<%@page import="MODELS.Task"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.CompanyDAO"%>
+<%@page import="MODELS.Company"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -104,33 +109,46 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Update Company Profile</td>
-                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
-                                    <td>3 June 2017</td>
-                                    <td>Completed</td>
-                                          <td><p class="text-center"><a href="" class="btn btn-warning btn-outline-rounded yellow btn-xs">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
-                                          <td><a href=""> Delete</a>       <a href="">Edit</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>First Meeting with Mentor</td>
-                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
-                                    <td>1 June 2017</td>
-                                    <td>Completed</td>
-                                          <td><p class="text-center"><a href="" class="btn btn-warning btn-outline-rounded ">incomplete<span style="margin-left:10px;" class=""></span></a></p></td>
-                                  <td><a href=""> Delete</a>       <a href="">Edit</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>Sign contract</td>
-                                    <td>Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.</td>
-                                    <td>2 June 2017</td>
-                                    <td>Incomplete</td>
-                                    <td><p class="text-center"><a href="" class="btn btn-success btn-outline-rounded yellow btn-xs">complete<span style="margin-left:10px;" class=""></span></a></p></td>
-                                 <td><a href=""> Delete</a>       <a href="">Edit</a></td>
-                                  </tr>
+                                                                        <%
+                                    out.println("<tr>");
+                                    int companyID = 0;
+                                    Company c = CompanyDAO.getCompany(companyID);
+                                    if (c != null){
+                                        int stage = c.getCurrentStage();
+                                        if(stage >= 1){
+                                            ArrayList<Task> tasks = TaskDAO.getTasksByCompanyAndStage(stage, companyID);
+                                            if (tasks != null){
+                                                for (int i = 0; i <= tasks.size(); i++){
+                                                    Task t = tasks.get(i);
+                                                    out.println("<tr>");
+                                                    out.println("<td>" + t.getTaskId() + "</td>");
+                                                    out.println("<td>" + t.getName() + "</td>");
+                                                    out.println("<td></td>");
+                                                    out.println("<td>" + t.getDeadline() + "</td>");
+                                                    out.println("<td>" + t.getDescription()+ "</td>");
+                                                    if(t.isIsCompleted() == true){
+                                                        out.println("<td>Completed</td>");
+                                                    } else{
+                                                        out.println("<td>Completed</td>");
+                                                    }
+                                                    out.println("<td><p class='text-center'><a href='' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
+                                                    out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
+                                                    out.println("<a href=''>Edit</a></td>");
+                                                    out.println("</tr>");
+                                                }
+                                            } else{
+                                                out.println("no tasks found");
+                                            }
+                                        } else {
+                                            out.println("You company is at stage 0");
+                                        }
+                                        
+                                    } else {
+                                        out.println("Company not registered");
+                                    }
+                                    
+                                    
+                                    %>
                                  
                                   
                                     
