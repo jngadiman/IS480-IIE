@@ -72,6 +72,27 @@
                                 </div>
                              
                             </div>
+                            
+                            <div class="form-group"> <!-- Date input -->
+                                <label for="inputDate" class="col-lg-4 control-label">Start Date</label>
+                                <input class="col-lg-5 col-lg-offset-0" id="inputDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+                             </div>
+                            
+                            <div class="row">
+                                
+                                <div class="col-sm-6 form-group">
+                                    <label>Current Stage</label> 
+                                    <select class="form-control" id="select">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>	
+                                
+                            </div>
+                            
                          
                             <button type="button" class="btn btn-lg btn-info">Submit</button>					
                         </div>
