@@ -4,7 +4,11 @@
     Author     : JEN
 --%>
 
+<%@page import="DAO.TaskDAO"%>
+<%@page import="MODELS.Task"%>
+<%@page import="java.util.Optional"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,27 +44,65 @@
                     <div class="board">
                         <form class="form-horizontal" method="post" action="/action_page.php">
                             <fieldset>
-                                <legend>Add Task</legend>
-
-                                <div class="col-sm-2">blank</div>
+                                <legend>Edit Task</legend>
+                                <%int taskID = 1;
+                                Task task = TaskDAO.getTask(taskID);
+                                %>
+                                
+                                <div class="col-sm-2">Task Name</div>
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="inputTaskName" class="col-lg-4 control-label">Task Name</label>
                                         <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="inputTaskName" placeholder="Task Name">
+                                            <% 
+                                                try{
+                                                   if(task.getName()== null){
+                                                        String taskName = task.getName();
+                                                        out.println("<input type='text' class='form-control' id='inputTaskName' placeholder=" + taskName +">");
+                                                    }
+                                                }
+                                                catch (NullPointerException nullPointer){
+                                                   out.println("<input type='text' class='form-control' id='inputTaskName' placeholder= taskName>");
+                                                }
+                                                
+                                            %>
+                                            
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
                                         <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="inputTaskStage" placeholder="Task Stage">
+                                            <% 
+                                                try{
+                                                   if(task.getStage() != 0){
+                                                    int taskStage = task.getStage();
+                                                    out.println("<input type='text' class='form-control' id='inputTaskStage' placeholder=" + taskStage + ">");
+                                                    }
+                                                }
+                                                catch (NullPointerException nullPointer){
+                                                   out.println("<input type='text' class='form-control' id='inputTaskStage' placeholder=taskStage>");
+                                                }
+                                                
+                                            %>
+                                           
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskDescription" class="col-lg-4 control-label">Task Description</label>
                                         <div class="col-lg-8">
-                                            <textarea class="form-control" rows="3" id="inputTaskDescription" placeholder="Enter your description here"></textarea>
+                                            
                                             <span class="help-block">Go into details on what are the task's information. </span>
+                                            <% 
+                                                try{
+                                                   if(task.getDescription() != ""){
+                                                        String taskDes = task.getDescription();
+                                                        out.println("<textarea class='form-control' rows='3' id='inputTaskDescription' placeholder=" + taskDes + "><textarea>");
+                                                    }
+                                                }
+                                                catch (NullPointerException nullPointer){
+                                                   out.println("<input type='text' class='form-control' id='inputTaskStage' placeholder=taskDescription>");
+                                                }
+                                            %>
                                         </div>
                                     </div>
 
