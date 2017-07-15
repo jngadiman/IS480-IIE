@@ -52,9 +52,17 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
-                                        <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="inputTaskStage" placeholder="Task Stage">
-                                        </div>
+                                    <div class="col-sm-6 form-group">
+                                        <label>Task Stage</label> 
+
+                                        <select class="form-control" id="select">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>	
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskDescription" class="col-lg-4 control-label">Task Description</label>
