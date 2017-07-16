@@ -17,6 +17,18 @@ public class User {
     private String email;
     private String nric;
     private String user_type;
+    private Company company;
+    
+    public User(String userName, String password, String name, String email, String nric, String user_type, Company company){
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.nric = nric;
+        this.user_type = user_type;
+        this.company = company;
+    }
+    
     
     public User(String userName, String password, String name, String email, String nric, String user_type){
         this.userName = userName;

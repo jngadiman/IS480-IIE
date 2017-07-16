@@ -56,9 +56,9 @@ public class taskController {
         return returnMsg;
     }
     
-    public static HashMap<ArrayList<Task>, String> addTaskToCompany(String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID){
+    public static HashMap<ArrayList<Task>, String> addTaskToCompany(int taskid, String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID){
         
-        Task task = new Task(taskName, desc, deadline, stage, companyID, isCompleted);
+        Task task = new Task(taskid, taskName, desc, deadline, stage, companyID, isCompleted);
        
         TaskDAO taskDAO = new TaskDAO();
         HashMap map = new HashMap<ArrayList<Task>, String>();
@@ -76,35 +76,28 @@ public class taskController {
         
     }
     
-    public static HashMap<ArrayList<Task>, String> editTaskOfCompany(int taskID, String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID){
+     public static String editTaskOfCompany(int taskID, String taskName, String desc, Date deadline, int stage, int companyID, boolean isCompleted){
        
        
         TaskDAO taskDAO = new TaskDAO();
-        HashMap map = new HashMap<Task, String>();
         String returnMsg = "";
-        int result = taskDAO.editTask(taskID, taskName, deadline, desc, isCompleted, stage,companyID);
-        
+        int result = taskDAO.editTask(taskID, taskName, desc, deadline, stage, companyID, isCompleted);
+        System.out.println(result);
         if(result == 0){
-            returnMsg = "An error have occured, kindly try again!"; 
-            map.put( "", returnMsg);
+            returnMsg = "An error have occured, kindly try again!";
         }else{
             returnMsg = "Task had been edited successfully";
-            map.put(taskDAO.getTasksByCompanyAndStage(stage, companyID), returnMsg);
         }
-        return map;
+        
+        return returnMsg;
         
     }
     
     public static void main(String[] args){
-        Task t = taskController.displayTask(3);
-        if(t != null){
-            System.out.println(t.getName());
-            System.out.println(t.getDescription());
-            System.out.println(t.getDeadline());
-            System.out.println(t.getStage());
-            System.out.println(t.getCompanyID());
-            System.out.println(t.isIsCompleted());
-        }
+        Date date = new Date();
+        Task task = new Task(1, "nsdklanvcq", "csklnnvcan-abcd", date, 1, 1, false);
+        System.out.println(taskController.editTaskOfCompany(task.getTaskId(), task.getName(), task.getDescription(), task.getDeadline(), 1, 1, false));
+        
     }
         
 }

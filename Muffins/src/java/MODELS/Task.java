@@ -20,14 +20,16 @@ public class Task {
     private int companyID;
     private boolean isCompleted;
     
-    public Task(String name, String description, Date deadline, boolean isCompleted) {
+    public Task(int taskid, String name, String description, Date deadline, boolean isCompleted) {
+        this.taskid = taskid;
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.isCompleted = isCompleted;
     }
     
-    public Task(String name, String description, Date deadline, int stage, int companyID, boolean isCompleted) {
+    public Task(int taskid, String name, String description, Date deadline, int stage, int companyID, boolean isCompleted) {
+        this.taskid = taskid;
         this.name = name;
         this.description = description;
         this.deadline = deadline;
@@ -38,6 +40,10 @@ public class Task {
     
     public int getTaskId() {
         return taskid;
+    }
+
+    public void setTaskid(int taskid) {
+        this.taskid = taskid;
     }
     
     public String getName() {

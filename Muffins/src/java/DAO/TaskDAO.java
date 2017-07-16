@@ -63,7 +63,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
                 
-                task = new Task(taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
             }
             
             //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
@@ -115,7 +115,7 @@ public class TaskDAO {
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
-                Task task = new Task(taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -173,7 +173,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
                 
-                Task task = new Task(taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -230,7 +230,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
 
-                Task task = new Task(taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -290,7 +290,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
 
-                Task task = new Task(taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -389,7 +389,7 @@ public class TaskDAO {
         return result;
     }
     
-    public static int editTask(int taskid, String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID) {
+    public static int editTask(int taskid, String taskName, String desc, Date deadline, int stage, int companyID, boolean isCompleted) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -403,9 +403,9 @@ public class TaskDAO {
             
             String status = "";
             if(isCompleted){
-                status.equals("Y");
+                status = "Y";
             }else{
-                status.equals("N");
+                status = "N";
             }
             stmt = conn.prepareStatement("UPDATE task SET  task_name = ?, task_description = ?, task_deadline = ?, program_stage = ?, company_id = ?, is_completed = ? WHERE task_id = ?;");
             stmt.setString(1, taskName);
@@ -427,14 +427,13 @@ public class TaskDAO {
         return result;
     }
     public static void main(String[] args){
-        Task t = TaskDAO.getTask(2);
-        
-        System.out.println(t.getName());
-        System.out.println(t.getDescription());
-        System.out.println(t.getDeadline());
-        System.out.println(t.getStage());
-        System.out.println(t.getCompanyID());
-        System.out.println(t.isIsCompleted());
+        Date date = new Date();
+        int recordsUpdated = TaskDAO.editTask(1, "nsdklanvcq", "csklnnvcan-abc", date, 1, 1, false);
+        if(recordsUpdated > 0){
+            System.out.println("Success!");
+        }else{
+            System.out.println("Fail!");
+        }
     }
 
 }

@@ -1,19 +1,19 @@
 <%-- 
-    Document   : editTask
-    Created on : Jul 5, 2017, 11:16:02 PM
+    Document   : addStages
+    Created on : Jul 5, 2017, 9:06:58 PM
     Author     : JEN
 --%>
 
-<%@page import="DAO.TaskDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="MODELS.Task"%>
-<%@page import="java.util.Optional"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Stages</title>
+        <title>Edit Task</title>
         <%@include file="navbar.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -34,7 +34,28 @@
       };
       date_input.datepicker(options);
     })
-</script>
+    
+    
+/*    function validateForm() {
+        var taskName = document.forms["editTask"]["taskName"].value;
+        if (taskName == "") {
+            alert("Task name must be filled out!");
+            return false;
+        }
+        
+        var stage = document.forms["editTask"]["stage"].value;
+        if (stage == "") {
+            alert("Stage number must be filled out!");
+            return false;
+        }
+        
+        var deadline = document.forms["editTask"]["deadline"].value;
+        if (deadline == "") {
+            alert("Deadline must be filled out!");
+            return false;
+        }
+    } */
+    </script>
     </head>
     <body>
         <h1>Hello World!</h1>
@@ -42,79 +63,56 @@
             <div class="container">
                 <div class="row">
                     <div class="board">
-                        <form class="form-horizontal" method="post" action="/action_page.php">
+                        <%
+                            ArrayList<String> errorList = (ArrayList<String>)request.getAttribute("errorMessage");
+                            if(errorList != null && errorList.size() > 0){
+                                for(String s: errorList){
+                                    out.println("<h4>"+ s + "</h4>");
+                                }
+                            }
+                        %>
+                        <form class="form-horizontal" method="post" action="editTaskServlet" name="editTask" onsubmit="return validateForm()">
                             <fieldset>
                                 <legend>Edit Task</legend>
-                                <%int taskID = 1;
-                                Task task = TaskDAO.getTask(taskID);
+                                <%
+                                    Task task = (Task) request.getAttribute("taskToBeDisplayed");
+                                    String name = task.getName();
+                                    int stage = task.getStage();
+                                    String description = task.getDescription();
+                                    Date deadline = task.getDeadline();
                                 %>
-                                
-                                <div class="col-sm-2">Task Name</div>
+                                <div class="col-sm-2">blank</div>
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="inputTaskName" class="col-lg-4 control-label">Task Name</label>
                                         <div class="col-lg-5">
-                                            <% 
-                                                try{
-                                                   if(task.getName()== null){
-                                                        String taskName = task.getName();
-                                                        out.println("<input type='text' class='form-control' id='inputTaskName' placeholder=" + taskName +">");
-                                                    }
-                                                }
-                                                catch (NullPointerException nullPointer){
-                                                   out.println("<input type='text' class='form-control' id='inputTaskName' placeholder= taskName>");
-                                                }
-                                                
-                                            %>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
-                                        <div class="col-lg-5">
-                                            <% 
-                                                try{
-                                                   if(task.getStage() != 0){
-                                                    int taskStage = task.getStage();
-                                                    out.println("<input type='text' class='form-control' id='inputTaskStage' placeholder=" + taskStage + ">");
-                                                    }
-                                                }
-                                                catch (NullPointerException nullPointer){
-                                                   out.println("<input type='text' class='form-control' id='inputTaskStage' placeholder=taskStage>");
-                                                }
-                                                
-                                            %>
-                                           
+                                            <input type="text" class="form-control" id="inputTaskName" name="taskName" value="<%= name%>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskDescription" class="col-lg-4 control-label">Task Description</label>
                                         <div class="col-lg-8">
-                                            
+                                            <textarea class="form-control" rows="3" id="inputTaskDescription" name="taskDesc"><%= description%></textarea>
                                             <span class="help-block">Go into details on what are the task's information. </span>
-                                            <% 
-                                                try{
-                                                   if(task.getDescription() != ""){
-                                                        String taskDes = task.getDescription();
-                                                        out.println("<textarea class='form-control' rows='3' id='inputTaskDescription' placeholder=" + taskDes + "><textarea>");
-                                                    }
-                                                }
-                                                catch (NullPointerException nullPointer){
-                                                   out.println("<input type='text' class='form-control' id='inputTaskStage' placeholder=taskDescription>");
-                                                }
-                                            %>
                                         </div>
                                     </div>
-
                                     <div class="form-group"> <!-- Date input -->
-                                        <label for="inputDate" class="col-lg-4 control-label">Date</label>
-                                        <input class="col-lg-5 col-lg-offset-0" id="inputDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+                                        <label for="inputDate" class="col-lg-4 control-label">Deadline</label>
+                                        <input class="col-lg-5 col-lg-offset-0" id="inputDate" name="deadline" value="<%= new SimpleDateFormat("dd-MM-yyyy").format(deadline)%>" type="text" required/>
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control" id="inputTaskStage" name="stage" value="<%= stage%>" required>
+                                        </div>
+                                    </div>
+                                        <input type="hidden" name="taskId" value="<%= task.getTaskId()%>">
+                                        <input type="hidden" name="companyId" value="<%= task.getCompanyID()%>">
+                                        <input type="hidden" name="isCompleted" value="<%= task.isIsCompleted()%>">
                                     <div class="form-group">
                                         <div class="col-lg-8 col-lg-offset-2">
-                                            <button type="reset" class="btn btn-default">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="reset" class="btn btn-default" value="cancel" name="Cancel">Cancel</button>
+                                            <button type="submit" class="btn btn-primary" value="submit" name="Submit">Submit</button>
                                         </div>
                                     </div>
                                 </div>

@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="CONTROLLER.taskController"%>
 <%@page import="DAO.TaskDAO"%>
 <%@page import="MODELS.Task"%>
 <%@page import="java.util.ArrayList"%>
@@ -116,16 +117,14 @@
                                     if (c != null){
                                         int stage = c.getCurrentStage();
                                         if(stage >= 1){
-                                            ArrayList<Task> tasks = TaskDAO.getTasksByCompanyAndStage(stage, companyID);
+                                            ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(stage, companyID);
                                             if (tasks != null){
-                                                for (int i = 0; i <= tasks.size(); i++){
-                                                    Task t = tasks.get(i);
+                                                for (Task t: tasks){
                                                     out.println("<tr>");
                                                     out.println("<td>" + t.getTaskId() + "</td>");
                                                     out.println("<td>" + t.getName() + "</td>");
-                                                    out.println("<td></td>");
-                                                    out.println("<td>" + t.getDeadline() + "</td>");
                                                     out.println("<td>" + t.getDescription()+ "</td>");
+                                                    out.println("<td>" + t.getDeadline() + "</td>");
                                                     if(t.isIsCompleted() == true){
                                                         out.println("<td>Completed</td>");
                                                     } else{
@@ -133,12 +132,12 @@
                                                     }
                                                     out.println("<td><p class='text-center'><a href='' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
                                                     out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
-                                                    out.println("<a href=''>Edit</a></td>");
+                                                    out.println("<a href='displayTaskServlet?taskID=" + t.getTaskId() + "'>Edit</a></td>");
                                                     out.println("</tr>");
                                                 }
                                             } else{
                                                 out.println("no tasks found");
-                                            }
+                                                }
                                         } else {
                                             out.println("You company is at stage 0");
                                         }
