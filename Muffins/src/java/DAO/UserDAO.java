@@ -360,6 +360,65 @@ public class UserDAO {
         return status;
     }
     
+    public static String updateUserPassword(String email, String password){
+        String status = "";
+        
+        String dbpwd = "";
+        
+        MessageDigest crypt = null;
+        try {
+            crypt = MessageDigest.getInstance("SHA-256");
+            crypt.reset();
+            crypt.update(password.getBytes("UTF-8"));
+            //newly hash password
+            dbpwd = new BigInteger(1, crypt.digest()).toString(16);
+
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            //insert user to database
+            stmt = conn.prepareStatement("UPDATE User SET password = ? WHERE email = ?");
+
+            //set password
+            stmt.setString(1, dbpwd);
+
+            //set email
+            stmt.setString(2, email);
+
+            int numRecordsUpdated = stmt.executeUpdate();
+            
+            if(numRecordsUpdated > 0){
+                status = "Password is updated!";
+            }else{
+                status = "An error occured, please try again!";
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return status;
+    }
+
+
+    
     public static void main(String[] args){
         Date startDate = new Date();
         Company company = new Company(3, "Mcdonalds", "sells fast food", "to be able to be a top notch fast food company", "to be happiness to our customers", "FnB", startDate);

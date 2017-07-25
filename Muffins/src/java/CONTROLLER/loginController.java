@@ -21,7 +21,9 @@ import java.util.logging.Logger;
  * @author JJAY
  */
 public class loginController {
+    //to validate the user before logging in
     public static User validateUser(String email, String password) {
+        System.out.println("USER EMAIL IN CONTROLLER = "+email );
         User user = UserDAO.getUserByEmail(email);
         System.out.println("USER IN CONTROLLER = "+user.getName() );
         if (user != null) {
@@ -51,10 +53,22 @@ public class loginController {
         return null;
     }
     
+    public static User checkUser(String email){
+        User user = UserDAO.getUserByEmail(email);
+        return user;
+    }
+    
+    public static String updateUserPassword(String email, String password){
+        String result = UserDAO.updateUserPassword(email,password);
+        return result;
+    }
+    
     public static String addUser(User user){
         String status = UserDAO.addUser(user);
         return status;
     }
+    
+    
     
     public static void main(String[] args){
         Date startDate = new Date();
