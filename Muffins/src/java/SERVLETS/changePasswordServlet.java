@@ -5,7 +5,7 @@
  */
 package SERVLETS;
 
-import Controller.loginController;
+import CONTROLLER.loginController;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,7 +56,7 @@ public class changePasswordServlet extends HttpServlet {
                     
                     session.setAttribute("user", currentUser);
                     request.setAttribute("returnMsg", result);
-                    request.getRequestDispatcher("profile.jsp").forward(request, response);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                    
                 } else {
                     System.out.println("USER IS NOT VALIDATED :(" );

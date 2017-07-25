@@ -5,7 +5,7 @@
  */
 package SERVLETS;
 
-import Controller.loginController;
+import CONTROLLER.loginController;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +45,7 @@ public class loginServlet extends HttpServlet {
             if ((currentUser = loginController.validateUser(email, password)) != null) {
                 System.out.println("USER IS VALIDATED" );
                 session.setAttribute("user", currentUser);
-                response.sendRedirect("profile.jsp");
+                response.sendRedirect("index.jsp");
             } else {
                 System.out.println("USER IS NOT VALIDATED :(" );
                 request.setAttribute("loginErrorMessage", "invalid email/password");

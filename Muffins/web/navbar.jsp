@@ -43,7 +43,7 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="profile.jsp">Profile</a>
-                                <li><a href="#" class="btn btn-primary btn-xs">Logout</a></li>
+                                <li><a href="logout.jsp" class="btn btn-primary btn-xs">Logout</a></li>
 
                             </ul>
 

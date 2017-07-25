@@ -5,7 +5,7 @@
  */
 package SERVLETS;
 
-import Controller.loginController;
+import CONTROLLER.loginController;
 import DAO.CompanyDAO;
 import MODELS.Company;
 import MODELS.User;

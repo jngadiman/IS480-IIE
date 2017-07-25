@@ -6,6 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String loginErrorMessage = (String) request.getAttribute("loginErrorMessage");
+
+    if (loginErrorMessage == null) {
+        loginErrorMessage = "";
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,10 +30,11 @@
 
                             <div class="card card-container">
                                 <p id="profile-name" class="profile-name-card"></p>
-                                <form class="form-signin">
+                                <form class="form-signin" action = "loginServlet" method = "post">
                                     <span id="reauth-email" class="reauth-email"></span>
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                    <font color = 'red'><%=loginErrorMessage%></font>
                                     <div id="remember" class="checkbox">
                                         <label>
                                             <input type="checkbox" value="remember-me"> Remember me
