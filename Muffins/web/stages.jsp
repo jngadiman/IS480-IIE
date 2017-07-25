@@ -112,7 +112,7 @@
                                 <tbody>
                                                                         <%
                                     out.println("<tr>");
-                                    int companyID = 0;
+                                    int companyID = 1;
                                     Company c = CompanyDAO.getCompany(companyID);
                                     if (c != null){
                                         int stage = c.getCurrentStage();
@@ -132,12 +132,12 @@
                                                     }
                                                     out.println("<td><p class='text-center'><a href='' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
                                                     out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
-                                                    out.println("<a href='displayTaskServlet?taskID=" + t.getTaskId() + "'>Edit</a></td>");
+                                                    out.println("<a href='displayTask?taskID=" + t.getTaskId() + "'>Edit</a></td>");
                                                     out.println("</tr>");
                                                 }
                                             } else{
                                                 out.println("no tasks found");
-                                                }
+                                            }
                                         } else {
                                             out.println("You company is at stage 0");
                                         }
