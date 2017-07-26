@@ -9,6 +9,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="MODELS.Task"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>

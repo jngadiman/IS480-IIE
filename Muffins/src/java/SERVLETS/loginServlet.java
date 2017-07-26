@@ -6,12 +6,9 @@
 package SERVLETS;
 
 import CONTROLLER.loginController;
-import DAO.CompanyDAO;
-import MODELS.Company;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author JJAY
  */
-@WebServlet(name = "addUserServlet", urlPatterns = {"/addUserServlet"})
-public class addUserServlet extends HttpServlet {
+@WebServlet("/loginServlet")
+public class loginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,24 +34,28 @@ public class addUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User currentUser;
-        String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String nric = request.getParameter("nric");
-        String comp = request.getParameter("company");
-        String user_type = request.getParameter("user_type");
-        int companyID = 0;
-        companyID = Integer.parseInt(comp);
-       
-        User user = new User(email, password, name, nric, null, user_type, companyID);
-        String status = loginController.addUser(user);
-        request.setAttribute("status", status);
-        RequestDispatcher rd = request.getRequestDispatcher("registerUser.jsp");
-        rd.forward(request, response);
+        System.out.println("USERNAME = "+email+ "PASSWORD" +password );
+        if ((!email.equals("")) && (!password.equals(""))) {
+            System.out.println("USERNAME AND EMAIL NOT NULL" );
+            if ((currentUser = loginController.validateUser(email, password)) != null) {
+                System.out.println("USER IS VALIDATED" );
+                session.setAttribute("user", currentUser);
+                response.sendRedirect("index.jsp");
+            } else {
+                System.out.println("USER IS NOT VALIDATED :(" );
+                request.setAttribute("loginErrorMessage", "invalid email/password");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+        } else {
+            request.setAttribute("loginErrorMessage", "invalid email/password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

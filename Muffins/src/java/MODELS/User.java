@@ -11,38 +11,53 @@ package MODELS;
  */
 public class User {
     
-    private String userName;
+    private String email;
     private String password;
     private String name;
-    private String email;
     private String nric;
+    private String profile_pic;
     private String user_type;
-    private Company company;
+    private int companyid;
     
-    public User(String userName, String password, String name, String email, String nric, String user_type, Company company){
-        this.userName = userName;
+    public User(String email, String password, String name, String nric, String user_type){
+        this.email = email;
         this.password = password;
         this.name = name;
-        this.email = email;
-        this.nric = nric;
-        this.user_type = user_type;
-        this.company = company;
-    }
-    
-    
-    public User(String userName, String password, String name, String email, String nric, String user_type){
-        this.userName = userName;
-        this.password = password;
-        this.name = name;
-        this.email = email;
         this.nric = nric;
         this.user_type = user_type;
     }
     
-    public String getUserName(){
-        return userName;
+    public User(String email, String password, String name, String nric, String profile_pic, String user_type){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nric = nric;
+        this.user_type = user_type;
+        this.profile_pic = profile_pic;
     }
- 
+    
+    public User(String email, String password, String name, String nric, String user_type, int company_id){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nric = nric;
+        this.user_type = user_type;
+        this.companyid = company_id;
+    }
+    
+    public User(String email, String password, String name, String nric, String profile_pic, String user_type, int company_id){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nric = nric;
+        this.profile_pic = profile_pic;
+        this.user_type = user_type;
+        this.companyid = company_id;
+    }
+    
+    public String getEmail(){
+        return email;
+    }
     
     public String getPassword(){
         return password;
@@ -50,10 +65,6 @@ public class User {
     
     public String getName() {
         return name;
-    }
-
-    public String getEmail(){
-        return email;
     }
     
     public String getNric(){
@@ -64,8 +75,16 @@ public class User {
         return user_type;
     }
     
-    public void setUserName(String username){
-        this.userName = username;
+    public int getCompanyid() {
+        return companyid;
+    }
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+    
+    public void setEmail(String email){
+        this.email = email;
     }
     
     public void setPassword(String password){
@@ -76,15 +95,19 @@ public class User {
         this.name = name;
     }
     
-    public void setEmail(String email){
-        this.email = email;
-    }
-    
     public void setNric(String nric){
         this.nric = nric;
     }
     
     public void setUser_type(String user_type) {
         this.user_type = user_type;
+    }
+    
+    public void setCompanyid(int companyid) {
+        this.companyid = companyid;
+    }
+    
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
     }
 }

@@ -5,6 +5,7 @@
  */
 package CONTROLLER;
 
+import DAO.CompanyDAO;
 import DAO.UserDAO;
 import MODELS.Company;
 import MODELS.User;
@@ -12,7 +13,10 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +25,9 @@ import java.util.logging.Logger;
  * @author JJAY
  */
 public class loginController {
+    //to validate the user before logging in
     public static User validateUser(String email, String password) {
+        System.out.println("USER EMAIL IN CONTROLLER = "+email );
         User user = UserDAO.getUserByEmail(email);
         System.out.println("USER IN CONTROLLER = "+user.getName() );
         if (user != null) {
@@ -51,16 +57,37 @@ public class loginController {
         return null;
     }
     
+    public static User checkUser(String email){
+        User user = UserDAO.getUserByEmail(email);
+        return user;
+    }
+    
+    public static String updateUserPassword(String email, String password){
+        String result = UserDAO.updateUserPassword(email,password);
+        return result;
+    }
+    
     public static String addUser(User user){
         String status = UserDAO.addUser(user);
         return status;
     }
     
+    public static HashMap<Integer, String> getAllMenteeCompanyNames(){
+        ArrayList<Integer> companyIDs = UserDAO.getAllMenteeCompanyIDs();
+        ArrayList<String> companyNames = CompanyDAO.getAllCompanyNames(companyIDs);
+        HashMap<Integer, String> menteeCompanies = new HashMap<>();
+        for(int i = 0; i < companyIDs.size(); i++){
+            menteeCompanies.put(companyIDs.get(i), companyNames.get(i));
+        }
+        return menteeCompanies;
+    }
+    
     public static void main(String[] args){
-        Date startDate = new Date();
-        Company company = new Company(3, "Mcdonalds", "sells fast food", "to be able to be a top notch fast food company", "to be happiness to our customers", "FnB", startDate);
-        User u = new User("hello123", "1234", "hello123", "hello@hotmail.com", "S9272235Y", "light_mentee", company);
-        String status = loginController.addUser(u);
+        HashMap<Integer, String> companyNames = loginController.getAllMenteeCompanyNames();
+        Iterator it = companyNames.keySet().iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
    
 }

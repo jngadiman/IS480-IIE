@@ -268,15 +268,75 @@ public class CompanyDAO {
         return companies;
     }
     
+    public static ArrayList<String> getAllCompanyNames(ArrayList<Integer> companyIDs){
+        ArrayList<String> companyNames = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+        String company_name = "";
+        
+        for(Integer i: companyIDs){
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("SELECT `company_name` FROM `Company` WHERE `company_id` = ? ");
+                stmt.setInt(1, i);
+                result = stmt.executeQuery();
+
+                while (result.next()) {
+                    company_name = result.getString("company_name");
+                    companyNames.add(company_name);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+        }
+        return companyNames;
+    }
+    
+    public static int editCompanyDetails(Company c){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        int result = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            String status = "";
+            
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, vision = ?, mission = ?, industry = ?, start_date = ?, current_stage = ? WHERE company_id = ?;");
+            stmt.setString(1, c.getName());
+            stmt.setString(2, c.getDescription());
+            stmt.setString(3, c.getVision());
+            stmt.setString(4, c.getMission());
+            stmt.setString(5, c.getIndustry());
+            stmt.setString(6, df.format(c.getStartDate()));
+            stmt.setInt(7, c.getCurrentStage());
+            stmt.setInt(8, c.getId());
+            
+            
+            result = stmt.executeUpdate();
+            //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
     public static void main(String[] args){
-        Company c = CompanyDAO.getCompany(2);
-        System.out.println(c.getId());
-        System.out.println(c.getName());
-        System.out.println(c.getDescription());
-        System.out.println(c.getVision());
-        System.out.println(c.getMission());
-        System.out.println(c.getIndustry());
-        System.out.println(c.getStartDate());
-        System.out.println(c.getCurrentStage());
+        Date startDate = new Date();
+        Company c = new Company(1, "kentucky", "sells chicken and biscuits", "to sell more chicken", "to sell the premium chicken", "FnB", startDate, 2);
+        int result = CompanyDAO.editCompanyDetails(c);
+        System.out.println(result);
     }
 }
