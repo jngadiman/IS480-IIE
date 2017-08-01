@@ -12,31 +12,41 @@ import java.util.*;
  * @author Hui Min
  */
 public class Meeting {
+    private int meetingID;
     private String meetingName;
     private String meetingType;
-    private String date;
     private Date startTime;
     private Date endTime;
-    private ArrayList<User> attendees;
-    private MeetingMinutes mm;
+    private String [] attendees;
+    private boolean status;
     
-    public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, MeetingMinutes mm) {
+    
+//    public Meeting(int meetingID, String meetingName, String meetingType, String date, Date startTime, Date endTime) {
+//        this.meetingID = meetingID;
+//        this.meetingName = meetingName;
+//        this.meetingType = meetingType;
+//        this.date = date;
+//        this.startTime = startTime;
+//        this.endTime = endTime;
+//        
+//    }
+    
+    public Meeting(int meetingID, String meetingName, String meetingType, Date startTime, Date endTime, String [] attendees, boolean status) {
+        this.meetingID = meetingID;
         this.meetingName = meetingName;
         this.meetingType = meetingType;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.mm = mm;
-    }
-    
-    public Meeting(String meetingName, String meetingType, String date, Date startTime, Date endTime, Task[] tasksToBeDiscussed, ArrayList<User> attendees, Task[] tasksToBeCompleted, MeetingMinutes mm) {
-        this.meetingName = meetingName;
-        this.meetingType = meetingType;
-        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.attendees = attendees;
-        this.mm = mm;
+        this.status = status;
+    }
+    
+    public int getMeetingID() {
+        return meetingID;
+    }
+    
+    public void setMeetingID(int meetingID) {
+        this.meetingID = meetingID;
     }
     
     public String getMeetingName() {
@@ -55,14 +65,6 @@ public class Meeting {
         this.meetingType = meetingType;
     }
     
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public Date getStartTime() {
         return startTime;
     }
@@ -79,21 +81,22 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public ArrayList<User> getAttendees() {
+    public String [] getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(ArrayList<User> attendees) {
+    public void setAttendees(String [] attendees) {
         this.attendees = attendees;
     }
-
-    public MeetingMinutes getMm() {
-        return mm;
+    
+    public boolean getStatus(){
+        return status;
+    }
+    
+    public void setStatus(boolean status){
+        this.status = status;
     }
 
-    public void setMm(MeetingMinutes mm) {
-        this.mm = mm;
-    }
     
     /*public String addMeeting(Meeting m){
         

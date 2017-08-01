@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2017 at 06:08 AM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Aug 01, 2017 at 03:16 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `iieportal`
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `company`
 --
 
-CREATE TABLE `company` (
+CREATE TABLE IF NOT EXISTS `company` (
   `company_id` int(100) NOT NULL,
   `company_name` varchar(45) DEFAULT NULL,
   `company_description` varchar(200) DEFAULT NULL,
@@ -34,7 +34,8 @@ CREATE TABLE `company` (
   `mission` varchar(100) DEFAULT NULL,
   `industry` varchar(45) DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
-  `current_stage` int(11) DEFAULT NULL
+  `current_stage` int(11) DEFAULT NULL,
+  PRIMARY KEY (`company_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -43,7 +44,40 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`company_id`, `company_name`, `company_description`, `vision`, `mission`, `industry`, `start_date`, `current_stage`) VALUES
 (1, 'kfc', 'sells chicken', 'to sell as many chicken as possible', 'to sell the best quality chicken ever!', 'FnB', '2017-07-23 01:28:35', 1),
-(2, 'ntuc', 'sells grocery', 'to be able to sell grocery everywhere', 'to bring you the best quality foods to you', 'FnB', '2012-07-09 00:00:00', NULL);
+(0, 'ntuc', 'sells grocery', 'to be able to sell grocery everywhere', 'to bring you the best quality foods to you', 'FnB', '2012-07-09 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meeting`
+--
+
+CREATE TABLE IF NOT EXISTS `meeting` (
+  `meeting_id` int(100) NOT NULL,
+  `meeting_name` varchar(120) NOT NULL,
+  `meeting_type` varchar(120) NOT NULL,
+  `start_time` date NOT NULL,
+  `end_time` date NOT NULL,
+  `attendees` varchar(500) NOT NULL,
+  `status` varchar(8) NOT NULL,
+  PRIMARY KEY (`meeting_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meeting_minutes`
+--
+
+CREATE TABLE IF NOT EXISTS `meeting_minutes` (
+  `minutes_id` int(100) NOT NULL,
+  `title` varchar(120) NOT NULL,
+  `meeting_id` int(100) NOT NULL,
+  `mentor_id` int(60) NOT NULL,
+  `task_id` int(100) NOT NULL,
+  `comment` varchar(150) NOT NULL,
+  `submitted_user` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -51,10 +85,11 @@ INSERT INTO `company` (`company_id`, `company_name`, `company_description`, `vis
 -- Table structure for table `mentee`
 --
 
-CREATE TABLE `mentee` (
+CREATE TABLE IF NOT EXISTS `mentee` (
   `username` varchar(45) NOT NULL,
   `user_type` varchar(45) DEFAULT NULL,
-  `company_id` varchar(45) DEFAULT NULL
+  `company_id` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -63,9 +98,10 @@ CREATE TABLE `mentee` (
 -- Table structure for table `program_stages`
 --
 
-CREATE TABLE `program_stages` (
+CREATE TABLE IF NOT EXISTS `program_stages` (
   `stage_no` int(11) NOT NULL,
-  `stage_name` varchar(125) NOT NULL
+  `stage_name` varchar(125) NOT NULL,
+  PRIMARY KEY (`stage_no`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -84,14 +120,15 @@ INSERT INTO `program_stages` (`stage_no`, `stage_name`) VALUES
 -- Table structure for table `task`
 --
 
-CREATE TABLE `task` (
+CREATE TABLE IF NOT EXISTS `task` (
   `task_id` int(11) NOT NULL,
   `task_name` varchar(125) NOT NULL,
   `task_description` varchar(200) NOT NULL,
   `task_deadline` datetime DEFAULT NULL,
   `program_stage` int(11) DEFAULT NULL,
   `company_id` int(100) DEFAULT NULL,
-  `is_completed` char(2) DEFAULT NULL
+  `is_completed` char(2) DEFAULT NULL,
+  PRIMARY KEY (`task_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -109,14 +146,15 @@ INSERT INTO `task` (`task_id`, `task_name`, `task_description`, `task_deadline`,
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `nric` varchar(9) DEFAULT NULL,
   `profile_pic` varchar(2000) DEFAULT NULL,
   `user_type` varchar(45) DEFAULT NULL,
-  `company_id` int(100) NOT NULL
+  `company_id` int(100) NOT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -137,41 +175,8 @@ INSERT INTO `user` (`email`, `password`, `name`, `nric`, `profile_pic`, `user_ty
 ('qss@hotmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'qbl', 'S5676534F', NULL, 'regular_mentee', 0),
 ('guniqa@hotmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'sum', 'S4567890I', NULL, 'light_mentee', 0),
 ('cab@hotmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'cab', 'S2346543U', NULL, 'regular_mentee', 0),
-('ay@smu.edu.sg', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'hai', 'S7896543H', NULL, 'regular_mentee', 0);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `company`
---
-ALTER TABLE `company`
-  ADD PRIMARY KEY (`company_id`);
-
---
--- Indexes for table `mentee`
---
-ALTER TABLE `mentee`
-  ADD PRIMARY KEY (`username`);
-
---
--- Indexes for table `program_stages`
---
-ALTER TABLE `program_stages`
-  ADD PRIMARY KEY (`stage_no`);
-
---
--- Indexes for table `task`
---
-ALTER TABLE `task`
-  ADD PRIMARY KEY (`task_id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`email`);
+('ay@smu.edu.sg', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'hai', 'S7896543H', NULL, 'regular_mentee', 0),
+('admin@smu.edu.sg', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Jiatung Lim', 'S1112223J', NULL, 'light_mentee', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

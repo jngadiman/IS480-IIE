@@ -67,22 +67,25 @@ public class loginController {
         return result;
     }
     
-    public static HashMap<Integer, String> getAllMenteeCompanyNames(){
+    public static ArrayList<Company> getAllMenteeCompany(){
         ArrayList<Integer> companyIDs = UserDAO.getAllMenteeCompanyIDs();
-        ArrayList<String> companyNames = CompanyDAO.getAllCompanyNames(companyIDs);
-        HashMap<Integer, String> menteeCompanies = new HashMap<>();
-        for(int i = 0; i < companyIDs.size(); i++){
-            menteeCompanies.put(companyIDs.get(i), companyNames.get(i));
+        ArrayList<Company> companies = new ArrayList<Company>();
+        for(int companyID: companyIDs){
+            Company company = CompanyDAO.getCompany(companyID);
+            companies.add(company);
         }
-        return menteeCompanies;
+         
+        return companies;
     }
     
-    public static void main(String[] args){
-        HashMap<Integer, String> companyNames = loginController.getAllMenteeCompanyNames();
-        Iterator it = companyNames.keySet().iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
-    }
+    
+    
+//    public static void main(String[] args){
+//        HashMap<Integer, String> companyNames = loginController.getAllMenteeCompanyNames();
+//        Iterator it = companyNames.keySet().iterator();
+//        while (it.hasNext()) {
+//            System.out.println(it.next());
+//        }
+//    }
    
 }

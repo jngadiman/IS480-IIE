@@ -4,6 +4,8 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.Company"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="CONTROLLER.loginController"%>
@@ -102,15 +104,9 @@
 
                                     <select class="form-control" id="select" name="company" required>
                                         <%
-                                            HashMap<Integer, String> companies = loginController.getAllMenteeCompanyNames();
-                                            Iterator it = companies.keySet().iterator();
-                                            Iterator it1 = companies.values().iterator();
-                                            while (it.hasNext()) {
-                                                out.println("<option value='" + it.next() + "'>");
-                                                while(it1.hasNext()){
-                                                    out.println(it1.next() + "</option>");
-                                                    break;
-                                                }
+                                            ArrayList<Company> companies = loginController.getAllMenteeCompany();
+                                            for (Company c: companies){
+                                                out.println("<option value='" + c.getId() + "'>"+ c.getName()+ "</option>");
                                             }
                                         %>
                                     </select>

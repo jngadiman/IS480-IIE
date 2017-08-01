@@ -12,19 +12,19 @@ import java.util.ArrayList;
  * @author Hui Min
  */
 public class MeetingMinutes {
+    private int minutesID;
     private String title;
     private Meeting m;
     private Mentor mentor;
-    private ArrayList<Task> tasksToBeDiscussed;
     private ArrayList<Task> tasksToComplete;
     private String comments;
     private User submittedUser;
     
-    public MeetingMinutes(String title, Meeting m, Mentor mentor, ArrayList<Task> tasksToBeDiscussed, ArrayList<Task> tasksToComplete, String comments, User submittedUser) {
+    public MeetingMinutes(int minutesID, String title, Meeting m, Mentor mentor, ArrayList<Task> tasksToComplete, String comments, User submittedUser) {
+        this.minutesID = minutesID;
         this.title = title;
         this.m = m;
         this.mentor = mentor;
-        this.tasksToBeDiscussed = tasksToBeDiscussed;
         this.tasksToComplete = tasksToComplete;
         this.comments = comments;
         this.submittedUser = submittedUser;
@@ -36,6 +36,14 @@ public class MeetingMinutes {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public int getMinutesID() {
+        return minutesID;
+    }
+
+    public void setMinutesID(int minutesID) {
+        this.minutesID = minutesID;
     }
 
     public Meeting getM() {
@@ -54,13 +62,6 @@ public class MeetingMinutes {
         this.mentor = mentor;
     }
 
-    public ArrayList<Task> getTasksToBeDiscussed() {
-        return tasksToBeDiscussed;
-    }
-
-    public void setTasksToBeDiscussed(ArrayList<Task> tasksToBeDiscussed) {
-        this.tasksToBeDiscussed = tasksToBeDiscussed;
-    }
 
     public ArrayList<Task> getTasksToComplete() {
         return tasksToComplete;
