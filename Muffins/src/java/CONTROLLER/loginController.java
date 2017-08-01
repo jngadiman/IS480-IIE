@@ -67,11 +67,6 @@ public class loginController {
         return result;
     }
     
-    public static String addUser(User user){
-        String status = UserDAO.addUser(user);
-        return status;
-    }
-    
     public static HashMap<Integer, String> getAllMenteeCompanyNames(){
         ArrayList<Integer> companyIDs = UserDAO.getAllMenteeCompanyIDs();
         ArrayList<String> companyNames = CompanyDAO.getAllCompanyNames(companyIDs);

@@ -6,25 +6,25 @@
 package SERVLETS;
 
 import CONTROLLER.registrationController;
-import DAO.CompanyDAO;
 import MODELS.Company;
-import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author JJAY
+ * @author Hui Min
  */
-@WebServlet(name = "addUserServlet", urlPatterns = {"/addUserServlet"})
-public class addUserServlet extends HttpServlet {
+@WebServlet(name = "registerCompanyServlet", urlPatterns = {"/registerCompanyServlet"})
+public class registerCompanyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,23 +37,31 @@ public class addUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        User currentUser;
+        int companyID = registrationController.getNextCompanyID();
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String nric = request.getParameter("nric");
-        String comp = request.getParameter("company");
-        String user_type = request.getParameter("user_type");
-        int companyID = 0;
-        companyID = Integer.parseInt(comp);
-       
-        User user = new User(email, password, name, nric, null, user_type, companyID);
-        String status = registrationController.addUser(user);
-        request.setAttribute("status", status);
-        RequestDispatcher rd = request.getRequestDispatcher("registerUser.jsp");
+        String description = request.getParameter("description");
+        String vision = request.getParameter("vision");
+        String mission = request.getParameter("mission");
+        String industry = request.getParameter("industry");
+        String start_date = request.getParameter("start_date");
+        
+        Date startDate = null;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            startDate = df.parse(start_date);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        int current_stage = Integer.parseInt(request.getParameter("current_stage"));
+        
+        System.out.println(start_date);
+        System.out.println(startDate);
+        
+        Company c = new Company(companyID, name, description, vision, mission, industry, startDate, current_stage);
+        String status = registrationController.addCompany(c);
+        request.setAttribute("registerCompanyStatus", status);
+        RequestDispatcher rd = request.getRequestDispatcher("registerCompany.jsp");
         rd.forward(request, response);
     }
 

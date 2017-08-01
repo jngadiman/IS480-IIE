@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : viewMentorProfile
     Created on : Jul 15, 2017, 4:30:40 PM
@@ -28,51 +29,41 @@
     </head>
     <body>
         <%
-            try {
-                String username = "aaa";
-                User mentor = UserDAO.getUserByEmail(username);
-                int companyID = mentor.getCompanyid();
-                Company mentorCompany = CompanyDAO.getCompany(companyID);
-                //need to add in method to get company id of mentor
-                
-            }catch (NullPointerException nullPointer){
-                out.println("No such mentor");//error message
-            }
+            String username = "hi@hotmail.com";
+            User mentor = UserDAO.getUserByEmail(username);
+            int companyID = mentor.getCompanyid();
+            Company company = CompanyDAO.getCompany(companyID);
 
         %>
         <body>
             <div>
                 <div align="center">A Picture Should Be Inserted Here</div>
-                <h1 align="center">Lazada</h1>
+                <h1 align="center"><%= company.getName()%></h1>
                 <br>
                 <h2 align="center">Description</h2>
-                <p align="center">System.out.println(mentorCompany.getDescription());</p>
+                <p align="center"><%= company.getDescription()%></p>
                 <br>
                 <h2 align="center">Vision</h2>
-                <p align="center">System.out.println(mentorCompany.getVision());</p>
+                <p align="center"><%= company.getVision()%></p>
                 <br>
                 <h2 align="center">Mission</h2>
                 <br>
-                <p align="center">System.out.println(mentorCompany.getMission());</p>
+                <p align="center"><%= company.getMission()%></p>
                 <br>
                 <h2 align="center">Company Industry</h2>
                 <br>
-                <p align="center">System.out.println(mentorCompany.getIndustry());</p>
-                <p align="center">if (mentor.getClass().isInstance(Mentee.class)) {</p>
+                <p align="center"><%= company.getIndustry()%></p>
                     <br>
                     <p align="center">Start Date</p>
                     <br>
-                    <p align="center">System.out.println(mentorCompany.getStartDate());</p>
+                    <p align="center"><%= company.getStartDate()%></p>
                     <p align="center">Company Current Stage</p>
                     <br>
-                    <p align="center">System.out.println(mentorCompany.getCurrentStage());</p>
-                
-                    <p align="center">}</p>
-                
+                    <p align="center"><%= company.getCurrentStage()%></p>                
             </div>
         </body>
         
-        <a href="editMentorProfile.jsp" class="btn btn-success btn-outline-rounded green" ><p style="text-align:center">Edit Company Profile</a>
+        <p class="text-center"><a href="editMentorProfile.jsp" class="btn btn-success btn-outline-rounded green">Edit Company Profile</a></p>
         
 
 </html>

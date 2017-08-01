@@ -28,29 +28,27 @@
     </head>
     <body>
         <%
-            try {
-                String username = "aaa";
-                User user= UserDAO.getUserByEmail(username);
-                
-            }catch (NullPointerException nullPointer){
-                out.println("No such mentor");//error message
-            }
-
+            String username = "hi@hotmail.com";
+            User user= UserDAO.getUserByEmail(username);
         %>
         <body>
             <div>
                 <div align="center">A Picture Should Be Inserted Here</div>
-                <h1 align="center">Xiao Long Bao</h1>
+                <h1 align="center"><%= user.getName()%></h1>
                 <br>
                 <h2 align="center">Email Address</h2>
-                <p align="center">System.out.println(user.getEmail());</p>
+                <p align="center"><%= user.getEmail()%></p>
                 <br>
                 <h2 align="center">Experience</h2>
                 <br>
                 <p align="center">System.out.println(user.getExperience());</p>
-                <p align="center">if(session.getUser().equals(username)){</p>
-                    <h2 align="center">NRIC</h2>
-                    <p align="center">System.out.println(user.getNRIC());</p>
+                
+                <h2 align="center">NRIC</h2>
+                <p align="center"><%= user.getNric()%></p>
+                
+                <h2 align="center">User Type</h2>
+                <p align="center"><%= user.getUser_type()%></p>
+                
                 <p align="center">}</p>
                 <br>
                 <p align="center">if (user.getClass().isInstance(Mentee.class)){</p>

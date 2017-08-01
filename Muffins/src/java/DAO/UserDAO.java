@@ -452,8 +452,6 @@ public class UserDAO {
         }
         return companyIDs;
     }
-
-    
     public static void main(String[] args){
         ArrayList<Integer> companyIDs = UserDAO.getAllMenteeCompanyIDs();
         for(Integer i : companyIDs){

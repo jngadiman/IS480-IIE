@@ -5,13 +5,15 @@
  */
 package SERVLETS;
 
-import CONTROLLER.registrationController;
-import DAO.CompanyDAO;
-import MODELS.Company;
+import CONTROLLER.taskController;
+import MODELS.Task;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +23,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author JJAY
+ * @author Hui Min
  */
-@WebServlet(name = "addUserServlet", urlPatterns = {"/addUserServlet"})
-public class addUserServlet extends HttpServlet {
+@WebServlet(name = "addTaskServlet", urlPatterns = {"/addTaskServlet"})
+public class addTaskServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,24 +39,34 @@ public class addUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        User currentUser;
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String nric = request.getParameter("nric");
-        String comp = request.getParameter("company");
-        String user_type = request.getParameter("user_type");
-        int companyID = 0;
-        companyID = Integer.parseInt(comp);
-       
-        User user = new User(email, password, name, nric, null, user_type, companyID);
-        String status = registrationController.addUser(user);
-        request.setAttribute("status", status);
-        RequestDispatcher rd = request.getRequestDispatcher("registerUser.jsp");
-        rd.forward(request, response);
+        int taskID = taskController.getNextTaskID();
+        String taskName = request.getParameter("taskName");
+        String taskDescription = request.getParameter("taskDescription");
+        int stage = Integer.parseInt(request.getParameter("taskStage"));
+        String deadline = request.getParameter("deadline");
+        
+        //temp company id variable for testing --> NEED CHANGE ONCE HOMEPAGE IS UP!
+        int companyID = 3;
+        
+        Date dateDeadline = null;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        boolean isCompleted = false;
+        
+        try {
+            dateDeadline = df.parse(deadline);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+//        int companyID = currentUser.getCompanyid();
+        
+        Task task = new Task(taskID, taskName, taskDescription, dateDeadline, stage, companyID, isCompleted);
+        String resultMsg =  taskController.addTaskToCompany(task);
+        
+        request.setAttribute("status", resultMsg);
+        request.getRequestDispatcher("addTask.jsp").forward(request, response);
+            //String username = currentUser.getUsername();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

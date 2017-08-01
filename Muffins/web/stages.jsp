@@ -11,7 +11,7 @@
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="protect.jsp" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -133,7 +133,7 @@
                                                     }
                                                     out.println("<td><p class='text-center'><a href='' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
                                                     out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
-                                                    out.println("<a href='displayTask?taskID=" + t.getTaskId() + "'>Edit</a></td>");
+                                                    out.println("<a href='displayTaskServlet?taskID=" + t.getTaskId() + "'>Edit</a></td>");
                                                     out.println("</tr>");
                                                 }
                                             } else{

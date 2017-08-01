@@ -43,6 +43,11 @@ public class taskController {
         return task;
     }
     
+    public static int getNextTaskID(){
+        int taskID = TaskDAO.getNextTaskID();
+        return taskID;
+    }
+    
     public static String deleteTask(int taskID){
         String returnMsg = "";
         boolean taskDeleted = TaskDAO.deleteTaskByID(taskID);
@@ -56,23 +61,16 @@ public class taskController {
         return returnMsg;
     }
     
-    public static HashMap<ArrayList<Task>, String> addTaskToCompany(int taskid, String taskName, Date deadline, String desc, boolean isCompleted, int stage, int companyID){
-        
-        Task task = new Task(taskid, taskName, desc, deadline, stage, companyID, isCompleted);
-       
-        TaskDAO taskDAO = new TaskDAO();
-        HashMap map = new HashMap<ArrayList<Task>, String>();
+    public static String addTaskToCompany(Task task){
         String returnMsg = "";
-        int result = taskDAO.addTask(task);
+        int result = TaskDAO.addTask(task);
         
         if(result == 0){
             returnMsg = "An error have occured, kindly try again!"; 
-            map.put( "", returnMsg);
         }else{
             returnMsg = "Task had been added successfully";
-            map.put( taskDAO.getTasksByCompanyAndStage(stage, companyID), returnMsg);
         }
-        return map;
+        return returnMsg;
         
     }
     
@@ -94,10 +92,11 @@ public class taskController {
     }
     
     public static void main(String[] args){
-        Date date = new Date();
-        Task task = new Task(1, "nsdklanvcq", "csklnnvcan-abcd", date, 1, 1, false);
-        System.out.println(taskController.editTaskOfCompany(task.getTaskId(), task.getName(), task.getDescription(), task.getDeadline(), 1, 1, false));
-        
+        int taskID = taskController.getNextTaskID();
+        Date deadline = new Date();
+        Task task = new Task(taskID, "eat, sleep, play!", "eat yummy food, sleep like a pig and play like nobody's business!", deadline, 1, 2, true);
+        String result = taskController.addTaskToCompany(task);
+        System.out.println(result);
     }
         
 }

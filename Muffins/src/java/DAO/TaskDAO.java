@@ -364,10 +364,13 @@ public class TaskDAO {
             taskid = count.getInt(1)+1;
             String status = "";
             if(task.isIsCompleted()){
-                status.equals("Y");
+                status = "Y";
             }else{
-                status.equals("N");
+                status = "N";
             }
+            
+            System.out.println(status);
+            
             stmt = conn.prepareStatement("INSERT INTO task (task_id, task_name, task_description, task_deadline, program_stage, company_id, is_completed)" + "VALUES (?, ?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, taskid);
             stmt.setString(2, task.getName());
@@ -426,14 +429,34 @@ public class TaskDAO {
         }
         return result;
     }
-    public static void main(String[] args){
-        Date date = new Date();
-        int recordsUpdated = TaskDAO.editTask(1, "nsdklanvcq", "csklnnvcan-abc", date, 1, 1, false);
-        if(recordsUpdated > 0){
-            System.out.println("Success!");
-        }else{
-            System.out.println("Fail!");
+    
+    public static int getNextTaskID(){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        int taskID = 0;
+        
+        try{
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select count(*) from task;");
+            count = stmt.executeQuery();
+            count.next();
+            taskID = count.getInt(1)+1;
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
         }
+        
+        return taskID;
+    }
+    
+    public static void main(String[] args){
+        int taskID = TaskDAO.getNextTaskID();
+        Date deadline = new Date();
+        Task task = new Task(taskID, "do work", "code finish the project", deadline, 2, 3, false);
+        int result = TaskDAO.addTask(task);
+        System.out.println(result);
     }
 
 }

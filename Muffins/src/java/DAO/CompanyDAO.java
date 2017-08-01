@@ -333,10 +333,100 @@ public class CompanyDAO {
         return result;
     }
     
+    public static String addCompany(Company c){
+        String status = "";
+        
+        int id = c.getId();
+        String name = c.getName();
+        String description = c.getDescription();
+        String vision = c.getVision();
+        String mission = c.getMission();
+        String industry = c.getIndustry();
+        Date start_date = c.getStartDate();
+        int current_stage = c.getCurrentStage();
+        
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            //insert company to database
+            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?)");
+
+            //set id
+            stmt.setInt(1, id);
+
+            //set name
+            stmt.setString(2, name);
+
+            //set description
+            stmt.setString(3, description);
+
+            //set vision
+            stmt.setString(4, vision);
+            
+            //set mission
+            stmt.setString(5, mission);
+            
+            //set industry
+            stmt.setString(6, industry);
+            
+            //set start_date
+            stmt.setString(7, df.format(start_date));
+            
+            //set current_stage
+            stmt.setInt(8, current_stage);
+            
+            int numRecordsUpdated = stmt.executeUpdate();
+            
+            if(numRecordsUpdated == 1){
+                status = "Success!";
+            }else{
+                status = "Fail!";
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return status;
+    }
+    
+    public static int getNextCompanyID(){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        int companyID = 0;
+        
+        try{
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select count(*) from company;");
+            count = stmt.executeQuery();
+            count.next();
+            companyID = count.getInt(1)+1;
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+        
+        return companyID;
+    }
+    
     public static void main(String[] args){
-        Date startDate = new Date();
-        Company c = new Company(1, "kentucky", "sells chicken and biscuits", "to sell more chicken", "to sell the premium chicken", "FnB", startDate, 2);
-        int result = CompanyDAO.editCompanyDetails(c);
-        System.out.println(result);
+        int companyID = CompanyDAO.getNextCompanyID();
+        System.out.println(companyID);
     }
 }

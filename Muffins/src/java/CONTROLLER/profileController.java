@@ -18,7 +18,7 @@ import java.util.Date;
 public class profileController {
     public static User displayUserDetails(String email){
         User u = UserDAO.getUserByEmail(email);
-        return u;
+        return u;   
     }
     
     public static String editUserDetails(User u){

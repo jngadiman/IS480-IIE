@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="protect.jsp" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +39,14 @@
             <div class="container">
                 <div class="row">
                     <div class="board">
-                        <form class="form-horizontal" method="post" action="/action_page.php">
+                        <%
+                            String msg = "";
+                            if(request.getAttribute("status") != null){
+                                msg = (String) request.getAttribute("status");
+                                out.println(msg);
+                            }
+                        %>
+                        <form class="form-horizontal" method="post" action="addTaskServlet">
                             <fieldset>
                                 <legend>Add Task</legend>
 
@@ -48,34 +55,32 @@
                                     <div class="form-group">
                                         <label for="inputTaskName" class="col-lg-4 control-label">Task Name</label>
                                         <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="inputTaskName" placeholder="Task Name">
+                                            <input type="text" class="form-control" id="taskName" placeholder="Task Name" name="taskName">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
-                                    <div class="col-sm-6 form-group">
-                                        <label>Task Stage</label> 
-
-                                        <select class="form-control" id="select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>	
+                                        <div class="col-sm-6 form-group">
+                                            <select class="form-control" id="select" name="taskStage">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>	
                                     </div>
                                     <div class="form-group">
                                         <label for="inputTaskDescription" class="col-lg-4 control-label">Task Description</label>
                                         <div class="col-lg-8">
-                                            <textarea class="form-control" rows="3" id="inputTaskDescription" placeholder="Enter your description here"></textarea>
+                                            <textarea class="form-control" rows="3" id="inputTaskDescription" name="taskDescription" placeholder="Enter your description here"></textarea>
                                             <span class="help-block">Go into details on what are the task's information. </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group"> <!-- Date input -->
                                         <label for="inputDate" class="col-lg-4 control-label">Date</label>
-                                        <input class="col-lg-5 col-lg-offset-0" id="inputDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+                                        <input class="col-lg-5 col-lg-offset-0" id="inputDate" name="deadline" placeholder="MM/DD/YYY" type="text"/>
                                     </div>
                                     
                                     <div class="form-group">
