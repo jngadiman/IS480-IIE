@@ -35,6 +35,7 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
+        String company_logo = "";
         Date date = new Date();
         int currentstage = 0;
 
@@ -57,13 +58,15 @@ public class CompanyDAO {
                     date = dateformat.parse(start_date);
                 }catch(ParseException e){
                     e.printStackTrace();
-                }  
-                if(result.getString("current_stage") == null){
-                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date);
-                }else{
-                    currentstage = Integer.parseInt(result.getString("current_stage"));
-                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
                 }
+                if(result.getString("current_stage") != null){
+                    currentstage = Integer.parseInt(result.getString("current_stage"));
+                }else{
+                    currentstage = 0;
+                }
+                company_logo = result.getString("company_logo");
+                
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, company_logo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,6 +91,7 @@ public class CompanyDAO {
         String start_date = "";
         Date date = new Date();
         int currentstage = 0;
+        String company_logo = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -108,106 +112,14 @@ public class CompanyDAO {
                 }catch(ParseException e){
                     e.printStackTrace();
                 }  
-                if(result.getString("current_stage") == null){
-                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date);
-                }else{
+                if(result.getString("current_stage") != null){
                     currentstage = Integer.parseInt(result.getString("current_stage"));
-                    c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
+                }else{
+                    currentstage = 0;
                 }
-                companies.add(c);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionManager.close(conn, stmt, result);
-        }
-        return companies;
-    }
-
-    public static ArrayList<Company> getLightCompanies(){
-
-        ArrayList<Company> companies = new ArrayList<>();
-        Company c = null;
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        int company_id = 0;
-        String company_name = "";
-        String company_description = "";
-        String vision = "";
-        String mission = "";
-        String industry = "";
-        String start_date = "";
-        Date date = new Date();
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Company where current_stage IS NULL;");
-            result = stmt.executeQuery();
-
-            while (result.next()) {
-                company_id = Integer.parseInt(result.getString("company_id"));
-                company_name = result.getString("company_name");
-                company_description = result.getString("company_description");
-                vision = result.getString("vision");
-                mission = result.getString("mission");
-                industry = result.getString("industry");
-                start_date = result.getString("start_date");            
-                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    date = dateformat.parse(start_date);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }  
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date);
-                companies.add(c);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionManager.close(conn, stmt, result);
-        }
-        return companies;
-    }
-
-    public static ArrayList<Company> getRegularCompanies(){
-        ArrayList<Company> companies = new ArrayList<>();
-        Company c = null;
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        int company_id = 0;
-        String company_name = "";
-        String company_description = "";
-        String vision = "";
-        String mission = "";
-        String industry = "";
-        String start_date = "";
-        Date date = new Date();
-        int currentstage = 0;
-
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Company where current_stage IS NOT NULL;");
-            result = stmt.executeQuery();
-
-            while (result.next()) {
-                company_id = Integer.parseInt(result.getString("company_id"));
-                company_name = result.getString("company_name");
-                company_description = result.getString("company_description");
-                vision = result.getString("vision");
-                mission = result.getString("mission");
-                industry = result.getString("industry");
-                start_date = result.getString("start_date");  
-                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    date = dateformat.parse(start_date);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
-                currentstage = Integer.parseInt(result.getString("current_stage"));
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
+                company_logo = result.getString("company_logo");
+                
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, company_logo);
                 companies.add(c);
             }
 
@@ -234,6 +146,7 @@ public class CompanyDAO {
         String start_date = "";
         Date date = new Date();
         int currentstage = 0;
+        String company_logo = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -247,7 +160,7 @@ public class CompanyDAO {
                 company_description = result.getString("company_description");
                 vision = result.getString("vision");
                 mission = result.getString("mission");
-                    industry = result.getString("industry");
+                industry = result.getString("industry");
                 start_date = result.getString("start_date");  
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -255,8 +168,14 @@ public class CompanyDAO {
                 }catch(ParseException e){
                     e.printStackTrace();
                 } 
-                currentstage = Integer.parseInt(result.getString("current_stage"));
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage);
+                if(result.getString("current_stage") != null){
+                    currentstage = Integer.parseInt(result.getString("current_stage"));
+                }else{
+                    currentstage = 0;
+                }
+                company_logo = result.getString("company_logo");
+                        
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, company_logo);
                 companies.add(c);
             }
 
@@ -311,7 +230,7 @@ public class CompanyDAO {
             
             String status = "";
             
-            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, vision = ?, mission = ?, industry = ?, start_date = ?, current_stage = ? WHERE company_id = ?;");
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, vision = ?, mission = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ? WHERE company_id = ?;");
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getDescription());
             stmt.setString(3, c.getVision());
@@ -319,7 +238,8 @@ public class CompanyDAO {
             stmt.setString(5, c.getIndustry());
             stmt.setString(6, df.format(c.getStartDate()));
             stmt.setInt(7, c.getCurrentStage());
-            stmt.setInt(8, c.getId());
+            stmt.setString(8, c.getCompanyLogo());
+            stmt.setInt(9, c.getId());
             
             
             result = stmt.executeUpdate();
@@ -344,6 +264,7 @@ public class CompanyDAO {
         String industry = c.getIndustry();
         Date start_date = c.getStartDate();
         int current_stage = c.getCurrentStage();
+        String company_logo = c.getCompanyLogo();
         
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Connection conn = null;
@@ -353,7 +274,7 @@ public class CompanyDAO {
             conn = ConnectionManager.getConnection();
             
             //insert company to database
-            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             //set id
             stmt.setInt(1, id);
@@ -378,6 +299,9 @@ public class CompanyDAO {
             
             //set current_stage
             stmt.setInt(8, current_stage);
+            
+            //set company_logo
+            stmt.setString(9, company_logo);
             
             int numRecordsUpdated = stmt.executeUpdate();
             
@@ -426,7 +350,9 @@ public class CompanyDAO {
     }
     
     public static void main(String[] args){
-        int companyID = CompanyDAO.getNextCompanyID();
-        System.out.println(companyID);
+        Date startDate = new Date();
+        Company c = new Company(2, "ntuc", "sells groceries", "to be able to sell groceries everywhere", "to bring you the best quality foods to you", "FnB", startDate, 2, null);
+        int result = CompanyDAO.editCompanyDetails(c);
+        System.out.println(result);
     }
 }

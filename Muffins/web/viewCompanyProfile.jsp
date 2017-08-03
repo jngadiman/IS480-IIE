@@ -29,7 +29,7 @@
     </head>
     <body>
         <%
-            String username = "hi@hotmail.com";
+            String username = "admin@smu.edu.sg";
             User mentor = UserDAO.getUserByEmail(username);
             int companyID = mentor.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
@@ -37,7 +37,7 @@
         %>
         <body>
             <div>
-                <div align="center">A Picture Should Be Inserted Here</div>
+                <div align="center"><%= company.getCompanyLogo()%></div>
                 <h1 align="center"><%= company.getName()%></h1>
                 <br>
                 <h2 align="center">Description</h2>
@@ -53,13 +53,13 @@
                 <h2 align="center">Company Industry</h2>
                 <br>
                 <p align="center"><%= company.getIndustry()%></p>
-                    <br>
-                    <p align="center">Start Date</p>
-                    <br>
-                    <p align="center"><%= company.getStartDate()%></p>
-                    <p align="center">Company Current Stage</p>
-                    <br>
-                    <p align="center"><%= company.getCurrentStage()%></p>                
+                <br>
+                <h2 align="center">Start Date</h2>
+                <br>
+                <p align="center"><%= company.getStartDate()%></p>
+                <h2 align="center">Company Current Stage</h2>
+                <br>
+                <p align="center"><%= company.getCurrentStage()%></p>                
             </div>
         </body>
         
