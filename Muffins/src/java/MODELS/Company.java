@@ -21,6 +21,7 @@ public class Company {
     private String industry;
     private Date startDate;
     private int currentStage;
+    private String companyLogo;
 
     public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate) {
         this.id = id;
@@ -43,6 +44,29 @@ public class Company {
         this.currentStage = currentStage;
     }
 
+    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, String companyLogo) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.vision = vision;
+        this.mission = mission;
+        this.industry = industry;
+        this.startDate = startDate;
+        this.companyLogo = companyLogo;
+    }
+
+    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage, String companyLogo) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.vision = vision;
+        this.mission = mission;
+        this.industry = industry;
+        this.startDate = startDate;
+        this.currentStage = currentStage;
+        this.companyLogo = companyLogo;
+    }
+    
     public int getId() {
         return id;
     }
@@ -105,6 +129,14 @@ public class Company {
 
     public void setCurrentStage(int currentStage) {
         this.currentStage = currentStage;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
     }
     
 }

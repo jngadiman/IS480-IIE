@@ -452,8 +452,61 @@ public class UserDAO {
         }
         return companyIDs;
     }
+    
+    public static ArrayList<Integer> getLightCompanyIDs(){
+        ArrayList<Integer> companyIDs = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT DISTINCT `company_id` FROM `User` WHERE `user_type`= 'light_mentee';");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                companyIDs.add(company_id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return companyIDs;
+        
+    }
+    
+    public static ArrayList<Integer> getRegularCompanyIDs(){
+        ArrayList<Integer> companyIDs = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT DISTINCT `company_id` FROM `User` WHERE `user_type`= 'regular_mentee';");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                companyIDs.add(company_id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return companyIDs;
+        
+    }
+    
     public static void main(String[] args){
-        ArrayList<Integer> companyIDs = UserDAO.getAllMenteeCompanyIDs();
+        ArrayList<Integer> companyIDs = UserDAO.getRegularCompanyIDs();
         for(Integer i : companyIDs){
             System.out.println(i);
         }

@@ -28,7 +28,7 @@
     </head>
     <body>
         <%
-            String username = "hi@hotmail.com";
+            String username = "admin@smu.edu.sg";
             User user= UserDAO.getUserByEmail(username);
         %>
         <body>
