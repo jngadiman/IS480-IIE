@@ -4,17 +4,39 @@
     Author     : JEN
 --%>
 
+<%@page import="DAO.CompanyDAO"%>
+<%@page import="MODELS.Company"%>
+<%@page import="MODELS.Company"%>
+<%@page import="DAO.UserDAO"%>
+<%@page import="DAO.UserDAO"%>
+<%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Company Registration</title>
+        <title>Edit Company Profile</title>
         <%@include file="navbar.jsp" %>
+        <link href="css/stages.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/npm.js" type="text/javascript"></script>
+        <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
     </head>
+    </head>
+    
+    <%
+            String username = "admin@smu.edu.sg";
+            User mentor = UserDAO.getUserByEmail(username);
+            int companyID = mentor.getCompanyid();
+            Company company = CompanyDAO.getCompany(companyID);
+
+        %>
     <body>
         <div class="container">
-            <h1 class="well">Company Registration Form</h1>
+            <h1 class="well">Edit Company Profile</h1>
             <div class="col-lg-12 well">
                 <div class="row">
                     <form>
@@ -52,6 +74,10 @@
                                     <input id="mission" type="text" placeholder="Enter Company Mission Here.." class="form-control">
                                 </div>
                             </div>
+                            
+                            if company type = mentee company{
+                                
+                            
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Industry</label> 
@@ -83,6 +109,8 @@
                                     </select>
                                 </div>	
                             </div>
+                            
+                            }
                             <button type="submit" class="btn btn-lg btn-info">Submit</button>					
                         </div>
                     </form> 
