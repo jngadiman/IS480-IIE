@@ -23,11 +23,7 @@
     </head>
     <body>
         
-   
-
-        
-        <div style ="width: 100%; height:500px; border:1px solid black; overflow-x:scroll">
-                   <!-- various of text here that can makes it go out the border-->
+ 
                    <div style ="width: 300px;height:300px; border:1px solid black">
                    Mentor number 1
                    <br>
@@ -39,7 +35,7 @@
                                     url,'popUpWindow','height=300,width=200,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
                     }
                     </script>
-                    <p><a href="viewPersonalProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
+                    <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
                     </div>
                    
                    <div style ="width: 300px;height:300px; border:1px solid black">
@@ -53,7 +49,7 @@
                                     url,'popUpWindow','height=300,width=200,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
                     }
                     </script>
-                    <p><a href="viewPersonalProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
+                    <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
                    </div>
                    <div style ="width: 300px;height:300px; border:1px solid black">
                    Mentor number 3
@@ -66,27 +62,21 @@
                                     url,'popUpWindow','height=300,width=200,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
                     }
                     </script>
-                    <p><a href="viewPersonalProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
+                    <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
                    </div>
                    
-                   <!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
+                    <!-- Trigger/Open The Modal -->
+                     <button id="myBtn">Open Modal</button>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
+                     <!-- The Modal -->
+                     <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
+                       <!-- Modal content -->
+                       <div class="modal-content">
+                         <span class="close">&times;</span>
+                         <p>Some text in the Modal..</p>
+                       </div>
 
-</div>
-
-                  </div>
-                   
-
-        </div>  
-
+                     </div>
     </body>
 </html>
