@@ -25,8 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jiatung.lim
  */
-@WebServlet(name = "displayMeetingMinutesServletByMentor", urlPatterns = {"/displayMeetingMinutesServletByMentor"})
-public class displayMeetingMinutesServletByMentor extends HttpServlet {
+@WebServlet(name = "displayMeetingMinutesServletByCompany", urlPatterns = {"/displayMeetingMinutesServletByCompany"})
+public class displayMeetingMinutesServletByCompany extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,13 +44,15 @@ public class displayMeetingMinutesServletByMentor extends HttpServlet {
         User currentUser;
         String errorMsg = "";
         UserDAO userDAO = new UserDAO();
-        String mentor_email = request.getParameter("mentor_email");
-        
-        if (mentor_email == null || mentor_email.equals("")){
-            errorMsg = "Select a Mentor";
+        String companyID = request.getParameter("company_id");
+        int company = 0;
+        if (companyID == null || companyID.equals("")){
+            errorMsg = "Select a Company";
             request.setAttribute("errorMsg", errorMsg);
             RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
             rd.forward(request, response);
+        }else{
+            company = Integer.parseInt(companyID);
         }
        // User sub = (User) new Mentor();
 //        Mentor mentor = null;
@@ -58,8 +60,8 @@ public class displayMeetingMinutesServletByMentor extends HttpServlet {
 //            mentor = (Mentor) (userDAO.getUserByEmail(mentor_email));
 //            mentor = (Mentor)sub;
         
-        ArrayList<MeetingMinutes> minutes = meetingController.viewMeetingMinutesOfMentor(mentor_email);
-        request.setAttribute("mentorMeetingMinutes", minutes);
+        ArrayList<MeetingMinutes> minutes = meetingController.viewMeetingMinutesOfCompany(company);
+        request.setAttribute("companyMeetingMinutes", minutes);
         System.out.println("SERVLET MEETING MINUTES" +minutes);
         RequestDispatcher rd = request.getRequestDispatcher("viewMeetingMinutes.jsp");
         rd.forward(request, response);

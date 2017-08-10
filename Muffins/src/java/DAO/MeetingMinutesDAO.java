@@ -7,8 +7,12 @@ package DAO;
 
 import MODELS.*;
 import Utility.ConnectionManager;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,14 +21,12 @@ import java.util.logging.Logger;
  * @author jiatung.lim
  */
 public class MeetingMinutesDAO {
-    public static ArrayList<Integer> getMeetingMinutesIDsOfMentor(Mentor m) {
+    public static ArrayList<Integer> getMeetingMinutesIDsOfMentor(String email) {
    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
-        
-        String mentor = m.getEmail();
-        
+       
         int minutesID = 0;
         
         
@@ -33,8 +35,42 @@ public class MeetingMinutesDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select unique (minutes_id) from MeetingMinutes where mentor = ?;");
-            stmt.setString(1,mentor);
+            stmt = conn.prepareStatement("select DISTINCT (minutes_id) from meeting_minutes where mentor = ?;");
+            stmt.setString(1,email);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                
+                minutesID = Integer.parseInt(result.getString("minutes_id"));
+                minutes.add(minutesID);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return minutes;
+    }
+    
+    //get the meeting minutes of the company
+    public static ArrayList<Integer> getMeetingMinutesIDsOfCompany(int meetingID) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+       
+        int minutesID = 0;
+        
+        
+        ArrayList<Integer> minutes = new ArrayList<Integer>();
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select DISTINCT (minutes_id) from meeting_minutes where meeting_id = ?;");
+            stmt.setInt(1,meetingID);
             
             result = stmt.executeQuery();
 
@@ -66,7 +102,7 @@ public class MeetingMinutesDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select completed_task from MeetingMinutes where minutes_id = ?;");
+            stmt = conn.prepareStatement("select task_id from meeting_minutes where minutes_id = ?;");
             stmt.setInt(1,minutesID);
             
             result = stmt.executeQuery();
@@ -84,7 +120,8 @@ public class MeetingMinutesDAO {
         return tasks;
     }
     
-    public static ArrayList<String> getMeetingMinutesDetails(int minutesID) {
+    
+    public static ArrayList<String> getMeetingMinutesDetails(int minutesID, int taskID) {
    
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -92,13 +129,16 @@ public class MeetingMinutesDAO {
         String title = "";
         String meetingID = "";
         String comment = "";
-        String submittedUser = "";
+        String mentor = "";
+        String user = "";
+        
         ArrayList<String> details = new ArrayList<String>();
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select title, meeting_id, comment, submitted_user from MeetingMinutes where unique (minutes_id) = ?;");
-            stmt.setInt(1,minutesID);
+            stmt = conn.prepareStatement("select title, meeting_id, comment, submitted_user, mentor from meeting_minutes where minutes_id = ? and task_id = ?;");
+            stmt.setInt(1, minutesID);
+            stmt.setInt(2, taskID);
             
             result = stmt.executeQuery();
 
@@ -106,11 +146,13 @@ public class MeetingMinutesDAO {
                 title = result.getString("title");
                 meetingID = result.getString("meeting_id");
                 comment = result.getString("comment");
-                submittedUser = result.getString("submitted_user");
+                user = result.getString("submitted_user");
+                mentor = result.getString("mentor");
                 details.add(title);
                 details.add(meetingID);
                 details.add(comment);
-                details.add(submittedUser);
+                details.add(user);
+                details.add(mentor);
             }
 
         } catch (SQLException ex) {
@@ -174,6 +216,34 @@ public class MeetingMinutesDAO {
 //        return minutes;
 //    }
     
+    public static int getLastID() {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        
+        
+        int count = 0;
+        
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select count(DISTINCT minutes_id) from meeting_minutes;");
+            result = stmt.executeQuery();
+            result.next();
+            count = result.getInt(1)+1; 
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return count;
+    }
+    
+    
      public static int addMeetingMinutes(MeetingMinutes minutes) {
    
         Connection conn = null;
@@ -187,11 +257,12 @@ public class MeetingMinutesDAO {
         int meeting = minutes.getM().getMeetingID();
         String mentor = minutes.getMentor().getEmail();
         String comment = minutes.getComments();
-        String submittedUser = minutes.getSubmittedUser().getEmail();
+        String submitted_user = minutes.getSubmittedUser().getEmail();
+        
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("INSERT INTO meetingMinutes VALUES (?, ?, ?, ?, ?, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO meeting_minutes VALUES (?, ?, ?, ?, ?, ?, ?);");
 
             for (Task t: completedTasks){
                 stmt.setInt(1, minutesID);
@@ -200,7 +271,7 @@ public class MeetingMinutesDAO {
                 stmt.setString(4,mentor);
                 stmt.setInt(5,t.getTaskId());
                 stmt.setString(6,comment);
-                stmt.setString(7,submittedUser);
+                stmt.setString(7,submitted_user);
                 status = stmt.executeUpdate();
             }
             
@@ -211,6 +282,54 @@ public class MeetingMinutesDAO {
             ConnectionManager.close(conn, stmt, result);
         }
         return status;
+    }
+
+     public static boolean deleteMeetingMinutesByID(int minutesID){
+        
+        Connection conn = null;
+        int numRecordsUpdated = 0;
+        
+        PreparedStatement stmt0 = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+
+            //check the number of bids made by the student
+            stmt0 = conn.prepareStatement("DELETE FROM meeting_minutes WHERE minutes_id = ?");
+            stmt0.setInt(1, minutesID);
+
+            numRecordsUpdated = stmt0.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (numRecordsUpdated != 1){
+            return false;
+        }
+        return true;
+    }
+    
+      public static void main(String[] args){
+        boolean minutesID = MeetingMinutesDAO.deleteMeetingMinutesByID(3);
+        //Date deadline = new Date();
+//        for(String task:minutesID){
+//           System.out.println(task); 
+//        }
+
+        System.out.println(minutesID); 
+        
     }
         
 }

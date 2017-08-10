@@ -18,16 +18,16 @@ public class MeetingMinutes {
     private Mentor mentor;
     private ArrayList<Task> tasksToComplete;
     private String comments;
-    private User submittedUser;
+    private User submitted_user;
     
-    public MeetingMinutes(int minutesID, String title, Meeting m, Mentor mentor, ArrayList<Task> tasksToComplete, String comments, User submittedUser) {
+    public MeetingMinutes(int minutesID, String title, Meeting m, Mentor mentor, ArrayList<Task> tasksToComplete, String comments, User submitted_user) {
         this.minutesID = minutesID;
         this.title = title;
         this.m = m;
         this.mentor = mentor;
         this.tasksToComplete = tasksToComplete;
         this.comments = comments;
-        this.submittedUser = submittedUser;
+        this.submitted_user = submitted_user;
     }
     
     public String getTitle() {
@@ -62,7 +62,6 @@ public class MeetingMinutes {
         this.mentor = mentor;
     }
 
-
     public ArrayList<Task> getTasksToComplete() {
         return tasksToComplete;
     }
@@ -80,11 +79,11 @@ public class MeetingMinutes {
     }
 
     public User getSubmittedUser() {
-        return submittedUser;
+        return submitted_user;
     }
 
-    public void setSubmittedUser(User submittedUser) {
-        this.submittedUser = submittedUser;
+    public void setSubmittedUser(User submitted_user) {
+        this.submitted_user = submitted_user;
     }
 
 }

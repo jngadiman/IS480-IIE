@@ -22,6 +22,9 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+-- drop all tables
+
+
 --
 -- Table structure for table `company`
 --

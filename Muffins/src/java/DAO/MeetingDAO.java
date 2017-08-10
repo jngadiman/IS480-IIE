@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import MODELS.Company;
 import MODELS.Meeting;
 import Utility.ConnectionManager;
 import java.sql.Connection;
@@ -34,13 +35,14 @@ public class MeetingDAO {
         Date startTime = null;
         Date endTime = null;
         String stringAttendees = "";
+        String menteeCompanyID = "";
         String [] attendees = null;
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:ss");
         boolean status = false;
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Meeting where meetingID = ?;");
+            stmt = conn.prepareStatement("select * from meeting where meeting_id = ?;");
             stmt.setInt(1,meetingID);
             
             result = stmt.executeQuery();
@@ -64,7 +66,10 @@ public class MeetingDAO {
                 }else{
                     status = false;
                 }
-                meeting = new Meeting(meetingID, meetingName, meetingType, startTime, endTime, attendees, status);
+                
+                menteeCompanyID = result.getString("mentee_company_id");
+                Company menteeCompany = CompanyDAO.getCompany(Integer.parseInt(menteeCompanyID));
+                meeting = new Meeting(meetingID, meetingName, meetingType, startTime, endTime, attendees, status, menteeCompany);
             }
 
         } catch (SQLException ex) {
@@ -74,4 +79,37 @@ public class MeetingDAO {
         }
         return meeting;
     }
+    
+    public static ArrayList<Integer> getMeetingIDsOfCompany(int companyID) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:ss");
+        boolean status = false;
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where mentee_company_id = ?;");
+            stmt.setInt(1,companyID);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+                
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+    }
+    
 }

@@ -11,17 +11,28 @@ import java.util.*;
  * @author JJAY
  */
 public class Mentor extends User{
-    
-    ArrayList<RegularMentees> myMentees;
+    private String position;
+    private String introduction;
 
-    public Mentor(String userName, String password, String name, String email, String nric, String user_type) {
-        super(userName, password, name, email, nric, user_type);
+    public Mentor(String email, String password, String name, String nric, String profile_pic, String user_type, int company_id, String position, String introduction) {
+        super(email, password, name, nric, profile_pic, user_type, company_id);
+        this.position = position;
+        this.introduction = introduction;
     } 
-    
-    //gets all the mentees of this mentor
-    public ArrayList<RegularMentees> getMentees(){
-        
-        
-        return myMentees;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 }
