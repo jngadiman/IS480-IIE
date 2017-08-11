@@ -38,6 +38,19 @@ public class companyController {
         return companies;
     }
     
+    public static String editCompany(Company c){
+        String status = "";
+        
+        int result = CompanyDAO.editCompanyDetails(c);
+        if(result == 1){
+            status = "Changes have been saved successfully!";
+        }else{
+            status = "Changes could not be saved!";
+        }
+        
+        return status;
+    }
+    
     public static void main(String[] args){
         ArrayList<Company> companies = companyController.getRegularCompanies();
         for(Company c: companies){

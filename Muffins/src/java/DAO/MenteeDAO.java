@@ -7,7 +7,6 @@ package DAO;
 
 
 import MODELS.Mentee;
-//import MODELS.RegularMentees;
 import MODELS.User;
 import Utility.ConnectionManager;
 import java.sql.Connection;
@@ -15,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,89 +64,163 @@ public class MenteeDAO {
         return allMentees;
     }
     
-  
-//    //need to recode this!!
-//    public static ArrayList<Mentee> getLightMentees(){
-//        ArrayList<Mentee> lightMentees = new ArrayList<>();
-//        
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet result = null;
-//        String email = "";
-//        String mentee_type = "";
-//        String degree = "";
-//        int yearOfGrad = 0;
-//        String mentor_email = "";
-//        Mentee mentee = null;
-//        
-//        ArrayList<User> lightmentees = UserDAO.getAllLightMentees();
-//        for(User u: lightmentees){
-//            email = u.getEmail();
-//            try {
-//                conn = ConnectionManager.getConnection();
-//                stmt = conn.prepareStatement("SELECT `degree`, `year_of_grad` FROM `mentee` WHERE `email` = ?;");
-//                stmt.setString(1, email);
-//                result = stmt.executeQuery();
-//                
-//                while (result.next()) {
-//                    degree = result.getString("degree");
-//                    yearOfGrad = Integer.parseInt(result.getString("year_of_grad"));
-//                }
-//                lightMentee = new Mentee(email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), degree, yearOfGrad);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
-//            } finally {
-//                ConnectionManager.close(conn, stmt, result);
-//            }
-//            lightMentees.add(lightMentee);
-//            degree = "";
-//            yearOfGrad = 0;
-//        }
-//        return lightMentees;
-//    }
-//
-//    //need to recode this!!
-//    public static ArrayList<RegularMentees> getRegularMentees(){
-//        ArrayList<RegularMentees> regularMentees = new ArrayList<>();
-//        
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet result = null;
-//        String email = "";
-//        String degree = "";
-//        int yearOfGrad = 0;
-//        String mentor_email = "";
-//        RegularMentees regularMentee = null;
-//        
-//        ArrayList<User> regularmentees = UserDAO.getAllRegularMentees();
-//        for(User u: regularmentees){
-//            email = u.getEmail();
-//            try {
-//                conn = ConnectionManager.getConnection();
-//                stmt = conn.prepareStatement("SELECT `degree`, `year_of_grad`, 'mentor_email' FROM `mentee` WHERE `email` = ?;");
-//                stmt.setString(1, email);
-//                result = stmt.executeQuery();
-//                
-//                while (result.next()) {
-//                    degree = result.getString("degree");
-//                    yearOfGrad = Integer.parseInt(result.getString("year_of_grad"));
-//                    mentor_email = result.getString("mentor_email");
-//                }
-//                
-//                
-//                regularMentee = new RegularMentees(email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), degree, yearOfGrad, mentor_email);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
-//            } finally {
-//                ConnectionManager.close(conn, stmt, result);
-//            }
-//            regularMentees.add(regularMentee);
-//            degree = "";
-//            yearOfGrad = 0;
-//            mentor_email = "";
-//        }
-//        return regularMentees;
-//    }
+    //get all emails of all the Light Mentees
+    public static ArrayList<String> getLightMenteeEmails(){
+        ArrayList<String> lightMenteeEmails = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT `email` FROM `mentee` WHERE `mentee_type` = 'light';");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                lightMenteeEmails.add(email);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return lightMenteeEmails;
+    }
+    
+    //get all emails of Regular Mentees
+    public static ArrayList<String> getRegularMenteeEmails(){
+        ArrayList<String> regularMenteeEmails = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT `email` FROM `mentee` WHERE `mentee_type` = 'regular';");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                regularMenteeEmails.add(email);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return regularMenteeEmails;
+    }
+    
+    public static ArrayList<ArrayList<String>> getLightMenteeDetails(){
+        ArrayList<ArrayList<String>> lightMentees = new ArrayList<>();
+        ArrayList<String> emails = MenteeDAO.getLightMenteeEmails();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String mentee_type = "";
+        String degree = "";
+        String yearOfGrad = "";
+        String mentor_email = "";
+        
+        
+        for(String s: emails){
+            ArrayList<String> lightMentee = new ArrayList<>();
+            
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("SELECT * FROM `mentee` WHERE `email` = ?;");
+                stmt.setString(1, s);
+                result = stmt.executeQuery();
+                
+                while (result.next()) {
+                    email = result.getString("email");
+                    mentee_type = result.getString("mentee_type");
+                    degree = result.getString("degree");
+                    yearOfGrad = result.getString("year_of_grad");
+                    mentor_email = result.getString("mentor_email");    
+                }
+                
+                lightMentee.add(email);
+                lightMentee.add(mentee_type);
+                lightMentee.add(degree);
+                lightMentee.add(yearOfGrad);
+                lightMentee.add(mentor_email);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            lightMentees.add(lightMentee);
+            email = "";
+            mentee_type = "";
+            degree = "";
+            yearOfGrad = "";
+            mentor_email = "";
+        }
+        return lightMentees;
+    }
+
+    public static ArrayList<ArrayList<String>> getRegularMenteeDetails(){
+        ArrayList<ArrayList<String>> regularMentees = new ArrayList<>();
+        ArrayList<String> emails = MenteeDAO.getRegularMenteeEmails();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String mentee_type = "";
+        String degree = "";
+        String yearOfGrad = "";
+        String mentor_email = "";
+        
+        
+        for(String s: emails){
+            ArrayList<String> regularMentee = new ArrayList<>();
+            
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("SELECT * FROM `mentee` WHERE `email` = ?;");
+                stmt.setString(1, s);
+                result = stmt.executeQuery();
+                
+                while (result.next()) {
+                    email = result.getString("email");
+                    mentee_type = result.getString("mentee_type");
+                    degree = result.getString("degree");
+                    yearOfGrad = result.getString("year_of_grad");
+                    mentor_email = result.getString("mentor_email");    
+                }
+                
+                regularMentee.add(email);
+                regularMentee.add(mentee_type);
+                regularMentee.add(degree);
+                regularMentee.add(yearOfGrad);
+                regularMentee.add(mentor_email);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            regularMentees.add(regularMentee);
+            email = "";
+            mentee_type = "";
+            degree = "";
+            yearOfGrad = "";
+            mentor_email = "";
+        }
+        return regularMentees;
+    }
     
     public static Mentee getMenteeByEmail(String email){
         Mentee m = null;
@@ -176,8 +250,9 @@ public class MenteeDAO {
             }
             
             m = new Mentee(email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), mentee_type, degree, yearOfGrad, mentor_email);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }
@@ -218,20 +293,29 @@ public class MenteeDAO {
     }
     
     public static void main(String[] args){
-        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S7657328Y", null, "mentee", 1, "regular", "business", 2018, "huimin@hotmail.com");
-        int result = MenteeDAO.editMenteeDetails(m);
-        System.out.println(result);
+//        ArrayList<ArrayList<String>> regularMentees = MenteeDAO.getRegularMenteeDetails();
+//        for(ArrayList<String> regularMentee : regularMentees){
+//            for(String s: regularMentee){
+//                System.out.println(s);
+//            }
+//        }
         
-//        Mentee m = MenteeDAO.getMenteeByEmail("huimin1@hotmail.com");
-//            System.out.println(m.getEmail());
-//            System.out.println(m.getPassword());
-//            System.out.println(m.getName());
-//            System.out.println(m.getNric());
-//            System.out.println(m.getProfile_pic());
-//            System.out.println(m.getUser_type());
-//            System.out.println(m.getCompanyid());
-//            System.out.println(m.getDegree());
-//            System.out.println(m.getYear_of_grad());
-//        
+//        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S7657328Y", null, "mentee", 1, "regular", "business", 2018, "huimin@hotmail.com");
+//        int result = MenteeDAO.editMenteeDetails(m);
+//        System.out.println(result);
+        
+            Mentee m = MenteeDAO.getMenteeByEmail("y@smu.edu.sg");
+            System.out.println(m.getEmail());
+            System.out.println(m.getPassword());
+            System.out.println(m.getName());
+            System.out.println(m.getNric());
+            System.out.println(m.getProfile_pic());
+            System.out.println(m.getUser_type());
+            System.out.println(m.getCompanyid());
+            System.out.println(m.getMentee_type());
+            System.out.println(m.getDegree());
+            System.out.println(m.getYear_of_grad());
+            System.out.println(m.getMentor_email());
+        
     }
 }

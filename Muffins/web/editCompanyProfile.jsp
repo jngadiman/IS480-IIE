@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
 <%@page import="MODELS.Company"%>
@@ -37,17 +38,26 @@
     <body>
         <div class="container">
             <h1 class="well">Edit Company Profile</h1>
+            <%
+                String status = (String) request.getAttribute("updateStatus");
+                if(status != null && !status.isEmpty()){
+                    out.println(status);
+                }
+            %>
             <div class="col-lg-12 well">
                 <div class="row">
-                    <form>
+                    <form action="editCompanyServlet" method="post">
                         <div class="col-sm-12">
                             <div class="row">
                                 <div>
+                                    <input type="hidden" name="companyID" value="<%= company.getId()%>" >
                                     <label>Company Logo</lable>
-                                    </br>
+                                    <br/>
+                                    <input type="text" value="<%= company.getCompanyLogo()%>" name="company_logo">
+                                    <br/>
                                     <form action="upload.php" method="post" enctype="multipart/form-data">
                                         Select image to upload:
-                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                        <input type="file" name="companyLogo">
                                         <input type="submit" value="Upload Image" name="submit">
                                     </form>
                                 </div>
@@ -55,52 +65,53 @@
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Company Name</label>
-                                    <input id="companyName" type="text" placeholder="Enter Company Name Here.." class="form-control">
+                                    <input name="companyName" type="text" placeholder="Enter Company Name Here.." class="form-control" value="<%= company.getName()%>">
                                 </div>
                             </div>	
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Company Description</label>
-                                    <textarea class="form-control" rows="3" id="description" placeholder="Enter Company Description Here.."></textarea>
+                                    <textarea class="form-control" rows="3" name="description" placeholder="Enter Company Description Here.."><%= company.getDescription()%></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Company Vision</label>
-                                    <input id="vision" type="text" placeholder="Enter Company Vision Here.." class="form-control">
+                                    <input name="vision" type="text" placeholder="Enter Company Vision Here.." class="form-control" value="<%= company.getVision()%>">
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Company Mission</label>
-                                    <input id="mission" type="text" placeholder="Enter Company Mission Here.." class="form-control">
+                                    <input name="mission" type="text" placeholder="Enter Company Mission Here.." class="form-control" value="<%= company.getMission()%>">
                                 </div>
                             </div>
                             
-                            if company type = mentee company{
-                                
-                            
                             <div class="row">
                                 <div class="col-sm-6 form-group">
+                                    <!-- NEED TO SHOW THE SELECTED INDUSTRY FROM DB-->
                                     <label>Industry</label> 
 
-                                    <select class="form-control" id="select">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control" id="industry" name="industry">
+                                        <option value="Food And Beverage">Food and Beverage</option>
+                                        <option value="Retail">Retail</option>
+                                        <option value="Construction">Construction</option>
+                                        <option value="Manufacturing">Manufacturing</option>
+                                        <option value="Technology">Technology</option>
                                     </select>
                                 </div>
                             </div>
                             
                             <div class="form-group"> <!-- Date input -->
-                                <label for="inputDate" class="col-lg-4 control-label">Start Date</label>
-                                <input class="col-lg-5 col-lg-offset-0" id="inputDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+                                <label for="inputDate">Start Date</label>
+                                <input name="startDate" placeholder="MM/DD/YYY" type="text" value="<%= new SimpleDateFormat("dd/MM/yyyy").format(company.getStartDate())%>"/>
                              </div>
-                            
+                            <!-- check if the current logged in user is a mentor or mentee. if mentee and regular mentee -> show stage -->
                             <div class="row">
                                 <div class="col-sm-6 form-group">
+                                    <!-- NEED TO SHOW THE CURRENT STAGE FROM DB-->
                                     <label>Current Stage</label> 
-                                    <select class="form-control" id="select">
+                                    <select class="form-control" name="stage">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -109,8 +120,6 @@
                                     </select>
                                 </div>	
                             </div>
-                            
-                            }
                             <button type="submit" class="btn btn-lg btn-info">Submit</button>					
                         </div>
                     </form> 

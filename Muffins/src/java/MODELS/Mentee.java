@@ -18,8 +18,10 @@ public class Mentee extends User{
 
     public Mentee(String email, String password, String name, String nric, String profile_pic, String user_type, int company_id, String mentee_type, String degree, int year_of_grad, String mentor_email) {
         super(email, password, name, nric, profile_pic, user_type, company_id);
+        this.mentee_type = mentee_type;
         this.degree = degree;
         this.year_of_grad = year_of_grad;
+        this.mentor_email = mentor_email;
     }
 
     public String getMentee_type() {

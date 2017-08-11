@@ -4,6 +4,10 @@
     Author     : Xinyao
 --%>
 
+<%@page import="DAO.MentorDAO"%>
+<%@page import="DAO.MenteeDAO"%>
+<%@page import="MODELS.Mentor"%>
+<%@page import="MODELS.Mentee"%>
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
@@ -24,20 +28,39 @@
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <script src="js/npm.js" type="text/javascript"></script>
         <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
-        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>  
+        <script type="text/javascript">
+            var degree = document.getElementById('degree');
+            var opts = degree.options.length;
+            var value = document.getElementById('degreeText').value;
+            function onload(){
+                alert(value);
+                for (var i=0; i<opts; i++){
+                    if (degree.options[i].value == value){
+                        degree.options[i].selected = true;
+                        break;
+                    }
+                }
+            }
+        </script>
     </head>
-    
      <body>
          <%
-            String username = "admin@smu.edu.sg";
+            String username = "huimin1@hotmail.com";
             User user= UserDAO.getUserByEmail(username);
             //hardcoded, need to replace with session key later
         %>
         <div class="container">
             <h1 class="well">Edit Personal Profile</h1>
+            <%
+                String status = (String) request.getAttribute("updateStatus");
+                if(status != null && !status.isEmpty()){
+                    out.println(status);
+                }
+            %>
             <div class="col-lg-12 well">
                 
-                    <form>
+                    <form action="editProfileServlet" method="post">
                         <div class="col-sm-12">
                             <div class="row">
                                 <div>
@@ -45,58 +68,71 @@
                                     <h2>Email Address: <%= user.getEmail()%> </h2>
                                     <h2>NRIC: <%= user.getNric()%></h2>
                                     <h2>User Type: <%= user.getUser_type()%></h2>
-                                    
-                                    
+                                    <input type="hidden" name="email" value="<%= user.getEmail()%>">
+                                    <input type="hidden" name="password" value="<%= user.getPassword()%>">
+                                    <input type="hidden" name="name" value="<%= user.getName()%>">
+                                    <input type="hidden" name="nric" value="<%= user.getNric()%>">
+                                    <input type="hidden" name="user_type" value="<%= user.getUser_type()%>">
+                                    <input type="hidden" name="companyID" value="<%= user.getCompanyid()%>"
                                     <label>Profile Photo</lable>
-                                    </br>
+                                    <br/>
+                                    <input type="text"  name="profile_photo" value="<%= user.getProfile_pic()%>">
+                                    <br/>
                                     <form action="upload.php" method="post" enctype="multipart/form-data">
                                         Select image to upload:
-                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                        <input type="file" name="profilePhoto">
                                         <input type="submit" value="Upload Image" name="submit">
                                     </form>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <label>Experience</label>
-                                    <input id="companyName" type="text" placeholder="System.out.println(user.getExperience());" class="form-control">
-                                </div>
-                                <%//need to have a field of experience and getExperience method%>
-                            </div>	
-                            <p>if (user.getClass().isInstance(Mentee.class)){</p>
+                            <%
+                                if (user.getUser_type().equals("mentee")){
+                                    Mentee m = MenteeDAO.getMenteeByEmail(user.getEmail());
+                            %>
+                            <input type="hidden" name="degreeText" value="<%= m.getDegree()%>">
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Year of Graduation</label>
-                                    <textarea class="form-control" rows="3" id="description" placeholder="Enter Year of Graduation Here.."></textarea>
+                                    <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= m.getYear_of_grad()%>" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-sm-6 form-group required">
+                                    <label  class="control-label">Degree</label>
+                                    //CANNOT DISPLAY SELECTED CHOICE FROM DB
+                                    <select class="form-control" name="degree" required>
+                                        <option value="Information Systems">Information Systems</option>
+                                        <option value="Business">Business</option>
+                                        <option value="Economics">Economics</option>
+                                        <option value="Accountancy">Accountancy</option>
+                                        <option value="Law">Law</option>
+                                        <option value="Social Sciences">Social Sciences</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="menteeType" value="<%= m.getMentee_type()%>">
+                            <input type="hidden" name="mentorEmail" value="<%= m.getMentor_email()%>">
+                            <%  } 
+                                else{ 
+                                        Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
+                            %> 
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label>Position in the Company</label>
+                                    <input name="position" type="text" placeholder="Enter your position in your company" class="form-control" value="<%= mentor.getPosition()%>" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Interested Industry</label>
-                                    <div class="row">
-                                        <div class="col-sm-6 form-group">
-                                            <label>Industry</label> 
-
-                                            <select class="form-control" id="select">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                                    <label>Introduction</label>
+                                    <textarea name="introduction" type="text" rows="4" placeholder="Enter an introduction of yourself, what industries you have been and what can you bring or teach the mentees.." class="form-control" required><%= mentor.getIntroduction()%></textarea>
                                 </div>
                             </div>
-                            <p>} else{</p> 
-                            <div class="col-sm-6 form-group">
-                                <label>Industries Worked Before</label>
-                                <input id="past-industries" type="text" placeholder="Enter industries that you have worked before.." class="form-control">
-                            }
-                            </div>	
-                        </div>
+                            <%
+                                }
+                            %>
                             <button type="submit" class="btn btn-lg btn-info">Submit</button>
+                        </div>
                     </form> 
                 
             </div>

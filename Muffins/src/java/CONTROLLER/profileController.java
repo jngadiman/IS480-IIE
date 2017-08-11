@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package CONTROLLER;
 
 import DAO.CompanyDAO;
+import DAO.MenteeDAO;
+import DAO.MentorDAO;
 import DAO.UserDAO;
 import MODELS.Company;
+import MODELS.Mentee;
+import MODELS.Mentor;
 import MODELS.User;
 import java.util.Date;
 
@@ -25,11 +29,37 @@ public class profileController {
         String status = "";
         int result = UserDAO.editUser(u);
         if(result == 1){
-            status = "Success!";
+            status = "Changes have been saved successfully!";
         }else{
-            status = "Fail!";
+            status = "Changes could not be saved!";
         }
         
+        return status;
+    }
+    
+    public static String editMentee(Mentee m){
+        String status = "";
+        
+        int result = MenteeDAO.editMenteeDetails(m);
+        if(result == 1){
+            status = "Changes have been saved successfully!";
+        }else{
+            status = "Changes could not be saved!";
+        }
+        
+        return status;
+    }
+    
+    public static String editMentor(Mentor m){
+        String status = "";
+
+        int result = MentorDAO.editMentorDetails(m);
+        if(result == 1){
+            status = "Changes have been saved successfully!";
+        }else{
+            status = "Changes could not be saved!";
+        }
+
         return status;
     }
     
@@ -50,15 +80,20 @@ public class profileController {
     }
     
     public static void main(String[] args){
-        Company c = profileController.displayCompanyDetails(1);
-        System.out.println(c.getId());
-        System.out.println(c.getName());
-        System.out.println(c.getDescription());
-        System.out.println(c.getVision());
-        System.out.println(c.getMission());
-        System.out.println(c.getIndustry());
-        System.out.println(c.getStartDate());
-        System.out.println(c.getCurrentStage());
+        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S7657328Y", null, "mentee", 1, "light" , "economics", 2010, "huimin@hotmail.com");
+        String result = profileController.editMentee(m);
+        System.out.println(result);
+        
+        
+//        Company c = profileController.displayCompanyDetails(1);
+//        System.out.println(c.getId());
+//        System.out.println(c.getName());
+//        System.out.println(c.getDescription());
+//        System.out.println(c.getVision());
+//        System.out.println(c.getMission());
+//        System.out.println(c.getIndustry());
+//        System.out.println(c.getStartDate());
+//        System.out.println(c.getCurrentStage());
 //        Date startDate = new Date();
 //        Company c = new Company(1, "kfc", "sells chicken", "to sell as many chicken as possible", "to sell the best quality chicken ever!", "FnB", startDate, 1);
 //        String status = profileController.editCompanyDetails(c);
