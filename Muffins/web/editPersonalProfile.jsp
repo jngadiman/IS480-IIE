@@ -68,6 +68,10 @@
                                     <h2>Email Address: <%= user.getEmail()%> </h2>
                                     <h2>NRIC: <%= user.getNric()%></h2>
                                     <h2>User Type: <%= user.getUser_type()%></h2>
+                                    if user is a mentee, should display mentor's email address
+                                    <h2>Mentor's Email Address: user.getMentor_email()</h2>
+                                    <h2>Company Name: CompanyDAO.getCompany(user.getCompanyid())</h2>
+                                    
                                     <input type="hidden" name="email" value="<%= user.getEmail()%>">
                                     <input type="hidden" name="password" value="<%= user.getPassword()%>">
                                     <input type="hidden" name="name" value="<%= user.getName()%>">

@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Stages</title>
+        <title>Add Task</title>
         <%@include file="navbar.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -50,7 +50,6 @@
                             <fieldset>
                                 <legend>Add Task</legend>
 
-                                <div class="col-sm-2">blank</div>
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="inputTaskName" class="col-lg-4 control-label">Task Name</label>

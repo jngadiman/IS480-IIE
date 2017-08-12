@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mentor Profile</title>
+        <title>Personal Profile</title>
         <%@include file="navbar.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -41,7 +41,7 @@
                 <br>
                 <h2 align="center">Experience</h2>
                 <br>
-                <p align="center">System.out.println(user.getExperience());</p>
+                <p align="center">out.println(user.getExperience());</p>
                 
                 <h2 align="center">NRIC</h2>
                 <p align="center"><%= user.getNric()%></p>
@@ -55,21 +55,33 @@
                 
                     <h2 align="center">Year of Graduation</h2>
                     <br>
-                    <p align="center">System.out.println(user.getYearOfGraduation());</p>
+                    <p align="center">out.println(user.getYearOfGraduation());</p>
                     <br>
                     
-                    <p align="center">Interested Industry</p>
+                    <h2 align="center">Degree</h2>
                     <br>
-                    <p align="center">System.out.println(mentorCompany.getInterestedIndustry());</p>
+                    <p align="center">out.println(user.getDegree());</p>
+                    
+                    <h2 align="center">Company Owned</h2>
+                    <br>
+                    <p align="center">out.println(user.getCompanyId().getCompanyName());</p>
+                    
+                    <h2 align="center">Year Of Graduation</h2>
+                    <br>
+                    <p align="center">out.println(user.getYearOfGraduation());</p>
+                    
+                    <h2 align="center">Mentor's Email Address</h2>
+                    <br>
+                    <p align="center">out.println(muser.getMentorEmail());</p>
 
                 <p align="center">} else{</p> 
-                    <h2 align="center">Industries Worked Before</h2>
+                    <h2 align="center">Position</h2>
                     <br>
-                    <p align="center">System.out.println(user.getPastIndustries());</p>
+                    <p align="center">out.println(user.getPosition());</p>
                     <br>
-                    <p align="center">Interested Industry</p>
+                    <p align="center">Introduction</p>
                     <br>
-                    <p align="center">System.out.println(mentorCompany.getInterestedIndustry());</p>
+                    <p align="center">out.println(user.getIntroduction());</p>
                 
             </div>
         </body>

@@ -107,6 +107,7 @@
                                     <th>Deadline</th>
                                     <th>Status</th>
                                     <th>Click to change task status</th>
+                                    <th>Edit Task</th>
                                     <th>Delete Task</th>
                                   </tr>
                                 </thead>
@@ -133,7 +134,8 @@
                                                     }
                                                     out.println("<td><p class='text-center'><a href='' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
                                                     out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
-                                                    out.println("<a href='displayTaskServlet?taskID=" + t.getTaskId() + "'>Edit</a></td>");
+                                                    out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-sccess btn-outline-rounded green'>Edit</a></td>");
+                                                    out.println("<td><a href='#' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
                                                     out.println("</tr>");
                                                 }
                                             } else{
@@ -156,7 +158,7 @@
                               </table>
                               
                               <p class="text-center">
-                                  <a href="addTask.jsp" class="btn btn-success btn-outline-rounded green"> Add Tasks</a>
+                                  <a href="addTask.jsp" class="btn btn-success btn-outline-rounded green"> Add Task</a>
  
                                   </p>
                                     

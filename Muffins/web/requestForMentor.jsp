@@ -24,7 +24,7 @@
     <body>
         
  
-                   <div style ="width: 300px;height:300px; border:1px solid black">
+                   <div class="col-sm-4" style ="width: 300px;height:300px; border:1px solid black">
                    Mentor number 1
                    <br>
                    Mentor profile photo
@@ -38,7 +38,7 @@
                     <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
                     </div>
                    
-                   <div style ="width: 300px;height:300px; border:1px solid black">
+                   <div class="col-sm-4" style ="width: 300px;height:300px; border:1px solid black">
                    mentor number 2
                    <br>
                    Mentor profile photo
@@ -51,7 +51,7 @@
                     </script>
                     <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
                    </div>
-                   <div style ="width: 300px;height:300px; border:1px solid black">
+                   <div class="col-sm-4" style ="width: 300px;height:300px; border:1px solid black">
                    Mentor number 3
                    <br>
                    Mentor profile photo
