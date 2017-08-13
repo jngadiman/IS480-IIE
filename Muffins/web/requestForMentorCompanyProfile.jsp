@@ -63,7 +63,7 @@
         </body>
         
         <div class="text-center"><a href="requestForMentor.jsp" class="btn btn-success btn-outline-rounded green">Return to Mentor List</a></div>
-        <div class="text-center"><a href="applicationForm.jsp" class="btn btn-success btn-outline-rounded green">Apply for this Mentor</a></div>
+        <div class="text-center"><a href="confirmRequest.jsp" class="btn btn-success btn-outline-rounded green">Apply for this Mentor</a></div>
         
         
 
