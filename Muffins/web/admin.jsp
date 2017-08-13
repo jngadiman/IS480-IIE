@@ -32,6 +32,7 @@
         <input type ="text" name ="company_id"> </BR>
         <input type ="submit" value ="submit"> 
         </form>
+        <a href="adminViewAllRequests.jsp">View Requests</a>
         <%
 //            ArrayList<MeetingMinutes> minutes = (ArrayList<MeetingMinutes>)request.getAttribute("mentorMeetingMinutes");
 //            

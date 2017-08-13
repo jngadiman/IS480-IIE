@@ -4,19 +4,18 @@
     Author     : Xinyao
 --%>
 
-<%@page import="DAO.CompanyDAO"%>
-<%@page import="MODELS.Company"%>
+
+<%@page import="DAO.*"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="DAO.UserDAO"%>
-<%@page import="MODELS.User"%>
-<%@page import="MODELS.User"%>
+<%@page import="MODELS.*"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Personal Profile</title>
+        <title>Mentor Profile</title>
         <%@include file="navbar.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -28,65 +27,63 @@
     </head>
     <body>
         <%
-            String username = "admin@smu.edu.sg";
-            User user= UserDAO.getUserByEmail(username);
+            User user = (User) session.getAttribute("user");
         %>
-        <body>
+        
             <div>
                 <div align="center">A Picture Should Be Inserted Here</div>
+                <p align="center"><%= user.getProfile_pic()%></p>
+                
                 <h1 align="center"><%= user.getName()%></h1>
                 <br>
+                
                 <h2 align="center">Email Address</h2>
                 <p align="center"><%= user.getEmail()%></p>
                 <br>
-                <h2 align="center">Experience</h2>
-                <br>
-                <p align="center">out.println(user.getExperience());</p>
                 
                 <h2 align="center">NRIC</h2>
                 <p align="center"><%= user.getNric()%></p>
                 
-                <h2 align="center">User Type</h2>
-                <p align="center"><%= user.getUser_type()%></p>
+                <%String type = user.getUser_type(); %>
                 
-                <p align="center">}</p>
+                
                 <br>
-                <p align="center">if (user.getClass().isInstance(Mentee.class)){</p>
-                
-                    <h2 align="center">Year of Graduation</h2>
-                    <br>
-                    <p align="center">out.println(user.getYearOfGraduation());</p>
-                    <br>
+                <% if (type.equals("mentee")){
+                    Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
+                %>
                     
+                    <h2 align="center">User Type</h2>
+                    <p align="center"><%= mentee.getMentee_type() + " " + type%></p>
+                    <br>
+                
                     <h2 align="center">Degree</h2>
                     <br>
-                    <p align="center">out.println(user.getDegree());</p>
+                    <p align="center"><%= mentee.getDegree()%></p>
+                    <br>
                     
-                    <h2 align="center">Company Owned</h2>
+                    <h2 align="center">Year of Graduation</h2>
                     <br>
-                    <p align="center">out.println(user.getCompanyId().getCompanyName());</p>
-                    
-                    <h2 align="center">Year Of Graduation</h2>
+                    <p align="center"><%= mentee.getYear_of_grad()%></p>
                     <br>
-                    <p align="center">out.println(user.getYearOfGraduation());</p>
-                    
-                    <h2 align="center">Mentor's Email Address</h2>
-                    <br>
-                    <p align="center">out.println(muser.getMentorEmail());</p>
-
-                <p align="center">} else{</p> 
-                    <h2 align="center">Position</h2>
-                    <br>
-                    <p align="center">out.println(user.getPosition());</p>
-                    <br>
-                    <p align="center">Introduction</p>
-                    <br>
-                    <p align="center">out.println(user.getIntroduction());</p>
                 
+                <%} else if(type.equals("mentor")){
+                        Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
+                %>
+                    <h2 align="center">User Type</h2>
+                    <p align="center"><%=type%></p>
+                    <br>
+                    <h2 align="center">Current Position in the Company</h2>
+                    <br>
+                    <p align="center"><%= mentor.getPosition()%></p>
+                    <br>
+                    <h2 align="center">Introduction</h2>
+                    <br>
+                    <p align="center"><%= mentor.getIntroduction()%></p>
+                <% } %>
             </div>
         </body>
         
-        <a href="editMentorProfile.jsp" class="btn btn-success btn-outline-rounded green" ><p style="text-align:center">Edit Company Profile</a>
+        <div class="text-center"><a href="editPersonalProfile.jsp" class="btn btn-success btn-outline-rounded green">Edit Profile</a></div>
         
 
 </html>

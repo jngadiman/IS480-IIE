@@ -353,15 +353,10 @@ public class TaskDAO {
         PreparedStatement stmt = null;
         ResultSet count = null;
         int result = 0;
-        int taskid = 0;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select count(*) from task;");
-            count = stmt.executeQuery();
-            count.next();
-            taskid = count.getInt(1)+1;
             String status = "";
             if(task.isIsCompleted()){
                 status = "Y";
@@ -369,10 +364,8 @@ public class TaskDAO {
                 status = "N";
             }
             
-            System.out.println(status);
-            
             stmt = conn.prepareStatement("INSERT INTO task (task_id, task_name, task_description, task_deadline, program_stage, company_id, is_completed)" + "VALUES (?, ?, ?, ?, ?, ?, ?);");
-            stmt.setInt(1, taskid);
+            stmt.setInt(1, task.getTaskId());
             stmt.setString(2, task.getName());
             stmt.setString(3, task.getDescription());
             stmt.setString(4, df.format(task.getDeadline()));

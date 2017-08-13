@@ -295,6 +295,78 @@ public class RequestDAO {
         return requests;
     }
     
+        public static int addRequest(Request r){
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("INSERT INTO relationship VALUES (?, ?, ?, ?, ?, ?);");
+            stmt.setInt(1, r.getRequestID());
+            stmt.setInt(2, r.getCompanyID());
+            stmt.setString(3, r.getMentorEmail());
+            stmt.setString(4, r.getType());
+            stmt.setString(5, r.getAdminEmail());
+            stmt.setString(6, r.getStatus());
+            
+            result = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RequestDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+        
+        return result;
+    }
+    
+    public static int updateRequest(int requestID, String status){
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("UPDATE relationship SET  admin_email = ?, status = ? WHERE rls_id = ?;");
+            stmt.setString(1, "w@smu.edu.sg");
+            stmt.setString(2, status);
+            stmt.setInt(3, requestID);
+            
+            result = stmt.executeUpdate();
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
+    public static int getNextRequestID(){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        int requestID = 0;
+        
+        try{
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select count(*) from relationship;");
+            count = stmt.executeQuery();
+            count.next();
+            requestID = count.getInt(1)+1;
+        } catch (SQLException ex) {
+            Logger.getLogger(RequestDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+        
+        return requestID;
+    }
+    
+    
     public static void main(String[] args){
         ArrayList<Request> requests = RequestDAO.getAllRequestsByType("open");
         for(Request r: requests){

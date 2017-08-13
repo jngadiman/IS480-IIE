@@ -4,6 +4,10 @@
     Author     : Xinyao
 --%>
 
+<%@page import="MODELS.Mentor"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.MentorDAO"%>
+<%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,12 +26,18 @@
         <script src="js/requestForMentor.js" type="text/javascript"></script>
     </head>
     <body>
-        
- 
-                   <div class="col-sm-4" style ="width: 300px;height:300px; border:1px solid black">
-                   Mentor number 1
-                   <br>
-                   Mentor profile photo
+            <%
+                String type = request.getParameter("type");
+                session.setAttribute("requestType", type);
+                ArrayList<Mentor> mentors = MentorDAO.getMentors();
+                for(Mentor m: mentors){
+            %>        
+            <form action="requestForMentorViewServlet" method="post">
+                   <div style ="width: 300px;height:300px; border:1px solid black">
+                   <%= m.getProfile_pic()%>
+                   <br/>
+                   <%= m.getName()%>
+                   <br/>
                    <script type="text/javascript">
                     // Popup window code
                     function newPopup(url) {
@@ -35,36 +45,14 @@
                                     url,'popUpWindow','height=300,width=200,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
                     }
                     </script>
-                    <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
+                    <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
+                    <input type="submit" value="Submit" name="submitBtn">
+                    <p><a href="requestForMentorProfile.jsp?email=<%= m.getEmail()%>" class="btn btn-success btn-outline-rounded green">Read more</a></p>
                     </div>
-                   
-                   <div class="col-sm-4" style ="width: 300px;height:300px; border:1px solid black">
-                   mentor number 2
-                   <br>
-                   Mentor profile photo
-                   <script type="text/javascript">
-                    // Popup window code
-                    function newPopup(url) {
-                            popupWindow = window.open(
-                                    url,'popUpWindow','height=300,width=200,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-                    }
-                    </script>
-                    <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
-                   </div>
-                   <div class="col-sm-4" style ="width: 300px;height:300px; border:1px solid black">
-                   Mentor number 3
-                   <br>
-                   Mentor profile photo
-                   <script type="text/javascript">
-                    // Popup window code
-                    function newPopup(url) {
-                            popupWindow = window.open(
-                                    url,'popUpWindow','height=300,width=200,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-                    }
-                    </script>
-                    <p><a href="requestForMentorCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Read more</a></p>
-                   </div>
-                   
+            </form>
+            <%
+                }
+            %>
                     <!-- Trigger/Open The Modal -->
                      <button id="myBtn">Open Modal</button>
 
@@ -78,5 +66,6 @@
                        </div>
 
                      </div>
+                     
     </body>
 </html>

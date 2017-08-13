@@ -49,6 +49,14 @@
             String username = "huimin1@hotmail.com";
             User user= UserDAO.getUserByEmail(username);
             //hardcoded, need to replace with session key later
+            
+            ArrayList<String> degrees = new ArrayList<>();
+            degrees.add("Information Systems");
+            degrees.add("Business");
+            degrees.add("Economics");
+            degrees.add("Accountancy");
+            degrees.add("Law");
+            degrees.add("Social Sciences");
         %>
         <div class="container">
             <h1 class="well">Edit Personal Profile</h1>
@@ -105,12 +113,14 @@
                                     <label  class="control-label">Degree</label>
                                     //CANNOT DISPLAY SELECTED CHOICE FROM DB
                                     <select class="form-control" name="degree" required>
-                                        <option value="Information Systems">Information Systems</option>
-                                        <option value="Business">Business</option>
-                                        <option value="Economics">Economics</option>
-                                        <option value="Accountancy">Accountancy</option>
-                                        <option value="Law">Law</option>
-                                        <option value="Social Sciences">Social Sciences</option>
+                                        <option selected value = <%=m.getDegree()%> ><%=m.getDegree()%></option>
+                                        <% for (String d : degrees) {
+                                                if (!m.getDegree().equals(d)) {%>
+                                        <option value=<%=d%>> <%=d%></option>
+                                        <%      }
+                                            }
+                                        %>
+                                        
                                     </select>
                                 </div>
                             </div>

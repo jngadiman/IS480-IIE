@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.Mentee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,9 @@
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-
+        <%
+            Mentee m = (Mentee) session.getAttribute("mentee");
+        %>
 
         <div class="container-fluid">
             <div class="row">
@@ -24,6 +27,16 @@
                         <li><a href="stages.jsp">Progress</a></li>
                         <li><a href="#">Meetings</a></li>
                         <li><a href="#">Calendar</a></li>
+                        <%
+                            if(m != null){
+                                if(m.getMentee_type().equals("regular")){
+                        %>
+                                <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
+                        <%
+                                }
+                            }
+                        %>
+                        <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="">Nav item</a></li>
