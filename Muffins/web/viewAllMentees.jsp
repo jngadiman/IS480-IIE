@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.menteeController"%>
 <%@page import="DAO.MenteeDAO"%>
 <%@page import="MODELS.Mentee"%>
 <%@page import="java.util.ArrayList"%>
@@ -24,13 +25,12 @@
     </head>
     <body>
         <%
-            ArrayList<Mentee> allMentees = MenteeDAO.getMentees();
+            ArrayList<Mentee> allMentees = menteeController.getAllMentees();
             for (int i = 0; i < allMentees.size(); i++){
                 Mentee mentee = allMentees.get(i);
                 out.println("<p align='center'>mentor's profile photo should be displayed here</p>");
                 out.print("<p align='center'>" + mentee.getName() +"</p>    ");
-                out.print("<p class='text-center'><a href='viewPersonalProfile.jsp' class='btn btn-success btn-outline-rounded green'>View Detailed Mentor Profile</a></p>");
-                
+                out.print("<p class='text-center'><a href='viewPersonalProfile.jsp' class='btn btn-success btn-outline-rounded green'>View Detailed Mentor Profile</a></p>");    
             }
         %>
         

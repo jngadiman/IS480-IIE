@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
@@ -33,6 +34,20 @@
             User mentor = UserDAO.getUserByEmail(username);
             int companyID = mentor.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
+            
+            ArrayList<String> industries = new ArrayList<>();
+            industries.add("E-commerce");
+            industries.add("Healthcare");
+            industries.add("Medical Devices");
+            industries.add("New Media");
+            industries.add("Hospitality");	
+            industries.add("Travel and Tourism");	
+            industries.add("Consumer Durable");	
+            industries.add("FMCB");	
+            industries.add("Fashion/Lifestyle");	
+            industries.add("Web services");	
+            industries.add("Consumer Services");	
+            industries.add("Media & Entertainment");
 
         %>
     <body>
@@ -93,11 +108,13 @@
                                     <label>Industry</label> 
 
                                     <select class="form-control" id="industry" name="industry">
-                                        <option value="Food And Beverage">Food and Beverage</option>
-                                        <option value="Retail">Retail</option>
-                                        <option value="Construction">Construction</option>
-                                        <option value="Manufacturing">Manufacturing</option>
-                                        <option value="Technology">Technology</option>
+                                        <option selected value = <%=company.getIndustry()%> ><%=company.getIndustry()%></option>
+                                        <% for (String industry : industries) {
+                                                if (!company.getIndustry().equals(industry)) {%>
+                                        <option value=<%=industry%>> <%=industry%></option>
+                                        <%      }
+                                            }
+                                        %>
                                     </select>
                                 </div>
                             </div>

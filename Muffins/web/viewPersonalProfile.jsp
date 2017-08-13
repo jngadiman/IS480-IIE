@@ -32,7 +32,7 @@
         
             <div>
                 <div align="center">A Picture Should Be Inserted Here</div>
-                <p align="center"><%= user.getProfile_pic()%></p>
+                <p align="center"><img src="<%= user.getProfile_pic()%>"></p>
                 
                 <h1 align="center"><%= user.getName()%></h1>
                 <br>

@@ -65,6 +65,14 @@
         <div class="container">
             <h1 class="well">User Registration Form</h1>
             <%
+                ArrayList<String> degrees = new ArrayList<>();
+                degrees.add("Information Systems");
+                degrees.add("Business");
+                degrees.add("Economics");
+                degrees.add("Accountancy");
+                degrees.add("Law");
+                degrees.add("Social Sciences");
+                
                 if (request.getAttribute("status") != null) {
                     out.println((String) request.getAttribute("status"));
                 }
@@ -120,12 +128,13 @@
                                 <div class="col-sm-6 form-group required">
                                     <label  class="control-label">Course</label>
                                     <select class="form-control" name="course" id="course" required>
-                                        <option>Information Systems</option>
-                                        <option>Business</option>
-                                        <option>Economics</option>
-                                        <option>Accountancy</option>
-                                        <option>Law</option>
-                                        <option>Social Sciences</option>
+                                        <%
+                                            for(String d: degrees){
+                                        %>
+                                        <option value="<%= d%>"><%= d%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
                                 </div>
                                 <div class="col-sm-6 form-group required">

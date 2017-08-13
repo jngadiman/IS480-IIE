@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -14,6 +15,21 @@
         <%@include file="navbar.jsp" %>
     </head>
     <body>
+        <%
+            ArrayList<String> industries = new ArrayList<>();
+            industries.add("E-commerce");
+            industries.add("Healthcare");
+            industries.add("Medical Devices");
+            industries.add("New Media");
+            industries.add("Hospitality");	
+            industries.add("Travel and Tourism");	
+            industries.add("Consumer Durable");	
+            industries.add("FMCB");	
+            industries.add("Fashion/Lifestyle");	
+            industries.add("Web services");	
+            industries.add("Consumer Services");	
+            industries.add("Media & Entertainment");
+        %>
         <div class="container">
             <h1 class="well">Company Registration Form</h1>
             <div class="col-lg-12 well">
@@ -59,11 +75,13 @@
                                     <label>Industry</label> 
 
                                     <select class="form-control" id="industry" name="industry">
-                                        <option value="Food And Beverage">Food and Beverage</option>
-                                        <option value="Retail">Retail</option>
-                                        <option value="Construction">Construction</option>
-                                        <option value="Manufacturing">Manufacturing</option>
-                                        <option value="Technology">Technology</option>
+                                        <%
+                                            for(String industry: industries){
+                                        %>
+                                        <option value="<%= industry%>"><%= industry%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
                                 </div>	
                             </div>

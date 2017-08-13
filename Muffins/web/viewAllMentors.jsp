@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="CONTROLLER.mentorController"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="MODELS.Mentor"%>
 <%@page import="java.util.ArrayList"%>
@@ -25,7 +26,7 @@
     </head>
     <body>
         <%
-            ArrayList<Mentor> allMentors = MentorDAO.getMentors();
+            ArrayList<Mentor> allMentors = mentorController.getMentors();
             for (int i = 0; i < allMentors.size(); i++){
                 Mentor mentor = allMentors.get(i);
                 out.println("<p align='center'>mentor's profile photo should be displayed here</p>");

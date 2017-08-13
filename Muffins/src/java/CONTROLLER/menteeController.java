@@ -42,6 +42,14 @@ public class menteeController {
         return regularMentees;
     }
     
+    public static ArrayList<Mentee> getAllMentees(){
+        ArrayList<Mentee> allMentees = new ArrayList<>();
+        Mentee m = null;
+        
+        allMentees = MenteeDAO.getMentees();
+        return allMentees;
+    }
+    
     public static void main(String[] args){
         ArrayList<Mentee> regularMentees = menteeController.getRegularMentees();
         for(Mentee m: regularMentees){
