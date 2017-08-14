@@ -41,7 +41,20 @@
 
                             </div>
                         </div>
-
+                        <%  ArrayList<Request> requests = (ArrayList<Request>) session.getAttribute("requests");
+                            if (requests == null) {
+                                ArrayList<Request> allRequests = requestController.getAllRequests();
+                                for (Request r : allRequests) {
+                                    //print all requests by default
+                                    out.println("WE ARE PRINTING ALL REQUESTS");
+                                }
+                            } else if(){
+                                //print requests that are passed back from servlet
+                                for (Request r : requests) {
+                                    out.println("WE ARE PRINTING REQUESTS BY STATUS");
+                                }
+                            }
+                        %>
                         <div class="row">
 
                             <div class="col-md-8 well col-md-offset-2">
@@ -54,7 +67,7 @@
                                         </div>
                                         <div class="panel-body">
                                             <a href="#" class="btn btn-success btn-xs">Approve</a>
-                                            <a href="#" class="btn btn-warning btn-xs">Reject</a>
+                                            <a href="#" class="btn btn-danger btn-xs">Reject</a>
                                         </div>
                                     </div></div>
                                 <div class="col-md-4"><div class="panel panel-primary">
@@ -354,21 +367,6 @@
             </div>
 
         </div>
-
-        <%  ArrayList<Request> requests = (ArrayList<Request>) session.getAttribute("requests");
-            if (requests == null) {
-                ArrayList<Request> allRequests = requestController.getAllRequests();
-                for (Request r : allRequests) {
-                    //print all requests by default
-                    out.println("WE ARE PRINTING ALL REQUESTS");
-                }
-            } else {
-                //print requests that are passed back from servlet
-                for (Request r : requests) {
-                    out.println("WE ARE PRINTING REQUESTS BY STATUS");
-                }
-            }
-        %>
     </div>
 </body>
 </html>
