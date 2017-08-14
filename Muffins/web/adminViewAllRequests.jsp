@@ -18,13 +18,13 @@
     <body>
         <h1>Requests</h1>
         <div class="col-md-9  col-md-offset-2">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="false">Incubation <span class="badge">10</span></a></li>
-                <li class=""><a href="#openmentor" data-toggle="tab" aria-expanded="true">Open Mentor <span class="badge">5</span></a></li>
+<!--            <ul class="nav nav-tabs">
+                <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
+                <li class=""><a href="#openmentor" data-toggle="tab" aria-expanded="false">Open Mentor <span class="badge">5</span></a></li>
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade" id="incubation">
+                <div class="tab-pane fade" id="incubation">-->
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-8  col-md-offset-2"><ul class="nav nav-pills pull-right">
@@ -53,7 +53,8 @@
                                             <h3 class="panel-title">Panel primary</h3>
                                         </div>
                                         <div class="panel-body">
-                                            Panel content
+                                            <a href="#" class="btn btn-success btn-xs">Approve</a>
+                                            <a href="#" class="btn btn-warning btn-xs">Reject</a>
                                         </div>
                                     </div></div>
                                 <div class="col-md-4"><div class="panel panel-primary">
@@ -61,7 +62,8 @@
                                             <h3 class="panel-title">Panel primary</h3>
                                         </div>
                                         <div class="panel-body">
-                                            Panel content
+                                            <a href="#" class="btn btn-success btn-xs">Approve</a>
+                                            <a href="#" class="btn btn-danger btn-xs">Reject</a>
                                         </div>
                                     </div></div>
                                 <div class="col-md-4"><div class="panel panel-primary">
@@ -69,7 +71,8 @@
                                             <h3 class="panel-title">Panel primary</h3>
                                         </div>
                                         <div class="panel-body">
-                                            Panel content
+                                           <a href="#" class="btn btn-success btn-xs">Approve</a>
+                                           <a href="#" class="btn btn-danger btn-xs">Reject</a>
                                         </div>
                                     </div></div>
 
@@ -87,7 +90,7 @@
                                             <h3 class="panel-title">Panel success</h3>
                                         </div>
                                         <div class="panel-body">
-                                            Panel content
+                                            <a href="#" class="btn btn-warning btn-xs">Over</a>
                                         </div>
                                     </div></div>
                                 <div class="col-md-4"><div class="panel panel-success">
@@ -95,7 +98,7 @@
                                             <h3 class="panel-title">Panel success</h3>
                                         </div>
                                         <div class="panel-body">
-                                            Panel content
+                                            <a href="#" class="btn btn-warning btn-xs">Over</a>
                                         </div>
                                     </div></div>
                                 <div class="col-md-4"><div class="panel panel-success">
@@ -103,7 +106,7 @@
                                             <h3 class="panel-title">Panel success</h3>
                                         </div>
                                         <div class="panel-body">
-                                            Panel content
+                                            <a href="#" class="btn btn-warning btn-xs">Over</a>
                                         </div>
                                     </div></div>
 
@@ -184,8 +187,8 @@
 
 
                     </div>
-                </div>
-                <div class="tab-pane fade active in" id="openmentor">
+<!--                </div>-->
+<!--                <div class="tab-pane fade active in" id="openmentor">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-8  col-md-offset-2"><ul class="nav nav-pills pull-right">
@@ -346,7 +349,7 @@
 
                     </div> 
 
-                </div>
+                </div>-->
 
             </div>
 

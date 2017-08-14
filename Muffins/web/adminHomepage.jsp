@@ -19,9 +19,11 @@
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <li><a href="">Pending Request <span class="badge">14</span>  </a> </li>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
+                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge">14</span>  </a> </li>
+                        <li><a href="viewCompanyProfile.jsp">View All Companies</a></li>
+                        <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
+                        <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                        
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="">Nav item</a></li>
