@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DAO.CompanyDAO"%>
@@ -59,22 +60,25 @@
                     out.println(status);
                 }
             %>
+
             <div class="col-lg-12 well">
                 <div class="row">
-                    <form action="editCompanyServlet" method="post">
+                    <form action="editCompanyServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-12">
                             <div class="row">
                                 <div>
                                     <input type="hidden" name="companyID" value="<%= company.getId()%>" >
                                     <label>Company Logo</lable>
                                     <br/>
-                                    <input type="text" value="<%= company.getCompanyLogo()%>" name="company_logo">
+                                    <%
+                                        // display the image
+                                        byte[] imgData = company.getCompanyLogo();
+                                        String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
+                                    %>
+                                    <img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" />
                                     <br/>
-                                    <form action="upload.php" method="post" enctype="multipart/form-data">
                                         Select image to upload:
                                         <input type="file" name="companyLogo">
-                                        <input type="submit" value="Upload Image" name="submit">
-                                    </form>
                                 </div>
                             </div>
                             <div class="row">

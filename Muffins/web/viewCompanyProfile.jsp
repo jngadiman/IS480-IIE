@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Base64"%>
 <%-- 
     Document   : viewMentorProfile
     Created on : Jul 15, 2017, 4:30:40 PM
@@ -37,7 +38,12 @@
         %>
         <body>
             <div>
-                <div align="center"><%= company.getCompanyLogo()%></div>
+                <%
+                    // display the image=
+                        byte[ ] imgData = company.getCompanyLogo();
+                        String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
+                %>
+                <div align="center"><img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" /></div>
                 <h1 align="center"><%= company.getName()%></h1>
                 <br>
                 <h2 align="center">Description</h2>
@@ -63,7 +69,7 @@
             </div>
         </body>
         
-        <p class="text-center"><a href="editMentorProfile.jsp" class="btn btn-success btn-outline-rounded green">Edit Company Profile</a></p>
+        <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Edit Company Profile</a></p>
         
 
 </html>

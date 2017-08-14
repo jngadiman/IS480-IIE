@@ -15,7 +15,7 @@ public class User {
     private String password;
     private String name;
     private String nric;
-    private String profile_pic;
+    private byte[] profile_pic;
     private String user_type;
     private int companyid;
     
@@ -27,7 +27,7 @@ public class User {
         this.user_type = user_type;
     }
     
-    public User(String email, String password, String name, String nric, String profile_pic, String user_type){
+    public User(String email, String password, String name, String nric, byte[] profile_pic, String user_type){
         this.email = email;
         this.password = password;
         this.name = name;
@@ -45,7 +45,7 @@ public class User {
         this.companyid = company_id;
     }
     
-    public User(String email, String password, String name, String nric, String profile_pic, String user_type, int company_id){
+    public User(String email, String password, String name, String nric, byte[] profile_pic, String user_type, int company_id){
         this.email = email;
         this.password = password;
         this.name = name;
@@ -79,7 +79,7 @@ public class User {
         return companyid;
     }
 
-    public String getProfile_pic() {
+    public byte[] getProfile_pic() {
         return profile_pic;
     }
     
@@ -107,7 +107,7 @@ public class User {
         this.companyid = companyid;
     }
     
-    public void setProfile_pic(String profile_pic) {
+    public void setProfile_pic(byte[] profile_pic) {
         this.profile_pic = profile_pic;
     }
 }

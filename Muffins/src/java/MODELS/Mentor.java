@@ -14,7 +14,7 @@ public class Mentor extends User{
     private String position;
     private String introduction;
 
-    public Mentor(String email, String password, String name, String nric, String profile_pic, String user_type, int company_id, String position, String introduction) {
+    public Mentor(String email, String password, String name, String nric, byte[] profile_pic, String user_type, int company_id, String position, String introduction) {
         super(email, password, name, nric, profile_pic, user_type, company_id);
         this.position = position;
         this.introduction = introduction;

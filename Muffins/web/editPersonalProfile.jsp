@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="DAO.MenteeDAO"%>
 <%@page import="MODELS.Mentor"%>
@@ -46,8 +47,9 @@
     </head>
      <body>
          <%
-            String username = "huimin1@hotmail.com";
+            String username = "huimin@hotmail.com";
             User user= UserDAO.getUserByEmail(username);
+            
             //hardcoded, need to replace with session key later
             
             ArrayList<String> degrees = new ArrayList<>();
@@ -68,18 +70,21 @@
             %>
             <div class="col-lg-12 well">
                 
-                    <form action="editProfileServlet" method="post">
+                    <form action="editProfileServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-12">
                             <div class="row">
                                 <div>
+                                    <%
+                                        // display the image
+                                            byte[ ] imgData = user.getProfile_pic();
+                                            String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
+                                    %>
+                                    <img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" />
                                     <h1><%= user.getName()%></h1>
                                     <h2>Email Address: <%= user.getEmail()%> </h2>
                                     <h2>NRIC: <%= user.getNric()%></h2>
                                     <h2>User Type: <%= user.getUser_type()%></h2>
-                                    if user is a mentee, should display mentor's email address
-                                    <h2>Mentor's Email Address: user.getMentor_email()</h2>
-                                    <h2>Company Name: CompanyDAO.getCompany(user.getCompanyid())</h2>
-                                    
+                                    <h2>Company ID: <%= user.getCompanyid()%></h2>
                                     <input type="hidden" name="email" value="<%= user.getEmail()%>">
                                     <input type="hidden" name="password" value="<%= user.getPassword()%>">
                                     <input type="hidden" name="name" value="<%= user.getName()%>">
@@ -90,11 +95,8 @@
                                     <br/>
                                     <input type="text"  name="profile_photo" value="<%= user.getProfile_pic()%>">
                                     <br/>
-                                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                                        Select image to upload:
-                                        <input type="file" name="profilePhoto">
-                                        <input type="submit" value="Upload Image" name="submit">
-                                    </form>
+                                    Select image to upload:
+                                    <input type="file" name="profilePhoto">
                                 </div>
                             </div>
                             <%
@@ -102,6 +104,7 @@
                                     Mentee m = MenteeDAO.getMenteeByEmail(user.getEmail());
                             %>
                             <input type="hidden" name="degreeText" value="<%= m.getDegree()%>">
+                            <h2>Mentor Email: <%= m.getMentor_email()%></h2>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Year of Graduation</label>
