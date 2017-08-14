@@ -9,19 +9,24 @@ import CONTROLLER.profileController;
 import MODELS.Mentee;
 import MODELS.Mentor;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author Hui Min
  */
 @WebServlet(name = "editProfileServlet", urlPatterns = {"/editProfileServlet"})
+@MultipartConfig(maxFileSize = 16177215)
 public class editProfileServlet extends HttpServlet {
 
     /**
@@ -42,12 +47,22 @@ public class editProfileServlet extends HttpServlet {
         String name = request.getParameter("name");
         String nric = request.getParameter("nric");
         String user_type = request.getParameter("user_type");
-        String profilePhoto = request.getParameter("profilePhoto");
-        int companyID = Integer.parseInt(request.getParameter("companyID"));
-                
-        if(profilePhoto.isEmpty()){
-            profilePhoto = request.getParameter("profile_photo");
+        
+        byte[] profilePic = null;
+        InputStream inputStream = null; // input stream of the upload file
+        Part filePart = request.getPart("profilePhoto");
+        if (filePart != null) {
+            // prints out some information for debugging
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+             
+            // obtains input stream of the upload file
+            inputStream = filePart.getInputStream();
+            profilePic = IOUtils.toByteArray(inputStream);
         }
+        
+        int companyID = Integer.parseInt(request.getParameter("companyID"));
         
         if(user_type.equals("mentee")){
             String mentee_type = request.getParameter("menteeType");
@@ -55,7 +70,7 @@ public class editProfileServlet extends HttpServlet {
             int yearOfGrad = Integer.parseInt(request.getParameter("yearOfGrad"));
             String mentor_email = request.getParameter("mentorEmail");
             
-            Mentee m = new Mentee(email, password, name, nric, profilePhoto, user_type, companyID, mentee_type, degree, yearOfGrad, mentor_email);
+            Mentee m = new Mentee(email, password, name, nric, profilePic, user_type, companyID, mentee_type, degree, yearOfGrad, mentor_email);
             status = profileController.editMentee(m);
             request.setAttribute("updateStatus", status);
             
@@ -63,7 +78,7 @@ public class editProfileServlet extends HttpServlet {
             String position = request.getParameter("position");
             String introduction = request.getParameter("introduction");
             
-            Mentor m = new Mentor(email, password, name, nric, profilePhoto, user_type, companyID, position, introduction);
+            Mentor m = new Mentor(email, password, name, nric, profilePic, user_type, companyID, position, introduction);
             status = profileController.editMentor(m);
             request.setAttribute("updateStatus", status);
         }

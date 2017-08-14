@@ -19,6 +19,8 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import javax.sql.rowset.serial.SerialBlob;
 /**
  *
  * @author Hui Min
@@ -34,7 +36,8 @@ public class UserDAO {
         String password = "";
         String name = "";
         String nric = "";
-        String profile_pic = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
 
@@ -48,10 +51,13 @@ public class UserDAO {
                 password = result.getString("password");
                 name = result.getString("name");
                 nric = result.getString("nric");
-                profile_pic = result.getString("profile_pic");
+                profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                u = new User(email, password, name, nric, profile_pic, user_type, company_id);
+                
+                profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id);
                 users.add(u);
             }
 
@@ -73,7 +79,8 @@ public class UserDAO {
         String password = "";
         String name = "";
         String nric = "";
-        String profile_pic = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
 
@@ -87,10 +94,13 @@ public class UserDAO {
                 password = result.getString("password");
                 name = result.getString("name");
                 nric = result.getString("nric");
-                profile_pic = result.getString("profile_pic");
+                profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                u = new User(email, password, name, nric, profile_pic, user_type, company_id);
+                
+                profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id);
                 users.add(u);
             }
 
@@ -112,7 +122,8 @@ public class UserDAO {
         String password = "";
         String name = "";
         String nric = "";
-        String profile_pic = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
 
@@ -126,10 +137,13 @@ public class UserDAO {
                 password = result.getString("password");
                 name = result.getString("name");
                 nric = result.getString("nric");
-                profile_pic = result.getString("profile_pic");
+                profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                u = new User(email, password, name, nric, profile_pic, user_type, company_id);
+                
+                profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id);
                 users.add(u);
             }
 
@@ -151,7 +165,8 @@ public class UserDAO {
         String password = "";
         String name = "";
         String nric = "";
-        String profile_pic = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
 
@@ -165,10 +180,13 @@ public class UserDAO {
                 password = result.getString("password");
                 name = result.getString("name");
                 nric = result.getString("nric");
-                profile_pic = result.getString("profile_pic");
+                profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                u = new User(email, password, name, nric, profile_pic, user_type, company_id);
+                
+                profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id);
                 users.add(u);
             }
 
@@ -190,7 +208,8 @@ public class UserDAO {
         String password = "";
         String name = "";
         String nric = "";
-        String profile_pic = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
 
@@ -204,10 +223,13 @@ public class UserDAO {
                 password = result.getString("password");
                 name = result.getString("name");
                 nric = result.getString("nric");
-                profile_pic = result.getString("profile_pic");
+                profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                u = new User(email, password, name, nric, profile_pic, user_type, company_id);
+                
+                profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id);
                 users.add(u);
             }
 
@@ -229,7 +251,8 @@ public class UserDAO {
         String password = "";
         String name = "";
         String nric = "";
-        String profile_pic = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
 
@@ -244,12 +267,14 @@ public class UserDAO {
                 password = result.getString("password");
                 name = result.getString("name");
                 nric = result.getString("nric");
-                profile_pic = result.getString("profile_pic");
+                profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
             }
             
-            u = new User(email, password, name, nric, profile_pic, user_type, company_id);
+            profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+            
+            u = new User(email, password, name, nric, profilePic, user_type, company_id);
             System.out.println("USER IN DAO CURRENT USER = "+u.getName());
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -272,7 +297,9 @@ public class UserDAO {
             stmt = conn.prepareStatement("UPDATE User SET name = ?, nric = ?, profile_pic = ?, user_type = ?, company_id = ? WHERE email = ?;");
             stmt.setString(1, u.getName());
             stmt.setString(2, u.getNric());
-            stmt.setString(3, u.getProfile_pic());
+            Blob blob = new SerialBlob(u.getProfile_pic());
+            
+            stmt.setBlob(3, blob);
             stmt.setString(4, u.getUser_type());
             stmt.setInt(5, u.getCompanyid());
             stmt.setString(6, u.getEmail());
@@ -310,10 +337,8 @@ public class UserDAO {
         String name = user.getName();
         String nric = user.getNric();
         String user_type = user.getUser_type();
-        String profile_pic = user.getProfile_pic();
-        if(profile_pic == null || profile_pic.isEmpty()){
-            profile_pic = null;
-        }
+        byte[] profilePic = user.getProfile_pic();
+        
         int company_id = user.getCompanyid();
         
         Connection conn = null;
@@ -337,8 +362,11 @@ public class UserDAO {
             //set nric
             stmt.setString(4, nric);
             
+            //convert byte[] to Blob object before putting into db
+            Blob blob = new SerialBlob(profilePic);
+            
             //set profile_pic
-            stmt.setString(5, profile_pic);
+            stmt.setBlob(5, blob);
             
             //set user_type
             stmt.setString(6, user_type);

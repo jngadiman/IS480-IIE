@@ -4,7 +4,7 @@
     Author     : Xinyao
 --%>
 
-
+<%@page import="java.util.Base64"%>
 <%@page import="DAO.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="MODELS.*"%>
@@ -31,8 +31,12 @@
         %>
         
             <div>
-                <div align="center">A Picture Should Be Inserted Here</div>
-                <p align="center"><img src="<%= user.getProfile_pic()%>"></p>
+                <%
+                    // display the image
+                        byte[ ] imgData = user.getProfile_pic();
+                        String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
+                %>
+                <div align="center"><img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" /></div>
                 
                 <h1 align="center"><%= user.getName()%></h1>
                 <br>

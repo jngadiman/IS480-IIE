@@ -21,7 +21,7 @@ public class Company {
     private String industry;
     private Date startDate;
     private int currentStage;
-    private String companyLogo;
+    private byte[] companyLogo;
 
     public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate) {
         this.id = id;
@@ -44,7 +44,7 @@ public class Company {
         this.currentStage = currentStage;
     }
 
-    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, String companyLogo) {
+    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, byte[] companyLogo) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -55,7 +55,7 @@ public class Company {
         this.companyLogo = companyLogo;
     }
 
-    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage, String companyLogo) {
+    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage, byte[] companyLogo) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -131,11 +131,11 @@ public class Company {
         this.currentStage = currentStage;
     }
 
-    public String getCompanyLogo() {
+    public byte[] getCompanyLogo() {
         return companyLogo;
     }
 
-    public void setCompanyLogo(String companyLogo) {
+    public void setCompanyLogo(byte[] companyLogo) {
         this.companyLogo = companyLogo;
     }
     

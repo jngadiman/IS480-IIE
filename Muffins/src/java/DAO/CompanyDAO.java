@@ -18,6 +18,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.lang.Object;
+import java.sql.Blob;
+import javax.sql.rowset.serial.SerialBlob;
 /**
  *
  * @author Hui Min
@@ -35,7 +37,8 @@ public class CompanyDAO {
         String mission = "";
         String industry = "";
         String start_date = "";
-        String company_logo = "";
+        Blob company_logo = null;
+        byte[] companyLogo = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -64,9 +67,10 @@ public class CompanyDAO {
                 }else{
                     currentstage = 0;
                 }
-                company_logo = result.getString("company_logo");
+                company_logo = result.getBlob("company_logo");
+                companyLogo = company_logo.getBytes(1, (int) company_logo.length());
                 
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, company_logo);
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +95,8 @@ public class CompanyDAO {
         String start_date = "";
         Date date = new Date();
         int currentstage = 0;
-        String company_logo = "";
+        Blob company_logo = null;
+        byte[] companyLogo = null;
 
         try {
             conn = ConnectionManager.getConnection();
@@ -117,9 +122,10 @@ public class CompanyDAO {
                 }else{
                     currentstage = 0;
                 }
-                company_logo = result.getString("company_logo");
+                company_logo = result.getBlob("company_logo");
+                companyLogo = company_logo.getBytes(1, (int) company_logo.length());
                 
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, company_logo);
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
                 companies.add(c);
             }
 
@@ -146,7 +152,8 @@ public class CompanyDAO {
         String start_date = "";
         Date date = new Date();
         int currentstage = 0;
-        String company_logo = "";
+        Blob company_logo = null;
+        byte[] companyLogo = null;
 
         try {
             conn = ConnectionManager.getConnection();
@@ -173,9 +180,10 @@ public class CompanyDAO {
                 }else{
                     currentstage = 0;
                 }
-                company_logo = result.getString("company_logo");
+                company_logo = result.getBlob("company_logo");
+                companyLogo = company_logo.getBytes(1, (int) company_logo.length());
                         
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, company_logo);
+                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
                 companies.add(c);
             }
 
@@ -238,7 +246,10 @@ public class CompanyDAO {
             stmt.setString(5, c.getIndustry());
             stmt.setString(6, df.format(c.getStartDate()));
             stmt.setInt(7, c.getCurrentStage());
-            stmt.setString(8, c.getCompanyLogo());
+            //convert byte[] to Blob object before putting into db
+            Blob blob = new SerialBlob(c.getCompanyLogo());
+            
+            stmt.setBlob(8, blob);
             stmt.setInt(9, c.getId());
             
             
@@ -264,7 +275,7 @@ public class CompanyDAO {
         String industry = c.getIndustry();
         Date start_date = c.getStartDate();
         int current_stage = c.getCurrentStage();
-        String company_logo = c.getCompanyLogo();
+        byte[] companyLogo = c.getCompanyLogo();
         
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Connection conn = null;
@@ -300,8 +311,12 @@ public class CompanyDAO {
             //set current_stage
             stmt.setInt(8, current_stage);
             
+            //convert byte[] to Blob object before putting into db
+            Blob blob = new SerialBlob(companyLogo);
+            
+            
             //set company_logo
-            stmt.setString(9, company_logo);
+            stmt.setBlob(9, blob);
             
             int numRecordsUpdated = stmt.executeUpdate();
             

@@ -8,22 +8,27 @@ package SERVLETS;
 import CONTROLLER.registrationController;
 import MODELS.Company;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author Hui Min
  */
 @WebServlet(name = "registerCompanyServlet", urlPatterns = {"/registerCompanyServlet"})
+@MultipartConfig(maxFileSize = 16177215)
 public class registerCompanyServlet extends HttpServlet {
 
     /**
@@ -55,10 +60,21 @@ public class registerCompanyServlet extends HttpServlet {
 
         int current_stage = Integer.parseInt(request.getParameter("current_stage"));
         
-        System.out.println(start_date);
-        System.out.println(startDate);
+        byte[] companyLogo = null;
+        InputStream inputStream = null; // input stream of the upload file
+        Part filePart = request.getPart("company_logo");
+        if (filePart != null) {
+            // prints out some information for debugging
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+             
+            // obtains input stream of the upload file
+            inputStream = filePart.getInputStream();
+            companyLogo = IOUtils.toByteArray(inputStream);
+        }
         
-        Company c = new Company(companyID, name, description, vision, mission, industry, startDate, current_stage);
+        Company c = new Company(companyID, name, description, vision, mission, industry, startDate, current_stage, companyLogo);
         String status = registrationController.addCompany(c);
         request.setAttribute("registerCompanyStatus", status);
         RequestDispatcher rd = request.getRequestDispatcher("registerCompany.jsp");

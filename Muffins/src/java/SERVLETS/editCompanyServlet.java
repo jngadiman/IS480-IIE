@@ -8,22 +8,27 @@ package SERVLETS;
 import CONTROLLER.companyController;
 import MODELS.Company;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
  * @author Hui Min
  */
 @WebServlet(name = "editCompanyServlet", urlPatterns = {"/editCompanyServlet"})
+@MultipartConfig(maxFileSize = 16177215)
 public class editCompanyServlet extends HttpServlet {
 
     /**
@@ -45,9 +50,19 @@ public class editCompanyServlet extends HttpServlet {
         String industry = request.getParameter("industry");
         String startDate = request.getParameter("startDate");
         int stage = Integer.parseInt(request.getParameter("stage"));
-        String company_logo = request.getParameter("companyLogo");
-        if(company_logo.isEmpty()){
-            company_logo = request.getParameter("company_logo");
+        
+        byte[] companyLogo = null;
+        InputStream inputStream = null; // input stream of the upload file
+        Part filePart = request.getPart("companyLogo");
+        if (filePart != null) {
+            // prints out some information for debugging
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+             
+            // obtains input stream of the upload file
+            inputStream = filePart.getInputStream();
+            companyLogo = IOUtils.toByteArray(inputStream);
         }
         
         Date start_date = null;
@@ -61,7 +76,7 @@ public class editCompanyServlet extends HttpServlet {
             }
         }
         
-        Company c = new Company(companyID, name, description, vision, mission, industry, start_date, stage, company_logo);
+        Company c = new Company(companyID, name, description, vision, mission, industry, start_date, stage, companyLogo);
         
         String status = companyController.editCompany(c);
         request.setAttribute("updateStatus", status);

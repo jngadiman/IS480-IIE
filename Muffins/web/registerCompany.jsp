@@ -34,15 +34,13 @@
             <h1 class="well">Company Registration Form</h1>
             <div class="col-lg-12 well">
                 <div class="row">
-                    <form action="registerCompanyServlet" method="post">
+                    <form action="registerCompanyServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-12">
                             <div class="row">
                                 <label>Company Logo</lable>
                                 </br>
-                                <form action="upload.php" method="post" enctype="multipart/form-data">
-                                    Select image to upload:
-                                    <input type="file" name="fileToUpload" id="fileToUpload">
-                                    <input type="submit" value="Upload Image" name="submit">
+                                Select image to upload:
+                                <input type="file" name="company_logo" id="company_logo">
                                 </form>
                             </div>
                             <div class="row">
