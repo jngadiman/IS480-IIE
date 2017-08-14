@@ -125,4 +125,8 @@ public class meetingController {
         }
         return status;
     }
+    
+    public static Meeting getMeetingByMeetingID(int meeting_id){
+        return MeetingDAO.getMeeting(meeting_id);
+    }
 }

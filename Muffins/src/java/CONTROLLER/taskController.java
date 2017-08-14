@@ -48,17 +48,11 @@ public class taskController {
         return taskID;
     }
     
-    public static String deleteTask(int taskID){
-        String returnMsg = "";
+    public static boolean deleteTask(int taskID){
+        
         boolean taskDeleted = TaskDAO.deleteTaskByID(taskID);
-        
-        if(taskDeleted){
-            returnMsg = "Task ID: " + taskID + " has been deleted successfully.";
-        }else{
-            returnMsg = "Task ID: " + taskID + " has not been deleted.";
-        }
-        
-        return returnMsg;
+       
+        return taskDeleted;
     }
     
     public static String addTaskToCompany(Task task){

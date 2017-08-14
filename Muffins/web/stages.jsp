@@ -132,10 +132,10 @@
                                                     } else{
                                                         out.println("<td>Completed</td>");
                                                     }
-                                                    out.println("<td><p class='text-center'><a href='' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
+                                                    out.println("<td><p class='text-center'><a href='editTaskServlet?taskID=" + t.getTaskId() + "' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
                                                     out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
                                                     out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-sccess btn-outline-rounded green'>Edit</a></td>");
-                                                    out.println("<td><a href='#' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
+                                                    out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId() + " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
                                                     out.println("</tr>");
                                                 }
                                             } else{

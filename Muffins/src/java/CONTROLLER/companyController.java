@@ -51,6 +51,11 @@ public class companyController {
         return status;
     }
     
+    public static Company getCompany(int company_id){
+        
+       return CompanyDAO.getCompany(company_id);
+    }
+    
     public static void main(String[] args){
         ArrayList<Company> companies = companyController.getRegularCompanies();
         for(Company c: companies){
