@@ -65,7 +65,7 @@ public class MentorDAO {
         ResultSet result = null;
         
         User u = UserDAO.getUserByEmail(email);
-        
+        System.out.println("from mentorDAO" + u.getName());
         String position = "";
         String introduction = "";
         
@@ -126,7 +126,7 @@ public class MentorDAO {
     
     
     public static void main(String[] args){
-        Mentor m = MentorDAO.getMentorByEmail("huimin@hotmail.com");
+        Mentor m = MentorDAO.getMentorByEmail("hello@hotmail.com");
         System.out.println(m.getEmail());
         System.out.println(m.getPassword());
         System.out.println(m.getName());
