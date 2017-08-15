@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.Mentee"%>
 <%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,7 +32,8 @@
                 <div id="navbar" class="navbar-collapse collapse">
                 <%
                     User user = (User) session.getAttribute("user");
-                    if(user.getUser_type().equals("mentee") || user.getUser_type().equals("mentor")){
+                    if(user.getUser_type().equals("mentee")){
+                        Mentee m = (Mentee) session.getAttribute("mentee");
                 %>    
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="home.jsp">Homepage</a></li>
@@ -41,6 +43,33 @@
                                 <li><a href="stages.jsp">Progress</a></li>
                                 <li><a href="#">Meetings</a></li>
                                 <li><a href="#">Calendar</a></li>
+                                <%
+                                    if(m != null){
+                                        if(m.getMentee_type().equals("regular")){
+                                %>
+                                        <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
+                                <%
+                                        }
+                                    }
+                                %>
+                        <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="viewPersonalProfile.jsp">Profile</a></li>
+                        <li><a href="logout.jsp">Logout</a></li>
+                    </ul>
+                <%
+                    }else if(user.getUser_type().equals("admin")){
+                %>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="adminHomepage.jsp">Homepage</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge">14</span>  </a></li>
+                                <li><a href="viewCompanyProfile.jsp">View All Companies</a></li>
+                                <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
+                                <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                             </ul>
                         </li>
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>
@@ -49,12 +78,13 @@
                 <%
                     }else{
                 %>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="adminHomepage.jsp">Homepage</a></li>
+                        <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge">14</span>  </a></li>
+                                <li><a href="stages.jsp">Progress</a></li>
+                                <li><a href="#">Meetings</a></li>
+                                <li><a href="#">Calendar</a></li>
                                 <li><a href="viewCompanyProfile.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>

@@ -40,7 +40,7 @@
     </head>
     <body>
         <%
-            User user = (User) session.getAttribute("user");
+            user = (User) session.getAttribute("user");
 
            //hardcoded, need to replace with session key later
             ArrayList<String> degrees = new ArrayList<>();
