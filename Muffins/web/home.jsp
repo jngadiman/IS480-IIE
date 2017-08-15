@@ -41,9 +41,11 @@
                                 <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
                         <%
                                 }
+                        %>
+                                <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
+                        <%
                             }
                         %>
-                        <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="">Nav item</a></li>

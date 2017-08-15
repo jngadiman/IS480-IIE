@@ -35,7 +35,6 @@
 </script>
     </head>
     <body>
-        <h1>Hello World!</h1>
         <section style="background:#efefe9;">
             <div class="container">
                 <div class="row">
@@ -89,6 +88,7 @@
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
+                                    <div align="right"><a href="stages.jsp">Go Back to Stages</a></div>
                                 </div>
                                 <div class="col-sm-2"></div>
 

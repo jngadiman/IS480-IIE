@@ -38,6 +38,8 @@ public class adminPendingRequestServlet extends HttpServlet {
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
             status = requestController.updateRequest(requestID, "approved");
             
+            //add in mentor to the Mentee class
+            
         }else if(request.getParameter("rejectBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));

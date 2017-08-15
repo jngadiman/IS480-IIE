@@ -17,40 +17,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
-        <%@include file="navbar.jsp" %>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-4">
+                <div class="col-md-4 col-md-offset-4">
+                    <h1>IIE Portal</h1>
 
-                            <div class="card card-container">
-                                <p id="profile-name" class="profile-name-card"></p>
-                                <form class="form-signin" action = "loginServlet" method = "post">
-                                    <span id="reauth-email" class="reauth-email"></span>
-                                    <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" required>
-                                    <font color = 'red'><%=loginErrorMessage%></font>
-                                    <div id="remember" class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="remember-me"> Remember me
-                                        </label>
-                                    </div>
-                                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-                                </form><!-- /form -->
-                                <a href="#" class="forgot-password">
-                                    Forgot the password?
-                                </a>
-                            </div><!-- /card-container -->
-
+                    <p id="profile-name" class="profile-name-card"></p>
+                    <form class="form-signin" action = "loginServlet" method = "post">
+                        <span id="reauth-email" class="reauth-email"></span>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <font color = 'red'><%=loginErrorMessage%></font>
+                        <div id="remember" class="checkbox">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
                         </div>
-                        <div class="col-md-4">
-                        </div>
-                    </div>
+                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                    </form><!-- /form -->
+                    <br/>
+                    <a href="changePassword.jsp" class="forgot-password">
+                        Forgot the password?
+                    </a><br/>
+                    No account? Sign up <a href="registerUser.jsp">here</a>
                 </div>
             </div>
         </div>

@@ -58,7 +58,14 @@ public class loginServlet extends HttpServlet {
                 }
                 
                 session.setAttribute("user", currentUser);
-                response.sendRedirect("index.jsp");
+                if(currentUser.getUser_type().equals("admin")){
+                    response.sendRedirect("adminHomepage.jsp");
+                }else if(currentUser.getUser_type().equals("mentee")){
+                    response.sendRedirect("home.jsp");
+                }else{
+                    response.sendRedirect("index.jsp");
+                }
+                
             } else {
                 System.out.println("USER IS NOT VALIDATED :(" );
                 request.setAttribute("loginErrorMessage", "invalid email/password");

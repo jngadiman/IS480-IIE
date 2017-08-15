@@ -16,7 +16,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User Registration</title>
-        <%@include file="navbar.jsp" %>
+              <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
         <link href="css/form.css" rel="stylesheet" type="text/css"/>
         <script>
             function validateForm() {
@@ -110,7 +112,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Company</label> if not found please sign up your company first
+                                    <label class="control-label">Company</label> if not found sign company up <a href="registerCompany.jsp">here</a>
 
                                     <select class="form-control" id="select" name="company" required>
                                         <%

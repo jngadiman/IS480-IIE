@@ -4,6 +4,8 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.companyController"%>
+<%@page import="CONTROLLER.mentorController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="DAO.*"%>
 <%@page import="java.util.ArrayList"%>
@@ -20,7 +22,7 @@
     </head>
     <body>
         <%
-            User user = (User) session.getAttribute("user");
+            user = (User) session.getAttribute("user");
         %>
         
            <div class="container">
@@ -48,6 +50,16 @@
                 
                 <% if (type.equals("mentee")){
                     Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
+                    String mentor_name = "";
+                    if(mentee.getMentor_email() == null || !mentee.getMentor_email().isEmpty()){
+                        Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
+                        mentor_name = myMentor.getName();
+                    }
+                    String company_name= "";
+                    if(mentee.getCompanyid() != 0){
+                        Company c = companyController.getCompany(mentee.getCompanyid());
+                        company_name = c.getName();
+                    }
                 %>
                     
                 <p><strong>User Type</strong> : <%= mentee.getMentee_type() + " " + type%></p>
@@ -56,15 +68,25 @@
                 <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
                   
                 <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
-                    
+                
+                <p><strong>Company </strong> : <%= company_name%></p>
+            
+                <p><strong>Mentor </strong> : <%= mentor_name%></p>
                 
                 <%} else if(type.equals("mentor")){
                         Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
+                        String company_name= "";
+                        if(mentor.getCompanyid() != 0){
+                            Company c = companyController.getCompany(mentor.getCompanyid());
+                            company_name = c.getName();
+                        }
                 %>
-                     <p><strong>User Type</strong> : <%=type%></p>
-                     <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
-                     <p><strong>Introduction</strong><br>
-                         <%= mentor.getIntroduction()%></p>
+                
+                <p><strong>User Type</strong> : <%=type%></p>
+                <p><strong>Company</strong> : <%= company_name%></p>
+                <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
+                <p><strong>Introduction</strong><br>
+                    <%= mentor.getIntroduction()%></p>
                 <% } %>
             </div>             
                 
