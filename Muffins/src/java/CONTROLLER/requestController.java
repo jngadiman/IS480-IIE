@@ -36,17 +36,12 @@ public class requestController {
         return requestID;
     }
     
-    public static String updateRequest(int requestID, String status){
+    public static int updateRequest(int requestID, String status){
         String updateStatus = "";
         
         int result = RequestDAO.updateRequest(requestID, status);
-        if(result == 1){
-            updateStatus = "Request is updated!";
-        }else{
-            updateStatus = "Please try again!";
-        }
         
-        return updateStatus;
+        return result;
     }
     
     public static ArrayList<Request> getAllRequestsByStatus (String status){
@@ -59,5 +54,10 @@ public class requestController {
         ArrayList<Request> requests = RequestDAO.getAllRequests();
         
         return requests;
+    }
+    
+    public static Request getRequest(int requestID){
+        Request r = RequestDAO.getRequestByRequestID(requestID);
+        return r;
     }
 }

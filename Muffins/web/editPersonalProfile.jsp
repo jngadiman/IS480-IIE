@@ -4,6 +4,8 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.companyController"%>
+<%@page import="CONTROLLER.mentorController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="DAO.MenteeDAO"%>
@@ -70,7 +72,7 @@
                                     byte[] imgData = user.getProfile_pic();
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                 %>
-                                <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="images Here" />
+                                <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                                 <h2><%= user.getName()%></h2>
                                 <p><strong>Email Address</strong> : <%= user.getEmail()%></p>
                                 <p><strong>NRIC</strong> : <%= user.getNric()%></p>
@@ -91,24 +93,37 @@
                                     <br/>
                                     <%
                                         if (user.getUser_type().equals("mentee")) {
-                                            Mentee m = MenteeDAO.getMenteeByEmail(user.getEmail());
+                                            Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
+                                            
+                                            String mentor_name = "";
+                                            if(mentee.getMentor_email() == null || !mentee.getMentor_email().isEmpty()){
+                                                Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
+                                                mentor_name = myMentor.getName();
+                                            }
+                                            
+                                            String company_name= "";
+                                            if(mentee.getCompanyid() != 0){
+                                                Company c = companyController.getCompany(mentee.getCompanyid());
+                                                company_name = c.getName();
+                                            }
+                
                                     %>
-                                    <input type="hidden" name="degreeText" value="<%= m.getDegree()%>">
-                                    <p><strong>Mentor Email</strong> : <%= m.getMentor_email()%></p>
+                                    <input type="hidden" name="degreeText" value="<%= mentee.getDegree()%>">
+                                    <p><strong>Mentor</strong> : <%= mentor_name%></p>
+                                    <p><strong>Company </strong> : <%= company_name%></p>
                                     <div class="row">
                                         <div class="col-sm-6 form-group">
                                             <label>Year of Graduation</label>
-                                            <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= m.getYear_of_grad()%>" required>
+                                            <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= mentee.getYear_of_grad()%>" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6 form-group required">
                                             <label  class="control-label">Degree</label>
-                                            //CANNOT DISPLAY SELECTED CHOICE FROM DB
                                             <select class="form-control" name="degree" required>
-                                                <option selected value = <%=m.getDegree()%> ><%=m.getDegree()%></option>
+                                                <option selected value = <%=mentee.getDegree()%> ><%=mentee.getDegree()%></option>
                                                 <% for (String d : degrees) {
-                                                if (!m.getDegree().equals(d)) {%>
+                                                if (!mentee.getDegree().equals(d)) {%>
                                                 <option value=<%=d%>> <%=d%></option>
                                                 <%      }
                                                     }
@@ -117,10 +132,15 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="menteeType" value="<%= m.getMentee_type()%>">
-                                    <input type="hidden" name="mentorEmail" value="<%= m.getMentor_email()%>">
+                                    <input type="hidden" name="menteeType" value="<%= mentee.getMentee_type()%>">
+                                    <input type="hidden" name="mentorEmail" value="<%= mentee.getMentor_email()%>">
                                     <%  } else {
                                         Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
+                                        String company_name= "";
+                                        if(mentor.getCompanyid() != 0){
+                                            Company c = companyController.getCompany(mentor.getCompanyid());
+                                            company_name = c.getName();
+                                        }
                                     %> 
                                     <div class="row">
                                         <div class="col-sm-6 form-group">

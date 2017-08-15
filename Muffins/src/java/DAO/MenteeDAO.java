@@ -292,6 +292,31 @@ public class MenteeDAO {
         return result;
     }
     
+    public static int updateMentor_Email(String mentee_email, String mentor_email){
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            stmt = conn.prepareStatement("UPDATE Mentee SET mentor_email = ? WHERE email = ?;");
+            stmt.setString(1, mentor_email);
+            stmt.setString(2, mentee_email);
+            
+            result = stmt.executeUpdate();
+            //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
     public static void main(String[] args){
 //        ArrayList<ArrayList<String>> regularMentees = MenteeDAO.getRegularMenteeDetails();
 //        for(ArrayList<String> regularMentee : regularMentees){
@@ -303,19 +328,21 @@ public class MenteeDAO {
 //        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S7657328Y", null, "mentee", 1, "regular", "business", 2018, "huimin@hotmail.com");
 //        int result = MenteeDAO.editMenteeDetails(m);
 //        System.out.println(result);
-        
-            Mentee m = MenteeDAO.getMenteeByEmail("y@smu.edu.sg");
-            System.out.println(m.getEmail());
-            System.out.println(m.getPassword());
-            System.out.println(m.getName());
-            System.out.println(m.getNric());
-            System.out.println(m.getProfile_pic());
-            System.out.println(m.getUser_type());
-            System.out.println(m.getCompanyid());
-            System.out.println(m.getMentee_type());
-            System.out.println(m.getDegree());
-            System.out.println(m.getYear_of_grad());
-            System.out.println(m.getMentor_email());
+                int result = MenteeDAO.updateMentor_Email("y@smu.edu.sg", "hello@hotmail.com");
+                System.out.println(result);
+            
+//            Mentee m = MenteeDAO.getMenteeByEmail("y@smu.edu.sg");
+//            System.out.println(m.getEmail());
+//            System.out.println(m.getPassword());
+//            System.out.println(m.getName());
+//            System.out.println(m.getNric());
+//            System.out.println(m.getProfile_pic());
+//            System.out.println(m.getUser_type());
+//            System.out.println(m.getCompanyid());
+//            System.out.println(m.getMentee_type());
+//            System.out.println(m.getDegree());
+//            System.out.println(m.getYear_of_grad());
+//            System.out.println(m.getMentor_email());
         
     }
 }

@@ -36,7 +36,7 @@
                         byte[ ] imgData = user.getProfile_pic();
                         String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
                 %>
-                <img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" />
+                <img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="Profile Picture" />
                 
                 <h2><%= user.getName()%></h2>
 
