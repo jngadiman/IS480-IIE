@@ -1,16 +1,14 @@
 <%-- 
-    Document   : addMeetingMinutes
-    Created on : Aug 4, 2017, 2:18:24 PM
-    Author     : jiatung.lim
+    Document   : editMeetingMinutes
+    Created on : Aug 15, 2017, 12:37:06 PM
+    Author     : JJAY
 --%>
-
 <%@page import="MODELS.Task"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.taskController"%>
 <%@page import="MODELS.Meeting"%>
 <%@page import="CONTROLLER.meetingController"%>
 <%@page import="MODELS.User"%>
-<%@include file="browserCloseEvent.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -142,3 +140,4 @@
         </div>
     </body>
 </html>
+

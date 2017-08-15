@@ -44,7 +44,7 @@ public class adminDisplayRequestsServlet extends HttpServlet {
         }else{
             requests = requestController.getAllRequestsByStatus(status);
         }
-        
+        session.setAttribute("requestStatus", status);
         session.setAttribute("requests", requests);
         response.sendRedirect("adminViewAllRequests.jsp");
     }
