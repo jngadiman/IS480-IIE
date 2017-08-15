@@ -72,7 +72,7 @@ public class registerCompanyServlet extends HttpServlet {
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
             companyLogo = IOUtils.toByteArray(inputStream);
-        }
+        }   
         
         Company c = new Company(companyID, name, description, vision, mission, industry, startDate, current_stage, companyLogo);
         String status = registrationController.addCompany(c);

@@ -545,10 +545,38 @@ public class UserDAO {
         
     }
     
+    public static ArrayList<String> getUserEmailsOfCompany(int company_id){
+        ArrayList<String> menteeEmails = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select email from User where company_id = ?;");
+            stmt.setInt(1, company_id);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                menteeEmails.add(email);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return menteeEmails;
+    }
+    
     public static void main(String[] args){
-        ArrayList<Integer> companyIDs = UserDAO.getRegularCompanyIDs();
-        for(Integer i : companyIDs){
-            System.out.println(i);
+        ArrayList<String> emails = UserDAO.getUserEmailsOfCompany(2);
+        for(String email: emails){
+            System.out.println(email);
         }
     }
     

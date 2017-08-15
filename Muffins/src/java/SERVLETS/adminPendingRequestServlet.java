@@ -5,7 +5,9 @@
  */
 package SERVLETS;
 
+import CONTROLLER.menteeController;
 import CONTROLLER.requestController;
+import MODELS.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,27 +34,33 @@ public class adminPendingRequestServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int result = 0;
         String status = "";
+        
+        //get mentee details frm the relationship using the company
+        
         if(request.getParameter("approveBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            status = requestController.updateRequest(requestID, "approved");
+            result = requestController.updateRequest(requestID, "approved");
+            Request r = requestController.getRequest(requestID);
             
-            //add in mentor to the Mentee class
+            if(result == 1){
+                int result1 = menteeController.updateMentorEmail(r.getCompanyID(), r.getMentorEmail());
+            }
             
         }else if(request.getParameter("rejectBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            status = requestController.updateRequest(requestID, "declined");
+            result = requestController.updateRequest(requestID, "declined");
             
         }else if(request.getParameter("overBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            status = requestController.updateRequest(requestID, "over");
+            result = requestController.updateRequest(requestID, "over");
             
         }
         
-        request.setAttribute("status", status);
         response.sendRedirect("adminViewAllRequests.jsp");
         
     }
