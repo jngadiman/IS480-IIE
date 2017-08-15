@@ -17,77 +17,65 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor Profile</title>
         <%@include file="navbar.jsp" %>
-        <link href="css/stages.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/npm.js" type="text/javascript"></script>
-        <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
-        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
     </head>
     <body>
         <%
             User user = (User) session.getAttribute("user");
         %>
         
-            <div>
+           <div class="container">
+	<div class="row">
+		<div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
+
+            <div class="col-sm-8 well">
+                <div class="col-xs-12 col-sm-8">
                 <%
                     // display the image
                         byte[ ] imgData = user.getProfile_pic();
                         String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
                 %>
-                <div align="center"><img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" /></div>
+                <img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" />
                 
-                <h1 align="center"><%= user.getName()%></h1>
-                <br>
-                
-                <h2 align="center">Email Address</h2>
-                <p align="center"><%= user.getEmail()%></p>
-                <br>
-                
-                <h2 align="center">NRIC</h2>
-                <p align="center"><%= user.getNric()%></p>
+                <h2><%= user.getName()%></h2>
+
+
+                <p><strong>Email Address</strong> : <%= user.getEmail()%></p>
+
+
+                <p><strong>NRIC</strong> : <%= user.getNric()%></p>
                 
                 <%String type = user.getUser_type(); %>
                 
-                
-                <br>
                 <% if (type.equals("mentee")){
                     Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                 %>
                     
-                    <h2 align="center">User Type</h2>
-                    <p align="center"><%= mentee.getMentee_type() + " " + type%></p>
-                    <br>
-                
-                    <h2 align="center">Degree</h2>
-                    <br>
-                    <p align="center"><%= mentee.getDegree()%></p>
-                    <br>
+                <p><strong>User Type</strong> : <%= mentee.getMentee_type() + " " + type%></p>
                     
-                    <h2 align="center">Year of Graduation</h2>
-                    <br>
-                    <p align="center"><%= mentee.getYear_of_grad()%></p>
-                    <br>
+                
+                <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
+                  
+                <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
+                    
                 
                 <%} else if(type.equals("mentor")){
                         Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
                 %>
-                    <h2 align="center">User Type</h2>
-                    <p align="center"><%=type%></p>
-                    <br>
-                    <h2 align="center">Current Position in the Company</h2>
-                    <br>
-                    <p align="center"><%= mentor.getPosition()%></p>
-                    <br>
-                    <h2 align="center">Introduction</h2>
-                    <br>
-                    <p align="center"><%= mentor.getIntroduction()%></p>
+                     <p><strong>User Type</strong> : <%=type%></p>
+                     <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
+                     <p><strong>Introduction</strong><br>
+                         <%= mentor.getIntroduction()%></p>
                 <% } %>
+            </div>             
+                
+                </div>
             </div>
+    	 </div>                 
+		</div>
+	</div>
         </body>
         
-        <div class="text-center"><a href="editPersonalProfile.jsp" class="btn btn-success btn-outline-rounded green">Edit Profile</a></div>
+        <div class="text-center"><a href="editPersonalProfile.jsp" class="btn-sm btn-success">Edit Profile</a></div>
         
 
 </html>
