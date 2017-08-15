@@ -16,6 +16,12 @@ import java.util.ArrayList;
  * @author Hui Min
  */
 public class menteeController {
+    
+    public static Mentee getMentee(String email){
+        Mentee m = MenteeDAO.getMenteeByEmail(email);
+        return m;
+    }
+    
     public static ArrayList<Mentee> getLightMentees(){
         ArrayList<Mentee> lightMentees = new ArrayList<>();
         Mentee m = null;

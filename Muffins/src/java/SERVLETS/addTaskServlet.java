@@ -47,7 +47,8 @@ public class addTaskServlet extends HttpServlet {
         String deadline = request.getParameter("deadline");
         
         //temp company id variable for testing --> NEED CHANGE ONCE HOMEPAGE IS UP!
-        int companyID = 3;
+        User currentUser = (User)session.getAttribute("user");
+        int companyID = currentUser.getCompanyid();
         
         Date dateDeadline = null;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
