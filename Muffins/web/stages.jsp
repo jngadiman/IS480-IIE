@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.User"%>
 <%@page import="CONTROLLER.taskController"%>
 <%@page import="DAO.TaskDAO"%>
 <%@page import="MODELS.Task"%>
@@ -11,6 +12,7 @@
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="protect.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +27,6 @@
         <script src="js/npm.js" type="text/javascript"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
         <section style="background:#efefe9;">
             <div class="container">
                 <div class="row">
@@ -114,12 +115,12 @@
                                 <tbody>
                                                                         <%
                                     out.println("<tr>");
-                                    int companyID = 1;
-                                    Company c = CompanyDAO.getCompany(companyID);
+                                    user = (User) session.getAttribute("user");
+                                    Company c = CompanyDAO.getCompany(user.getCompanyid());
                                     if (c != null){
                                         int stage = c.getCurrentStage();
                                         if(stage >= 1){
-                                            ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(stage, companyID);
+                                            ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(stage, user.getCompanyid());
                                             if (tasks != null){
                                                 for (Task t: tasks){
                                                     out.println("<tr>");

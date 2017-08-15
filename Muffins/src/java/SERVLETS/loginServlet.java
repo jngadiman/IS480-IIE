@@ -44,6 +44,15 @@ public class loginServlet extends HttpServlet {
             System.out.println("USERNAME AND EMAIL NOT NULL" );
             if ((currentUser = loginController.validateUser(email, password)) != null) {
                 System.out.println("USER IS VALIDATED" );
+                
+                if(currentUser.getUser_type().equals("mentee")){
+                    Mentee m = menteeController.getMentee(email);
+                    session.setAttribute("mentee",m);
+                }else if(currentUser.getUser_type().equals("mentor")){
+                    Mentor m = mentorController.getMentor(email);
+                    session.setAttribute("mentor",m);
+                }
+                
                 session.setAttribute("user", currentUser);
                 response.sendRedirect("index.jsp");
             } else {
