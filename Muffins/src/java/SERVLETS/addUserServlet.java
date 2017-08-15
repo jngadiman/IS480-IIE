@@ -50,7 +50,8 @@ public class addUserServlet extends HttpServlet {
         int companyID = 0;
         companyID = Integer.parseInt(comp);
        
-        User user = new User(email, password, name, nric, null, user_type, companyID);
+        User user = new User(email, password, name, nric, null, "mentee", companyID);
+        //Mentee mentee
         String status = registrationController.addUser(user);
         request.setAttribute("status", status);
         RequestDispatcher rd = request.getRequestDispatcher("registerUser.jsp");

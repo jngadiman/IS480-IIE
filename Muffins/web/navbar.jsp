@@ -70,7 +70,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge">14</span>  </a></li>
-                                <li><a href="viewCompanyProfile.jsp">View All Companies</a></li>
+                                <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                             </ul>

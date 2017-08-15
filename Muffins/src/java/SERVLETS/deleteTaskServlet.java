@@ -50,7 +50,7 @@ public class deleteTaskServlet extends HttpServlet {
         if(result){
             String successMsg = "Task ID: " + taskID + " has been deleted successfully.";
             request.setAttribute("successMsgForDelete", successMsg);
-            RequestDispatcher rd = request.getRequestDispatcher("sviewTasks.jsp?id="+stageID);
+            RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID);
             rd.forward(request, response);
         }else{
             errorMsg = "Task ID: " + taskID + " has not been deleted.";

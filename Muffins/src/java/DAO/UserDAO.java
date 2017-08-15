@@ -352,6 +352,7 @@ public class UserDAO {
         byte[] profilePic = user.getProfile_pic();
         
         int company_id = user.getCompanyid();
+        Blob blob = null;
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -374,8 +375,12 @@ public class UserDAO {
             //set nric
             stmt.setString(4, nric);
             
-            //convert byte[] to Blob object before putting into db
-            Blob blob = new SerialBlob(profilePic);
+            if(profilePic == null){
+                blob = null;
+            }else{
+                //convert byte[] to Blob object before putting into db
+                blob = new SerialBlob(profilePic);
+            }
             
             //set profile_pic
             stmt.setBlob(5, blob);

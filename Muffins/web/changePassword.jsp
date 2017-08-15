@@ -21,8 +21,8 @@
                     <h1>Change Password</h1>
                     <form class="form-signin" method ="POST" action ="changePasswordServlet">
                         Email <input type ="text" name ="email" class="form-control" required> </BR>
-                        Password <input type ="text" name ="newPassword" class="form-control" required> </BR>
-                        Confirm Password <input type ="text" name ="confirmPassword" class="form-control" required> </BR>
+                        Password <input type ="password" name ="newPassword" class="form-control" required> </BR>
+                        Confirm Password <input type ="password" name ="confirmPassword" class="form-control" required> </BR>
                          <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Change</button>
 
                     </form> 
