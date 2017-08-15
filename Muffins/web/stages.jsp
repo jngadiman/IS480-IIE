@@ -21,10 +21,6 @@
         <title>Stages</title>
         <%@include file="navbar.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/npm.js" type="text/javascript"></script>
     </head>
     <body>
         <section style="background:#efefe9;">
@@ -37,54 +33,67 @@
                                 <li class="active">
                                     <a href="#one" data-toggle="tab" title="one">
                                         <span class="round-tabs one">
-                                            1
+                                            H
                                         </span> 
                                     </a></li>
 
                                 <li><a href="#two" data-toggle="tab" title="two">
                                         <span class="round-tabs two">
-                                            2
+                                            1
                                         </span> 
                                     </a>
                                 </li>
                                 <li><a href="#three" data-toggle="tab" title="three">
                                         <span class="round-tabs three">
-                                            3
+                                            2
                                         </span> </a>
                                 </li>
 
                                 <li><a href="#four" data-toggle="tab" title="four">
                                         <span class="round-tabs four">
-                                            4
+                                            3
                                         </span> 
                                     </a></li>
 
                                 <li><a href="#five" data-toggle="tab" title="five">
                                         <span class="round-tabs five">
-                                            5
+                                            4
                                         </span> </a>
                                 </li>
 
                             </ul></div>
 
+                       
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="one">
 
                                 <h3 class="head text-center">HOME<span style="color:#f48260;">♥</span></h3>
                                 <p class="narrow text-center">
                                     Welcome!<br/>
-                                    You are currently at Stage 1
+                                     <%
+                        int stage = 0;
+                        user = (User) session.getAttribute("user");
+                            Company c = CompanyDAO.getCompany(user.getCompanyid());
+                            if (c != null) {
+                                stage = c.getCurrentStage();%>
+                                You are currently at Stage <%=stage%>
+                                <%
+                            }
+                        else {
+                            }
+                        %>
+                                    
                                 <div class="progress ">
                                     <div class="progress-bar progress-bar-striped active" role="progressbar"
                                          aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
                                         40%
                                     </div>
                                 </div>
-                                </p>
-
+                                
                                 <p class="text-center">
-                                    <a href="" class="btn btn-success btn-outline-rounded green"> read more on what are the steps to do here <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                    <a href="viewTasks.jsp?id=<%=stage%>" class="btn btn-success btn-outline-rounded green">View tasks at current stage<span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
+                                
                             </div>
                             <div class="tab-pane fade" id="two">
                                 <h3 class="head text-center">Stage 1<sup>™</sup> Profile</h3>
@@ -94,76 +103,9 @@
                                 </p>
 
                                 <p class="text-center">
-                                    <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                    <a href="viewTasks.jsp?id=1" class="btn btn-success btn-outline-rounded green">  Stage 1 Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
-                                
-                                                              <h2>Task List</h2>
-                              <p>The tasks for the current stage are shown below:</p>            
-                              <table class="table table-hover table-striped table-bordered ">
-                                <thead>
-                                  <tr>
-                                    <th>Task Index</th>
-                                    <th>Task Name</th>
-                                    <th>Description</th>
-                                    <th>Deadline</th>
-                                    <th>Status</th>
-                                    <th>Click to change task status</th>
-                                    <th>Edit Task</th>
-                                    <th>Delete Task</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                                                        <%
-                                    out.println("<tr>");
-                                    user = (User) session.getAttribute("user");
-                                    Company c = CompanyDAO.getCompany(user.getCompanyid());
-                                    if (c != null){
-                                        int stage = c.getCurrentStage();
-                                        if(stage >= 1){
-                                            ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(stage, user.getCompanyid());
-                                            if (tasks != null){
-                                                for (Task t: tasks){
-                                                    out.println("<tr>");
-                                                    out.println("<td>" + t.getTaskId() + "</td>");
-                                                    out.println("<td>" + t.getName() + "</td>");
-                                                    out.println("<td>" + t.getDescription()+ "</td>");
-                                                    out.println("<td>" + t.getDeadline() + "</td>");
-                                                    if(t.isIsCompleted() == true){
-                                                        out.println("<td>Completed</td>");
-                                                    } else{
-                                                        out.println("<td>Completed</td>");
-                                                    }
-                                                    out.println("<td><p class='text-center'><a href='editTaskServlet?taskID=" + t.getTaskId() + "' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete<span style='margin-left:10px;' class=''></span></a></p></td>");
-                                                    out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
-                                                    out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-sccess btn-outline-rounded green'>Edit</a></td>");
-                                                    out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId() + " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
-                                                    out.println("</tr>");
-                                                }
-                                            } else{
-                                                out.println("no tasks found");
-                                            }
-                                        } else {
-                                            out.println("You company is at stage 0");
-                                        }
-                                        
-                                    } else {
-                                        out.println("Company not registered");
-                                    }
-                                    
-                                    
-                                    %>
-                                 
-                                  
-                                    
-                                </tbody>
-                              </table>
-                              
-                              <p class="text-center">
-                                  <a href="addTask.jsp" class="btn btn-success btn-outline-rounded green"> Add Task</a>
- 
-                                  </p>
-                                    
-
+   
                             </div>
                             <div class="tab-pane fade" id="three">
                                 <h3 class="head text-center">Stage 2</h3>
@@ -173,7 +115,7 @@
                                 </p>
 
                                 <p class="text-center">
-                                    <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here  <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                    <a href="viewTasks.jsp?id=2" class="btn btn-success btn-outline-rounded green">  Stage 2 Tasks  <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
 
                             </div>
@@ -185,7 +127,7 @@
                                 </p>
 
                                 <p class="text-center">
-                                    <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                    <a href="viewTasks.jsp?id=3" class="btn btn-success btn-outline-rounded green">  Stage 3 Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
                             </div>
 
@@ -200,7 +142,7 @@
                                 </p>
 
                                 <p class="text-center">
-                                    <a href="" class="btn btn-success btn-outline-rounded green">  read more on what are the steps to do here <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                    <a href="viewTasks.jsp?id=4" class="btn btn-success btn-outline-rounded green">  Stage 4 Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
 
 

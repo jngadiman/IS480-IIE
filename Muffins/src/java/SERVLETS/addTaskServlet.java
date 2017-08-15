@@ -44,22 +44,27 @@ public class addTaskServlet extends HttpServlet {
         String taskName = request.getParameter("taskName");
         String taskDescription = request.getParameter("taskDescription");
         int stage = Integer.parseInt(request.getParameter("taskStage"));
-        String deadline = request.getParameter("deadline");
+        String deadline = request.getParameter("date");
+        System.out.println(deadline +"<-- MY DEADLINE PASSED");
         
         //temp company id variable for testing --> NEED CHANGE ONCE HOMEPAGE IS UP!
         User currentUser = (User)session.getAttribute("user");
         int companyID = currentUser.getCompanyid();
         
         Date dateDeadline = null;
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         
         boolean isCompleted = false;
-        
-        try {
+        if(deadline!=null|| !deadline.equals("")){
+          try {
             dateDeadline = df.parse(deadline);
+            System.out.println(dateDeadline +"<-- AFTER PARSING");
+            
         } catch (ParseException ex) {
             ex.printStackTrace();
+        }  
         }
+        
 //        int companyID = currentUser.getCompanyid();
         
         Task task = new Task(taskID, taskName, taskDescription, dateDeadline, stage, companyID, isCompleted);

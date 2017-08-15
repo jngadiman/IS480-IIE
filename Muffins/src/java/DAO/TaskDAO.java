@@ -369,6 +369,7 @@ public class TaskDAO {
             stmt.setString(2, task.getName());
             stmt.setString(3, task.getDescription());
             stmt.setString(4, df.format(task.getDeadline()));
+            System.out.println("DEADLINEEEE"+ df.format(task.getDeadline()));
             stmt.setInt(5, task.getStage());
             stmt.setInt(6, task.getCompanyID());
             stmt.setString(7, status);
@@ -392,7 +393,7 @@ public class TaskDAO {
         ResultSet set = null;
         Task task = null;
         int result = 0;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             conn = ConnectionManager.getConnection();
