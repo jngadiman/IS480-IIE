@@ -71,9 +71,9 @@ public class taskController {
      public static String editTaskOfCompany(int taskID, String taskName, String desc, Date deadline, int stage, int companyID, boolean isCompleted){
        
        
-        TaskDAO taskDAO = new TaskDAO();
+        
         String returnMsg = "";
-        int result = taskDAO.editTask(taskID, taskName, desc, deadline, stage, companyID, isCompleted);
+        int result = TaskDAO.editTask(taskID, taskName, desc, deadline, stage, companyID, isCompleted);
         System.out.println(result);
         if(result == 0){
             returnMsg = "An error have occured, kindly try again!";
@@ -83,6 +83,18 @@ public class taskController {
         
         return returnMsg;
         
+    }
+     
+    public static String completeTask(int task_id){
+        String returnMsg = "";
+        int result = TaskDAO.completeTaskByID(task_id);
+        System.out.println(result);
+        if(result == 0){
+            returnMsg = "An error have occured, kindly try again!";
+        }else{
+            returnMsg = "Task had been edited successfully";
+        }
+        return returnMsg;
     }
     
     public static void main(String[] args){

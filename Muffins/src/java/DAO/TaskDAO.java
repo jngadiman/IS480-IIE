@@ -445,6 +445,36 @@ public class TaskDAO {
         return taskID;
     }
     
+    public static int completeTaskByID(int task_id) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        int result = 0;
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+           
+           
+            stmt = conn.prepareStatement("UPDATE task SET  is_completed = ? WHERE task_id = ?;");
+            stmt.setString(1, "Y");
+            stmt.setInt(2, task_id);
+            
+            
+            result = stmt.executeUpdate();
+            
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
     public static void main(String[] args){
         int taskID = TaskDAO.getNextTaskID();
         Date deadline = new Date();

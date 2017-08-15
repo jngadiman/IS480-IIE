@@ -14,13 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author JJAY
  */
-@WebServlet(name = "deleteTaskServlet", urlPatterns = {"/deleteTaskServlet"})
-public class deleteTaskServlet extends HttpServlet {
+@WebServlet(name = "completeTaskServlet", urlPatterns = {"/completeTaskServlet"})
+public class completeTaskServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,31 +34,16 @@ public class deleteTaskServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String task_id = request.getParameter("taskID");
+        HttpSession session = request.getSession();
+        String taskID = request.getParameter("taskID");
         String stageID = request.getParameter("stageID");
-        int taskID = 0;
-        String errorMsg = "";
+        int task_id = Integer.parseInt(taskID);
         
-        if (task_id==null||task_id.equals("")){
+        String result = taskController.completeTask(task_id);
+        //session.setAttribute("completeTaskStatus", result);
+        RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID+"&completeTaskStatus="+result);
+        rd.forward(request,response);
        
-            errorMsg = "No task is selected to delete";
-            request.setAttribute("errorMsgForDelete", errorMsg);
-            RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID);
-            rd.forward(request, response);
-        }
-        taskID = Integer.parseInt(task_id);
-        boolean result = taskController.deleteTask(taskID);
-        if(result){
-            String successMsg = "Task ID: " + taskID + " has been deleted successfully.";
-            request.setAttribute("successMsgForDelete", successMsg);
-            RequestDispatcher rd = request.getRequestDispatcher("sviewTasks.jsp?id="+stageID);
-            rd.forward(request, response);
-        }else{
-            errorMsg = "Task ID: " + taskID + " has not been deleted.";
-            request.setAttribute("errorMsgForDelete", errorMsg);
-            RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID);
-            rd.forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

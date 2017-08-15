@@ -25,8 +25,13 @@
         <div class="container">
 
             <div class ="col-lg-8 col-lg-offset-2">
-                <%                    String stageStr = request.getParameter("id");
-                    int stage = Integer.parseInt(stageStr);
+                <%                    
+                    int stage = 0;
+                    String stageStr = request.getParameter("id");
+                    if(stageStr!=null&&!stageStr.equals("")){
+                       stage = Integer.parseInt(stageStr);
+                    }
+                    
 
                 %>
                 <h1>Task List Stage <%=stage%></h1>
@@ -69,12 +74,12 @@
 
                                             } else {
                                                 out.println("<td>Incomplete</td>");
-                                                out.println("<td><p class='text-center'><a href='editTaskServlet?taskID=" + t.getTaskId() + "' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete</a></p></td>");
+                                                out.println("<td><p class='text-center'><a href='completeTaskServlet?taskID=" + t.getTaskId() + "&stageID="+stage+"' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete</a></p></td>");
 
                                             }
                                             out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
                                             out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-sccess btn-outline-rounded green'>Edit</a></td>");
-                                            out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId() + " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
+                                            out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId()+ "&stageID="+stage+ " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
                                             out.println("</tr>");
                                         }
                                     }
