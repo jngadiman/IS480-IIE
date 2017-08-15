@@ -4,6 +4,12 @@
     Author     : jiatung.lim
 --%>
 
+<%@page import="MODELS.Task"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="CONTROLLER.taskController"%>
+<%@page import="MODELS.Meeting"%>
+<%@page import="CONTROLLER.meetingController"%>
+<%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,24 +22,37 @@
 
         <div class="container">
             <h1 class="well">Meeting Minutes & Ratings</h1>
+            
+            <%
+                User currentUser = (User)session.getAttribute("user");
+                int meeting_id = 1;
+                Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
+                int currentStageForCompany = currentMeeting.getMenteeCompany().getCurrentStage();
+                
+            
+            %>
 
             <div class="col-lg-12 well">
-                meeting id to be retrieved from previous page
-                <input type ="hidden" name ="meeting_id"> 
+              <!-- meeting id to be retrieved from previous page
+                <input type ="hidden" name ="meeting_id">-->
+               
                 <div class="row">
                     <form method ="post" action ="addMeetingMinutesServlet">
                         <div class="col-sm-12">
 
                             <div class="row">
+                                <!-- FOR NOW -->
+                                <input value = "<%=meeting_id%>" name ="meeting_id">
                                 <div class="col-sm-6 form-group">
-                                    <label>Mentor</label> to be retrieved
-                                    <!--                                    to insert mentor name from database
-                                    <input id="mentor" name="mentor" type="text" placeholder="Enter Company Name Here.." class="form-control">-->
+                                    <label>Mentor Email</label> 
+                                    <!--                                    to insert mentor name from database-->
+                                    
+                                    <input id="mentor" name="mentor" type="text" placeholder="Enter Company Name Here.." class="form-control">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Stage</label> to be retrieved
+                                    <label>Stage <%=currentStageForCompany%> </label>
                                 </div>
 
                                 <!--                                    to insert current stage for company
@@ -47,9 +66,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Tasks</label><br/>
-                                    <input class type="checkbox" name="tasks_completed" value="1"> task 1<br>
-                                    <input type="checkbox" name="tasks_completed" value="2"> task 2 <br/></div>
+                                    <label>Tasks Completed</label><br/>
+                                    <%
+                                        ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageForCompany, currentMeeting.getMenteeCompany().getId());
+                                        for(Task t: tasks){
+                                            if(!t.isIsCompleted()){
+                                           %>
+                                                <input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"> <%=t.getName()%><br>
+                                        <%  }
+                                        }
+                                    %>
+                                    
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">

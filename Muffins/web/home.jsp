@@ -4,6 +4,8 @@
     Author     : JEN
 --%>
 
+<%@page import="CONTROLLER.mentorController"%>
+<%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Mentee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,6 +19,11 @@
     <body>
         <%
             Mentee m = (Mentee) session.getAttribute("mentee");
+            int menteeCompany = m.getCompanyid();
+            String mentorEmail = m.getMentor_email();
+            String mentorName = mentorController.getMentor(mentorEmail).getName();
+            int companyStage = companyController.getCompany(menteeCompany).getCurrentStage();
+            
         %>
 
         <div class="container-fluid">
@@ -58,7 +65,7 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
                             <h4>Current Stage</h4>
-                            <span class="text-muted">Stage 4</span>
+                            <span class="text-muted"><%=companyStage%></span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -73,7 +80,7 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
                             <h4>Assigned Mentor</h4>
-                            <span class="text-muted">Mr Lee</span>
+                            <span class="text-muted"><%=mentorName%></span>
                         </div>
 
                     </div>
