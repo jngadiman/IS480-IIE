@@ -40,7 +40,7 @@ public class deleteTaskServlet extends HttpServlet {
         if (task_id==null||task_id.equals("")){
        
             errorMsg = "No task is selected to delete";
-            request.setAttribute("errorMsg", errorMsg);
+            request.setAttribute("errorMsgForDelete", errorMsg);
             RequestDispatcher rd = request.getRequestDispatcher("stages.jsp");
             rd.forward(request, response);
         }
@@ -48,12 +48,12 @@ public class deleteTaskServlet extends HttpServlet {
         boolean result = taskController.deleteTask(taskID);
         if(result){
             String successMsg = "Task ID: " + taskID + " has been deleted successfully.";
-            request.setAttribute("successMsg", successMsg);
+            request.setAttribute("successMsgForDelete", successMsg);
             RequestDispatcher rd = request.getRequestDispatcher("stages.jsp");
             rd.forward(request, response);
         }else{
             errorMsg = "Task ID: " + taskID + " has not been deleted.";
-            request.setAttribute("errorMsg", errorMsg);
+            request.setAttribute("errorMsgForDelete", errorMsg);
             RequestDispatcher rd = request.getRequestDispatcher("stages.jsp");
             rd.forward(request, response);
         }

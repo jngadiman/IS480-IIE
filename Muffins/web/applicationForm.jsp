@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="navbar.jsp" %>
-        <%@include file="browserCloseEvent.jsp" %>
+        <%@include file="protect.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>

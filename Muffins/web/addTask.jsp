@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="browserCloseEvent.jsp" %>
+<%@include file="protect.jsp" %>
 
 <!DOCTYPE html>
 <html>

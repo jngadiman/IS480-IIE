@@ -6,6 +6,7 @@
 
 <%@page import="MODELS.MeetingMinutes"%>
 <%@page import="java.util.ArrayList"%>
+<%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

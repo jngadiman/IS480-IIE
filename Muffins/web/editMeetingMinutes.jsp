@@ -9,6 +9,7 @@
 <%@page import="MODELS.Meeting"%>
 <%@page import="CONTROLLER.meetingController"%>
 <%@page import="MODELS.User"%>
+<%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

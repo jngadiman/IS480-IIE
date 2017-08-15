@@ -43,6 +43,16 @@ public class loginServlet extends HttpServlet {
         User currentUser;
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String rememberMe = request.getParameter("rememberMe");
+        System.out.println("REMEMBER ME"+rememberMe);
+        if (rememberMe != null&& !rememberMe.equals("")){
+            if(rememberMe.equals("yes")){
+                session.setAttribute("rememberMe", true);
+            }
+            session.setAttribute("rememberMe", false);
+        }else{
+            session.setAttribute("rememberMe", false);
+        }
         System.out.println("USERNAME = "+email+ "PASSWORD" +password );
         if ((!email.equals("")) && (!password.equals(""))) {
             System.out.println("USERNAME AND EMAIL NOT NULL" );

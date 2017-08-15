@@ -8,6 +8,8 @@
 <%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,9 +17,10 @@
         <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
-
+        
     </head>
     <body>
+
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -30,11 +33,11 @@
                     <a class="navbar-brand" href="#">IIE Portal</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-                <%
-                    User user = (User) session.getAttribute("user");
-                    if(user.getUser_type().equals("mentee")){
-                        Mentee m = (Mentee) session.getAttribute("mentee");
-                %>    
+                    <%
+                        User user = (User) session.getAttribute("user");
+                        if (user.getUser_type().equals("mentee")) {
+                            Mentee m = (Mentee) session.getAttribute("mentee");
+                    %>    
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="home.jsp">Homepage</a></li>
                         <li class="dropdown">
@@ -43,24 +46,24 @@
                                 <li><a href="stages.jsp">Progress</a></li>
                                 <li><a href="#">Meetings</a></li>
                                 <li><a href="#">Calendar</a></li>
-                                <%
-                                    if(m != null){
-                                        if(m.getMentee_type().equals("regular")){
-                                %>
-                                        <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
-                                <%
+                                    <%
+                                        if (m != null) {
+                                            if (m.getMentee_type().equals("regular")) {
+                                    %>
+                                <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
+                                    <%
+                                            }
                                         }
-                                    }
-                                %>
-                        <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
+                                    %>
+                                <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
                             </ul>
                         </li>
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>
                         <li><a href="logout.jsp">Logout</a></li>
                     </ul>
-                <%
-                    }else if(user.getUser_type().equals("admin")){
-                %>
+                    <%
+                    } else if (user.getUser_type().equals("admin")) {
+                    %>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="adminHomepage.jsp">Homepage</a></li>
                         <li class="dropdown">
@@ -75,10 +78,10 @@
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>
                         <li><a href="logout.jsp">Logout</a></li>
                     </ul>
-                <%
-                    }else{
-                %>
-                        <ul class="nav navbar-nav navbar-right">
+                    <%
+                    } else {
+                    %>
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -93,9 +96,9 @@
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>
                         <li><a href="logout.jsp">Logout</a></li>
                     </ul>
-                <%
-                    }
-                %>
+                    <%
+                        }
+                    %>
                     <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="Search...">
                     </form>
@@ -103,4 +106,5 @@
             </div>
         </nav>
     </body>
+    
 </html>

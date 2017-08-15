@@ -12,7 +12,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.requestController"%>
 <%@include file="protect.jsp" %>
-<%@include file="browserCloseEvent.jsp" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -7,6 +7,7 @@
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Mentee"%>
+<%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

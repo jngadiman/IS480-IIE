@@ -35,7 +35,7 @@
                         <font color = 'red'><%=loginErrorMessage%></font>
                         <div id="remember" class="checkbox">
                             <label>
-                                <input type="checkbox" value="remember-me"> Remember me
+                                <input type="checkbox" name = "rememberMe" value="yes"> Remember me
                             </label>
                         </div>
                         <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
