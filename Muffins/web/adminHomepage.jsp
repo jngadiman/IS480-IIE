@@ -4,6 +4,9 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.Company"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="CONTROLLER.companyController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
@@ -26,18 +29,6 @@
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                         
                     </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item</a></li>
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                        <li><a href="">More navigation</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                    </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Dashboard</h1>
@@ -49,8 +40,14 @@
                            <button href="#1" class="btn btn-default btn-xs" data-toggle="collapse">COUNTER</button>
                             <div id="1" class="collapse">
                                 Show companies in point forms
-                                <li>Company 1</li>
-                                <li>Company 2</li>
+                                <%
+                                    ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
+                                    if(companies1 != null && companies1.size() != 0){
+                                        for(Company c: companies1){
+                                            out.println("<li>" + c.getName() + "</li>");
+                                        }
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
@@ -59,8 +56,14 @@
                             <button href="#2" class="btn btn-primary btn-xs" data-toggle="collapse">COUNTER</button>
                             <div id="2" class="collapse">
                                 Show companies in point forms
-                                <li>Company 1</li>
-                                <li>Company 2</li>
+                                <%
+                                    ArrayList<Company> companies2 = companyController.getCompaniesInStage(2);
+                                    if(companies2 != null && companies2.size() != 0){
+                                        for(Company c: companies2){
+                                            out.println("<li>" + c.getName() + "</li>");
+                                        }
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
@@ -69,8 +72,14 @@
                             <button href="#3" class="btn btn-success btn-xs" data-toggle="collapse">COUNTER</button>
                             <div id="3" class="collapse">
                                 Show companies in point forms
-                                <li>Company 1</li>
-                                <li>Company 2</li>
+                                <%
+                                    ArrayList<Company> companies3 = companyController.getCompaniesInStage(3);
+                                    if(companies3 != null && companies3.size() != 0){
+                                        for(Company c: companies3){
+                                            out.println("<li>" + c.getName() + "</li>");
+                                        }
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
@@ -79,8 +88,14 @@
                             <button href="#4" class="btn btn-warning btn-xs" data-toggle="collapse">COUNTER</button>
                             <div id="4" class="collapse">
                                 Show companies in point forms
-                                <li>Company 1</li>
-                                <li>Company 2</li>
+                                <%
+                                    ArrayList<Company> companies4 = companyController.getCompaniesInStage(4);
+                                    if(companies4 != null && companies4.size() != 0){
+                                        for(Company c: companies4){
+                                            out.println("<li>" + c.getName() + "</li>");
+                                        }
+                                    }
+                                %>
                             </div>
                         </div>
                        

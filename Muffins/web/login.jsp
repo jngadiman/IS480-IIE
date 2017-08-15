@@ -25,6 +25,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
+                    <%
+                        String registerStatus = (String) request.getAttribute("registerStatus");
+                        if(registerStatus != null && !registerStatus.isEmpty()){
+                            out.println(registerStatus);
+                        }
+                        
+                        if(request.getAttribute("result") != null){
+                            int result = (Integer) request.getAttribute("result");
+                            out.println(result);
+                        }
+                    %>
                     <h1>IIE Portal</h1>
 
                     <p id="profile-name" class="profile-name-card"></p>

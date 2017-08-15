@@ -317,6 +317,58 @@ public class MenteeDAO {
         return result;
     }
     
+    public static int addMentee(Mentee m){
+        int numRecordsUpdated = 0;
+        
+        String email = m.getEmail();
+        String mentee_type = m.getMentee_type();
+        String degree = m.getDegree();
+        int yrOfGrad = m.getYear_of_grad();
+        String mentor_email = m.getMentor_email();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            //insert user to database
+            stmt = conn.prepareStatement("Insert into Mentee values (?, ?, ?, ?, ?)");
+
+            //set email
+            stmt.setString(1, email);
+
+            //set mentee_type
+            stmt.setString(2, mentee_type);
+
+            //set degree
+            stmt.setString(3, degree);
+
+            //set year of grad
+            stmt.setInt(4, yrOfGrad);
+            
+            //set mentor_email
+            stmt.setString(5, mentor_email);
+            
+            numRecordsUpdated = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return numRecordsUpdated;
+    }
+    
     public static void main(String[] args){
 //        ArrayList<ArrayList<String>> regularMentees = MenteeDAO.getRegularMenteeDetails();
 //        for(ArrayList<String> regularMentee : regularMentees){

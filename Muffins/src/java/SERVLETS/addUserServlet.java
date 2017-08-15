@@ -8,6 +8,7 @@ package SERVLETS;
 import CONTROLLER.registrationController;
 import DAO.CompanyDAO;
 import MODELS.Company;
+import MODELS.Mentee;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,14 +48,23 @@ public class addUserServlet extends HttpServlet {
         String nric = request.getParameter("nric");
         String comp = request.getParameter("company");
         String user_type = request.getParameter("user_type");
+        String course = request.getParameter("course");
+        String yrOfGrad = request.getParameter("yrOfGrad");
+        
         int companyID = 0;
         companyID = Integer.parseInt(comp);
+        
+        int yearOfGrad = 0;
+        yearOfGrad = Integer.parseInt(yrOfGrad);
        
         User user = new User(email, password, name, nric, null, "mentee", companyID);
+        Mentee mentee = new Mentee(email, password, name, nric, null, "mentee", companyID, "regular", course, yearOfGrad, null);
         //Mentee mentee
         String status = registrationController.addUser(user);
-        request.setAttribute("status", status);
-        RequestDispatcher rd = request.getRequestDispatcher("registerUser.jsp");
+        int result = registrationController.addMentee(mentee);
+        request.setAttribute("registerStatus", status);
+        request.setAttribute("result", result);
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
         rd.forward(request, response);
     }
 

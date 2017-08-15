@@ -57,6 +57,12 @@ public class companyController {
         return c;
     }
     
+    public static ArrayList<Company> getCompaniesInStage(int stage){
+        ArrayList<Company> companies = CompanyDAO.getCompaniesInStage(stage);
+        
+        return companies;
+    }
+    
     public static void main(String[] args){
         ArrayList<Company> companies = companyController.getRegularCompanies();
         for(Company c: companies){

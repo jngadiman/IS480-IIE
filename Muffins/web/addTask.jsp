@@ -4,6 +4,9 @@
     Author     : JEN
 --%>
 
+<%@page import="CONTROLLER.companyController"%>
+<%@page import="DAO.CompanyDAO"%>
+<%@page import="MODELS.Company"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="protect.jsp" %>
 
@@ -34,7 +37,7 @@
         <section style="background:#efefe9;">
             <div class="container">
                     <div class="board">
-                        <%                            String msg = "";
+                        <%  String msg = "";
                             if (request.getAttribute("status") != null) {
                                 msg = (String) request.getAttribute("status");
                                 out.println(msg);
@@ -67,28 +70,39 @@
                                             </select>
                                         </div>	
                                     </div>
-<div class="form-group">
+                                    <div class="form-group">
                                         <label for="inputTaskDescription" class="col-lg-4 control-label" name = "taskDescription">Task Description</label>
                                         <div class="col-lg-7">
                                              <textarea class="form-control" rows="3" id="inputTaskDescription" name="taskDescription" placeholder="Enter your description here"></textarea>
                                             <span class="help-block">Go into details on what are the task's information. </span>
                                         </div>
-</div>
-<div class="form-group">
+                                    </div>
+                                    <div class="form-group">
                                         <!-- Date input -->
                                         <label for="inputDate" class="col-lg-4 control-label">Deadline</label>
                                          <div class="col-lg-7">
                                         <input class="form-control"  name="date" placeholder="yyyy-MM-dd" type="text"/>
                                          </div>
-</div>
+                                    </div>
                                         <div class="form-group">
                                         <div class="col-lg-8 col-lg-offset-4">
                                             <br/><br/>
                                             <button type="reset" class="btn btn-default">Reset</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
+                                        <%
+                                            int stage = 0;
+                                            user = (User) session.getAttribute("user");
+                                            Company c = companyController.getCompany(user.getCompanyid());
+                                            if (c != null) {
+                                                stage = c.getCurrentStage();
+                                        %>    
+                                        <div align="right"><a href="viewTasks.jsp?id=<%=stage%>">View Tasks</a></div>
+                                        <%
+                                            }
+                                        %>
+                                        <div align="right"><a href="stages.jsp">Go Back to Stages</a></div>
                                     </div>
-                                    <div align="right"><a href="stages.jsp">Go Back to Stages</a></div>
                                 </div>
                                 <div class="col-sm-2"></div>
 

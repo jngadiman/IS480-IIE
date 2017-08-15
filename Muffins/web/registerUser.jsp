@@ -96,11 +96,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Password</label>
+                                    <label class="control-label">Password</label> must be between 8 to 24 characters
                                     <input id="password" type="password" name="password" placeholder="Enter Password Here.." class="form-control" required>
                                 </div>
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Confirm Password</label>
+                                    <label class="control-label">Confirm Password</label> must be the same as Password
                                     <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
 
                                     <select class="form-control" id="select" name="company" required>
                                         <%
-                                            ArrayList<Company> companies = loginController.getAllMenteeCompany();
+                                            ArrayList<Company> companies = loginController.getAllCompanies();
                                             for (Company c : companies) {
                                                 out.println("<option value='" + c.getId() + "'>" + c.getName() + "</option>");
                                             }
@@ -139,34 +139,19 @@
                                         %>
                                     </select>
                                 </div>
-                                <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Year of Graduation</label> 
-                                    <input id="gradYr" type="text" name="gradYr" placeholder="Enter Admission Year Here.." class="form-control" required>
-                                </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">User Type</label>
-
-                                    <select class="form-control" id="select" name="user_type" required>
-                                        <option>light_mentee</option>
-                                        <option>regular_mentee</option>
-                                    </select>
+                                    <label class="control-label">Year of Graduation</label>
+                                    <input id="yrOfGrad" type="text" name="yrOfGrad" placeholder="Enter Year Of Graduation Here.." class="form-control" required>
                                 </div>	
                             </div>
-
+                                    
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Required fields</label>
-
                                 </div>	
                             </div>
-
-
-                            
-
                             <button type="submit" class="btn btn-lg btn-info">Submit</button>					
                         </div>
                     </form> 

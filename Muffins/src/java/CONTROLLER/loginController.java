@@ -67,13 +67,8 @@ public class loginController {
         return result;
     }
     
-    public static ArrayList<Company> getAllMenteeCompany(){
-        ArrayList<Integer> companyIDs = UserDAO.getAllMenteeCompanyIDs();
-        ArrayList<Company> companies = new ArrayList<Company>();
-        for(int companyID: companyIDs){
-            Company company = CompanyDAO.getCompany(companyID);
-            companies.add(company);
-        }
+    public static ArrayList<Company> getAllCompanies(){
+        ArrayList<Company> companies = CompanyDAO.getAllCompanies();
          
         return companies;
     }
