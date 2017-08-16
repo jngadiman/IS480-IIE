@@ -65,23 +65,25 @@
                     <h1 class="page-header">Dashboard</h1>
 
                     <div class="row placeholders">
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                        <div class="col-xs-6 col-sm-3">
+                            <img src="img/statistics.png" width="100"/>
                             <h4>Current Stage</h4>
+                            
                             <span class="text-muted"><%=companyStage%></span>
                         </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                        <div class="col-xs-6 col-sm-3 ">
+                            <img src="img/clipboard.png" width="100" height="100" alt=""/>
                             <h4>Current Task </h4>
                             <span class="text-muted">Prototype</span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                            <img src="img/interview.png" width="100"  alt=""/>
                             <h4>Next Scheduled Meeting</h4>
                             <span class="text-muted">Thursday, 14th November 2017</span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                            <img src="img/educator (1).png" width="100"   alt=""/>
+                            <img src="img/educator.png" width="100"   alt=""/>
                             <h4>Assigned Mentor</h4>
                             <span class="text-muted"><%=mentorName%></span>
                         </div>

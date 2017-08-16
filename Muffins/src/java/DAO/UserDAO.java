@@ -283,8 +283,9 @@ public class UserDAO {
                 
                 if(profile_pic != null){
                 profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
-            }
+            
             }
             
             

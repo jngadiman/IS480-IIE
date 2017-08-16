@@ -24,7 +24,6 @@
         <%@include file="navbar.jsp" %>
         <%@include file="protect.jsp" %>
     </head>
-    <body>
         <%            String username = "admin@smu.edu.sg";
             User mentor = UserDAO.getUserByEmail(username);
             int companyID = mentor.getCompanyid();
@@ -43,7 +42,7 @@
                                 byte[] imgData = company.getCompanyLogo();
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             %>
-                            <div align="center"><img src="data:image/gif;base64,<%= imgDataBase64%>" alt="images Here" /></div>
+                            <div align="center"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
 
                             <h1><%= company.getName()%></h1>
 

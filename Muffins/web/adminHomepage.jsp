@@ -4,6 +4,8 @@
     Author     : JEN
 --%>
 
+<%@page import="CONTROLLER.requestController"%>
+<%@page import="MODELS.Request"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.companyController"%>
@@ -22,9 +24,13 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
+                        <%
+                            //print all requesting requests
+                            ArrayList<Request> pendingRequests = requestController.getAllRequestsByStatus("requesting");
+                        %>
                         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge">14</span>  </a> </li>
-                        <li><a href="viewCompanyProfile.jsp">View All Companies</a></li>
+                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"><%=pendingRequests.size()%></span>  </a> </li>
+                        <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                         
@@ -37,11 +43,14 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>1</h1>
                             Business model validation stage<br/><br/>
-                           <button href="#1" class="btn btn-default btn-xs" data-toggle="collapse">COUNTER</button>
+                            <%
+                             ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
+                            %>
+                           <button href="#1" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies1.size()%></button>
                             <div id="1" class="collapse">
-                                Show companies in point forms
+                                
                                 <%
-                                    ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
+                                   
                                     if(companies1 != null && companies1.size() != 0){
                                         for(Company c: companies1){
                                             out.println("<li>" + c.getName() + "</li>");
@@ -53,11 +62,14 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>2</h1>
                             Innovation Development stage<br/><br/>
-                            <button href="#2" class="btn btn-primary btn-xs" data-toggle="collapse">COUNTER</button>
+                            <%
+                             ArrayList<Company> companies2 = companyController.getCompaniesInStage(2);
+                            %>
+                            <button href="#2" class="btn btn-primary btn-xs" data-toggle="collapse"><%=companies2.size()%></button>
                             <div id="2" class="collapse">
-                                Show companies in point forms
+                              
                                 <%
-                                    ArrayList<Company> companies2 = companyController.getCompaniesInStage(2);
+                                   
                                     if(companies2 != null && companies2.size() != 0){
                                         for(Company c: companies2){
                                             out.println("<li>" + c.getName() + "</li>");
@@ -69,11 +81,14 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>3</h1>
                             Go-To-Market & early customer acquisition stage<br/>
-                            <button href="#3" class="btn btn-success btn-xs" data-toggle="collapse">COUNTER</button>
+                            <%
+                            ArrayList<Company> companies3 = companyController.getCompaniesInStage(3);
+                            %>
+                            <button href="#3" class="btn btn-success btn-xs" data-toggle="collapse"><%=companies3.size()%></button>
                             <div id="3" class="collapse">
-                                Show companies in point forms
+                              
                                 <%
-                                    ArrayList<Company> companies3 = companyController.getCompaniesInStage(3);
+                                    
                                     if(companies3 != null && companies3.size() != 0){
                                         for(Company c: companies3){
                                             out.println("<li>" + c.getName() + "</li>");
@@ -85,11 +100,14 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>4</h1>
                             Business Plan/Financial Modelling stage<br/>
-                            <button href="#4" class="btn btn-warning btn-xs" data-toggle="collapse">COUNTER</button>
+                            <%
+                            ArrayList<Company> companies4 = companyController.getCompaniesInStage(4);
+                                    
+                            %>
+                            <button href="#4" class="btn btn-warning btn-xs" data-toggle="collapse"><%=companies4.size()%></button>
                             <div id="4" class="collapse">
-                                Show companies in point forms
+                              
                                 <%
-                                    ArrayList<Company> companies4 = companyController.getCompaniesInStage(4);
                                     if(companies4 != null && companies4.size() != 0){
                                         for(Company c: companies4){
                                             out.println("<li>" + c.getName() + "</li>");

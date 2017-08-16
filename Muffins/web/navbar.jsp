@@ -4,6 +4,9 @@
     Author     : JEN
 --%>
 
+<%@page import="CONTROLLER.requestController"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="MODELS.Request"%>
 <%@page import="MODELS.Mentee"%>
 <%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -63,13 +66,15 @@
                     </ul>
                     <%
                     } else if (user.getUser_type().equals("admin")) {
+                        
+                        ArrayList<Request> pendingRequests = requestController.getAllRequestsByStatus("requesting");
                     %>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="adminHomepage.jsp">Homepage</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge">14</span>  </a></li>
+                                <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"><%=pendingRequests.size()%></span>  </a></li>
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
@@ -88,7 +93,8 @@
                                 <li><a href="stages.jsp">Progress</a></li>
                                 <li><a href="#">Meetings</a></li>
                                 <li><a href="#">Calendar</a></li>
-                                <li><a href="viewCompanyProfile.jsp">View All Companies</a></li>
+                                <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
+                                <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                             </ul>

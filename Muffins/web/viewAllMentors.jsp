@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.Base64"%>
 <%@page import="CONTROLLER.profileController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Company"%>
@@ -34,7 +35,22 @@
                 %>
                 
                 <div class="col-lg-4 well">
-                    <%=mentor.getProfile_pic()%>
+                    <%
+                                // display the image
+                                byte[] imgData = mentor.getProfile_pic();
+                                if(imgData != null){
+                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                    
+                            %>
+                                <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" alt="Profile Picture" />
+                            <%
+                                }else{
+                            %>
+                            <img src="img/user.png" width="100" alt=""/>
+                            <%
+                                }
+                            %>
+
                     <h2><%=mentor.getName()%></h2>
                     <% User displayedUser = profileController.displayUserDetails(mentor.getEmail());
                     int companyID = displayedUser.getCompanyid();

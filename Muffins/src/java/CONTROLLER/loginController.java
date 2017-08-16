@@ -29,7 +29,7 @@ public class loginController {
     public static User validateUser(String email, String password) {
         System.out.println("USER EMAIL IN CONTROLLER = "+email );
         User user = UserDAO.getUserByEmail(email);
-        System.out.println("USER IN CONTROLLER = "+user.getName() );
+        //System.out.println("USER IN CONTROLLER = "+user.getName() );
         if (user != null) {
             MessageDigest crypt = null;
             try {
