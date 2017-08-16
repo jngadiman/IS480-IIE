@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.Base64"%>
 <%@page import="DAO.RequestDAO"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="DAO.MentorDAO"%>
@@ -54,7 +55,20 @@
                     <h2>Mentor Profile</h2>
                     <div class="col-sm-10 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <p align="center"><%= mentor.getProfile_pic()%></p>
+                    <%
+                        // display the image
+                        byte[] imgData = mentor.getProfile_pic();
+                        if(imgData != null){
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                    %>
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="200" height="200" alt="Profile Picture" />
+                    <%
+                        }else{
+                    %>
+                            <img src="img/user.png" width="200" height="200" alt=""/>
+                    <%
+                        }
+                    %>
                 
                 <h2><%= mentor.getName()%></h2>
                 <br>

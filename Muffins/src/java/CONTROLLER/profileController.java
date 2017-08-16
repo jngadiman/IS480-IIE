@@ -80,7 +80,7 @@ public class profileController {
     }
     
     public static void main(String[] args){
-        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S7657328Y", null, "mentee", 1, "light" , "economics", 2010, "huimin@hotmail.com");
+        Mentee m = new Mentee("huimin1@hotmail.com", "abc123", "huimin1", "S7657328Y", null, "mentee", 1, "light" , "economics", 2010, "huimin@hotmail.com");
         String result = profileController.editMentee(m);
         System.out.println(result);
         

@@ -587,8 +587,8 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-       User u = new User("huimin2@hotmail.com", "password", "huimin2", "S3337328Y", null, "admin", 1);
-       String result = UserDAO.addUser(u);
+       User u = new User("admin@smu.edu.sg", "password", "jiatung", "S3300328Y", null, "admin", 2);
+       int result = UserDAO.editUser(u);
        System.out.println(result);
     }
     

@@ -4,6 +4,9 @@
     Author     : Xinyao
 --%>
 
+<%@page import="MODELS.Company"%>
+<%@page import="CONTROLLER.companyController"%>
+<%@page import="java.util.Base64"%>
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Mentor"%>
 <%@page import="java.util.ArrayList"%>
@@ -27,14 +30,29 @@
                 session.setAttribute("requestType", type);
                 ArrayList<Mentor> mentors = MentorDAO.getMentors();
                 for(Mentor m: mentors){    
+                    Company c = companyController.getCompany(m.getCompanyid());
             %>       
  
             <form action="requestForMentorViewServlet" method="post">
                    <div class="col-lg-4 well">
-                   <%= m.getProfile_pic()%>
+                   <%
+                        // display the image
+                        byte[] imgData = m.getProfile_pic();
+                        if(imgData != null){
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+
+                    %>
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="200" height="200" alt="Profile Picture" />
+                    <%
+                        }else{
+                    %>
+                            <img src="img/user.png" width="200" height="200" alt=""/>
+                    <%
+                        }
+                    %>
                    <br/>
                    <h2><%= m.getName()%></h2>
-                   //add company name later
+                   <h2><%=c.getName()%></h2>
                    <br/>
                    
                     <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">

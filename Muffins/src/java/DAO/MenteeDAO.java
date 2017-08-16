@@ -377,11 +377,10 @@ public class MenteeDAO {
 //            }
 //        }
         
-//        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S7657328Y", null, "mentee", 1, "regular", "business", 2018, "huimin@hotmail.com");
-//        int result = MenteeDAO.editMenteeDetails(m);
-//        System.out.println(result);
-                int result = MenteeDAO.updateMentor_Email("y@smu.edu.sg", "hello@hotmail.com");
-                System.out.println(result);
+        Mentee m = new Mentee("huimin1@hotmail.com", "abc1234", "huimin1", "S0057328Y", null, "mentee", 1, "light", "accountancy", 2010, "huimin@hotmail.com");
+        int result = MenteeDAO.editMenteeDetails(m);
+        System.out.println(result);
+            
             
 //            Mentee m = MenteeDAO.getMenteeByEmail("y@smu.edu.sg");
 //            System.out.println(m.getEmail());

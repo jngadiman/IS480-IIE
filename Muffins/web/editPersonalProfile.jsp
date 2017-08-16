@@ -63,7 +63,7 @@
                 }
             %>
             <div class="col-lg-8 well col-lg-offset-2">
-
+                
                 <form action="editProfileServlet" method="post" enctype="multipart/form-data">
                                 <%  // display the image
                                     byte[] imgData = user.getProfile_pic();
@@ -100,7 +100,7 @@
                                             Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                                             
                                             String mentor_name = "";
-                                            if(mentee.getMentor_email() == null || !mentee.getMentor_email().isEmpty()){
+                                            if(mentee.getMentor_email() != null || !mentee.getMentor_email().isEmpty()){
                                                 Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                                 mentor_name = myMentor.getName();
                                             }

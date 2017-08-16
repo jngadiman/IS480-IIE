@@ -48,6 +48,12 @@ public class editProfileServlet extends HttpServlet {
         String nric = request.getParameter("nric");
         String user_type = request.getParameter("user_type");
         
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println(name);
+        System.out.println(nric);
+        System.out.println(user_type);
+        
         byte[] profilePic = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("profilePhoto");
@@ -71,6 +77,7 @@ public class editProfileServlet extends HttpServlet {
             String mentor_email = request.getParameter("mentorEmail");
             
             Mentee m = new Mentee(email, password, name, nric, profilePic, user_type, companyID, mentee_type, degree, yearOfGrad, mentor_email);
+            
             status = profileController.editMentee(m);
             request.setAttribute("updateStatus", status);
             
