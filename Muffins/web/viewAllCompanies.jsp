@@ -36,7 +36,7 @@
                     <%
                         }else{
                     %>
-                        <div align="center"><img width="200" height="200" src="img/user.png"  alt="Profile Picture" /></div>
+                        <div align="center"><img width="200" height="200" src="img/factory.png"  alt="Profile Picture" /></div>
                     <%
                         }
                     %>

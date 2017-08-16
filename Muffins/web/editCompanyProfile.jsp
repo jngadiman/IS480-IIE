@@ -29,7 +29,6 @@
         <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
         <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
     </head>
-    </head>
     
     <%
             user = (User) session.getAttribute("user");
@@ -53,7 +52,7 @@
         %>
     <body>
         <div class="container">
-            <h1 class="well">Edit Company Profile</h1>
+            <h1 class="well col-lg-8 col-lg-offset-2">Edit Company Profile</h1>
             <%
                 String status = (String) request.getAttribute("updateStatus");
                 if(status != null && !status.isEmpty()){
@@ -61,14 +60,15 @@
                 }
             %>
 
-            <div class="col-lg-12 well">
+            <div class="col-lg-8 well col-lg-offset-2">
                 <div class="row">
                     <form action="editCompanyServlet" method="post" enctype="multipart/form-data">
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <div class="row">
                                 <div>
                                     <input type="hidden" name="companyID" value="<%= company.getId()%>" >
                                     <br/>
+                                    <div class="col-sm-6 form-group">
                                     <%
                                         // display the image
                                         byte[] imgData = company.getCompanyLogo();
@@ -80,8 +80,10 @@
                                         }
                                     %>
                                     <br/>
+                                   
                                         Select image to upload:
                                         <input type="file" name="companyLogo">
+                                         </div>
                                 </div>
                             </div>
                             <div class="row">

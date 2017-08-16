@@ -56,6 +56,13 @@
         </script>
     </head>
     <body>
+        <%            ArrayList<Integer> stages = new ArrayList<Integer>();
+            stages.add(1);
+            stages.add(2);
+            stages.add(3);
+            stages.add(4);
+
+        %>
         <section style="background:#efefe9;">
             <div class="container">
                 <div class="row">
@@ -88,7 +95,15 @@
                                     <div class="form-group">
                                         <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
                                         <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="inputTaskStage" name="stage" value="<%= stage%>" required>
+                                            <select class="form-control" id="inputTaskStage" name="stage" value="<%= stage%>" required>
+                                            <option selected value = <%=task.getStage()%> ><%=task.getStage()%></option>
+                                        <% for (Integer s : stages) {
+                                                if (task.getStage()!=s) {%>
+                                        <option value=<%=s%>> <%=s%></option>
+                                        <%      }
+                                            }
+                                        %>
+                                            </select>    
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -100,9 +115,9 @@
                                     </div>
                                     <div class="form-group"> <!-- Date input -->
                                         <label for="inputDate" class="col-lg-4 control-label">Deadline</label>
-                                          <div class="col-lg-7">
-                                        <input class="form-control" id="inputDate" name="deadline" value="<%= new SimpleDateFormat("dd-MM-yyyy").format(deadline)%>" type="text" required/>
-                                    </div>
+                                        <div class="col-lg-7">
+                                            <input class="form-control" id="inputDate" name="deadline" value="<%= new SimpleDateFormat("dd-MM-yyyy").format(deadline)%>" type="text" required/>
+                                        </div>
                                     </div>
 
                                     <input type="hidden" name="taskId" value="<%= task.getTaskId()%>">
@@ -110,7 +125,6 @@
                                     <input type="hidden" name="isCompleted" value="<%= task.isIsCompleted()%>">
                                     <div class="form-group">
                                         <div class="col-lg-8 col-lg-offset-2">
-                                            <button type="reset" class="btn btn-default" value="cancel" name="Cancel">Cancel</button>
                                             <button type="submit" class="btn btn-primary" value="submit" name="Submit">Submit</button>
                                         </div>
                                     </div>
