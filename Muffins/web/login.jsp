@@ -18,6 +18,10 @@
         loginResult = "";
     }
     
+    String status = (String) request.getAttribute("registerStatus");
+    if(status != null && !status.isEmpty()){
+        out.println(status);
+    }
     
 %>
 <html>

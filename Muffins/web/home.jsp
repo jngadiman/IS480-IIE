@@ -22,7 +22,10 @@
             Mentee m = (Mentee) session.getAttribute("mentee");
             int menteeCompany = m.getCompanyid();
             String mentorEmail = m.getMentor_email();
-            String mentorName = mentorController.getMentor(mentorEmail).getName();
+            String mentorName = "";
+            if(mentorEmail != null && !mentorEmail.isEmpty()){
+                mentorName = mentorController.getMentor(mentorEmail).getName();
+            }
             int companyStage = companyController.getCompany(menteeCompany).getCurrentStage();
             
         %>
