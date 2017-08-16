@@ -64,8 +64,7 @@ public class companyController {
     }
     
     public static void main(String[] args){
-        ArrayList<Company> companies = companyController.getRegularCompanies();
-        for(Company c: companies){
+            Company c = companyController.getCompany(6);
             System.out.println(c.getId());
             System.out.println(c.getName());
             System.out.println(c.getDescription());
@@ -75,6 +74,6 @@ public class companyController {
             System.out.println(c.getStartDate());
             System.out.println(c.getCurrentStage());
             System.out.println(c.getCompanyLogo());
-        }
+        
     }
 }

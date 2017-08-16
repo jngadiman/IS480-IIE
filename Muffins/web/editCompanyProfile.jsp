@@ -32,9 +32,8 @@
     </head>
     
     <%
-            String username = "admin@smu.edu.sg";
-            User mentor = UserDAO.getUserByEmail(username);
-            int companyID = mentor.getCompanyid();
+            user = (User) session.getAttribute("user");
+            int companyID = user.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
             
             ArrayList<String> industries = new ArrayList<String>();
@@ -69,7 +68,6 @@
                             <div class="row">
                                 <div>
                                     <input type="hidden" name="companyID" value="<%= company.getId()%>" >
-                                    <label>Company Logo</lable>
                                     <br/>
                                     <%
                                         // display the image
@@ -77,7 +75,7 @@
                                         if(imgData != null){
                                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                     %>
-                                        <div align="center"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                                        <div align="left"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
                                     <%
                                         }
                                     %>

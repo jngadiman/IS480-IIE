@@ -60,7 +60,7 @@
                             <% if (type.equals("mentee")) {
                                     Mentee mentee = MenteeDAO.getMenteeByEmail(userEmail);
                                     String mentor_name = "";
-                                    if (mentee.getMentor_email() == null || !mentee.getMentor_email().isEmpty()) {
+                                    if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
                                         Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                         mentor_name = myMentor.getName();
                                     }
@@ -79,7 +79,7 @@
                             <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
 
                             <p><strong>Company </strong> : <%= company_name%></p>
-
+                            
                             <p><strong>Mentor </strong> : <%= mentor_name%></p>
 
                             <br><a href="viewAllMentees.jsp" class="btn-sm btn-success">Back to Mentees</a>

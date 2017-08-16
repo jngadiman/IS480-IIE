@@ -65,15 +65,23 @@
             <div class="col-lg-8 well col-lg-offset-2">
 
                 <form action="editProfileServlet" method="post" enctype="multipart/form-data">
-                    
-                        
-                           
-                                <%
-                                    // display the image
+                                <%  // display the image
                                     byte[] imgData = user.getProfile_pic();
+                                    if (imgData == null) {
+                                %>
+                                <img src="img/user.png" width="200px" alt=""/>
+                                <%
+                                } else {
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                 %>
                                 <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+
+                                <%}%>
+                                <br/>
+                                <br/>
+                                Select image to upload:
+                                <input type="file" name="profilePhoto">
+                                
                                 <h2><%= user.getName()%></h2>
                                 <p><strong>Email Address</strong> : <%= user.getEmail()%></p>
                                 <p><strong>NRIC</strong> : <%= user.getNric()%></p>
@@ -85,11 +93,6 @@
                                 <input type="hidden" name="nric" value="<%= user.getNric()%>">
                                 <input type="hidden" name="user_type" value="<%= user.getUser_type()%>">
                                 <input type="hidden" name="companyID" value="<%= user.getCompanyid()%>"
-                                       
-                                    
-                                    <br/>
-                                    Select image to upload:
-                                    <input type="file" name="profilePhoto">
                                     
                                     <br/>
                                     <%
@@ -135,7 +138,7 @@
                                     </div>
                                     <input type="hidden" name="menteeType" value="<%= mentee.getMentee_type()%>">
                                     <input type="hidden" name="mentorEmail" value="<%= mentee.getMentor_email()%>">
-                                    <%  } else {
+                                    <%  } else if (user.getUser_type().equals("mentor")){
                                         Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
                                         String company_name= "";
                                         if(mentor.getCompanyid() != 0){

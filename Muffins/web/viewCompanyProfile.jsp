@@ -25,9 +25,8 @@
         <%@include file="protect.jsp" %>
     </head>
         <%  
-            String username = "admin@smu.edu.sg";
-            User mentor = UserDAO.getUserByEmail(username);
-            int companyID = mentor.getCompanyid();
+            user = (User) session.getAttribute("user");
+            int companyID = user.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
         %>
     <body>

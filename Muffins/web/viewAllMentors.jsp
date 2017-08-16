@@ -36,33 +36,42 @@
                 
                 <div class="col-lg-4 well">
                     <%
-                                // display the image
-                                byte[] imgData = mentor.getProfile_pic();
-                                if(imgData != null){
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                                    
-                            %>
-                                <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" alt="Profile Picture" />
-                            <%
-                                }else{
-                            %>
-                            <img src="img/user.png" width="100" alt=""/>
-                            <%
-                                }
-                            %>
+                        // display the image
+                        byte[] imgData = mentor.getProfile_pic();
+                        if(imgData != null){
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+
+                    %>
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="200" height="200" alt="Profile Picture" />
+                    <%
+                        }else{
+                    %>
+                            <img src="img/user.png" width="200" height="200" alt=""/>
+                    <%
+                        }
+                    %>
 
                     <h2><%=mentor.getName()%></h2>
-                    <% User displayedUser = profileController.displayUserDetails(mentor.getEmail());
+                    <% 
+                        
+                    User displayedUser = profileController.displayUserDetails(mentor.getEmail());
                     int companyID = displayedUser.getCompanyid();
-                    Company company = companyController.getCompany(companyID);%>
-                    <span class="label label-primary"><%=company.getName()%></span><br><br>
+                    Company company = companyController.getCompany(companyID);
+                    String company_name = "";
+                    if(company != null){
+                        company_name = company.getName();    
+                    %>
+                    <span class="label label-primary"><%= company_name%></span><br><br>
+                    <%
+                    }
+                    %>
                 <a href='displayProfile.jsp?email=<%=mentor.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>
                 </div>
                 <%
             }
         %>
         </div>
-        </div>
+    </div>
         
     </body>
 </html>

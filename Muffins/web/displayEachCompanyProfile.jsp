@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
@@ -40,7 +41,21 @@
                     <h2>Company Profile</h2>
                     <div class="col-sm-10 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-               <%= company.getCompanyLogo()%>
+               <%
+                    // display the image
+                    byte[] imgData = company.getCompanyLogo();
+                    if(imgData != null){
+                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+
+                %>
+                    <img src="data:image/gif;base64,<%= imgDataBase64%>" width="200" height="200" alt="Profile Picture" />
+                <%
+                    }else{
+                %>
+                        <img src="img/user.png" width="200" height="200" alt=""/>
+                <%
+                    }
+                %>
                 <h1><%= company.getName()%></h1>
                 
                 <p><strong>Description</strong> :<br> 

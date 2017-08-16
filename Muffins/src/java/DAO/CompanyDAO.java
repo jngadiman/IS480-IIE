@@ -385,9 +385,9 @@ public class CompanyDAO {
     }
     
     public static void main(String[] args){
-        Date startDate = new Date();
-        Company c = new Company(8, "cheers", "sells food", "to be able to sell food everywhere", "to bring you the best quality foods to you", "FnB", startDate, 2, null);
-        String result = CompanyDAO.addCompany(c);
+        Company c = new Company(6, "fr", "sell food..", "sell a lot of foodss", "sell food", "Web Services", new Date(), 2, null);
+        int result = CompanyDAO.editCompanyDetails(c);
         System.out.println(result);
+        
     }
 }

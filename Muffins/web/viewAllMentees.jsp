@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page import="CONTROLLER.profileController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Company"%>
@@ -31,7 +32,19 @@
         %>
                 
                  <div class="col-lg-4 well">
-                <%=mentee.getProfile_pic()%>
+                <%  // display the image
+                    byte[] imgData = mentee.getProfile_pic();
+                    if(imgData != null){
+                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                %>
+                    <div align="center"><img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                <%
+                    }else{
+                %>
+                    <div align="center"><img width="200"  height="200" src="img/user.png"  alt="Profile Picture" /></div>
+                <%
+                    }
+                %>
                 <h2><%=mentee.getName()%></h2>
                 <% User displayedUser = profileController.displayUserDetails(mentee.getEmail());
                     int companyID = displayedUser.getCompanyid();
