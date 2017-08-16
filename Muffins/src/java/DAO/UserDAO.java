@@ -313,9 +313,15 @@ public class UserDAO {
             stmt = conn.prepareStatement("UPDATE User SET name = ?, nric = ?, profile_pic = ?, user_type = ?, company_id = ? WHERE email = ?;");
             stmt.setString(1, u.getName());
             stmt.setString(2, u.getNric());
-            Blob blob = new SerialBlob(u.getProfile_pic());
             
-            stmt.setBlob(3, blob);
+            if(u.getProfile_pic() != null){
+                Blob blob = new SerialBlob(u.getProfile_pic());
+            
+                stmt.setBlob(3, blob);
+            }else{
+                stmt.setBlob(3, (Blob) null);
+            }
+            
             stmt.setString(4, u.getUser_type());
             stmt.setInt(5, u.getCompanyid());
             stmt.setString(6, u.getEmail());
@@ -379,15 +385,13 @@ public class UserDAO {
             //set nric
             stmt.setString(4, nric);
             
-            if(profilePic == null){
-                blob = null;
-            }else{
-                //convert byte[] to Blob object before putting into db
+            if(profilePic != null){
                 blob = new SerialBlob(profilePic);
-            }
             
-            //set profile_pic
-            stmt.setBlob(5, blob);
+                stmt.setBlob(5, blob);
+            }else{
+                stmt.setBlob(5, (Blob) null);
+            }
             
             //set user_type
             stmt.setString(6, user_type);
@@ -583,11 +587,9 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-        User u = UserDAO.getUserByEmail("jason");
-        System.out.println(u);
-        if(u != null){
-            System.out.println("user's name: " + u.getName());
-        }
+       User u = new User("huimin2@hotmail.com", "password", "huimin2", "S3337328Y", null, "admin", 1);
+       String result = UserDAO.addUser(u);
+       System.out.println(result);
     }
     
 }

@@ -68,7 +68,11 @@ public class CompanyDAO {
                     currentstage = 0;
                 }
                 company_logo = result.getBlob("company_logo");
-                companyLogo = company_logo.getBytes(1, (int) company_logo.length());
+                if(company_logo != null){
+                    companyLogo = company_logo.getBytes(1, (int) company_logo.length());
+                }else{
+                    companyLogo = null;
+                }
                 
                 c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
             }
@@ -123,7 +127,11 @@ public class CompanyDAO {
                     currentstage = 0;
                 }
                 company_logo = result.getBlob("company_logo");
-                companyLogo = company_logo.getBytes(1, (int) company_logo.length());
+                if(company_logo != null){
+                    companyLogo = company_logo.getBytes(1, (int) company_logo.length());
+                }else{
+                    companyLogo = null;
+                }
                 
                 c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
                 companies.add(c);
@@ -181,7 +189,11 @@ public class CompanyDAO {
                     currentstage = 0;
                 }
                 company_logo = result.getBlob("company_logo");
-                companyLogo = company_logo.getBytes(1, (int) company_logo.length());
+                if(company_logo != null){
+                    companyLogo = company_logo.getBytes(1, (int) company_logo.length());
+                }else{
+                    companyLogo = null;
+                }
                         
                 c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
                 companies.add(c);
@@ -246,10 +258,16 @@ public class CompanyDAO {
             stmt.setString(5, c.getIndustry());
             stmt.setString(6, df.format(c.getStartDate()));
             stmt.setInt(7, c.getCurrentStage());
-            //convert byte[] to Blob object before putting into db
-            Blob blob = new SerialBlob(c.getCompanyLogo());
             
-            stmt.setBlob(8, blob);
+            if(c.getCompanyLogo() != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(c.getCompanyLogo());
+
+                stmt.setBlob(8, blob);
+            }else{
+                stmt.setBlob(8, (Blob) null);
+            }   
+            
             stmt.setInt(9, c.getId());
             
             
@@ -311,12 +329,14 @@ public class CompanyDAO {
             //set current_stage
             stmt.setInt(8, current_stage);
             
-            //convert byte[] to Blob object before putting into db
-            Blob blob = new SerialBlob(companyLogo);
-            
-            
-            //set company_logo
-            stmt.setBlob(9, blob);
+            if(companyLogo != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(companyLogo);
+
+                stmt.setBlob(9, blob);
+            }else{
+                stmt.setBlob(9, (Blob) null);
+            }   
             
             int numRecordsUpdated = stmt.executeUpdate();
             
@@ -366,8 +386,8 @@ public class CompanyDAO {
     
     public static void main(String[] args){
         Date startDate = new Date();
-        Company c = new Company(2, "ntuc", "sells groceries", "to be able to sell groceries everywhere", "to bring you the best quality foods to you", "FnB", startDate, 2, null);
-        int result = CompanyDAO.editCompanyDetails(c);
+        Company c = new Company(8, "cheers", "sells food", "to be able to sell food everywhere", "to bring you the best quality foods to you", "FnB", startDate, 2, null);
+        String result = CompanyDAO.addCompany(c);
         System.out.println(result);
     }
 }

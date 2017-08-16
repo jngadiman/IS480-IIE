@@ -35,6 +35,9 @@
                         <li><a href="stages.jsp">Progress</a></li>
                         <li><a href="#">Meetings</a></li>
                         <li><a href="#">Calendar</a></li>
+                        <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
+                        <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
+                        <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                         <%
                             if(m != null){
                                 if(m.getMentee_type().equals("regular")){

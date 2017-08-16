@@ -24,11 +24,11 @@
         <%@include file="navbar.jsp" %>
         <%@include file="protect.jsp" %>
     </head>
-        <%            String username = "admin@smu.edu.sg";
+        <%  
+            String username = "admin@smu.edu.sg";
             User mentor = UserDAO.getUserByEmail(username);
             int companyID = mentor.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
-
         %>
     <body>
         <div class="container">
@@ -38,11 +38,16 @@
                     <div class="col-sm-10 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
 
-                            <%                    // display the image=
+                            <%  // display the image
                                 byte[] imgData = company.getCompanyLogo();
-                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                if(imgData != null){
+                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             %>
-                            <div align="center"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                                <div align="center"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                            <%
+                                }
+                            %>
+                            
 
                             <h1><%= company.getName()%></h1>
 

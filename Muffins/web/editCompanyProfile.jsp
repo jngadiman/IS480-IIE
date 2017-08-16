@@ -74,9 +74,13 @@
                                     <%
                                         // display the image
                                         byte[] imgData = company.getCompanyLogo();
-                                        String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
+                                        if(imgData != null){
+                                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                     %>
-                                    <img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" />
+                                        <div align="center"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                                    <%
+                                        }
+                                    %>
                                     <br/>
                                         Select image to upload:
                                         <input type="file" name="companyLogo">
