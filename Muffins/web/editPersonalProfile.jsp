@@ -56,12 +56,14 @@
         %>
         <div class="container">
             <h1 class="col-lg-8 well col-lg-offset-2">Edit Personal Profile</h1>
-            <%
+            
+                <%
                 String status = (String) request.getAttribute("updateStatus");
                 if (status != null && !status.isEmpty()) {
                     out.println(status);
                 }
             %>
+            
             <div class="col-lg-8 well col-lg-offset-2">
 
                 <form action="editProfileServlet" method="post" enctype="multipart/form-data">
