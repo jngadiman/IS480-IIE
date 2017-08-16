@@ -133,7 +133,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'light_mentee' OR user_type = 'regular_mentee';");
+            stmt = conn.prepareStatement("select * from User where user_type = 'mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -280,14 +280,17 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-            }
-            
-            if(profile_pic != null){
+                
+                if(profile_pic != null){
                 profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+            }
             }
             
-            u = new User(email, password, name, nric, profilePic, user_type, company_id);
-            System.out.println("USER IN DAO CURRENT USER = "+u.getName());
+            
+            
+            
+            //System.out.println("USER IN DAO CURRENT USER = "+u.getName());
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -451,7 +454,7 @@ public class UserDAO {
             int numRecordsUpdated = stmt.executeUpdate();
             
             if(numRecordsUpdated > 0){
-                status = "Password is updated!";
+                status = "Password has been changed!";
             }else{
                 status = "An error occured, please try again!";
             }
@@ -579,9 +582,10 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-        ArrayList<String> emails = UserDAO.getUserEmailsOfCompany(2);
-        for(String email: emails){
-            System.out.println(email);
+        User u = UserDAO.getUserByEmail("jason");
+        System.out.println(u);
+        if(u != null){
+            System.out.println("user's name: " + u.getName());
         }
     }
     

@@ -19,13 +19,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Display Profile</title>
         <%@include file="navbar.jsp" %>
-        
+
     </head>
     <body>
-        <%            
-        String userEmail = request.getParameter("email");
-        User displayedUser = profileController.displayUserDetails(userEmail);
-        
+        <%            String userEmail = request.getParameter("email");
+            User displayedUser = profileController.displayUserDetails(userEmail);
+
         %>
 
         <div class="container">
@@ -33,14 +32,21 @@
                 <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
 
                     <div class="col-sm-8 well">
-                        <div class="col-xs-12 col-sm-8">
-                            <%
-                                // display the image
+                        <div class="col-xs-12 col-sm-8 ">
+                            <div class="col-sm-offset-3">
+                            <%                                // display the image
                                 byte[] imgData = displayedUser.getProfile_pic();
+                                if (imgData == null) {
+                            %>
+                            <img src="img/user.png" width="200px" alt=""/>
+                            <%
+                            } else {
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             %>
                             <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-
+                            
+                            <%}%>
+                            </div>
                             <h2><%= displayedUser.getName()%></h2>
 
 
@@ -52,7 +58,7 @@
                             <%String type = displayedUser.getUser_type(); %>
 
                             <% if (type.equals("mentee")) {
-                                    Mentee mentee = MenteeDAO.getMenteeByEmail(displayedUser.getEmail());
+                                    Mentee mentee = MenteeDAO.getMenteeByEmail(userEmail);
                                     String mentor_name = "";
                                     if (mentee.getMentor_email() == null || !mentee.getMentor_email().isEmpty()) {
                                         Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
@@ -76,6 +82,8 @@
 
                             <p><strong>Mentor </strong> : <%= mentor_name%></p>
 
+                            <br><a href="viewAllMentees.jsp" class="btn-sm btn-success">Back to Mentees</a>
+
                             <%} else if (type.equals("mentor")) {
                                 Mentor mentor = MentorDAO.getMentorByEmail(userEmail);
                                 String company_name = "";
@@ -90,14 +98,18 @@
                             <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
                             <p><strong>Introduction</strong><br>
                                 <%= mentor.getIntroduction()%></p>
-                                <% }%>
+                            <br>
+                            <a href="viewAllMentors.jsp" class="btn-sm btn-success">Back to Mentors</a>
+
+                            <% }%>
                         </div>             
 
                     </div>
+
+
                 </div>
             </div>                 
         </div>
-        <div class="text-center"><a href="editPersonalProfile.jsp" class="btn-sm btn-success">Edit Profile</a></div>
 
     </body>
 </html>

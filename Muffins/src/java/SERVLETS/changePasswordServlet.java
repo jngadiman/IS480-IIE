@@ -35,7 +35,7 @@ public class changePasswordServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
+        //HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
@@ -46,31 +46,30 @@ public class changePasswordServlet extends HttpServlet {
         if ((!email.equals("")) && (!confirmPassword.equals(""))&& (!newPassword.equals(""))) {
             System.out.println("PASSWORDS AND EMAIL NOT NULL" );
             if (newPassword.equals(confirmPassword)){
-                
                 //to ensure that the passwords matches
                 User currentUser = loginController.checkUser(email);
-                if ((currentUser != null)) {
+                if (currentUser == null) {
+                    
+                    System.out.println("USER IS NOT VALIDATED :(" );
+                    request.setAttribute("loginResult", "Invalid email/password");
+                    request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+                    
+                } else {
                     //to ensure user email is found in db
                     System.out.println("USER IS IN DB" );
                     result = loginController.updateUserPassword(email,newPassword);
                     
-                    session.setAttribute("user", currentUser);
-                    request.setAttribute("returnMsg", result);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                   
-                } else {
-                    System.out.println("USER IS NOT VALIDATED :(" );
-                    request.setAttribute("loginErrorMessage", "invalid email/password");
+                    request.setAttribute("loginResult", result);
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
             }else{
-                request.setAttribute("loginErrorMessage", "passwords does not match");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.setAttribute("loginResult", "Passwords does not match");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
             }
             
         } else {
-            request.setAttribute("loginErrorMessage", "invalid email/password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.setAttribute("loginResult", "Invalid email/password");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
         }
 
     }

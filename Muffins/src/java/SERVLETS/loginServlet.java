@@ -78,11 +78,11 @@ public class loginServlet extends HttpServlet {
                 
             } else {
                 System.out.println("USER IS NOT VALIDATED :(" );
-                request.setAttribute("loginErrorMessage", "invalid email/password");
+                request.setAttribute("loginResult", "invalid email/password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } else {
-            request.setAttribute("loginErrorMessage", "invalid email/password");
+            request.setAttribute("loginResult", "invalid email/password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 

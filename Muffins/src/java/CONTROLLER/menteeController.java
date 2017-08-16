@@ -50,7 +50,7 @@ public class menteeController {
     
     public static ArrayList<Mentee> getAllMentees(){
         ArrayList<Mentee> allMentees = new ArrayList<>();
-        Mentee m = null;
+        
         
         allMentees = MenteeDAO.getMentees();
         return allMentees;

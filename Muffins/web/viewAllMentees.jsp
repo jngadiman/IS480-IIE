@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.profileController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Company"%>
 <%@page import="CONTROLLER.menteeController"%>
@@ -32,7 +33,7 @@
                  <div class="col-lg-4 well">
                 <%=mentee.getProfile_pic()%>
                 <h2><%=mentee.getName()%></h2>
-                <% User displayedUser = (User)mentee;
+                <% User displayedUser = profileController.displayUserDetails(mentee.getEmail());
                     int companyID = displayedUser.getCompanyid();
                     Company company = companyController.getCompany(companyID);%><br>
                     <span class="label label-primary"><%=company.getName()%></span><br><br>
