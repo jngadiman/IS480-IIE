@@ -37,11 +37,11 @@
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                     
                             %>
-                                <img width="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                                <img width="200" height="200 src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                             <%
                                 }else{
                             %>
-                            <img src="img/user.png" width="200" alt=""/>
+                            <img src="img/user.png" width="200" height="200" alt=""/>
                             <%
                                 }
                             %>
@@ -59,7 +59,7 @@
                             <% if (type.equals("mentee")) {
                                     Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                                     String mentor_name = "";
-                                    if (mentee.getMentor_email() == null || !mentee.getMentor_email().isEmpty()) {
+                                    if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
                                         Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                         mentor_name = myMentor.getName();
                                     }

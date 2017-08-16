@@ -368,15 +368,11 @@ public class RequestDAO {
     
     
     public static void main(String[] args){
-        ArrayList<Request> requests = RequestDAO.getAllRequestsByType("open");
-        for(Request r: requests){
-            System.out.println(r.getRequestID());
-            System.out.println(r.getCompanyID());
-            System.out.println(r.getMentorEmail());        
-            System.out.println(r.getType());
-            System.out.println(r.getAdminEmail());
-            System.out.println(r.getStatus());
-        }
+        Request r = new Request(RequestDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");
+        int result = RequestDAO.addRequest(r);
+        
+        System.out.println(result);
+        
     }
 }
 

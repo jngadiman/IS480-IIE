@@ -38,12 +38,12 @@
                                 byte[] imgData = displayedUser.getProfile_pic();
                                 if (imgData == null) {
                             %>
-                            <img src="img/user.png" width="200px" alt=""/>
+                            <img src="img/user.png" width="200" height="200" alt=""/>
                             <%
                             } else {
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             %>
-                            <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                            <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                             
                             <%}%>
                             </div>

@@ -30,7 +30,7 @@
         
     </head>
     <body>
-        <form action="applicationForm.jsp" method="post">
+        <form action="confirmRequest.jsp" method="post">
         <%
             String status = (String) session.getAttribute("status");
             String type = (String) session.getAttribute("requestType");

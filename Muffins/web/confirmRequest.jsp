@@ -28,11 +28,10 @@
         %>
         <div style="align-items: center">
            <h4 style="text-align: center">Are you sure you want to request for this mentor?</h4>
-           <p style="text-align: center"> m.getProfile_pic()</p>
            <br/>
-           <p style="text-align: center">m.getName()</p>
+           <h2 style="text-align: center"><%=m.getName()%></h2>
            <br/>
-           <p align="center"> <button type="reset" class="btn btn-default">Cancel</button>    <button style="align-items: center" type="submit" class="btn btn-primary">Yes</button></p>
+           <p align="center"> <button type="reset" class="btn btn-default">Cancel</button>    <button style="align-items: center" type="submit" class="btn btn-primary" name="yesBtn">Yes</button></p>
            
         </div>
         </form>

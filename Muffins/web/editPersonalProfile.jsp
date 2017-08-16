@@ -100,7 +100,7 @@
                                             Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                                             
                                             String mentor_name = "";
-                                            if(mentee.getMentor_email() != null || !mentee.getMentor_email().isEmpty()){
+                                            if(mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()){
                                                 Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                                 mentor_name = myMentor.getName();
                                             }
