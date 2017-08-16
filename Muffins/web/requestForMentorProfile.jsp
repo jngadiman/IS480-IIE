@@ -26,13 +26,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor Profile</title>
         <%@include file="navbar.jsp" %>
-        <link href="css/stages.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/npm.js" type="text/javascript"></script>
-        <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
-        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         
     </head>
     <body>
@@ -54,52 +47,55 @@
             boolean isCurrentMentor = (boolean) session.getAttribute("isCurrentMentor");
         %>
         
-            <div>
-                <div align="center">A Picture Should Be Inserted Here</div>
+            
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
+                    <h2>Mentor Profile</h2>
+                    <div class="col-sm-10 well">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <p align="center"><%= mentor.getProfile_pic()%></p>
                 
-                <h1 align="center"><%= mentor.getName()%></h1>
+                <h2><%= mentor.getName()%></h2>
                 <br>
                 
-                <h2 align="center">Email Address</h2>
-                <p align="center"><%= mentor.getEmail()%></p>
-                <br>
+                <p><strong>Email Address</strong> : <%= mentor.getEmail()%></p>
                 
-                <h2 align="center">NRIC</h2>
-                <p align="center"><%= mentor.getNric()%></p>
                 
-                <h2 align="center">User Type</h2>
-                <p align="center"><%= mentor.getUser_type()%></p>
+                <p><strong>NIRC</strong> : <%= mentor.getNric()%></p>
                 
-                <br>
-                <h2 align="center">Current Position in the Company</h2>
-                <br>
-                <p align="center"><%= mentor.getPosition()%></p>
-                <br>
-                <h2 align="center">Introduction</h2>
-                <br>
-                <p align="center"><%= mentor.getIntroduction()%></p>
+                <p><strong>User Type</strong> : <%= mentor.getUser_type()%></p>
+                
+                <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
+                
+                <p><strong>Introduction</strong><br><%= mentor.getIntroduction()%></p>
                 
                 <input type="hidden" value="<%= mentor.getEmail()%>" name="mentor">
-            </div>
             
-            <div class="text-center"><a href="requestForMentor.jsp" class="btn btn-success btn-outline-rounded green">Return to Mentor List</a></div>
+                <a href="requestForMentor.jsp?type=<%=type%>" class="btn btn-primary btn-xs">Back to Mentor List</a>
+           
             <%
                 //isCurrentMentor -> check if there is a rls whereby this company and this mentor hass an approved status
                 //second part -> if regular user wants to requests for another incubator mentor
                 //then they cannot request for this mentor
                 if(isCurrentMentor || (type.equals("incubator")&& (mentee.getMentor_email()!= null && !mentee.getMentor_email().isEmpty()))){
             %>
-                <input type="submit" value="Apply for this Mentor" name="submitBtn" disabled>
+                <input class="btn btn-xs" type="submit" value="Apply for this Mentor" name="submitBtn" disabled>
             <%
                 }else{
             %>
-                <input type="submit" value="Apply for this Mentor" name="submitBtn">
+                <input class="btn btn-xs" type="submit" value="Apply for this Mentor" name="submitBtn">
             <%
                 }
             %>
-            <div class="text-center"><a href="applicationForm.jsp" class="btn btn-success btn-outline-rounded green">Apply for this Mentor</a></div>
+            
         </form>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+            
     </body>
 
 </html>

@@ -5,6 +5,10 @@
 --%>
 
 
+<%@page import="CONTROLLER.profileController"%>
+<%@page import="CONTROLLER.companyController"%>
+<%@page import="MODELS.Company"%>
+<%@page import="MODELS.Company"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="MODELS.Mentor"%>
@@ -12,13 +16,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="navbar.jsp" %>
 <%@include file="protect.jsp" %>
-<link href="css/stages.css" rel="stylesheet" type="text/css"/>
-<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/npm.js" type="text/javascript"></script>
-<link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
-<script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,17 +23,30 @@
         <title>All Mentors</title>
     </head>
     <body>
+        
+        <div class="container">
+        <div class="col-lg-8 col-lg-offset-2">
         <%
             ArrayList<Mentor> allMentors = mentorController.getMentors();
             for (int i = 0; i < allMentors.size(); i++){
                 Mentor mentor = allMentors.get(i);
-                out.println("<p align='center'>mentor's profile photo should be displayed here</p>");
-                out.print("<p align='center'>" + mentor.getName() +"</p>    ");
-                out.print("<p class='text-center'><a href='viewPersonalProfile.jsp' class='btn btn-success btn-outline-rounded green'>View Detailed Mentor Profile</a></p>");
                 
+                %>
+                
+                <div class="col-lg-4 well">
+                    <%=mentor.getProfile_pic()%>
+                    <h2><%=mentor.getName()%></h2>
+                    <% User displayedUser = profileController.displayUserDetails(mentor.getEmail());
+                    int companyID = displayedUser.getCompanyid();
+                    Company company = companyController.getCompany(companyID);%>
+                    <span class="label label-primary"><%=company.getName()%></span><br><br>
+                <a href='displayProfile.jsp?email=<%=mentor.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>
+                </div>
+                <%
             }
         %>
-        
+        </div>
+        </div>
         
     </body>
 </html>

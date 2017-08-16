@@ -1,4 +1,5 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Base64"%>
 <%-- 
     Document   : viewMentorProfile
@@ -21,56 +22,54 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor Profile</title>
         <%@include file="navbar.jsp" %>
-        <link href="css/stages.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/npm.js" type="text/javascript"></script>
-        <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
-        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <%@include file="protect.jsp" %>
     </head>
     <body>
-        <%
-            String username = "admin@smu.edu.sg";
+        <%            String username = "admin@smu.edu.sg";
             User mentor = UserDAO.getUserByEmail(username);
             int companyID = mentor.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
 
         %>
-        <body>
-            <div>
-                <%
-                    // display the image=
-                        byte[ ] imgData = company.getCompanyLogo();
-                        String imgDataBase64=new String(Base64.getEncoder().encode(imgData));
-                %>
-                <div align="center"><img src="data:image/gif;base64,<%= imgDataBase64 %>" alt="images Here" /></div>
-                <h1 align="center"><%= company.getName()%></h1>
-                <br>
-                <h2 align="center">Description</h2>
-                <p align="center"><%= company.getDescription()%></p>
-                <br>
-                <h2 align="center">Vision</h2>
-                <p align="center"><%= company.getVision()%></p>
-                <br>
-                <h2 align="center">Mission</h2>
-                <br>
-                <p align="center"><%= company.getMission()%></p>
-                <br>
-                <h2 align="center">Company Industry</h2>
-                <br>
-                <p align="center"><%= company.getIndustry()%></p>
-                <br>
-                <h2 align="center">Start Date</h2>
-                <br>
-                <p align="center"><%= company.getStartDate()%></p>
-                <h2 align="center">Company Current Stage</h2>
-                <br>
-                <p align="center"><%= company.getCurrentStage()%></p>                
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
+                    <h2>Company Profile</h2>
+                    <div class="col-sm-10 well">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+                            <%                    // display the image=
+                                byte[] imgData = company.getCompanyLogo();
+                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                            %>
+                            <div align="center"><img src="data:image/gif;base64,<%= imgDataBase64%>" alt="images Here" /></div>
+
+                            <h1><%= company.getName()%></h1>
+
+                            <p><strong>Description</strong> :<br> 
+                                <%= company.getDescription()%></p>
+                            <p><strong>Vision</strong> :
+                                <%= company.getVision()%></p>
+
+                            <p><strong>Mission</strong> : 
+                                <%= company.getMission()%></p>
+                            <p><strong>Company Industry</strong> : <%= company.getIndustry()%></p>
+                            <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
+                            <p><strong>Start Date</strong> : <%=startDate%></p>
+                            <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>  
+
+                            <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </body>
-        
-        <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-outline-rounded green">Edit Company Profile</a></p>
-        
+        </div>
+
+
+    </body>
+
+    
 
 </html>
