@@ -67,7 +67,7 @@
         <div class="container">
             <h1 class="well">User Registration Form</h1>
             <%
-                ArrayList<String> degrees = new ArrayList<>();
+                ArrayList<String> degrees = new ArrayList<String>();
                 degrees.add("Information Systems");
                 degrees.add("Business");
                 degrees.add("Economics");

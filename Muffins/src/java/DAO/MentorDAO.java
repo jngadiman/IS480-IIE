@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class MentorDAO {
     public static ArrayList<Mentor> getMentors(){
-        ArrayList<Mentor> allMentors = new ArrayList<>();
+        ArrayList<Mentor> allMentors = new ArrayList<Mentor>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;

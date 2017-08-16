@@ -27,7 +27,7 @@ import javax.sql.rowset.serial.SerialBlob;
  */
 public class UserDAO {
     public static ArrayList<User> getAllUsers(){
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<User>();
         User u = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -72,7 +72,7 @@ public class UserDAO {
     }
     
     public static ArrayList<User> getAllMentors(){
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<User>();
         User u = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -117,7 +117,7 @@ public class UserDAO {
     }
     
     public static ArrayList<User> getAllMentees(){
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<User>();
         User u = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -162,7 +162,7 @@ public class UserDAO {
     }
     
     public static ArrayList<User> getAllLightMentees(){
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<User>();
         User u = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -207,7 +207,7 @@ public class UserDAO {
     }
     
     public static ArrayList<User> getAllRegularMentees(){
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<User>();
         User u = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -482,7 +482,7 @@ public class UserDAO {
     }
     
     public static ArrayList<Integer> getAllMenteeCompanyIDs(){
-        ArrayList<Integer> companyIDs = new ArrayList<>();
+        ArrayList<Integer> companyIDs = new ArrayList<Integer>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -507,7 +507,7 @@ public class UserDAO {
     }
     
     public static ArrayList<Integer> getLightCompanyIDs(){
-        ArrayList<Integer> companyIDs = new ArrayList<>();
+        ArrayList<Integer> companyIDs = new ArrayList<Integer>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -533,7 +533,7 @@ public class UserDAO {
     }
     
     public static ArrayList<Integer> getRegularCompanyIDs(){
-        ArrayList<Integer> companyIDs = new ArrayList<>();
+        ArrayList<Integer> companyIDs = new ArrayList<Integer>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -559,7 +559,7 @@ public class UserDAO {
     }
     
     public static ArrayList<String> getUserEmailsOfCompany(int company_id){
-        ArrayList<String> menteeEmails = new ArrayList<>();
+        ArrayList<String> menteeEmails = new ArrayList<String>();
         
         Connection conn = null;
         PreparedStatement stmt = null;

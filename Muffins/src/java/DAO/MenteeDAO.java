@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class MenteeDAO {
     public static ArrayList<Mentee> getMentees(){
-        ArrayList<Mentee> allMentees = new ArrayList<>();
+        ArrayList<Mentee> allMentees = new ArrayList<Mentee>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -66,7 +66,7 @@ public class MenteeDAO {
     
     //get all emails of all the Light Mentees
     public static ArrayList<String> getLightMenteeEmails(){
-        ArrayList<String> lightMenteeEmails = new ArrayList<>();
+        ArrayList<String> lightMenteeEmails = new ArrayList<String>();
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -94,7 +94,7 @@ public class MenteeDAO {
     
     //get all emails of Regular Mentees
     public static ArrayList<String> getRegularMenteeEmails(){
-        ArrayList<String> regularMenteeEmails = new ArrayList<>();
+        ArrayList<String> regularMenteeEmails = new ArrayList<String>();
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -121,7 +121,7 @@ public class MenteeDAO {
     }
     
     public static ArrayList<ArrayList<String>> getLightMenteeDetails(){
-        ArrayList<ArrayList<String>> lightMentees = new ArrayList<>();
+        ArrayList<ArrayList<String>> lightMentees = new ArrayList<ArrayList<String>>();
         ArrayList<String> emails = MenteeDAO.getLightMenteeEmails();
         
         Connection conn = null;
@@ -135,7 +135,7 @@ public class MenteeDAO {
         
         
         for(String s: emails){
-            ArrayList<String> lightMentee = new ArrayList<>();
+            ArrayList<String> lightMentee = new ArrayList<String>();
             
             try {
                 conn = ConnectionManager.getConnection();
@@ -172,7 +172,7 @@ public class MenteeDAO {
     }
 
     public static ArrayList<ArrayList<String>> getRegularMenteeDetails(){
-        ArrayList<ArrayList<String>> regularMentees = new ArrayList<>();
+        ArrayList<ArrayList<String>> regularMentees = new ArrayList<ArrayList<String>>();
         ArrayList<String> emails = MenteeDAO.getRegularMenteeEmails();
         
         Connection conn = null;
@@ -186,7 +186,7 @@ public class MenteeDAO {
         
         
         for(String s: emails){
-            ArrayList<String> regularMentee = new ArrayList<>();
+            ArrayList<String> regularMentee = new ArrayList<String>();
             
             try {
                 conn = ConnectionManager.getConnection();

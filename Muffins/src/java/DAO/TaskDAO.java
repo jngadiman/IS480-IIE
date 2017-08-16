@@ -79,7 +79,7 @@ public class TaskDAO {
 
     public static ArrayList<Task> getAllTasks() {
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -135,7 +135,7 @@ public class TaskDAO {
             return null;
         }
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -193,7 +193,7 @@ public class TaskDAO {
             return null;
         }
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -252,7 +252,7 @@ public class TaskDAO {
             return null;
         }
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;

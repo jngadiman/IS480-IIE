@@ -46,7 +46,7 @@
             user = (User) session.getAttribute("user");
 
            //hardcoded, need to replace with session key later
-            ArrayList<String> degrees = new ArrayList<>();
+            ArrayList<String> degrees = new ArrayList<String>();
             degrees.add("Information Systems");
             degrees.add("Business");
             degrees.add("Economics");

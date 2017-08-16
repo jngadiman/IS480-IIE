@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class companyController {
     public static ArrayList<Company> getLightCompanies(){
-        ArrayList<Company> companies = new ArrayList<>();
+        ArrayList<Company> companies = new ArrayList<Company>();
         ArrayList<Integer> companyIDs = UserDAO.getLightCompanyIDs();
         
         for(int company_id: companyIDs){
@@ -28,7 +28,7 @@ public class companyController {
     }
 
     public static ArrayList<Company> getRegularCompanies(){
-        ArrayList<Company> companies = new ArrayList<>();
+        ArrayList<Company> companies = new ArrayList<Company>();
         ArrayList<Integer> companyIDs = UserDAO.getRegularCompanyIDs();
         
         for(int company_id: companyIDs){

@@ -85,7 +85,7 @@ public class CompanyDAO {
     }
 
     public static ArrayList<Company> getAllCompanies(){
-        ArrayList<Company> companies = new ArrayList<>();
+        ArrayList<Company> companies = new ArrayList<Company>();
         Company c = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -146,7 +146,7 @@ public class CompanyDAO {
     }
 
     public static ArrayList<Company> getCompaniesInStage(int stage){
-        ArrayList<Company> companies = new ArrayList<>();
+        ArrayList<Company> companies = new ArrayList<Company>();
         Company c = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -208,7 +208,7 @@ public class CompanyDAO {
     }
     
     public static ArrayList<String> getAllCompanyNames(ArrayList<Integer> companyIDs){
-        ArrayList<String> companyNames = new ArrayList<>();
+        ArrayList<String> companyNames = new ArrayList<String>();
         
         Connection conn = null;
         PreparedStatement stmt = null;

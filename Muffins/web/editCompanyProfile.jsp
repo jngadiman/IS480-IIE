@@ -37,7 +37,7 @@
             int companyID = mentor.getCompanyid();
             Company company = CompanyDAO.getCompany(companyID);
             
-            ArrayList<String> industries = new ArrayList<>();
+            ArrayList<String> industries = new ArrayList<String>();
             industries.add("E-commerce");
             industries.add("Healthcare");
             industries.add("Medical Devices");

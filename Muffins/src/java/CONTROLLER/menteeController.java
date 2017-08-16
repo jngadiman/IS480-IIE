@@ -23,7 +23,7 @@ public class menteeController {
     }
     
     public static ArrayList<Mentee> getLightMentees(){
-        ArrayList<Mentee> lightMentees = new ArrayList<>();
+        ArrayList<Mentee> lightMentees = new ArrayList<Mentee>();
         Mentee m = null;
         
         ArrayList<String> lightMenteeEmails = MenteeDAO.getLightMenteeEmails();

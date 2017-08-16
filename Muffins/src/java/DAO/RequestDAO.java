@@ -62,7 +62,7 @@ public class RequestDAO {
     //NOT DONE YET
     //to return all the Requests objects in the DB
     public static ArrayList<Request> getAllRequests(){
-        ArrayList<Request> requests = new ArrayList<>();
+        ArrayList<Request> requests = new ArrayList<Request>();
         Request r = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -101,7 +101,7 @@ public class RequestDAO {
     //NOT DONE YET
     //to return all Requests for a specific Mentor based on mentor Email
     public static ArrayList<Request> getAllRequestsForMentor(String mentorEmail){
-        ArrayList<Request> mentorRequests = new ArrayList<>();
+        ArrayList<Request> mentorRequests = new ArrayList<Request>();
         Request r = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -141,7 +141,7 @@ public class RequestDAO {
     //NOT DONE YET
     //to return all Requests done by a Company based on Company ID
     public static ArrayList<Request> getRequestByCompany(int companyID){
-        ArrayList<Request> requests = new ArrayList<>();
+        ArrayList<Request> requests = new ArrayList<Request>();
         Request r = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -180,7 +180,7 @@ public class RequestDAO {
     
     //to return all Requests that involves a certain Admin based on Admin Email
     public static ArrayList<Request> getAllRequestsByAdmin(String adminEmail){
-        ArrayList<Request> requests = new ArrayList<>();
+        ArrayList<Request> requests = new ArrayList<Request>();
         Request r = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -219,7 +219,7 @@ public class RequestDAO {
     
     //to return all Requests that has a status of value of statusStr
     public static ArrayList<Request> getAllRequestsByStatus(String statusStr){
-        ArrayList<Request> requests = new ArrayList<>();
+        ArrayList<Request> requests = new ArrayList<Request>();
         Request r = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -258,7 +258,7 @@ public class RequestDAO {
     
     //to return all Requests that has a status of value of statusStr
     public static ArrayList<Request> getAllRequestsByType(String typeStr){
-        ArrayList<Request> requests = new ArrayList<>();
+        ArrayList<Request> requests = new ArrayList<Request>();
         Request r = null;
         Connection conn = null;
         PreparedStatement stmt = null;

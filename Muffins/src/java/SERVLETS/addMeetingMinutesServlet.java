@@ -45,8 +45,8 @@ public class addMeetingMinutesServlet extends HttpServlet {
         String[] tasksCompleted = request.getParameterValues("tasks_completed");
         String comments = request.getParameter("comments");
 
-        ArrayList<String> errorMsg = new ArrayList<>();
-        ArrayList<Integer> taskIDs = new ArrayList<>();
+        ArrayList<String> errorMsg = new ArrayList<String>();
+        ArrayList<Integer> taskIDs = new ArrayList<Integer>();
         String mentor = "";
         boolean lightMentee = false;
 
