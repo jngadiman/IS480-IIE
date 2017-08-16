@@ -34,18 +34,21 @@
                     <div class="col-sm-8 well">
                         <div class="col-xs-12 col-sm-8 ">
                             <div class="col-sm-offset-3">
-                            <%                                // display the image
+                            <%
+                                // display the image
                                 byte[] imgData = displayedUser.getProfile_pic();
-                                if (imgData == null) {
+                                if(imgData != null){
+                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                    
+                            %>
+                                <img width="200" height="200 src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                            <%
+                                }else{
                             %>
                             <img src="img/user.png" width="200" height="200" alt=""/>
                             <%
-                            } else {
-                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                }
                             %>
-                            <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                            
-                            <%}%>
                             </div>
                             <h2><%= displayedUser.getName()%></h2>
 

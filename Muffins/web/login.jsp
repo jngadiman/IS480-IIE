@@ -16,14 +16,16 @@
     String loginResult = (String) request.getAttribute("loginResult");
     if(loginResult == null){
         loginResult = "";
-    }
-    
+    }%>
+    <p style="text-align: center">
+    <%
     String status = (String) request.getAttribute("registerStatus");
     if(status != null && !status.isEmpty()){
         out.println(status);
     }
     
 %>
+</p>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

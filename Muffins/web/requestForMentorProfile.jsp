@@ -39,7 +39,7 @@
             if(status!= null && !status.isEmpty()){
         %>      
         
-                <font color="red"><%= status%></font>      
+        <p style="text-align: center><%= status%></p>  
                 
         <%  
             session.setAttribute("status", null);
