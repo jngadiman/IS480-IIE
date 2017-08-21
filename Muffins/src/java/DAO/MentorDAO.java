@@ -45,6 +45,7 @@ public class MentorDAO {
                     position = result.getString("position");
                     introduction = result.getString("introduction");
                 }
+                System.out.println(u.getName() + ": " + u.getProfile_pic());
                 mentor = new Mentor(email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), position, introduction);
             } catch (SQLException ex) {
                 Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,28 +127,28 @@ public class MentorDAO {
     
     
     public static void main(String[] args){
-        Mentor m = MentorDAO.getMentorByEmail("hello@hotmail.com");
-        System.out.println(m.getEmail());
-        System.out.println(m.getPassword());
-        System.out.println(m.getName());
-        System.out.println(m.getNric());
-        System.out.println(m.getProfile_pic());
-        System.out.println(m.getUser_type());
-        System.out.println(m.getCompanyid());
-        System.out.println(m.getPosition());
-        System.out.println(m.getIntroduction());
+//        Mentor m = MentorDAO.getMentorByEmail("hello@hotmail.com");
+//        System.out.println(m.getEmail());
+//        System.out.println(m.getPassword());
+//        System.out.println(m.getName());
+//        System.out.println(m.getNric());
+//        System.out.println(m.getProfile_pic());
+//        System.out.println(m.getUser_type());
+//        System.out.println(m.getCompanyid());
+//        System.out.println(m.getPosition());
+//        System.out.println(m.getIntroduction());
         
-//        ArrayList<Mentor> mentors = MentorDAO.getMentors();
-//        for(Mentor m: mentors){
-//            System.out.println(m.getEmail());
-//            System.out.println(m.getPassword());
-//            System.out.println(m.getName());
-//            System.out.println(m.getNric());
-//            System.out.println(m.getProfile_pic());
-//            System.out.println(m.getUser_type());
-//            System.out.println(m.getCompanyid());
-//            System.out.println(m.getPosition());
-//            System.out.println(m.getIntroduction());
-//        }
+        ArrayList<Mentor> mentors = MentorDAO.getMentors();
+        for(Mentor m: mentors){
+            System.out.println(m.getEmail());
+            System.out.println(m.getPassword());
+            System.out.println(m.getName());
+            System.out.println(m.getNric());
+            System.out.println(m.getProfile_pic());
+            System.out.println(m.getUser_type());
+            System.out.println(m.getCompanyid());
+            System.out.println(m.getPosition());
+            System.out.println(m.getIntroduction());
+        }
     }
 }

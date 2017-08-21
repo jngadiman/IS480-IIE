@@ -28,6 +28,7 @@
         <div class="container">
         <div class="col-lg-8 col-lg-offset-2">
         <%
+            byte[] imgData;
             ArrayList<Mentor> allMentors = mentorController.getMentors();
             for (Mentor mentor : allMentors){
                 
@@ -36,20 +37,20 @@
                 <div class="col-lg-4 well">
                     <%
                         // display the image
-                        byte[] imgData = mentor.getProfile_pic();
+                        imgData = mentor.getProfile_pic();
                         if(imgData != null){
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-
+                            out.println(imgData);
                     %>
-                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="200" height="200" alt="Profile Picture" />
+                        <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                     <%
                         }else{
                     %>
-                            <img src="img/user.png" width="200" height="200" alt=""/>
+                        <img src="img/user.png" width="200" height="200" alt=""/>
                     <%
                         }
                     %>
-
+                    
                     <h2><%=mentor.getName()%></h2>
                     <% 
                         
@@ -67,6 +68,7 @@
                 <a href='displayProfile.jsp?email=<%=mentor.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>
                 </div>
                 <%
+                imgData = null;
             }
         %>
         </div>

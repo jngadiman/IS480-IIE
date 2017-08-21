@@ -57,6 +57,8 @@ public class UserDAO {
                 
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
                 }
                 
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
@@ -102,6 +104,8 @@ public class UserDAO {
                 
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
                 }
                 
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
@@ -147,6 +151,8 @@ public class UserDAO {
                 
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
                 }
                 
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
@@ -192,6 +198,8 @@ public class UserDAO {
                 
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
                 }
                 
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
@@ -237,6 +245,8 @@ public class UserDAO {
                 
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
                 }
 
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
@@ -282,15 +292,14 @@ public class UserDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 
                 if(profile_pic != null){
-                profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                    profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
                 }
+                
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
             
             }
-            
-            
-            
-            
             //System.out.println("USER IN DAO CURRENT USER = "+u.getName());
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -587,9 +596,16 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-       User u = new User("admin@smu.edu.sg", "password", "jiatung", "S3300328Y", null, "admin", 2);
-       int result = UserDAO.editUser(u);
-       System.out.println(result);
+       ArrayList<User> mentors = UserDAO.getAllMentors();
+       for(User u: mentors){
+            System.out.println(u.getEmail());
+            System.out.println(u.getPassword());
+            System.out.println(u.getName());
+            System.out.println(u.getNric());
+            System.out.println(u.getProfile_pic());
+            System.out.println(u.getUser_type());
+            System.out.println(u.getCompanyid());
+       }
     }
     
 }

@@ -41,7 +41,7 @@
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                     
                             %>
-                                <img width="200" height="200 src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                                <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                             <%
                                 }else{
                             %>
