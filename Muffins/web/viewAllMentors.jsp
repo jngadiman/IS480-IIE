@@ -29,8 +29,7 @@
         <div class="col-lg-8 col-lg-offset-2">
         <%
             ArrayList<Mentor> allMentors = mentorController.getMentors();
-            for (int i = 0; i < allMentors.size(); i++){
-                Mentor mentor = allMentors.get(i);
+            for (Mentor mentor : allMentors){
                 
                 %>
                 

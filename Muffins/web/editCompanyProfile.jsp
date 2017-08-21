@@ -56,7 +56,7 @@
             <%
                 String status = (String) request.getAttribute("updateStatus");
                 if(status != null && !status.isEmpty()){
-                    out.println(status);
+                    out.println("<div align='center'>" + status + "</div>");
                 }
             %>
 
@@ -120,7 +120,7 @@
                                         <option selected value = <%=company.getIndustry()%> ><%=company.getIndustry()%></option>
                                         <% for (String industry : industries) {
                                                 if (!company.getIndustry().equals(industry)) {%>
-                                        <option value=<%=industry%>> <%=industry%></option>
+                                        <option value='<%=industry%>'> <%=industry%></option>
                                         <%      }
                                             }
                                         %>

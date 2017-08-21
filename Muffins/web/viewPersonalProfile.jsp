@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.profileController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="java.util.Base64"%>
@@ -21,7 +22,9 @@
         <%@include file="navbar.jsp" %>
     </head>
     <body>
-        <%            user = (User) session.getAttribute("user");
+        <%          user = (User) session.getAttribute("user");
+                    user = profileController.getUser(user.getEmail());
+                    session.setAttribute("user", user);
         %>
 
         <div class="container">
@@ -30,22 +33,18 @@
 
                     <div class="col-sm-8 well">
                         <div class="col-xs-12 col-sm-8">
-                            <%
-                                // display the image
+                            <%  // display the image
                                 byte[] imgData = user.getProfile_pic();
-                                if(imgData != null){
+                                if (imgData == null) {
+                            %>
+                            <img src="img/user.png" width="200px" alt=""/>
+                            <%
+                                } else {
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                                    
                             %>
-                                <img width="200" height="200 src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                            <%
-                                }else{
-                            %>
-                            <img src="img/user.png" width="200" height="200" alt=""/>
-                            <%
-                                }
-                            %>
-
+                                <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                            <%}%>
+                            
                             <h2><%= user.getName()%></h2>
 
 

@@ -8,6 +8,7 @@ package SERVLETS;
 import CONTROLLER.profileController;
 import MODELS.Mentee;
 import MODELS.Mentor;
+import MODELS.User;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 
@@ -41,6 +43,8 @@ public class editProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String status = "";
+        HttpSession session = request.getSession();
+        User displayUser = (User) session.getAttribute("user");
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -48,16 +52,10 @@ public class editProfileServlet extends HttpServlet {
         String nric = request.getParameter("nric");
         String user_type = request.getParameter("user_type");
         
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(name);
-        System.out.println(nric);
-        System.out.println(user_type);
-        
         byte[] profilePic = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("profilePhoto");
-        if (filePart != null) {
+        if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
             // prints out some information for debugging
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
@@ -66,6 +64,8 @@ public class editProfileServlet extends HttpServlet {
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
             profilePic = IOUtils.toByteArray(inputStream);
+        }else{
+           profilePic = displayUser.getProfile_pic();
         }
         
         int companyID = Integer.parseInt(request.getParameter("companyID"));
@@ -75,6 +75,11 @@ public class editProfileServlet extends HttpServlet {
             String degree = request.getParameter("degree");
             int yearOfGrad = Integer.parseInt(request.getParameter("yearOfGrad"));
             String mentor_email = request.getParameter("mentorEmail");
+            
+            System.out.println(mentee_type);
+            System.out.println(degree);
+            System.out.println(yearOfGrad);
+            System.out.println(mentor_email);
             
             Mentee m = new Mentee(email, password, name, nric, profilePic, user_type, companyID, mentee_type, degree, yearOfGrad, mentor_email);
             

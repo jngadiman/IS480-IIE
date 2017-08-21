@@ -51,10 +51,12 @@ public class editCompanyServlet extends HttpServlet {
         String startDate = request.getParameter("startDate");
         int stage = Integer.parseInt(request.getParameter("stage"));
         
+        Company c = companyController.getCompany(companyID);
+        
         byte[] companyLogo = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("companyLogo");
-        if (filePart != null) {
+        if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
             // prints out some information for debugging
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
@@ -63,6 +65,8 @@ public class editCompanyServlet extends HttpServlet {
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
             companyLogo = IOUtils.toByteArray(inputStream);
+        }else{
+            companyLogo = c.getCompanyLogo();
         }
         
         Date start_date = null;
@@ -76,9 +80,9 @@ public class editCompanyServlet extends HttpServlet {
             }
         }
         
-        Company c = new Company(companyID, name, description, vision, mission, industry, start_date, stage, companyLogo);
+        Company company = new Company(companyID, name, description, vision, mission, industry, start_date, stage, companyLogo);
         
-        String status = companyController.editCompany(c);
+        String status = companyController.editCompany(company);
         request.setAttribute("updateStatus", status);
         
         RequestDispatcher rd = request.getRequestDispatcher("editCompanyProfile.jsp");
