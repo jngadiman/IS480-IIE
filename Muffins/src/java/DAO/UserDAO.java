@@ -40,6 +40,11 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
+        
 
         try {
             conn = ConnectionManager.getConnection();
@@ -54,14 +59,17 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
                 }else{
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -73,6 +81,7 @@ public class UserDAO {
         return users;
     }
     
+    //needa change for the mentors
     public static ArrayList<User> getAllMentors(){
         ArrayList<User> users = new ArrayList<User>();
         User u = null;
@@ -87,6 +96,10 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
+//        String role = "";
+//        int equity_percentage = 0;
+//        int contact_number = 0;
+//        String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -101,13 +114,16 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                
+//                role = result.getString("role");
+//                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+//                contact_number = Integer.parseInt(result.getString("contact_number"));
+//                nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
                 }else{
                     profilePic = null;
                 }
-                
+                //role, equity_percentage, contact_number, nationality
                 u = new User(email, password, name, nric, profilePic, user_type, company_id);
                 users.add(u);
             }
@@ -134,6 +150,10 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -148,14 +168,17 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
                 }else{
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -181,6 +204,10 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -195,14 +222,17 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
                 }else{
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -228,6 +258,10 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -242,14 +276,17 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
                 }else{
                     profilePic = null;
                 }
-
-                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -319,7 +356,7 @@ public class UserDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("UPDATE User SET name = ?, nric = ?, profile_pic = ?, user_type = ?, company_id = ? WHERE email = ?;");
+            stmt = conn.prepareStatement("UPDATE User SET name = ?, nric = ?, profile_pic = ?, user_type = ?, company_id = ?, role = ?, equity_percentage = ?, contact_number = ?, nationality = ?  WHERE email = ?;");
             stmt.setString(1, u.getName());
             stmt.setString(2, u.getNric());
             
@@ -333,7 +370,11 @@ public class UserDAO {
             
             stmt.setString(4, u.getUser_type());
             stmt.setInt(5, u.getCompanyid());
-            stmt.setString(6, u.getEmail());
+            stmt.setString(6, u.getRole());
+            stmt.setInt(7, u.getEquityPercentage());
+            stmt.setInt(8, u.getContactNumber());
+            stmt.setString(9, u.getNationality());
+            stmt.setString(10, u.getEmail());
             
             result = stmt.executeUpdate();
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
@@ -403,10 +444,17 @@ public class UserDAO {
             }
             
             //set user_type
-            stmt.setString(6, user_type);
-            
-            //set company_id
-            stmt.setInt(7, company_id);
+            stmt.setString(5, user.getUser_type());
+            //set company id
+            stmt.setInt(6, user.getCompanyid());
+            //set role
+            stmt.setString(7, user.getRole());
+            //set equity
+            stmt.setInt(8, user.getEquityPercentage());
+            //set contact
+            stmt.setInt(9, user.getContactNumber());
+            //set nationality
+            stmt.setString(10, user.getNationality());
             
             int numRecordsUpdated = stmt.executeUpdate();
             

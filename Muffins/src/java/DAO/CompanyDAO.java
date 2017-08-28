@@ -33,12 +33,16 @@ public class CompanyDAO {
         int company_id = 0;
         String company_name = "";
         String company_description = "";
-        String vision = "";
-        String mission = "";
-        String industry = "";
+        int fulltimers = 0;
+        int parttimers = 0;
+        int industry = 0;
         String start_date = "";
         Blob company_logo = null;
         byte[] companyLogo = null;
+        Blob acra_file = null;
+        byte[] acraFile = null;
+        Blob biz_slides = null;
+        byte[] bizSlides = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -52,10 +56,11 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
-                vision = result.getString("vision");
-                mission = result.getString("mission");
-                industry = result.getString("industry");
-                start_date = result.getString("start_date");  
+                fulltimers = result.getInt("num_fulltime");
+                parttimers = result.getInt("num_parttime");
+                industry = result.getInt("industry");
+                start_date = result.getString("start_date");
+                
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     date = dateformat.parse(start_date);
@@ -74,7 +79,20 @@ public class CompanyDAO {
                     companyLogo = null;
                 }
                 
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
+                acra_file = result.getBlob("acra_file");
+                if(acra_file != null){
+                    acraFile = acra_file.getBytes(1, (int) acra_file.length());
+                }else{
+                    acraFile = null;
+                }
+                
+                biz_slides = result.getBlob("biz_slides");
+                if(biz_slides != null){
+                    bizSlides = biz_slides.getBytes(1, (int) biz_slides.length());
+                }else{
+                    bizSlides = null;
+                }
+                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, acraFile, bizSlides);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,14 +111,18 @@ public class CompanyDAO {
         int company_id = 0;
         String company_name = "";
         String company_description = "";
-        String vision = "";
-        String mission = "";
-        String industry = "";
+        int fulltimers = 0;
+        int parttimers = 0;
+        int industry = 0;
         String start_date = "";
-        Date date = new Date();
-        int currentstage = 0;
         Blob company_logo = null;
         byte[] companyLogo = null;
+        Blob acra_file = null;
+        byte[] acraFile = null;
+        Blob biz_slides = null;
+        byte[] bizSlides = null;
+        Date date = new Date();
+        int currentstage = 0;
 
         try {
             conn = ConnectionManager.getConnection();
@@ -111,9 +133,9 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
-                vision = result.getString("vision");
-                mission = result.getString("mission");
-                industry = result.getString("industry");
+                fulltimers = result.getInt("num_fulltime");
+                parttimers = result.getInt("num_parttime");
+                industry = result.getInt("industry");
                 start_date = result.getString("start_date");  
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -133,7 +155,20 @@ public class CompanyDAO {
                     companyLogo = null;
                 }
                 
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
+                acra_file = result.getBlob("acra_file");
+                if(acra_file != null){
+                    acraFile = acra_file.getBytes(1, (int) acra_file.length());
+                }else{
+                    acraFile = null;
+                }
+                
+                biz_slides = result.getBlob("biz_slides");
+                if(biz_slides != null){
+                    bizSlides = biz_slides.getBytes(1, (int) biz_slides.length());
+                }else{
+                    bizSlides = null;
+                }
+                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, acraFile, bizSlides);
                 companies.add(c);
             }
 
@@ -154,14 +189,18 @@ public class CompanyDAO {
         int company_id = 0;
         String company_name = "";
         String company_description = "";
-        String vision = "";
-        String mission = "";
-        String industry = "";
+        int fulltimers = 0;
+        int parttimers = 0;
+        int industry = 0;
         String start_date = "";
-        Date date = new Date();
-        int currentstage = 0;
         Blob company_logo = null;
         byte[] companyLogo = null;
+        Blob acra_file = null;
+        byte[] acraFile = null;
+        Blob biz_slides = null;
+        byte[] bizSlides = null;
+        Date date = new Date();
+        int currentstage = 0;
 
         try {
             conn = ConnectionManager.getConnection();
@@ -173,9 +212,9 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
-                vision = result.getString("vision");
-                mission = result.getString("mission");
-                industry = result.getString("industry");
+                fulltimers = result.getInt("num_fulltime");
+                parttimers = result.getInt("num_parttime");
+                industry = result.getInt("industry");
                 start_date = result.getString("start_date");  
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -194,8 +233,20 @@ public class CompanyDAO {
                 }else{
                     companyLogo = null;
                 }
-                        
-                c = new Company(company_id, company_name, company_description, vision, mission, industry, date, currentstage, companyLogo);
+                acra_file = result.getBlob("acra_file");
+                if(acra_file != null){
+                    acraFile = acra_file.getBytes(1, (int) acra_file.length());
+                }else{
+                    acraFile = null;
+                }
+                
+                biz_slides = result.getBlob("biz_slides");
+                if(biz_slides != null){
+                    bizSlides = biz_slides.getBytes(1, (int) biz_slides.length());
+                }else{
+                    bizSlides = null;
+                }
+                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, acraFile, bizSlides);
                 companies.add(c);
             }
 
@@ -250,12 +301,12 @@ public class CompanyDAO {
             
             String status = "";
             
-            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, vision = ?, mission = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ? WHERE company_id = ?;");
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, acra_file = ?, biz_slides = ? WHERE company_id = ?;");
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getDescription());
-            stmt.setString(3, c.getVision());
-            stmt.setString(4, c.getMission());
-            stmt.setString(5, c.getIndustry());
+            stmt.setInt(3, c.getFullTimers());
+            stmt.setInt(4, c.getPartTimers());
+            stmt.setInt(5, c.getIndustry());
             stmt.setString(6, df.format(c.getStartDate()));
             stmt.setInt(7, c.getCurrentStage());
             
@@ -268,7 +319,26 @@ public class CompanyDAO {
                 stmt.setBlob(8, (Blob) null);
             }   
             
-            stmt.setInt(9, c.getId());
+            if(c.getAcraFile() != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(c.getAcraFile());
+
+                stmt.setBlob(9, blob);
+            }else{
+                stmt.setBlob(9, (Blob) null);
+            }
+            
+            
+            if(c.getBizFile() != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(c.getBizFile());
+
+                stmt.setBlob(10, blob);
+            }else{
+                stmt.setBlob(10, (Blob) null);
+            }
+            
+            stmt.setInt(11, c.getId());
             
             
             result = stmt.executeUpdate();
@@ -288,9 +358,6 @@ public class CompanyDAO {
         int id = c.getId();
         String name = c.getName();
         String description = c.getDescription();
-        String vision = c.getVision();
-        String mission = c.getMission();
-        String industry = c.getIndustry();
         Date start_date = c.getStartDate();
         int current_stage = c.getCurrentStage();
         byte[] companyLogo = c.getCompanyLogo();
@@ -314,20 +381,11 @@ public class CompanyDAO {
             //set description
             stmt.setString(3, description);
 
-            //set vision
-            stmt.setString(4, vision);
-            
-            //set mission
-            stmt.setString(5, mission);
-            
-            //set industry
-            stmt.setString(6, industry);
-            
-            //set start_date
-            stmt.setString(7, df.format(start_date));
-            
-            //set current_stage
-            stmt.setInt(8, current_stage);
+            stmt.setInt(3, c.getFullTimers());
+            stmt.setInt(4, c.getPartTimers());
+            stmt.setInt(5, c.getIndustry());
+            stmt.setString(6, df.format(c.getStartDate()));
+            stmt.setInt(7, c.getCurrentStage());
             
             if(companyLogo != null){
                 //convert byte[] to Blob object before putting into db
@@ -338,6 +396,24 @@ public class CompanyDAO {
                 stmt.setBlob(9, (Blob) null);
             }   
             
+            if(c.getAcraFile() != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(c.getAcraFile());
+
+                stmt.setBlob(9, blob);
+            }else{
+                stmt.setBlob(9, (Blob) null);
+            }
+            
+            
+            if(c.getBizFile() != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(c.getBizFile());
+
+                stmt.setBlob(10, blob);
+            }else{
+                stmt.setBlob(10, (Blob) null);
+            }
             int numRecordsUpdated = stmt.executeUpdate();
             
             if(numRecordsUpdated == 1){
@@ -385,9 +461,9 @@ public class CompanyDAO {
     }
     
     public static void main(String[] args){
-        Company c = new Company(6, "fr", "sell food..", "sell a lot of foodss", "sell food", "Web Services", new Date(), 2, null);
-        int result = CompanyDAO.editCompanyDetails(c);
-        System.out.println(result);
+        //Company c = new Company(6, "fr", "sell food..", "sell a lot of foodss", "sell food", "Web Services", new Date(), 2, null);
+       // int result = CompanyDAO.editCompanyDetails(c);
+       // System.out.println(result);
         
     }
 }

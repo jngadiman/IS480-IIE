@@ -16,51 +16,49 @@ public class Company {
     private int id;
     private String name;
     private String description;
-    private String vision;
-    private String mission;
-    private String industry;
+    private int partTimers;
+    private int fullTimers;
+    private int industry;
     private Date startDate;
     private int currentStage;
     private byte[] companyLogo;
-
-    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate) {
+    private byte[] acraFile;
+    private byte[] bizFile;
+    
+    
+    //constructor for incubator registration
+    public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, byte[] acraFile, byte[] bizFile) {    
         this.id = id;
         this.name = name;
         this.description = description;
-        this.vision = vision;
-        this.mission = mission;
-        this.industry = industry;
-        this.startDate = startDate;
-    }
-
-    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.vision = vision;
-        this.mission = mission;
+        this.partTimers = partTimers;
+        this.fullTimers = fullTimers;
         this.industry = industry;
         this.startDate = startDate;
         this.currentStage = currentStage;
+        this.companyLogo = companyLogo;
+        this.acraFile = acraFile;
+        this.bizFile = bizFile;
     }
-
-    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, byte[] companyLogo) {
+    
+    public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.vision = vision;
-        this.mission = mission;
+        this.partTimers = partTimers;
+        this.fullTimers = fullTimers;
         this.industry = industry;
         this.startDate = startDate;
-        this.companyLogo = companyLogo;
+        this.currentStage = currentStage;
+        
     }
 
-    public Company(int id, String name, String description, String vision, String mission, String industry, Date startDate, int currentStage, byte[] companyLogo) {
+    public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.vision = vision;
-        this.mission = mission;
+        this.partTimers = partTimers;
+        this.fullTimers = fullTimers;
         this.industry = industry;
         this.startDate = startDate;
         this.currentStage = currentStage;
@@ -91,27 +89,27 @@ public class Company {
         this.description = description;
     }
 
-    public String getVision() {
-        return vision;
+    public int getPartTimers() {
+        return partTimers;
+    }
+    
+    public int getFullTimers() {
+        return partTimers;
     }
 
-    public void setVision(String vision) {
-        this.vision = vision;
+    public void setPartTimers(int partTimers) {
+        this.partTimers = partTimers;
+    }
+    
+    public void setFullTimers(int fullTimers) {
+        this.fullTimers = fullTimers;
     }
 
-    public String getMission() {
-        return mission;
-    }
-
-    public void setMission(String mission) {
-        this.mission = mission;
-    }
-
-    public String getIndustry() {
+    public int getIndustry() {
         return industry;
     }
 
-    public void setIndustry(String industry) {
+    public void setIndustry(int industry) {
         this.industry = industry;
     }
 
@@ -137,6 +135,22 @@ public class Company {
 
     public void setCompanyLogo(byte[] companyLogo) {
         this.companyLogo = companyLogo;
+    }
+    
+    public byte[] getAcraFile() {
+        return acraFile;
+    }
+
+    public void setAcraFile(byte[] acraFile) {
+        this.acraFile = acraFile;
+    }
+    
+    public byte[] getBizFile() {
+        return bizFile;
+    }
+
+    public void setBizFile(byte[] bizFile) {
+        this.bizFile = bizFile;
     }
     
 }
