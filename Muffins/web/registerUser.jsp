@@ -16,17 +16,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User Registration</title>
-              <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
+        <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <link href="css/form.css" rel="stylesheet" type="text/css"/>
         <script>
             function validateForm() {
-                var email = document.forms["registerUser"]["email"].value;
-                if (email.indexOf('@smu.edu.sg') == -1) {
-                    alert('Email must be an smu email address (e.g. tom.tan.2014@smu.edu.sg).');
-                    return false;
-                }
+//                var email = document.forms["registerUser"]["email"].value;
+//                if (email.indexOf('@smu.edu.sg') == -1) {
+//                    alert('Email must be an smu email address (e.g. tom.tan.2014@smu.edu.sg).');
+//                    return false;
+//                }
 
                 var password = document.forms["registerUser"]["password"].value;
                 if (password.length < 8 || password.length > 24) {
@@ -65,7 +65,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="well">User Registration Form</h1>
+            <h1 class="col-lg-10 col-lg-offset-1 well">User Registration Form</h1>
             <%
                 ArrayList<String> degrees = new ArrayList<String>();
                 degrees.add("Information Systems");
@@ -74,41 +74,56 @@
                 degrees.add("Accountancy");
                 degrees.add("Law");
                 degrees.add("Social Sciences");
-                
+
                 if (request.getAttribute("status") != null) {
                     out.println((String) request.getAttribute("status"));
                 }
             %>
 
-            <div class="col-lg-12 well">
+            <div class="col-lg-10 col-lg-offset-1 well">
                 <div class="row">
                     <form action = "addUserServlet" method ="post" name="registerUser" onsubmit="return validateForm()">
-                        <div class="col-sm-12">
+                        <div class="col-sm-10 col-lg-offset-1">
                             <div class="row">
+
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Full Name</label> 
                                     <input id="name" type="text" name="name" placeholder="Enter Full Name Here.." class="form-control" required>
                                 </div>
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Email Address</label> sign up using smu email (e.g. tom.tan.2014@smu.edu.sg)
+                                    <label class="control-label">Email Address</label>
                                     <input id="email" type="email" name="email" placeholder="Enter Email Address Here.." class="form-control" data-fv-emailaddress-message="The value is not a valid email address" required>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Password</label> must be between 8 to 24 characters
-                                    <input id="password" type="password" name="password" placeholder="Enter Password Here.." class="form-control" required>
-                                </div>
-                                <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Confirm Password</label> must be the same as Password
-                                    <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
-                                </div>
-                            </div>
+                            <!--                            <div class="row">
+                                                            <div class="col-sm-6 form-group required">
+                                                                <label class="control-label">Password</label> must be between 8 to 24 characters
+                                                                <input id="password" type="password" name="password" placeholder="Enter Password Here.." class="form-control" required>
+                                                            </div>
+                                                            <div class="col-sm-6 form-group required">
+                                                                <label class="control-label">Confirm Password</label> must be the same as Password
+                                                                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
+                                                            </div>
+                                                        </div>-->
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">NRIC</label>
                                     <input id="nric" type="text" name="nric" placeholder="Enter NRIC Here.." class="form-control" required>
                                 </div>	
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Contact Number</label>
+                                    <input id="contact" type="text" name="contact" placeholder="Enter Contact Here.." class="form-control" required>
+                                </div>	
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label class="control-label">Profile Picture</label>
+                                    <input class="form-control" type="file" name="profile_pic" id="profile_pic">
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <label class="control-label">Nationality</label>
+                                    <%@include file="nationality.jsp" %>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
@@ -123,7 +138,14 @@
                                         %>
                                     </select>
                                 </div>	
+
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Company Role</label>
+                                    <input id="role" type="text" name="role" placeholder="Enter Role Here.." class="form-control" required>
+                                </div>
                             </div>
+
+
 
 
                             <div class="row">
@@ -131,7 +153,7 @@
                                     <label  class="control-label">Course</label>
                                     <select class="form-control" name="course" id="course" required>
                                         <%
-                                            for(String d: degrees){
+                                            for (String d : degrees) {
                                         %>
                                         <option value="<%= d%>"><%= d%></option>
                                         <%
@@ -139,14 +161,13 @@
                                         %>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Year of Graduation</label>
                                     <input id="yrOfGrad" type="text" name="yrOfGrad" placeholder="Enter Year Of Graduation Here.." class="form-control" required>
-                                </div>	
+                                </div>
+
                             </div>
-                                    
+
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Required fields</label>
