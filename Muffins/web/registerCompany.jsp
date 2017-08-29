@@ -164,11 +164,11 @@
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Number of Full-Time Staff</label>
-                                    <input id="vision" name="num_fulltime" type="text" placeholder="Enter the Number of Full-Time Staff Here.." class="form-control" required>
+                                    <input id="fulltimer" name="fulltimer" type="text" placeholder="Enter the Number of Full-Time Staff Here.." class="form-control" required>
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Number of Part-Time Staff</label>
-                                    <input id="mission" name="num_parttime" type="text" placeholder="Enter the Number of Part-Time Staff Here.." class="form-control" required>
+                                    <input id="parttimer" name="parttimer" type="text" placeholder="Enter the Number of Part-Time Staff Here.." class="form-control" required>
                                 </div>
                             </div>
                             <div class="row">

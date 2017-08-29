@@ -36,18 +36,74 @@
             Company company = CompanyDAO.getCompany(companyID);
             
             ArrayList<String> industries = new ArrayList<String>();
-            industries.add("E-commerce");
-            industries.add("Healthcare");
-            industries.add("Medical Devices");
-            industries.add("New Media");
-            industries.add("Hospitality");	
-            industries.add("Travel and Tourism");	
-            industries.add("Consumer Durable");	
-            industries.add("FMCB");	
-            industries.add("Fashion/Lifestyle");	
-            industries.add("Web services");	
-            industries.add("Consumer Services");	
-            industries.add("Media & Entertainment");
+            industries.add("-- select one --");
+            industries.add("Energy Equipment & Services");
+            industries.add("Oil, Gas & Consumable Fuels");
+            industries.add("Chemicals");
+            industries.add("Construction Materials");
+            industries.add("Containter & Packaging");
+            industries.add("Metals & Mining");
+            industries.add("Paper & Forest Products");
+            industries.add("Aerospace & Defense");
+            industries.add("Building Products");
+            industries.add("Construction & Engineering");
+            industries.add("Electrical Equipment");
+            industries.add("Industrial Conglomerates");
+            industries.add("Machinery");
+            industries.add("Trading Companies & Distributors");
+            industries.add("Commercial Services & Supplies");
+            industries.add("Professional Services");
+            industries.add("Air Freight & Logistics");
+            industries.add("Airlines");
+            industries.add("Marine");
+            industries.add("Road & Rail");
+            industries.add("Transportation Infrastructure");
+            industries.add("Auto Components");
+            industries.add("Automobiles");
+            industries.add("Household Durables");
+            industries.add("Leisure Products");
+            industries.add("Textiles, Apparel & Luxury Goods");
+            industries.add("Hotels, Restaurants & Leisure");
+            industries.add("Diversified Consumer Services");
+            industries.add("Media");
+            industries.add("Distributors");
+            industries.add("Internet & Direct Marketing Retail");
+            industries.add("Multiline Retail");
+            industries.add("Specialty Retail");
+            industries.add("Food & Staples Retailing");
+            industries.add("Beverages");
+            industries.add("Food Products");
+            industries.add("Tobacco");
+            industries.add("Household Products");
+            industries.add("Personal Products");
+            industries.add("Health Care Equipment & Supplies");
+            industries.add("Health Care Providers & Services");
+            industries.add("Health Care Technology");
+            industries.add("Biotechnology");
+            industries.add("Pharmaceuticals");
+            industries.add("Life Sciences Tools & Services");
+            industries.add("Banks");
+            industries.add("Thrifts & Mortgage Finance");
+            industries.add("Diversified Financial Services");
+            industries.add("Capital Markets");
+            industries.add("Mortgage Real Estate Investment Trusts (REITs)");
+            industries.add("Insurance");
+            industries.add("Internet Software & Services");
+            industries.add("IT Services");
+            industries.add("Software");
+            industries.add("Communications Equipment");
+            industries.add("Technology Hardware, Storage & Peripherals");
+            industries.add("Electronic Equipment, Instruments & Components");
+            industries.add("Semiconductors & Semiconductor Equipment");
+            industries.add("Diversified Telecommunication Services");
+            industries.add("Wireless Telecommunication Services");
+            industries.add("Electric Utilities");
+            industries.add("Gas Utilities");
+            industries.add("Multi-Utilities");
+            industries.add("Water Utilities");
+            industries.add("Independent Power and Renewable Electricity Producers");
+            industries.add("Equity Real Estate Investment Trusts (REITs)");
+            industries.add("Real Estate Management & Development");
 
         %>
     <body>
@@ -66,9 +122,9 @@
                         <div class="col-sm-8">
                             <div class="row">
                                 <div>
-                                    <input type="hidden" name="companyID" value="<%= company.getId()%>" >
+                                    <input type="hidden" name="companyID" value="<%= company.getId()%>">
                                     <br/>
-                                    <div class="col-sm-6 form-group">
+                                    <div class="col-sm-6 form-group required">
                                     <%
                                         // display the image
                                         byte[] imgData = company.getCompanyLogo();
@@ -82,32 +138,32 @@
                                     <br/>
                                    
                                         Select image to upload:
-                                        <input type="file" name="companyLogo">
+                                        <input type="file" name="companyLogo" required>
                                          </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-6 form-group required">
                                     <label>Company Name</label>
-                                    <input name="companyName" type="text" placeholder="Enter Company Name Here.." class="form-control" value="<%= company.getName()%>">
+                                    <input name="companyName" type="text" placeholder="Enter Company Name Here.." class="form-control" value="<%= company.getName()%>" required>
                                 </div>
                             </div>	
                             <div class="row">
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-6 form-group required">
                                     <label>Company Description</label>
-                                    <textarea class="form-control" rows="3" name="description" placeholder="Enter Company Description Here.."><%= company.getDescription()%></textarea>
+                                    <textarea class="form-control" rows="3" name="description" placeholder="Enter Company Description Here.." required><%= company.getDescription()%></textarea>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <label>Company Vision</label>
-                                    <input name="vision" type="text" placeholder="Enter Company Vision Here.." class="form-control" value="<%= company.getVision()%>">
+                                <div class="col-sm-6 form-group required">
+                                    <label>Number of Full-Time Staff</label>
+                                    <input name="num_fulltime" type="text" placeholder="Enter Company Vision Here.." class="form-control" value="<%= company.getFullTimers()%>" required>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <label>Company Mission</label>
-                                    <input name="mission" type="text" placeholder="Enter Company Mission Here.." class="form-control" value="<%= company.getMission()%>">
+                                <div class="col-sm-6 form-group required">
+                                    <label>Number of Part-Time Staff</label>
+                                    <input name="num_parttime" type="text" placeholder="Enter Company Mission Here.." class="form-control" value="<%= company.getPartTimers()%>">
                                 </div>
                             </div>
                             
@@ -119,7 +175,7 @@
                                     <select class="form-control" id="industry" name="industry">
                                         <option selected value = <%=company.getIndustry()%> ><%=company.getIndustry()%></option>
                                         <% for (String industry : industries) {
-                                                if (!company.getIndustry().equals(industry)) {%>
+                                                //if (!company.getIndustry().equals(industry)) {%>
                                         <option value='<%=industry%>'> <%=industry%></option>
                                         <%      }
                                             }
