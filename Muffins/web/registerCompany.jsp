@@ -19,18 +19,74 @@
     <body>
         <%
             ArrayList<String> industries = new ArrayList<String>();
-            industries.add("E-commerce");
-            industries.add("Healthcare");
-            industries.add("Medical Devices");
-            industries.add("New Media");
-            industries.add("Hospitality");
-            industries.add("Travel and Tourism");
-            industries.add("Consumer Durable");
-            industries.add("FMCB");
-            industries.add("Fashion/Lifestyle");
-            industries.add("Web services");
-            industries.add("Consumer Services");
-            industries.add("Media & Entertainment");
+            industries.add("Energy Equipment & Services");
+            industries.add("Oil, Gas & Consumable Fuels");
+            industries.add("Chemicals");
+            industries.add("Construction Materials");
+            industries.add("Containter & Packaging");
+            industries.add("Metals & Mining");
+            industries.add("Paper & Forest Products");
+            industries.add("Aerospace & Defense");
+            industries.add("Building Products");
+            industries.add("Construction & Engineering");
+            industries.add("Electrical Equipment");
+            industries.add("Industrial Conglomerates");
+            industries.add("Machinery");
+            industries.add("Trading Companies & Distributors");
+            industries.add("Commercial Services & Supplies");
+            industries.add("Professional Services");
+            industries.add("Air Freight & Logistics");
+            industries.add("Airlines");
+            industries.add("Marine");
+            industries.add("Road & Rail");
+            industries.add("Transportation Infrastructure");
+            industries.add("Auto Components");
+            industries.add("Automobiles");
+            industries.add("Household Durables");
+            industries.add("Leisure Products");
+            industries.add("Textiles, Apparel & Luxury Goods");
+            industries.add("Hotels, Restaurants & Leisure");
+            industries.add("Diversified Consumer Services");
+            industries.add("Media");
+            industries.add("Distributors");
+            industries.add("Internet & Direct Marketing Retail");
+            industries.add("Multiline Retail");
+            industries.add("Specialty Retail");
+            industries.add("Food & Staples Retailing");
+            industries.add("Beverages");
+            industries.add("Food Products");
+            industries.add("Tobacco");
+            industries.add("Household Products");
+            industries.add("Personal Products");
+            industries.add("Health Care Equipment & Supplies");
+            industries.add("Health Care Providers & Services");
+            industries.add("Health Care Technology");
+            industries.add("Biotechnology");
+            industries.add("Pharmaceuticals");
+            industries.add("Life Sciences Tools & Services");
+            industries.add("Banks");
+            industries.add("Thrifts & Mortgage Finance");
+            industries.add("Diversified Financial Services");
+            industries.add("Capital Markets");
+            industries.add("Mortgage Real Estate Investment Trusts (REITs)");
+            industries.add("Insurance");
+            industries.add("Internet Software & Services");
+            industries.add("IT Services");
+            industries.add("Software");
+            industries.add("Communications Equipment");
+            industries.add("Technology Hardware, Storage & Peripherals");
+            industries.add("Electronic Equipment, Instruments & Components");
+            industries.add("Semiconductors & Semiconductor Equipment");
+            industries.add("Diversified Telecommunication Services");
+            industries.add("Wireless Telecommunication Services");
+            industries.add("Electric Utilities");
+            industries.add("Gas Utilities");
+            industries.add("Multi-Utilities");
+            industries.add("Water Utilities");
+            industries.add("Independent Power and Renewable Electricity Producers");
+            industries.add("Equity Real Estate Investment Trusts (REITs)");
+            industries.add("Real Estate Management & Development");
+            
         %>
         <div class="container">
             <h1 class="col-lg-10 well col-sm-offset-1">Company Registration Form</h1>
@@ -68,14 +124,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 form-group">
-                                        <label>Company Vision</label>
-                                        <input id="vision" name="vision" type="text" placeholder="Enter Company Vision Here.." class="form-control">
+                                        <label>Number of Full-Time Staff</label>
+                                        <input id="vision" name="num_fulltime" type="text" placeholder="Enter the Number of Full-Time Staff Here.." class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 form-group">
-                                        <label>Company Mission</label>
-                                        <input id="mission" name="mission" type="text" placeholder="Enter Company Mission Here.." class="form-control">
+                                        <label>Number of Part-Time Staff</label>
+                                        <input id="mission" name="num_parttime" type="text" placeholder="Enter the Number of Part-Time Staff Here.." class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -110,6 +166,25 @@
                                             <option value="4">4</option>
                                             <option value="5">5</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-sm-6 form-group">
+                                <label>Acra File</label>
+                                    </br>
+                                    Select file to upload:
+                                    <input class="form-control" type="file" name="acra_file" id="acra_file">
+                                    </form>
+                                    </div>
+                                </div>
+                                        
+                                <div class="row">
+                                   <div class="col-sm-6 form-group">
+                                <label>Business Plan Powerpoint Slides</label>
+                                    </br>
+                                    Select file to upload:
+                                    <input class="form-control" type="file" name="biz-slides" id="biz-slides">
+                                    </form>
                                     </div>
                                 </div>
                                         <div class="row">
