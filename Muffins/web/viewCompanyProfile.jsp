@@ -52,11 +52,6 @@
 
                             <p><strong>Description</strong> :<br> 
                                 <%= company.getDescription()%></p>
-                            <p><strong>Vision</strong> :
-                                <%= company.getVision()%></p>
-
-                            <p><strong>Mission</strong> : 
-                                <%= company.getMission()%></p>
                             <p><strong>Company Industry</strong> : <%= company.getIndustry()%></p>
                             <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                             <p><strong>Start Date</strong> : <%=startDate%></p>

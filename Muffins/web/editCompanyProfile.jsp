@@ -175,7 +175,7 @@
                                     <select class="form-control" id="industry" name="industry">
                                         <option selected value = <%=company.getIndustry()%> ><%=company.getIndustry()%></option>
                                         <% for (String industry : industries) {
-                                                //if (!company.getIndustry().equals(industry)) {%>
+                                                //if (!company.getIndustry().eq uals(industry)) {%>
                                         <option value='<%=industry%>'> <%=industry%></option>
                                         <%      }
                                             }
