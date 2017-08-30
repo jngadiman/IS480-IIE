@@ -158,7 +158,7 @@
                                     <label class="control-label">Acra File</label>
                                     </br>
                                     Select file to upload:
-                                    <input class="form-control" type="file" name="application_form" id="application_form" required>
+                                    <input class="form-control" type="file" name="acra_form" id="application_form" required>
                                 </div>
                             </div>
 
@@ -179,25 +179,25 @@
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Differentiation of Product</label>
-                                    <textarea class="form-control" rows="3" id="description" name="product_differetiation" placeholder="Enter differetiation of product here.. (200 words)" required></textarea>
+                                    <textarea class="form-control" rows="3" id="product_differetiation" name="product_differetiation" placeholder="Enter differetiation of product here.. (200 words)" required></textarea>
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Revenue Model</label>
-                                    <textarea class="form-control" rows="3" id="description" name="drevenue_model" placeholder="Enter revenue model here.." required></textarea>
+                                    <textarea class="form-control" rows="3" id="revenue_model" name="revenue_model" placeholder="Enter revenue model here.." required></textarea>
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Traction</label>
-                                    <textarea class="form-control" rows="3" id="description" name="traction" placeholder="Enter traction here.." required></textarea>
+                                    <textarea class="form-control" rows="3" id="traction" name="traction" placeholder="Enter traction here.." required></textarea>
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Deployment of Funds</label>
-                                    <textarea class="form-control" rows="3" id="description" name="deployment_of_funds" placeholder="Enter deployment of funds here.." required></textarea>
+                                    <textarea class="form-control" rows="3" id="deployment_of_funds" name="deployment_of_funds" placeholder="Enter deployment of funds here.." required></textarea>
                                 </div>
                             </div>
                             <div class="row">
