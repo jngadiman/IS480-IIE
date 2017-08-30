@@ -74,6 +74,11 @@ public class companyController {
 //            System.out.println(c.getStartDate());
 //            System.out.println(c.getCurrentStage());
 //            System.out.println(c.getCompanyLogo());
+
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
         
     }
 }

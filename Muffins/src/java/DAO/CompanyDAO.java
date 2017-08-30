@@ -538,6 +538,9 @@ public class CompanyDAO {
         //Company c = new Company(6, "fr", "sell food..", "sell a lot of foodss", "sell food", "Web Services", new Date(), 2, null);
        // int result = CompanyDAO.editCompanyDetails(c);
        // System.out.println(result);
-        
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
     }
 }
