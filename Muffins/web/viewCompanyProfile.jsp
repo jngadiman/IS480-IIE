@@ -24,50 +24,87 @@
         <%@include file="navbar.jsp" %>
         <%@include file="protect.jsp" %>
     </head>
-        <%  
-            user = (User) session.getAttribute("user");
-            int companyID = user.getCompanyid();
-            Company company = CompanyDAO.getCompany(companyID);
-        %>
+    <%            user = (User) session.getAttribute("user");
+        int companyID = user.getCompanyid();
+        Company company = CompanyDAO.getCompany(companyID);
+    %>
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
-                    <h2>Company Profile</h2>
-                    <div class="col-sm-10 well">
-                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h2 class="col-lg-10 well col-sm-offset-1">Company Profile</h2>
+                    <div class="col-lg-10 well col-sm-offset-1">
+                        <div class="row">
+                            <div class="col-sm-6 form-group"
 
-                            <%  // display the image
-                                byte[] imgData = company.getCompanyLogo();
-                                if(imgData != null){
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                            %>
-                                <div align="center"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
-                            <%
-                                }
-                            %>
-                            
+                                 <%  // display the image
+                                     byte[] imgData = company.getCompanyLogo();
+                                     if (imgData != null) {
+                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                 %>
+                                 <div class="row"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                                    <%
+                                        }
+                                    %>
 
-                            <h1><%= company.getName()%></h1>
+                                <p><font size="+3"><%= company.getName()%></font></p>
+                                    <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
+                                <label class="control-label">Start Date</label> : <%=startDate%>
+                                <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>
+                                <p><strong>Industry</strong> : <%= company.getIndustry()%></p>
+                            </div>
 
-                            <p><strong>Description</strong> :<br> 
-                                <%= company.getDescription()%></p>
-                            <p><strong>Company Industry</strong> : <%= company.getIndustry()%></p>
-                            <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
-                            <p><strong>Start Date</strong> : <%=startDate%></p>
-                            <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>  
+                            <div class="row">
+                                <div class="col-sm-12 form-group required">
+                                    <p><strong>Company Description</strong> :<br> 
+                                    <p><%= company.getDescription()%></p>
+                                </div>	
+                            </div>
 
-                            <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
 
+                            <div class="row">
+                                <div class="col-sm-6 form-group required">
+                                    <p><strong>Number of Full-Time Employees</strong> : <%= company.getFullTimers()%></p>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <p><strong>Number of Part-Time Employees</strong> : <%= company.getPartTimers()%></p>
+                                </div>	
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 form-group required">
+                                    <p><strong>Product Differentiation</strong> :<br> 
+                                        <%= company.getProductDiff()%></p>
+                                </div>	
+                                <div class="col-sm-6 form-group required">
+                                    <p><strong>Revenue Model</strong> :<br> 
+                                        <%= company.getRevenueModel()%></p>
+                                </div>	
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 form-group required">
+                                    <p><strong>Traction</strong> :<br> 
+                                        <%= company.getTraction()%></p>
+                                </div>	
+                                <div class="col-sm-6 form-group required">
+                                    <p><strong>Deployment of Funds</strong> :<br> 
+                                        <%= company.getDeployOfFunds()%></p>
+                                </div>	
+                            </div>
                         </div>
+
+                        <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-    </body>
+</body>
 
-    
+
 
 </html>

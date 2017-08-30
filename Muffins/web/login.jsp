@@ -40,7 +40,7 @@
                 <div class="col-md-4 col-md-offset-4">
                     <h1>IIE Portal</h1>
 
-                    <p id="profile-name" class="profile-name-card"></p>
+                    <p id="profile-name" class="profile-name-cazrd"></p>
                     <form class="form-signin" action = "loginServlet" method = "post">
                         <span id="reauth-email" class="reauth-email"></span>
                         <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
