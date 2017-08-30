@@ -39,9 +39,9 @@ public class profileController {
     
     public static String editMentee(Mentee m){
         String status = "";
-        
+        int userResult = UserDAO.editUser(m);
         int result = MenteeDAO.editMenteeDetails(m);
-        if(result == 1){
+        if(result == 1&& userResult == 1){
             status = "Changes have been saved successfully!";
         }else{
             status = "Changes could not be saved!";
@@ -52,9 +52,9 @@ public class profileController {
     
     public static String editMentor(Mentor m){
         String status = "";
-
-        int result = MentorDAO.editMentorDetails(m);
-        if(result == 1){
+        int userResult = UserDAO.editUser(m);
+        int result = MentorDAO.editMentorDetails(m.getEmail(), m.getPosition(), m.getIntroduction(), m.getSkills());
+        if(result == 1&& userResult == 1){
             status = "Changes have been saved successfully!";
         }else{
             status = "Changes could not be saved!";
@@ -85,9 +85,9 @@ public class profileController {
     }
     
     public static void main(String[] args){
-        Mentee m = new Mentee("huimin1@hotmail.com", "abc123", "huimin1", "S7657328Y", null, "mentee", 1, "light" , "economics", 2010, "huimin@hotmail.com");
-        String result = profileController.editMentee(m);
-        System.out.println(result);
+//        Mentee m = new Mentee("huimin1@hotmail.com", "abc123", "huimin1", "S7657328Y", null, "mentee", 1, "light" , "economics", 2010, "huimin@hotmail.com");
+//        String result = profileController.editMentee(m);
+//        System.out.println(result);
         
     }
     

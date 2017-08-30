@@ -81,7 +81,7 @@ public class UserDAO {
         return users;
     }
     
-    //needa change for the mentors
+    //get all mentors
     public static ArrayList<User> getAllMentors(){
         ArrayList<User> users = new ArrayList<User>();
         User u = null;
@@ -96,14 +96,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-//        String role = "";
-//        int equity_percentage = 0;
-//        int contact_number = 0;
-//        String nationality = "";
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'mentor';");
+            stmt = conn.prepareStatement("select * from User where user_type = 'both' and user_type = 'Incubation Mentor' and user_type = 'Open Mentorship Mentor' ;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -114,17 +114,17 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-//                role = result.getString("role");
-//                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
-//                contact_number = Integer.parseInt(result.getString("contact_number"));
-//                nationality = result.getString("nationality");
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
                 }else{
                     profilePic = null;
                 }
-                //role, equity_percentage, contact_number, nationality
-                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -178,6 +178,114 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                users.add(u);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return users;
+    }
+    
+      public static ArrayList<User> getIncubatorMentors(){
+        ArrayList<User> users = new ArrayList<User>();
+        User u = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String password = "";
+        String name = "";
+        String nric = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
+        String user_type = "";
+        int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from User where user_type = 'both' and user_type = 'Incubation Mentor';");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                password = result.getString("password");
+                name = result.getString("name");
+                nric = result.getString("nric");
+                profile_pic = result.getBlob("profile_pic");
+                user_type = result.getString("user_type");
+                company_id = Integer.parseInt(result.getString("company_id"));
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
+                if(profile_pic != null){
+                    profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
+                }
+                
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                users.add(u);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return users;
+    }
+    
+      public static ArrayList<User> getOpenMentors(){
+        ArrayList<User> users = new ArrayList<User>();
+        User u = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String password = "";
+        String name = "";
+        String nric = "";
+        Blob profile_pic = null;
+        byte[] profilePic = null;
+        String user_type = "";
+        int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from User where user_type = 'both' and user_type = 'Open Mentorship Mentor' ;");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                password = result.getString("password");
+                name = result.getString("name");
+                nric = result.getString("nric");
+                profile_pic = result.getBlob("profile_pic");
+                user_type = result.getString("user_type");
+                company_id = Integer.parseInt(result.getString("company_id"));
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
+                if(profile_pic != null){
+                    profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
+                }
+                //role, equity_percentage, contact_number, nationality
                 u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
@@ -312,6 +420,10 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
+        String role = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -327,6 +439,10 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
+                role = result.getString("role");
+                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
                 
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
@@ -334,7 +450,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
             
             }
             //System.out.println("USER IN DAO CURRENT USER = "+u.getName());

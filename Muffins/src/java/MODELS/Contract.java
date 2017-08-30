@@ -14,10 +14,10 @@ import java.util.*;
 public class Contract {
     
     private Mentor mentor;
-    private Admin admin;
+    private User admin;
     private Date signedDate;
     
-    public Contract(Mentor mentor, Admin admin, Date signedDate){
+    public Contract(Mentor mentor, User admin, Date signedDate){
         this.mentor = mentor;
         this.admin = admin;
         this.signedDate = signedDate;
@@ -27,7 +27,7 @@ public class Contract {
         return mentor;
     }
     
-    public Admin getAdmin(){
+    public User getAdmin(){
         return admin;
     }
     
@@ -39,7 +39,7 @@ public class Contract {
         this.mentor = mentor;
     }
     
-    public void setAdmin(Admin admin){
+    public void setAdmin(User admin){
         this.admin = admin;
     }
     

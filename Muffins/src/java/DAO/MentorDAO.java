@@ -29,6 +29,7 @@ public class MentorDAO {
         String email = "";
         String position = "";
         String introduction = "";
+        String skills = "";
         Mentor mentor = null;
         
         ArrayList<User> mentors = UserDAO.getAllMentors();
@@ -44,11 +45,12 @@ public class MentorDAO {
                     email = result.getString("email");
                     position = result.getString("position");
                     introduction = result.getString("introduction");
+                    skills = result.getString("skills");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), position, introduction);
+                mentor = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
-                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 ConnectionManager.close(conn, stmt, result);
             }
@@ -57,6 +59,86 @@ public class MentorDAO {
             introduction = "";
         }
         return allMentors;
+    }
+    
+      public static ArrayList<Mentor> getIncubatorMentors(){
+        ArrayList<Mentor> incubatorMentors = new ArrayList<Mentor>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String position = "";
+        String introduction = "";
+        String skills = "";
+        Mentor mentor = null;
+        
+        ArrayList<User> mentors = UserDAO.getIncubatorMentors();
+        for(User u: mentors){
+            email = u.getEmail();
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("SELECT *  FROM `mentor` WHERE `email` = ?;");
+                stmt.setString(1, email);
+                result = stmt.executeQuery();
+                
+                while (result.next()) {
+                    email = result.getString("email");
+                    position = result.getString("position");
+                    introduction = result.getString("introduction");
+                    skills = result.getString("skills");
+                }
+                System.out.println(u.getName() + ": " + u.getProfile_pic());
+                mentor = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            } catch (SQLException ex) {
+                Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            incubatorMentors.add(mentor);
+            position = "";
+            introduction = "";
+        }
+        return incubatorMentors;
+    }
+    
+      public static ArrayList<Mentor> getOpenMentors(){
+        ArrayList<Mentor> openMentors = new ArrayList<Mentor>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String position = "";
+        String introduction = "";
+        String skills = "";
+        Mentor mentor = null;
+        
+        ArrayList<User> mentors = UserDAO.getOpenMentors();
+        for(User u: mentors){
+            email = u.getEmail();
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("SELECT *  FROM `mentor` WHERE `email` = ?;");
+                stmt.setString(1, email);
+                result = stmt.executeQuery();
+                
+                while (result.next()) {
+                    email = result.getString("email");
+                    position = result.getString("position");
+                    introduction = result.getString("introduction");
+                    skills = result.getString("skills");
+                }
+                System.out.println(u.getName() + ": " + u.getProfile_pic());
+                mentor = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            } catch (SQLException ex) {
+                Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            openMentors.add(mentor);
+            position = "";
+            introduction = "";
+        }
+        return openMentors;
     }
     
     public static Mentor getMentorByEmail(String email){
@@ -69,6 +151,7 @@ public class MentorDAO {
         System.out.println("from mentorDAO" + u.getName());
         String position = "";
         String introduction = "";
+        String skills = "";
         
         try {
             conn = ConnectionManager.getConnection();
@@ -80,26 +163,21 @@ public class MentorDAO {
                 email = result.getString("email");
                 position = result.getString("position");
                 introduction = result.getString("introduction");
+                skills = result.getString("skills");
             }
             
-            m = new Mentor(email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), position, introduction);
+            m = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }
         return m;
     }
 
-    public static int editMentorDetails(Mentor m){
+    public static int editMentorDetails(String email, String position, String introduction, String skills){
         int result = 0;
         
-        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid());
-        int userResult = UserDAO.editUser(u);
-        
-        if(userResult == 0){
-            return userResult;
-        }
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -108,13 +186,14 @@ public class MentorDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("UPDATE Mentor SET position = ?, introduction = ? WHERE email = ?;");
-            stmt.setString(1, m.getPosition());
-            stmt.setString(2, m.getIntroduction());
-            stmt.setString(3, m.getEmail());
+            stmt = conn.prepareStatement("UPDATE Mentor SET position = ?, introduction = ?, skills = ? WHERE email = ?;");
+            stmt.setString(1, position);
+            stmt.setString(2, introduction);
+            stmt.setString(3, skills);
+            stmt.setString(4, email);
             
             result = stmt.executeUpdate();
-            //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
+            
           
         } catch (SQLException ex) {
             Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
