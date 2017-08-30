@@ -64,16 +64,21 @@ public class companyController {
     }
     
     public static void main(String[] args){
-            Company c = companyController.getCompany(6);
-            System.out.println(c.getId());
-            System.out.println(c.getName());
-            System.out.println(c.getDescription());
-//            System.out.println(c.getVision());
-//            System.out.println(c.getMission());
-            System.out.println(c.getIndustry());
-            System.out.println(c.getStartDate());
-            System.out.println(c.getCurrentStage());
-            System.out.println(c.getCompanyLogo());
+//            Company c = companyController.getCompany(6);
+//            System.out.println(c.getId());
+//            System.out.println(c.getName());
+//            System.out.println(c.getDescription());
+////            System.out.println(c.getVision());
+////            System.out.println(c.getMission());
+//            System.out.println(c.getIndustry());
+//            System.out.println(c.getStartDate());
+//            System.out.println(c.getCurrentStage());
+//            System.out.println(c.getCompanyLogo());
+
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
         
     }
 }

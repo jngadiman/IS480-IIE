@@ -80,10 +80,10 @@ public class editCompanyServlet extends HttpServlet {
             }
         }
         
-        Company company = new Company(companyID, name, description, vision, mission, industry, start_date, stage, companyLogo);
+        //Company company = new Company(companyID, name, description, num_fulltime, num_parttime,industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acra_file, biz_slides, appForm);
         
-        String status = companyController.editCompany(company);
-        request.setAttribute("updateStatus", status);
+        //String status = companyController.editCompany(company);
+        //request.setAttribute("updateStatus", status);
         
         RequestDispatcher rd = request.getRequestDispatcher("editCompanyProfile.jsp");
         rd.forward(request, response);

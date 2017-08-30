@@ -22,11 +22,35 @@ public class Company {
     private Date startDate;
     private int currentStage;
     private byte[] companyLogo;
+    private String productDiff;
+    private String revenueModel;
+    private String traction;
+    private String deployOfFunds;
     private byte[] acraFile;
     private byte[] bizFile;
-    
+    private byte[] appForm;
     
     //constructor for incubator registration
+
+    public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, String productDiff, String revenueModel, String traction, String deployOfFunds, byte[] acraFile, byte[] bizFile, byte[] appForm) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.partTimers = partTimers;
+        this.fullTimers = fullTimers;
+        this.industry = industry;
+        this.startDate = startDate;
+        this.currentStage = currentStage;
+        this.companyLogo = companyLogo;
+        this.productDiff = productDiff;
+        this.revenueModel = revenueModel;
+        this.traction = traction;
+        this.deployOfFunds = deployOfFunds;
+        this.acraFile = acraFile;
+        this.bizFile = bizFile;
+        this.appForm = appForm;
+    }
+    
     public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, byte[] acraFile, byte[] bizFile) {    
         this.id = id;
         this.name = name;
@@ -63,6 +87,10 @@ public class Company {
         this.startDate = startDate;
         this.currentStage = currentStage;
         this.companyLogo = companyLogo;
+    }
+
+    public Company(int company_id, String company_name, String company_description, int fulltimers, int parttimers, int industry, Date date, int currentstage, byte[] companyLogo, String productDiff, byte[] acraFile, byte[] bizSlides) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public int getId() {
@@ -136,6 +164,38 @@ public class Company {
     public void setCompanyLogo(byte[] companyLogo) {
         this.companyLogo = companyLogo;
     }
+
+    public String getProductDiff() {
+        return productDiff;
+    }
+
+    public void setProductDiff(String productDiff) {
+        this.productDiff = productDiff;
+    }
+
+    public String getRevenueModel() {
+        return revenueModel;
+    }
+
+    public void setRevenueModel(String revenueModel) {
+        this.revenueModel = revenueModel;
+    }
+
+    public String getTraction() {
+        return traction;
+    }
+
+    public void setTraction(String traction) {
+        this.traction = traction;
+    }
+
+    public String getDeployOfFunds() {
+        return deployOfFunds;
+    }
+
+    public void setDeployOfFunds(String deployOfFunds) {
+        this.deployOfFunds = deployOfFunds;
+    }
     
     public byte[] getAcraFile() {
         return acraFile;
@@ -152,5 +212,12 @@ public class Company {
     public void setBizFile(byte[] bizFile) {
         this.bizFile = bizFile;
     }
-    
+
+    public byte[] getAppForm() {
+        return appForm;
+    }
+
+    public void setAppForm(byte[] appForm) {
+        this.appForm = appForm;
+    }
 }

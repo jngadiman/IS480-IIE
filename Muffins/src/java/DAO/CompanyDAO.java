@@ -39,10 +39,16 @@ public class CompanyDAO {
         String start_date = "";
         Blob company_logo = null;
         byte[] companyLogo = null;
+        String productDiff = "";
+        String revenueModel = "";
+        String traction = "";
+        String deployOfFunds = "";
         Blob acra_file = null;
         byte[] acraFile = null;
         Blob biz_slides = null;
         byte[] bizSlides = null;
+        Blob app_form = null;
+        byte[] appForm = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -78,6 +84,10 @@ public class CompanyDAO {
                 }else{
                     companyLogo = null;
                 }
+                productDiff = result.getString("product_differentiation");
+                revenueModel = result.getString("revenue_model");
+                traction = result.getString("traction");
+                deployOfFunds = result.getString("deployment_of_funds");
                 
                 acra_file = result.getBlob("acra_file");
                 if(acra_file != null){
@@ -92,7 +102,15 @@ public class CompanyDAO {
                 }else{
                     bizSlides = null;
                 }
-                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, acraFile, bizSlides);
+                
+                app_form = result.getBlob("application_form");
+                if(app_form != null){
+                    appForm = app_form.getBytes(1, (int) app_form.length());
+                }else{
+                    bizSlides = null;
+                }
+                
+                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,10 +135,16 @@ public class CompanyDAO {
         String start_date = "";
         Blob company_logo = null;
         byte[] companyLogo = null;
+        String productDiff = "";
+        String revenueModel = "";
+        String traction = "";
+        String deployOfFunds = "";
         Blob acra_file = null;
         byte[] acraFile = null;
         Blob biz_slides = null;
         byte[] bizSlides = null;
+        Blob app_form = null;
+        byte[] appForm = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -155,6 +179,11 @@ public class CompanyDAO {
                     companyLogo = null;
                 }
                 
+                productDiff = result.getString("product_differentiation");
+                revenueModel = result.getString("revenue_model");
+                traction = result.getString("traction");
+                deployOfFunds = result.getString("deployment_of_funds");
+                
                 acra_file = result.getBlob("acra_file");
                 if(acra_file != null){
                     acraFile = acra_file.getBytes(1, (int) acra_file.length());
@@ -168,7 +197,16 @@ public class CompanyDAO {
                 }else{
                     bizSlides = null;
                 }
-                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, acraFile, bizSlides);
+                
+                app_form = result.getBlob("application_form");
+                if(app_form != null){
+                    appForm = app_form.getBytes(1, (int) app_form.length());
+                }else{
+                    bizSlides = null;
+                }
+                
+                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                
                 companies.add(c);
             }
 
@@ -195,10 +233,16 @@ public class CompanyDAO {
         String start_date = "";
         Blob company_logo = null;
         byte[] companyLogo = null;
+        String productDiff = "";
+        String revenueModel = "";
+        String traction = "";
+        String deployOfFunds = "";
         Blob acra_file = null;
         byte[] acraFile = null;
         Blob biz_slides = null;
         byte[] bizSlides = null;
+        Blob app_form = null;
+        byte[] appForm = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -233,6 +277,12 @@ public class CompanyDAO {
                 }else{
                     companyLogo = null;
                 }
+                
+                productDiff = result.getString("product_differentiation");
+                revenueModel = result.getString("revenue_model");
+                traction = result.getString("traction");
+                deployOfFunds = result.getString("deployment_of_funds");
+                
                 acra_file = result.getBlob("acra_file");
                 if(acra_file != null){
                     acraFile = acra_file.getBytes(1, (int) acra_file.length());
@@ -246,7 +296,16 @@ public class CompanyDAO {
                 }else{
                     bizSlides = null;
                 }
-                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, acraFile, bizSlides);
+                
+                app_form = result.getBlob("application_form");
+                if(app_form != null){
+                    appForm = app_form.getBytes(1, (int) app_form.length());
+                }else{
+                    bizSlides = null;
+                }
+                
+                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                
                 companies.add(c);
             }
 
@@ -301,7 +360,7 @@ public class CompanyDAO {
             
             String status = "";
             
-            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, acra_file = ?, biz_slides = ? WHERE company_id = ?;");
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, biz_slides = ? WHERE company_id = ?;");
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getDescription());
             stmt.setInt(3, c.getFullTimers());
@@ -319,26 +378,21 @@ public class CompanyDAO {
                 stmt.setBlob(8, (Blob) null);
             }   
             
-            if(c.getAcraFile() != null){
-                //convert byte[] to Blob object before putting into db
-                Blob blob = new SerialBlob(c.getAcraFile());
-
-                stmt.setBlob(9, blob);
-            }else{
-                stmt.setBlob(9, (Blob) null);
-            }
-            
+            stmt.setString(9, c.getProductDiff());
+            stmt.setString(10, c.getRevenueModel());
+            stmt.setString(11, c.getTraction());
+            stmt.setString(12, c.getDeployOfFunds());
             
             if(c.getBizFile() != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getBizFile());
 
-                stmt.setBlob(10, blob);
+                stmt.setBlob(13, blob);
             }else{
-                stmt.setBlob(10, (Blob) null);
+                stmt.setBlob(13, (Blob) null);
             }
             
-            stmt.setInt(11, c.getId());
+            stmt.setInt(14, c.getId());
             
             
             result = stmt.executeUpdate();
@@ -361,6 +415,11 @@ public class CompanyDAO {
         Date start_date = c.getStartDate();
         int current_stage = c.getCurrentStage();
         byte[] companyLogo = c.getCompanyLogo();
+        String productDiff = c.getProductDiff();
+        String revenueModel = c.getRevenueModel();
+        String traction = c.getTraction();
+        String deployOfFunds = c.getDeployOfFunds();
+        
         
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Connection conn = null;
@@ -370,7 +429,7 @@ public class CompanyDAO {
             conn = ConnectionManager.getConnection();
             
             //insert company to database
-            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             //set id
             stmt.setInt(1, id);
@@ -381,11 +440,11 @@ public class CompanyDAO {
             //set description
             stmt.setString(3, description);
 
-            stmt.setInt(3, c.getFullTimers());
-            stmt.setInt(4, c.getPartTimers());
-            stmt.setInt(5, c.getIndustry());
-            stmt.setString(6, df.format(c.getStartDate()));
-            stmt.setInt(7, c.getCurrentStage());
+            stmt.setInt(4, c.getFullTimers());
+            stmt.setInt(5, c.getPartTimers());
+            stmt.setInt(6, c.getIndustry());
+            stmt.setString(7, df.format(c.getStartDate()));
+            stmt.setInt(8, c.getCurrentStage());
             
             if(companyLogo != null){
                 //convert byte[] to Blob object before putting into db
@@ -396,13 +455,18 @@ public class CompanyDAO {
                 stmt.setBlob(9, (Blob) null);
             }   
             
+            stmt.setString(10, productDiff);
+            stmt.setString(11, revenueModel);
+            stmt.setString(12, traction);
+            stmt.setString(13, deployOfFunds);
+            
             if(c.getAcraFile() != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getAcraFile());
 
-                stmt.setBlob(9, blob);
+                stmt.setBlob(14, blob);
             }else{
-                stmt.setBlob(9, (Blob) null);
+                stmt.setBlob(14, (Blob) null);
             }
             
             
@@ -410,10 +474,20 @@ public class CompanyDAO {
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getBizFile());
 
-                stmt.setBlob(10, blob);
+                stmt.setBlob(15, blob);
             }else{
-                stmt.setBlob(10, (Blob) null);
+                stmt.setBlob(15, (Blob) null);
             }
+            
+            if(c.getAppForm() != null){
+                //convert byte[] to Blob object before putting into db
+                Blob blob = new SerialBlob(c.getAppForm());
+
+                stmt.setBlob(15, blob);
+            }else{
+                stmt.setBlob(15, (Blob) null);
+            }
+            
             int numRecordsUpdated = stmt.executeUpdate();
             
             if(numRecordsUpdated == 1){
@@ -464,6 +538,9 @@ public class CompanyDAO {
         //Company c = new Company(6, "fr", "sell food..", "sell a lot of foodss", "sell food", "Web Services", new Date(), 2, null);
        // int result = CompanyDAO.editCompanyDetails(c);
        // System.out.println(result);
-        
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
     }
 }
