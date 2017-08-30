@@ -149,16 +149,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Acra File</label>
+                                    <label class="control-label">OMS Incubation Interest Form</label>
                                     </br>
                                     Select file to upload:
-                                    <input class="form-control" type="file" name="acra_file" id="acra_file" required>
+                                    <input class="form-control" type="file" name="interest_form" id="interest_form" required>
                                 </div>
                                 <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Business Plan Powerpoint Slides</label>
+                                    <label class="control-label">Pitch Deck Slides</label>
                                     </br>
                                     Select file to upload:
-                                    <input class="form-control" type="file" name="biz-slides" id="biz-slides" required>
+                                    <input class="form-control" type="file" name="pitch_deck_slides" id="pitch_deck_slides" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -177,6 +177,32 @@
                                     <textarea class="form-control" rows="3" id="description" name="description" placeholder="Enter Company Description Here.." required></textarea>
                                 </div>
 
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Differentiation of Product</label>
+                                    <textarea class="form-control" rows="3" id="description" name="product_differetiation" placeholder="Enter differetiation of product here.. (200 words)" required></textarea>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Revenue Model</label>
+                                    <textarea class="form-control" rows="3" id="description" name="drevenue_model" placeholder="Enter revenue model here.." required></textarea>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Traction</label>
+                                    <textarea class="form-control" rows="3" id="description" name="traction" placeholder="Enter traction here.." required></textarea>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Deployment of Funds</label>
+                                    <textarea class="form-control" rows="3" id="description" name="deployment_of_funds" placeholder="Enter deployment of funds here.." required></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Required fields</label>
+                                </div>	
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
