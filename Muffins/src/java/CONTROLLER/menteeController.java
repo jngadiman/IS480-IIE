@@ -23,27 +23,13 @@ public class menteeController {
     }
     
     public static ArrayList<Mentee> getLightMentees(){
-        ArrayList<Mentee> lightMentees = new ArrayList<Mentee>();
-        Mentee m = null;
-        
-        ArrayList<String> lightMenteeEmails = MenteeDAO.getLightMenteeEmails();
-        for(String s: lightMenteeEmails){
-            m = MenteeDAO.getMenteeByEmail(s);
-            lightMentees.add(m);
-        }
-        
+        ArrayList<Mentee> lightMentees = MenteeDAO.getLightMentees();
         return lightMentees;
     }
     
     public static ArrayList<Mentee> getRegularMentees(){
-        ArrayList<Mentee> regularMentees = new ArrayList<>();
-        Mentee m = null;
-        
-        ArrayList<String> regularMenteeEmails = MenteeDAO.getRegularMenteeEmails();
-        for(String s: regularMenteeEmails){
-            m = MenteeDAO.getMenteeByEmail(s);
-            regularMentees.add(m);
-        }
+        ArrayList<Mentee> regularMentees = MenteeDAO.getRegularMentees();
+       
         
         return regularMentees;
     }

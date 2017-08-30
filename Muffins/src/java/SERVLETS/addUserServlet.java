@@ -47,18 +47,34 @@ public class addUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String nric = request.getParameter("nric");
         String comp = request.getParameter("company");
+        String role = request.getParameter("role");
+        //rmb check w jen on the equity
+        String equityPercentage = request.getParameter("equity_percentage");
+        String contact= request.getParameter("contact");
+        String nationality = request.getParameter("nationality");
         String user_type = request.getParameter("user_type");
         String course = request.getParameter("course");
         String yrOfGrad = request.getParameter("yrOfGrad");
         
         int companyID = 0;
-        companyID = Integer.parseInt(comp);
-        
+        if(comp!=null&&!(comp.equals(""))){
+           companyID = Integer.parseInt(comp); 
+        }
         int yearOfGrad = 0;
-        yearOfGrad = Integer.parseInt(yrOfGrad);
-       
-        User user = new User(email, password, name, nric, null, "mentee", companyID);
-        Mentee mentee = new Mentee(email, password, name, nric, null, "mentee", companyID, "regular", course, yearOfGrad, null);
+        if(yrOfGrad!=null&&!(yrOfGrad.equals(""))){
+           yearOfGrad = Integer.parseInt(yrOfGrad);
+        }
+        int equity = 0;
+        if(equityPercentage!=null&&!(equityPercentage.equals(""))){
+           equity = Integer.parseInt(equityPercentage);
+        }
+        int number = 0;
+        if(contact!=null&&!(contact.equals(""))){
+           number = Integer.parseInt(contact);
+        }
+        
+        User user = new User(email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
+        Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
         //Mentee mentee
         String status = registrationController.addUser(user);
         int result = registrationController.addMentee(mentee);

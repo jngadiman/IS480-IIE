@@ -13,12 +13,14 @@ import java.util.*;
 public class Mentor extends User{
     private String position;
     private String introduction;
+    private String skills;
 
-    public Mentor(String email, String password, String name, String nric, byte[] profile_pic, String user_type, int company_id, String position, String introduction) {
-        super(email, password, name, nric, profile_pic, user_type, company_id);
+    public Mentor(String position, String introduction, String skills, String email, String password, String name, String nric, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality) {
+        super(email, password, name, nric, profile_pic, user_type, companyid, role, equityPercentage, contactNumber, nationality);
         this.position = position;
         this.introduction = introduction;
-    } 
+        this.skills = skills;
+    }
 
     public String getPosition() {
         return position;
@@ -35,4 +37,13 @@ public class Mentor extends User{
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+    
 }

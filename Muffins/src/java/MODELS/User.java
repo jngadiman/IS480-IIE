@@ -39,43 +39,6 @@ public class User {
         this.nationality = nationality;
     }
     
-    
-    public User(String email, String password, String name, String nric, String user_type){
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nric = nric;
-        this.user_type = user_type;
-    }
-    
-    public User(String email, String password, String name, String nric, byte[] profile_pic, String user_type){
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nric = nric;
-        this.user_type = user_type;
-        this.profile_pic = profile_pic;
-    }
-    
-    public User(String email, String password, String name, String nric, String user_type, int company_id){
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nric = nric;
-        this.user_type = user_type;
-        this.companyid = company_id;
-    }
-    
-    public User(String email, String password, String name, String nric, byte[] profile_pic, String user_type, int company_id){
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nric = nric;
-        this.profile_pic = profile_pic;
-        this.user_type = user_type;
-        this.companyid = company_id;
-    }
-    
     public String getEmail(){
         return email;
     }

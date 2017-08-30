@@ -120,14 +120,14 @@
                                     <label class="control-label">Profile Picture</label>
                                     <input class="form-control" type="file" name="profile_pic" id="profile_pic">
                                 </div>
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-6 form-group required">
                                     <label class="control-label">Nationality</label>
                                     <%@include file="nationality.jsp" %>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 form-group required">
-                                    <label class="control-label">Company</label> if not found sign company up <a href="registerCompany.jsp">here</a>
+                                <div class="col-sm-4 form-group required">
+                                    <label class="control-label">Company</label> not found sign up <a href="registerCompany.jsp">here</a>
 
                                     <select class="form-control" id="select" name="company" required>
                                         <%
@@ -139,19 +139,30 @@
                                     </select>
                                 </div>	
 
-                                <div class="col-sm-6 form-group required">
+                                <div class="col-sm-4 form-group required">
                                     <label class="control-label">Company Role</label>
                                     <input id="role" type="text" name="role" placeholder="Enter Role Here.." class="form-control" required>
                                 </div>
+                                    
+                                     <div class="col-sm-4 form-group required">
+                                    <label class="control-label">Equity Percentage</label>
+                                    <input id="percentage" type="text" name="percentage" placeholder="Enter Equity % Here.." class="form-control" required>
+                                </div>
+                            </div>
+
+<div class="row">
+                                <div class="col-sm-6 form-group">
+                                  <label  class="control-label">Only fill up the next part if you are SMU student</label>   
+                                </div>
+                                
+
                             </div>
 
 
-
-
                             <div class="row">
-                                <div class="col-sm-6 form-group required">
+                                <div class="col-sm-6 form-group ">
                                     <label  class="control-label">Course</label>
-                                    <select class="form-control" name="course" id="course" required>
+                                    <select class="form-control" name="course" id="course">
                                         <%
                                             for (String d : degrees) {
                                         %>
@@ -161,9 +172,9 @@
                                         %>
                                     </select>
                                 </div>
-                                <div class="col-sm-6 form-group required">
+                                <div class="col-sm-6 form-group">
                                     <label class="control-label">Year of Graduation</label>
-                                    <input id="yrOfGrad" type="text" name="yrOfGrad" placeholder="Enter Year Of Graduation Here.." class="form-control" required>
+                                    <input id="yrOfGrad" type="text" name="yrOfGrad" placeholder="Enter Year Of Graduation Here.." class="form-control" >
                                 </div>
 
                             </div>

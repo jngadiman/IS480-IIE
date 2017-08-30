@@ -51,6 +51,10 @@ public class editProfileServlet extends HttpServlet {
         String name = request.getParameter("name");
         String nric = request.getParameter("nric");
         String user_type = request.getParameter("user_type");
+        String equityPercentage = request.getParameter("equity_percentage");
+        String contact= request.getParameter("contact");
+        String nationality = request.getParameter("nationality");
+        String role = request.getParameter("role");
         
         byte[] profilePic = null;
         InputStream inputStream = null; // input stream of the upload file
@@ -67,28 +71,38 @@ public class editProfileServlet extends HttpServlet {
         }else{
            profilePic = displayUser.getProfile_pic();
         }
+        int equity = 0;
+        if(equityPercentage!=null&&!(equityPercentage.equals(""))){
+           equity = Integer.parseInt(equityPercentage);
+        }
+        int number = 0;
+        if(contact!=null&&!(contact.equals(""))){
+           number = Integer.parseInt(contact);
+        }
         
         int companyID = Integer.parseInt(request.getParameter("companyID"));
+//        User user = new User(email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
+//        profileController.editUserDetails(user);
         
         if(user_type.equals("mentee")){
-            String mentee_type = request.getParameter("menteeType");
+            
             String degree = request.getParameter("degree");
             int yearOfGrad = Integer.parseInt(request.getParameter("yearOfGrad"));
             String mentor_email = request.getParameter("mentorEmail");
             
-            System.out.println(mentee_type);
             System.out.println(degree);
             System.out.println(yearOfGrad);
             System.out.println(mentor_email);
             
-            Mentee m = new Mentee(email, password, name, nric, profilePic, user_type, companyID, mentee_type, degree, yearOfGrad, mentor_email);
+            Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
             
-            status = profileController.editMentee(m);
+            status = profileController.editMentee(mentee);
             request.setAttribute("updateStatus", status);
             
         }else if(user_type.equals("mentor")){
             String position = request.getParameter("position");
             String introduction = request.getParameter("introduction");
+            
             
             Mentor m = new Mentor(email, password, name, nric, profilePic, user_type, companyID, position, introduction);
             status = profileController.editMentor(m);
