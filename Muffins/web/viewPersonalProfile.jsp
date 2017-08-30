@@ -55,7 +55,7 @@
 
                             <%String type = user.getUser_type(); %>
 
-                            <% if (type.equals("mentee")) {
+                            <% if (type.equals("regular_mentee") || type.equals("light_mentee")) {
                                     Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                                     String mentor_name = "";
                                     if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
@@ -69,7 +69,7 @@
                                     }
                             %>
 
-                            <p><strong>User Type</strong> : <%= mentee.getMentee_type() + " " + type%></p>
+                            <p><strong>User Type</strong> : <%= user.getUser_type()%></p>
 
 
                             <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
