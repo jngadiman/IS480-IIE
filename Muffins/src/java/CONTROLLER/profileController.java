@@ -53,7 +53,7 @@ public class profileController {
     public static String editMentor(Mentor m){
         String status = "";
         int userResult = UserDAO.editUser(m);
-        int result = MentorDAO.editMentorDetails(m.getEmail(), m.getPosition(), m.getIntroduction(), m.getSkills());
+        int result = MentorDAO.editMentorDetails(m);
         if(result == 1&& userResult == 1){
             status = "Changes have been saved successfully!";
         }else{

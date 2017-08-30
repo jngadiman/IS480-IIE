@@ -30,6 +30,7 @@ public class MentorDAO {
         String position = "";
         String introduction = "";
         String skills = "";
+        String bankAccount = "";
         Mentor mentor = null;
         
         ArrayList<User> mentors = UserDAO.getAllMentors();
@@ -45,10 +46,11 @@ public class MentorDAO {
                     email = result.getString("email");
                     position = result.getString("position");
                     introduction = result.getString("introduction");
+                    bankAccount = result.getString("bank_account");
                     skills = result.getString("skills");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -70,6 +72,7 @@ public class MentorDAO {
         String position = "";
         String introduction = "";
         String skills = "";
+        String bankAccount = "";
         Mentor mentor = null;
         
         ArrayList<User> mentors = UserDAO.getIncubatorMentors();
@@ -85,10 +88,11 @@ public class MentorDAO {
                     email = result.getString("email");
                     position = result.getString("position");
                     introduction = result.getString("introduction");
+                    bankAccount = result.getString("bank_account");
                     skills = result.getString("skills");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -109,6 +113,7 @@ public class MentorDAO {
         String email = "";
         String position = "";
         String introduction = "";
+        String bankAccount = "";
         String skills = "";
         Mentor mentor = null;
         
@@ -125,10 +130,11 @@ public class MentorDAO {
                     email = result.getString("email");
                     position = result.getString("position");
                     introduction = result.getString("introduction");
+                    bankAccount = result.getString("bank_account");
                     skills = result.getString("skills");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -151,6 +157,7 @@ public class MentorDAO {
         System.out.println("from mentorDAO" + u.getName());
         String position = "";
         String introduction = "";
+        String bankAccount = "";
         String skills = "";
         
         try {
@@ -163,10 +170,11 @@ public class MentorDAO {
                 email = result.getString("email");
                 position = result.getString("position");
                 introduction = result.getString("introduction");
+                bankAccount = result.getString("bank_account");
                 skills = result.getString("skills");
             }
             
-            m = new Mentor(position, introduction, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            m = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
         } catch (SQLException ex) {
             Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -175,7 +183,7 @@ public class MentorDAO {
         return m;
     }
 
-    public static int editMentorDetails(String email, String position, String introduction, String skills){
+    public static int editMentorDetails(Mentor m){
         int result = 0;
         
         
@@ -186,11 +194,11 @@ public class MentorDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("UPDATE Mentor SET position = ?, introduction = ?, skills = ? WHERE email = ?;");
-            stmt.setString(1, position);
-            stmt.setString(2, introduction);
-            stmt.setString(3, skills);
-            stmt.setString(4, email);
+            stmt = conn.prepareStatement("UPDATE Mentor SET position = ?, introduction = ?, bank_account = ?, skills = ? WHERE email = ?;");
+            stmt.setString(1, m.getPosition());
+            stmt.setString(2, m.getIntroduction());
+            stmt.setString(3, m.getBankAccount());
+            stmt.setString(4, m.getSkills());
             
             result = stmt.executeUpdate();
             

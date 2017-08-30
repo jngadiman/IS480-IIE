@@ -51,7 +51,7 @@ public class editProfileServlet extends HttpServlet {
         String name = request.getParameter("name");
         String nric = request.getParameter("nric");
         String user_type = request.getParameter("user_type");
-        String equityPercentage = request.getParameter("equity_percentage");
+        String equityPercentage = request.getParameter("percentage");
         String contact= request.getParameter("contact");
         String nationality = request.getParameter("nationality");
         String role = request.getParameter("role");
@@ -102,9 +102,10 @@ public class editProfileServlet extends HttpServlet {
         }else if(user_type.equals("mentor")){
             String position = request.getParameter("position");
             String introduction = request.getParameter("introduction");
+            String bankAccount = request.getParameter("bank_account");
+            String skills = request.getParameter("skills");
             
-            
-            Mentor m = new Mentor(email, password, name, nric, profilePic, user_type, companyID, position, introduction);
+            Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
             status = profileController.editMentor(m);
             request.setAttribute("updateStatus", status);
         }
