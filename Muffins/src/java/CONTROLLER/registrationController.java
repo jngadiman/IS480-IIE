@@ -12,6 +12,7 @@ import MODELS.Company;
 import MODELS.Mentee;
 import MODELS.User;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -20,6 +21,11 @@ import java.util.Random;
  * @author Hui Min
  */
 public class registrationController {
+    
+    public static ArrayList<User> getAllUsers(){
+        ArrayList<User> users = UserDAO.getAllUsers();
+        return users;
+    }
     public static int addUser(User user){
         int status = UserDAO.addUser(user);
         return status;

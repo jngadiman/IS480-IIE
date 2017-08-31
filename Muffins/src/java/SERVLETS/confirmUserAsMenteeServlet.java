@@ -6,22 +6,23 @@
 package SERVLETS;
 
 import CONTROLLER.loginController;
-import MODELS.User;
+import CONTROLLER.menteeController;
+import CONTROLLER.registrationController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author JJAY
  */
-@WebServlet(name = "changePasswordServlet", urlPatterns = {"/changePasswordServlet"})
-public class changePasswordServlet extends HttpServlet {
+@WebServlet(name = "confirmUserAsMenteeServlet", urlPatterns = {"/confirmUserAsMenteeServlet"})
+public class confirmUserAsMenteeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,47 +36,30 @@ public class changePasswordServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        //HttpSession session = request.getSession();
-        String email = request.getParameter("email");
-        String currentPassword = request.getParameter("currentPassword");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
-        loginController loginController = new loginController();
-        String result = "";
-        
-        //System.out.println("USERNAME = "+email+ "PASSWORD" +password );
-        if ((!email.equals("")) && (!confirmPassword.equals(""))&& (!newPassword.equals(""))) {
-            System.out.println("PASSWORDS AND EMAIL NOT NULL" );
+        String activated = request.getParameter("activateBtn");
+        String declined = request.getParameter("rejectBtn");
+        String mentee_email = request.getParameter("mentee_email");
+        ArrayList<String> status = new ArrayList<String>();
+        if(activated!=null && !activated.equals("")){
+            //generates a random password
+            String password = registrationController.randomPassword();
+            System.out.println("NEW USER PASSWORD" + password);
+            //need to add codes to send email to the user HERE SO THAT THE PWD SENT TO THEM IS UNHASHED
             
-            //to ensure that the passwords matches
-            if (newPassword.equals(confirmPassword)){
-                
-                //to ensure that user has keyed the right old password
-                User currentUser = loginController.validateUser(email,currentPassword);
-                if (currentUser == null) {
-                    
-                    System.out.println("USER IS NOT VALIDATED :(" );
-                    request.setAttribute("loginResult", "Invalid email/password");
-                    request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-                    
-                } else {
-                    //to ensure user email is found in db
-                    System.out.println("USER IS IN DB" );
-                    result = loginController.updateUserPassword(email,newPassword);
-                    
-                    request.setAttribute("loginResult", result);
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
-            }else{
-                request.setAttribute("loginResult", "Passwords does not match");
-                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-            }
-            
-        } else {
-            request.setAttribute("loginResult", "Invalid email/password");
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            loginController.updateUserPassword(mentee_email, password);
+            status.add("Activation Email is sent!");
+            request.setAttribute("status", status);
+            request.getRequestDispatcher("confirmUserAsMentee.jsp").forward(request, response);
+           
         }
-
+        
+        if(declined!=null &&!declined.equals("")){
+            //delete the user from the database (mentee and user tables)
+            menteeController.deleteMentee(mentee_email);
+            
+        }
+        request.setAttribute("status", status);
+        request.getRequestDispatcher("confirmUserAsMentee.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

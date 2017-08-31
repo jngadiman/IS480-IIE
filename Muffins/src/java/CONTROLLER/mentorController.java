@@ -24,6 +24,15 @@ public class mentorController {
         return mentors;
     }
     
+    public static ArrayList<String> getSkillsOfMentor(String email){
+        String[] set = MentorDAO.getSkillsOfMentor(email);
+        ArrayList<String> skills = new ArrayList<String>();
+        for(String skill: set){
+            skills.add(skill);
+        }
+        return skills;
+    }
+    
     public static void main(String[] args){
         ArrayList<Mentor> mentors = mentorController.getMentors();
         for(Mentor m: mentors){

@@ -30,6 +30,7 @@ public class loginController {
         System.out.println("USER EMAIL IN CONTROLLER = "+email );
         User user = UserDAO.getUserByEmail(email);
         //System.out.println("USER IN CONTROLLER = "+user.getName() );
+        //if user is found in db
         if (user != null) {
             MessageDigest crypt = null;
             try {
@@ -41,6 +42,7 @@ public class loginController {
                 String hashPassword = new BigInteger(1, crypt.digest()).toString(16);
                 //String userPassword = user.getPassword();
                 System.out.println(hashPassword);
+                //password keyed == password in the db
                 if (userPassword.equals(hashPassword)) {
                     return user;
                 } else {

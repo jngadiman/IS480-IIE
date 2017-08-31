@@ -442,6 +442,35 @@ public class MenteeDAO {
         return numRecordsUpdated;
     }
     
+    public static boolean deleteMentee(String email){
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int records = 0;
+        
+        
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("DELETE * FROM `mentee` WHERE `email` = ?;");
+                stmt.setString(1, email);
+                
+                records = stmt.executeUpdate();
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            if (records != 1){
+            return false;
+        }
+        return true;
+            
+        
+    }
+    
     public static void main(String[] args){
 //        ArrayList<ArrayList<String>> regularMentees = MenteeDAO.getRegularMenteeDetails();
 //        for(ArrayList<String> regularMentee : regularMentees){

@@ -766,6 +766,35 @@ public class UserDAO {
         return shareholders;
     }
     
+    public static boolean deleteUser(String email){
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int records = 0;
+        
+        
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("DELETE * FROM `user` WHERE `email` = ?;");
+                stmt.setString(1, email);
+                
+                records = stmt.executeUpdate();
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            if (records != 1){
+            return false;
+        }
+        return true;
+            
+        
+    }
+    
     public static void main(String[] args){
        ArrayList<User> mentors = UserDAO.getAllMentors();
        for(User u: mentors){

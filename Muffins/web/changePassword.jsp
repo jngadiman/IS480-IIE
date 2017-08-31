@@ -42,8 +42,9 @@
                     <h1>Change Password</h1>
                     <form class="form-signin" method ="POST" action ="changePasswordServlet" name = "changePassword" onsubmit="return validateForm()" >
                         Email <input type ="text" name ="email" class="form-control" required> <br>
-                        Password <input type ="password" name ="newPassword" class="form-control" required> <br>
-                        Confirm Password <input type ="password" name ="confirmPassword" class="form-control" required> <br>
+                        Current Password <input type ="password" name ="currentPassword" class="form-control" required> <br>
+                        New Password <input type ="password" name ="newPassword" class="form-control" required> <br>
+                        Confirm New Password <input type ="password" name ="confirmPassword" class="form-control" required> <br>
                         <font color = 'red'><%=loginResult%></font>
                         
                          <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Change</button>

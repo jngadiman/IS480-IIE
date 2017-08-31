@@ -211,7 +211,34 @@ public class MentorDAO {
         return result;
     }
     
-    
+    //get all the skill sets of the mentor
+    public static String [] getSkillsOfMentor(String email){
+        Mentor m = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        
+        String skillsSet = "";
+        String[] skills = new String[0];
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select skills from Mentor where email = ?;");
+            stmt.setString(1, email);
+            result = stmt.executeQuery();
+            
+            while (result.next()) {
+                
+                skillsSet = result.getString("skills");
+            }
+            skills = skillsSet.split(",");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return skills;
+    }
     
     public static void main(String[] args){
 //        Mentor m = MentorDAO.getMentorByEmail("hello@hotmail.com");

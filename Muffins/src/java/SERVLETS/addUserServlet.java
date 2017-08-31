@@ -44,9 +44,10 @@ public class addUserServlet extends HttpServlet {
         User currentUser;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        //password for new user to be randomized
-        String password = registrationController.randomPassword();
-        System.out.println("NEW USER PASSWORD" + password);
+        String password = "";
+//        //password for new user to be randomized
+//        String password = registrationController.randomPassword();
+//        System.out.println("NEW USER PASSWORD" + password);
         //must rmb to email ppl from here
         String nric = request.getParameter("nric");
         String comp = request.getParameter("company");

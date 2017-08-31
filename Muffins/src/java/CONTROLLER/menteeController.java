@@ -52,6 +52,15 @@ public class menteeController {
         return result;
     }
     
+    public static boolean deleteMentee(String email){
+        boolean deleteUser = UserDAO.deleteUser(email);
+        boolean deleteMentee =  MenteeDAO.deleteMentee(email);
+        if(deleteUser && deleteMentee){
+            return true;
+        }
+        return false;
+    }
+    
     public static void main(String[] args){
         int result = menteeController.updateMentorEmail(2, "hello@hotmail.com");
         System.out.println(result);
