@@ -4,6 +4,12 @@
     Author     : JEN
 --%>
 
+<%@page import="java.io.BufferedOutputStream"%>
+<%@page import="java.io.FileOutputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="MODELS.Industry"%>
+<%@page import="MODELS.Industry"%>
+<%@page import="CONTROLLER.industryController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -34,7 +40,7 @@
     <%        user = (User) session.getAttribute("user");
         int companyID = user.getCompanyid();
         Company company = CompanyDAO.getCompany(companyID);
-
+        /*
         ArrayList<String> industries = new ArrayList<String>();
         industries.add("-- select one --");
         industries.add("Energy Equipment & Services");
@@ -104,7 +110,7 @@
         industries.add("Independent Power and Renewable Electricity Producers");
         industries.add("Equity Real Estate Investment Trusts (REITs)");
         industries.add("Real Estate Management & Development");
-
+        */
     %>
     <body>
         <div class="container">
@@ -135,9 +141,9 @@
                                                 }
                                             %>
                                         <br/>
-
+                                        
                                         Select image to upload:
-                                        <input type="file" name="companyLogo" required>
+                                        <input type="file" name="companyLogo">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 form-group required">
@@ -163,7 +169,25 @@
                                 <div class="col-sm-6 form-group">
                                     <!-- NEED TO SHOW THE SELECTED INDUSTRY FROM DB-->
                                     <label>Industry</label> 
-
+                                    <select class="form-control" name="industry" required>
+                                        <%
+                                            Industry industry = industryController.getIndustry(company.getIndustry());
+                                            if(industry != null){
+                                                String industry_name = industry.getIndustryName();
+                                        %>
+                                            <option selected value = <%=company.getIndustry()%> ><%=industry_name%></option>
+                                        <%
+                                            }  
+                                        %>
+                                        <% 
+                                            ArrayList<Industry> industries = industryController.getIndustries();
+                                            for (Industry i : industries) {
+                                        if (company.getIndustry() != i.getIndustryCode()) {%>
+                                        <option value='<%=i.getIndustryCode()%>'><%=i.getIndustryName()%></option>
+                                        <%      }
+                                            }
+                                        %>
+                                    </select>
 
                                 </div>
                             </div>
@@ -207,6 +231,10 @@
                                     <label>Deployment of Funds</label>
                                     <textarea class="form-control" rows="3" name="deployment_of_funds" placeholder="Enter Deployment Of Funds Here.." required><%= company.getDeployOfFunds()%></textarea>
                                 </div>
+                            </div>
+                            <div class="row">
+                                Select Business Slides to upload: 
+                                <input type="file" name="biz_slides"/>
                             </div>
                             <button type="submit" class="btn btn-lg btn-info">Submit</button>					
                         </div>
