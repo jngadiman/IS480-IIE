@@ -44,12 +44,14 @@ public class addUserServlet extends HttpServlet {
         User currentUser;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        //password for new user to be randomized
+        String password = registrationController.randomPassword();
+        System.out.println("NEW USER PASSWORD" + password);
+        //must rmb to email ppl from here
         String nric = request.getParameter("nric");
         String comp = request.getParameter("company");
         String role = request.getParameter("role");
-        //rmb check w jen on the equity
-        String equityPercentage = request.getParameter("equity_percentage");
+        String equityPercentage = request.getParameter("percentage");
         String contact= request.getParameter("contact");
         String nationality = request.getParameter("nationality");
         String user_type = request.getParameter("user_type");
@@ -76,10 +78,11 @@ public class addUserServlet extends HttpServlet {
         User user = new User(email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
         Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
         //Mentee mentee
-        String status = registrationController.addUser(user);
+        int status = registrationController.addUser(user);
         int result = registrationController.addMentee(mentee);
-        request.setAttribute("registerStatus", status);
-        request.setAttribute("result", result);
+        if(result==1&&status==1){
+            request.setAttribute("registerStatus", "The registration is a success, an email of the login details will be sent to you once you are successfully registered into the Incubator");
+        }
         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
         rd.forward(request, response);
     }

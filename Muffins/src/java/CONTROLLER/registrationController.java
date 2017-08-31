@@ -11,15 +11,17 @@ import DAO.UserDAO;
 import MODELS.Company;
 import MODELS.Mentee;
 import MODELS.User;
+import java.security.SecureRandom;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
  * @author Hui Min
  */
 public class registrationController {
-    public static String addUser(User user){
-        String status = UserDAO.addUser(user);
+    public static int addUser(User user){
+        int status = UserDAO.addUser(user);
         return status;
     }
     
@@ -40,6 +42,17 @@ public class registrationController {
         return result;
     }
     
+    public static String randomPassword() {
+        String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!~@#$%^&*()";
+        StringBuilder strBuilder = new StringBuilder();
+        Random rnd = new SecureRandom();
+        while (strBuilder.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * CHARS.length());
+            strBuilder.append(CHARS.charAt(index));
+        }
+        String randomPwd = strBuilder.toString();
+        return randomPwd;
+    }
     public static void main(String[] args){
         int companyID = registrationController.getNextCompanyID();
         System.out.println(companyID);

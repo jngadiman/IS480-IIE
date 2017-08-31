@@ -503,9 +503,9 @@ public class UserDAO {
         return result;
     }
     
-    public static String addUser(User user){
-        String status = "";
+    public static int addUser(User user){
         
+        int status = 0;
         String email = user.getEmail();
         String password = user.getPassword();
         String dbpwd = "";
@@ -517,6 +517,7 @@ public class UserDAO {
             crypt.update(password.getBytes("UTF-8"));
             //newly hash password
             dbpwd = new BigInteger(1, crypt.digest()).toString(16);
+            System.out.println("HASHED PASSWORD IN USERDAO "+ dbpwd);
 
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -537,7 +538,7 @@ public class UserDAO {
             conn = ConnectionManager.getConnection();
             
             //insert user to database
-            stmt = conn.prepareStatement("Insert into User values (?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("Insert into User values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             //set email
             stmt.setString(1, email);
@@ -560,25 +561,25 @@ public class UserDAO {
             }
             
             //set user_type
-            stmt.setString(5, user.getUser_type());
+            stmt.setString(6, user.getUser_type());
             //set company id
-            stmt.setInt(6, user.getCompanyid());
+            stmt.setInt(7, user.getCompanyid());
             //set role
-            stmt.setString(7, user.getRole());
+            stmt.setString(8, user.getRole());
             //set equity
-            stmt.setInt(8, user.getEquityPercentage());
+            stmt.setInt(9, user.getEquityPercentage());
             //set contact
-            stmt.setInt(9, user.getContactNumber());
+            stmt.setInt(10, user.getContactNumber());
             //set nationality
-            stmt.setString(10, user.getNationality());
+            stmt.setString(11, user.getNationality());
             
-            int numRecordsUpdated = stmt.executeUpdate();
-            
-            if(numRecordsUpdated == 1){
-                status = "Success!";
-            }else{
-                status = "Fail!";
-            }
+           
+            status = stmt.executeUpdate();
+//            if(numRecordsUpdated == 1){
+//                status = "Success!";
+//            }else{
+//                status = "Fail!";
+//            }
 
         } catch (SQLException e) {
             e.printStackTrace();

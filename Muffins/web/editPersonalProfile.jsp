@@ -138,7 +138,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <input type="hidden" name="menteeType" value="<%= mentee.getMentee_type()%>">
+                                <input type="hidden" name="userType" value="<%= user.getUser_type()%>">
                                 <input type="hidden" name="mentorEmail" value="<%= mentee.getMentor_email()%>">
                                 <%  } else if (user.getUser_type().equals("mentor")){
                                     Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
