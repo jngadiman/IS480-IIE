@@ -38,8 +38,8 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <%
                         User user = (User) session.getAttribute("user");
-                        if (user.getUser_type().equals("mentee")) {
-                            Mentee m = (Mentee) session.getAttribute("mentee");
+//                        if (user.getUser_type().equals("mentee")) {
+//                            Mentee m = (Mentee) session.getAttribute("mentee");
                     %>    
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="home.jsp">Homepage</a></li>
@@ -53,13 +53,13 @@
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                                     <%
-                                        if (m != null) {
-                                            if (m.getMentee_type().equals("regular")) {
+                                        if (user != null) {
+                                            if (user.getUser_type().equals("regular_mentee")) {
                                     %>
                                 <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
                                     <%
                                             }
-                                        }
+                                        
                                     %>
                                 <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
                             </ul>
