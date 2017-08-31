@@ -42,8 +42,8 @@
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                         <%
-                            if(m != null){
-                                if(m.getMentee_type().equals("regular")){
+                            if(user != null){
+                                if(user.getUser_type().equals("regular_mentee")){
                         %>
                                 <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
                         <%
