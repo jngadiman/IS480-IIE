@@ -321,47 +321,6 @@ public class MeetingMinutesDAO {
         return true;
     }
     
-//     public static ArrayList<MeetingMinutes> getMeetingMinutesOfTask(int taskID) {
-//   
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet result = null;
-//        String title = "";
-//        String meetingID = "";
-//        String comment = "";
-//        String mentor = "";
-//        String user = "";
-//        
-//        ArrayList<String> details = new ArrayList<String>();
-//        
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement("select title, meeting_id, comment, submitted_user, mentor from meeting_minutes where minutes_id = ? and task_id = ?;");
-//            stmt.setInt(1, minutesID);
-//            stmt.setInt(2, taskID);
-//            
-//            result = stmt.executeQuery();
-//
-//            while (result.next()) {
-//                title = result.getString("title");
-//                meetingID = result.getString("meeting_id");
-//                comment = result.getString("comment");
-//                user = result.getString("submitted_user");
-//                mentor = result.getString("mentor");
-//                details.add(title);
-//                details.add(meetingID);
-//                details.add(comment);
-//                details.add(user);
-//                details.add(mentor);
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, result);
-//        }
-//        return details;
-//    }
       public static void main(String[] args){
         boolean minutesID = MeetingMinutesDAO.deleteMeetingMinutesByID(3);
         //Date deadline = new Date();

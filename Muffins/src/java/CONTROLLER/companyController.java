@@ -10,7 +10,6 @@ import DAO.UserDAO;
 import MODELS.Company;
 import MODELS.User;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -76,14 +75,10 @@ public class companyController {
 //            System.out.println(c.getCurrentStage());
 //            System.out.println(c.getCompanyLogo());
 
-//        Company c = CompanyDAO.getCompany(1);
-//        System.out.println(c.getId());
-//        System.out.println(c.getName());
-//        System.out.println(c.getCurrentStage());
-
-        Company c = new Company(2, "fr", "sell food", 11, 12, 302020, new Date(), 2, null, "hi1", "hi", "hi2", "hi3", null, null, null);
-        int result = CompanyDAO.editCompanyDetails(c);
-        System.out.println(result);
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
         
     }
 }

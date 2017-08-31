@@ -759,12 +759,6 @@ public class UserDAO {
         return menteeEmails;
     }
     
-    public static ArrayList<User> getShareholdersOfCompany(int company_id){
-        ArrayList<User> shareholders = new ArrayList<User>();
-        
-        return shareholders;
-    }
-    
     public static void main(String[] args){
        ArrayList<User> mentors = UserDAO.getAllMentors();
        for(User u: mentors){

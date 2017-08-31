@@ -96,7 +96,7 @@ public class CompanyDAO {
                     acraFile = null;
                 }
                 
-                biz_slides = result.getBlob("business_slides");
+                biz_slides = result.getBlob("biz_slides");
                 if(biz_slides != null){
                     bizSlides = biz_slides.getBytes(1, (int) biz_slides.length());
                 }else{
@@ -191,7 +191,7 @@ public class CompanyDAO {
                     acraFile = null;
                 }
                 
-                biz_slides = result.getBlob("business_slides");
+                biz_slides = result.getBlob("biz_slides");
                 if(biz_slides != null){
                     bizSlides = biz_slides.getBytes(1, (int) biz_slides.length());
                 }else{
@@ -290,7 +290,7 @@ public class CompanyDAO {
                     acraFile = null;
                 }
                 
-                biz_slides = result.getBlob("business_slides");
+                biz_slides = result.getBlob("biz_slides");
                 if(biz_slides != null){
                     bizSlides = biz_slides.getBytes(1, (int) biz_slides.length());
                 }else{
@@ -360,7 +360,7 @@ public class CompanyDAO {
             
             String status = "";
             
-            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, business_slides = ? WHERE company_id = ?;");
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, biz_slides = ? WHERE company_id = ?;");
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getDescription());
             stmt.setInt(3, c.getFullTimers());
@@ -535,12 +535,12 @@ public class CompanyDAO {
     }
     
     public static void main(String[] args){
-        Company c = new Company(2, "fr", "sell food..", 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
-        int result = CompanyDAO.editCompanyDetails(c);
-        System.out.println(result);
-//        Company c = CompanyDAO.getCompany(1);
-//        System.out.println(c.getId());
-//        System.out.println(c.getName());
-//        System.out.println(c.getCurrentStage());
+        //Company c = new Company(6, "fr", "sell food..", "sell a lot of foodss", "sell food", "Web Services", new Date(), 2, null);
+       // int result = CompanyDAO.editCompanyDetails(c);
+       // System.out.println(result);
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
     }
 }

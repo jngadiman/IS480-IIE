@@ -45,22 +45,10 @@ public class editCompanyServlet extends HttpServlet {
         int companyID = Integer.parseInt(request.getParameter("companyID"));
         String name = request.getParameter("companyName");
         String description = request.getParameter("description");
-        int numFullTime = Integer.parseInt(request.getParameter("num_fulltime"));
-        int numPartTime = Integer.parseInt(request.getParameter("num_parttime"));
-        int industry = Integer.parseInt(request.getParameter("industry"));
+        String vision = request.getParameter("vision");
+        String mission = request.getParameter("mission");
+        String industry = request.getParameter("industry");
         String startDate = request.getParameter("startDate");
-        
-        Date start_date = null;
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        
-        if (startDate != null || !startDate.isEmpty()){
-            try {
-                start_date = df.parse(startDate);
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            }
-        }
-        
         int stage = Integer.parseInt(request.getParameter("stage"));
         
         Company c = companyController.getCompany(companyID);
@@ -81,47 +69,21 @@ public class editCompanyServlet extends HttpServlet {
             companyLogo = c.getCompanyLogo();
         }
         
-        String productDiff = request.getParameter("product_differentiation");
-        String revenueModel = request.getParameter("revenue_model");
-        String traction = request.getParameter("traction");
-        String deployOfFunds = request.getParameter("deployment_of_funds");
+        Date start_date = null;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         
-        byte[] biz_slides = null;
-        InputStream inputStream1 = null; // input stream of the upload file
-        Part filePart1 = request.getPart("biz_slides");
-        if (filePart1.getSubmittedFileName() != null && !filePart1.getSubmittedFileName().isEmpty()) {
-            // prints out some information for debugging
-            System.out.println(filePart1.getName());
-            System.out.println(filePart1.getSize());
-            System.out.println(filePart1.getContentType());
-             
-            // obtains input stream of the upload file
-            inputStream1 = filePart1.getInputStream();
-            biz_slides = IOUtils.toByteArray(inputStream1);
-        }else{
-            biz_slides = c.getAppForm();
+        if (startDate != null || !startDate.isEmpty()){
+            try {
+                start_date = df.parse(startDate);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
         }
-        System.out.println(c.getId());
-        System.out.println(c.getName());
-        System.out.println(c.getDescription());
-        System.out.println(c.getFullTimers());
-        System.out.println(c.getPartTimers());
-        System.out.println(c.getIndustry());
-        System.out.println(c.getStartDate());
-        System.out.println(c.getCurrentStage());
-        System.out.println(c.getCompanyLogo());
-        System.out.println(c.getProductDiff());
-        System.out.println(c.getRevenueModel());
-        System.out.println(c.getTraction());
-        System.out.println(c.getDeployOfFunds());
-        System.out.println(c.getAcraFile());
-        System.out.println(c.getBizFile());
-        System.out.println(c.getAppForm());
         
-        Company company = new Company(companyID, name, description, numFullTime, numPartTime, industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAppForm());
+        //Company company = new Company(companyID, name, description, num_fulltime, num_parttime,industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acra_file, biz_slides, appForm);
         
-        String status = companyController.editCompany(company);
-        request.setAttribute("updateStatus", status);
+        //String status = companyController.editCompany(company);
+        //request.setAttribute("updateStatus", status);
         
         RequestDispatcher rd = request.getRequestDispatcher("editCompanyProfile.jsp");
         rd.forward(request, response);
