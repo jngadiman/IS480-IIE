@@ -74,9 +74,6 @@
                                     }
                             %>
 
-                            <p><strong>User Type</strong> : <%= mentee.getMentee_type() + " " + type%></p>
-
-
                             <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
 
                             <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>

@@ -40,7 +40,7 @@
                                         <option value = "requesting">Requested</option>
                                         <option value = "approved">Approved</option>
                                         <option value = "declined">Declined</option>
-                                        <option value = "over">Over</option>
+                                        <option value = "terminated">Terminated</option>
                                     </select><input class="btn btn-primary btn-xs"type ="submit" value =" Choose "> 
                                 </li>
                             </form>

@@ -20,7 +20,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mentor Profile</title>
+        <title>Company Profile</title>
         <%@include file="navbar.jsp" %>
         <%@include file="protect.jsp" %>
     </head>
@@ -53,53 +53,76 @@
                                 <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>
                                 <p><strong>Industry</strong> : <%= company.getIndustry()%></p>
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 form-group required">
-                                    <p><strong>Company Description</strong> :<br> 
-                                    <p><%= company.getDescription()%></p>
-                                </div>	
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-6 form-group required">
-                                    <p><strong>Number of Full-Time Employees</strong> : <%= company.getFullTimers()%></p>
-                                </div>
-                                <div class="col-sm-6 form-group required">
-                                    <p><strong>Number of Part-Time Employees</strong> : <%= company.getPartTimers()%></p>
-                                </div>	
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6 form-group required">
-                                    <p><strong>Product Differentiation</strong> :<br> 
-                                        <%= company.getProductDiff()%></p>
-                                </div>	
-                                <div class="col-sm-6 form-group required">
-                                    <p><strong>Revenue Model</strong> :<br> 
-                                        <%= company.getRevenueModel()%></p>
-                                </div>	
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6 form-group required">
-                                    <p><strong>Traction</strong> :<br> 
-                                        <%= company.getTraction()%></p>
-                                </div>	
-                                <div class="col-sm-6 form-group required">
-                                    <p><strong>Deployment of Funds</strong> :<br> 
-                                        <%= company.getDeployOfFunds()%></p>
-                                </div>	
-                            </div>
                         </div>
-                        <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
+                            
+                        <div class="row">
+                            <div class="col-sm-12 form-group required">
+                                <p><strong>Company Founders</strong> :<br> 
+                                <p><%
+                                    ArrayList<String> allFounders = UserDAO.getUserEmailsOfCompany(companyID);
+                                    String firstFounderEmail = allFounders.get(0);
+                                    User firstUser = UserDAO.getUserByEmail(firstFounderEmail);
+                                        String firstUserName = firstUser.getName();
+                                        out.println(" <a href='displayProfile.jsp?email=" + firstFounderEmail + " class='btn btn-success btn-xs'>" + firstUserName +"</a>");
+                                    for(int i = 1; i < allFounders.size(); i++){
+                                        String s = allFounders.get(i);
+                                        User u = UserDAO.getUserByEmail(s);
+                                        String userName = u.getName();
+                                        out.println(", <a href='displayProfile.jsp?email=" + s + "'>" + userName +"</a>");
+                                    }
+                                
+                                
+                                %></p>
+                            </div>	
+                        </div>
+                            
+                        <div class="row">
+                            <div class="col-sm-12 form-group required">
+                                <p><strong>Company Description</strong> :<br> 
+                                <p><%= company.getDescription()%></p>
+                            </div>	
+                        </div>
 
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group required">
+                                <p><strong>Number of Full-Time Employees</strong> : <%= company.getFullTimers()%></p>
+                            </div>
+                            <div class="col-sm-6 form-group required">
+                                <p><strong>Number of Part-Time Employees</strong> : <%= company.getPartTimers()%></p>
+                            </div>	
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group required">
+                                <p><strong>Product Differentiation</strong> :<br> 
+                                    <%= company.getProductDiff()%></p>
+                            </div>	
+                            <div class="col-sm-6 form-group required">
+                                <p><strong>Revenue Model</strong> :<br> 
+                                    <%= company.getRevenueModel()%></p>
+                            </div>	
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group required">
+                                <p><strong>Traction</strong> :<br> 
+                                    <%= company.getTraction()%></p>
+                            </div>	
+                            <div class="col-sm-6 form-group required">
+                                <p><strong>Deployment of Funds</strong> :<br> 
+                                    <%= company.getDeployOfFunds()%></p>
+                            </div>	
+                        </div>
                     </div>
                 </div>
+                <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
+
             </div>
         </div>
     </div>
+</div>
+</div>
 
 
 </body>

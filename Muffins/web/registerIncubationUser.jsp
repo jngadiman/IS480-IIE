@@ -1,7 +1,7 @@
 <%-- 
-    Document   : home
-    Created on : Jun 24, 2017, 10:25:29 AM
-    Author     : JEN
+    Document   : registerIncubationUser.jsp
+    Created on : Sep 1, 2017, 3:08:31 PM
+    Author     : Xinyao
 --%>
 
 <%@page import="MODELS.Company"%>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 form-group required">
-                                    <label class="control-label">Company</label> not found sign up <a href="registerCompany.jsp">here</a>
+                                    <label class="control-label">Company</label> not found sign up <a href="registerIncubationCompany.jsp">here</a>
 
                                     <select class="form-control" id="select" name="company" required>
                                         <%
@@ -192,3 +192,4 @@
         </div>
     </body>
 </html>
+
