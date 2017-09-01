@@ -58,7 +58,7 @@
                     <a href="changePassword.jsp" class="forgot-password">
                         Forgot the password?
                     </a><br/>
-                    No account? Sign up <a href="registerUser.jsp">here</a>
+                    No account? Sign up <a href="registerUserOption.jsp">here</a>
                 </div>
             </div>
         </div>
