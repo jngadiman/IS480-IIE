@@ -483,9 +483,9 @@ public class CompanyDAO {
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getAppForm());
 
-                stmt.setBlob(15, blob);
+                stmt.setBlob(16, blob);
             }else{
-                stmt.setBlob(15, (Blob) null);
+                stmt.setBlob(16, (Blob) null);
             }
             
             int numRecordsUpdated = stmt.executeUpdate();

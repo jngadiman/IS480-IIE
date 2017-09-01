@@ -93,7 +93,6 @@
                                 </div>	
                             </div>
                         </div>
-
                         <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
 
                     </div>

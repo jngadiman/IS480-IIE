@@ -45,10 +45,11 @@ public class registerCompanyServlet extends HttpServlet {
         int companyID = registrationController.getNextCompanyID();
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String vision = request.getParameter("vision");
-        String mission = request.getParameter("mission");
-        String industry = request.getParameter("industry");
+        int numFullTime = Integer.parseInt(request.getParameter("fulltimer"));
+        int numPartTime = Integer.parseInt(request.getParameter("parttimer"));
+        int industry = Integer.parseInt(request.getParameter("industry"));
         String start_date = request.getParameter("start_date");
+        int current_stage = 1;
         
         Date startDate = null;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,13 +58,11 @@ public class registerCompanyServlet extends HttpServlet {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-
-        int current_stage = Integer.parseInt(request.getParameter("current_stage"));
         
         byte[] companyLogo = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("company_logo");
-        if (filePart != null) {
+        if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
             // prints out some information for debugging
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
@@ -74,11 +73,72 @@ public class registerCompanyServlet extends HttpServlet {
             companyLogo = IOUtils.toByteArray(inputStream);
         }   
         
-        //Company c = new Company(companyID, name, description, vision, mission, industry, startDate, current_stage, companyLogo);
-        //String status = registrationController.addCompany(c);
-        //request.setAttribute("registerCompanyStatus", status);
-        RequestDispatcher rd = request.getRequestDispatcher("registerCompany.jsp");
-        rd.forward(request, response);
+        String productDiff = request.getParameter("product_differetiation");
+        String revenueModel = request.getParameter("revenue_model");
+        String traction = request.getParameter("traction");
+        String deployOfFunds = request.getParameter("deployment_of_funds");
+        
+        byte[] appForm = null;
+        InputStream inputStream1 = null; // input stream of the upload file
+        Part filePart1 = request.getPart("application_form");
+        if(filePart1 != null){
+            if (filePart1.getSubmittedFileName() != null && !filePart1.getSubmittedFileName().isEmpty()) {
+                // prints out some information for debugging
+                System.out.println(filePart1.getName());
+                System.out.println(filePart1.getSize());
+                System.out.println(filePart1.getContentType());
+
+                // obtains input stream of the upload file
+                inputStream1 = filePart1.getInputStream();
+                appForm = IOUtils.toByteArray(inputStream1);
+            } 
+        }
+        
+        byte[] acraFile = null;
+        InputStream inputStream2 = null; // input stream of the upload file
+        Part filePart2 = request.getPart("acra_file");
+        if(filePart2 != null){
+            if (filePart2.getSubmittedFileName() != null && !filePart2.getSubmittedFileName().isEmpty()) {
+                // prints out some information for debugging
+                System.out.println(filePart2.getName());
+                System.out.println(filePart2.getSize());
+                System.out.println(filePart2.getContentType());
+
+                // obtains input stream of the upload file
+                inputStream2 = filePart2.getInputStream();
+                acraFile = IOUtils.toByteArray(inputStream2);
+            }
+        }
+    
+        byte[] bizSlides = null;
+        InputStream inputStream3 = null; // input stream of the upload file
+        Part filePart3 = request.getPart("pitch_deck_slides");
+        if(filePart3 != null){
+            if (filePart3.getSubmittedFileName() != null && !filePart3.getSubmittedFileName().isEmpty()) {
+                // prints out some information for debugging
+                System.out.println(filePart3.getName());
+                System.out.println(filePart3.getSize());
+                System.out.println(filePart3.getContentType());
+
+                // obtains input stream of the upload file
+                inputStream3 = filePart3.getInputStream();
+                bizSlides = IOUtils.toByteArray(inputStream3);
+            }
+        }
+        
+        Company c = new Company(companyID, name, description, numFullTime, numPartTime, industry, startDate, current_stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+        String status = registrationController.addCompany(c);
+        
+        String companyType = request.getParameter("companyType");
+        if(companyType.equals("incubator")){
+            request.setAttribute("registerCompanyStatus", status);
+            RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
+            rd.forward(request, response);
+        }else{
+            request.setAttribute("registerCompanyStatus", status);
+            RequestDispatcher rd = request.getRequestDispatcher("registerOpenCompany.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

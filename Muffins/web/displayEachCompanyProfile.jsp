@@ -41,7 +41,7 @@
                     <h2>Company Profile</h2>
                     <div class="col-sm-10 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-               <%
+                <%
                     // display the image
                     byte[] imgData = company.getCompanyLogo();
                     if(imgData != null){
@@ -60,14 +60,12 @@
                 
                 <p><strong>Description</strong> :<br> 
                     <%= company.getDescription()%></p>
-                <p><strong>Vision</strong> :
-                <%= company.getVision()%></p>
                 
-                <p><strong>Mission</strong> : 
-                <%= company.getMission()%></p>
                 <p><strong>Company Industry</strong> : <%= company.getIndustry()%></p>
+                
                 <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                 <p><strong>Start Date</strong> : <%=startDate%></p>
+                
                 <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>   
                 
                 
