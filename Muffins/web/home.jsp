@@ -47,10 +47,10 @@
                         %>
                                 <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
                         <%
-                                }
+                                }else{
                         %>
                                 <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
-                        <%
+                        <%      }
                             }
                         %>
                     </ul>

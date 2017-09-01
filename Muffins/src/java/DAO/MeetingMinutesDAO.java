@@ -321,47 +321,49 @@ public class MeetingMinutesDAO {
         return true;
     }
     
-//     public static ArrayList<MeetingMinutes> getMeetingMinutesOfTask(int taskID) {
-//   
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet result = null;
-//        String title = "";
-//        String meetingID = "";
-//        String comment = "";
-//        String mentor = "";
-//        String user = "";
-//        
-//        ArrayList<String> details = new ArrayList<String>();
-//        
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement("select title, meeting_id, comment, submitted_user, mentor from meeting_minutes where minutes_id = ? and task_id = ?;");
-//            stmt.setInt(1, minutesID);
-//            stmt.setInt(2, taskID);
-//            
-//            result = stmt.executeQuery();
-//
-//            while (result.next()) {
-//                title = result.getString("title");
-//                meetingID = result.getString("meeting_id");
-//                comment = result.getString("comment");
-//                user = result.getString("submitted_user");
-//                mentor = result.getString("mentor");
-//                details.add(title);
-//                details.add(meetingID);
-//                details.add(comment);
-//                details.add(user);
-//                details.add(mentor);
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, result);
-//        }
-//        return details;
-//    }
+    // not done yet, cus of the MeetingMinutes constructor 
+    public static ArrayList<MeetingMinutes> getMeetingMinutesByTask(int task_id) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int minutesID = 0;
+        String title = "";
+        int meetingID = 0;
+        String mentor = "";
+        int taskID = 0;
+        String comment = "";
+        String user = "";
+        
+        ArrayList<MeetingMinutes> minutesByTask = new ArrayList<MeetingMinutes>();
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from meeting_minutes where task_id = ?;");
+            stmt.setInt(1, task_id);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                minutesID = result.getInt("minutes_id");
+                title = result.getString("title");
+                meetingID = result.getInt("meeting_id");
+                mentor = result.getString("mentor");
+                taskID = result.getInt("task_id");
+                comment = result.getString("comment");
+                user = result.getString("submitted_user");
+                
+                //MeetingMinutes mm = new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comment, user);
+                //minutesByTask.add(mm);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return minutesByTask;
+    }
       public static void main(String[] args){
         boolean minutesID = MeetingMinutesDAO.deleteMeetingMinutesByID(3);
         //Date deadline = new Date();

@@ -59,7 +59,7 @@ public class loginServlet extends HttpServlet {
             if ((currentUser = loginController.validateUser(email, password)) != null) {
                 System.out.println("USER IS VALIDATED" );
                 
-                if(currentUser.getUser_type().equals("mentee")){
+                if(currentUser.getUser_type().equals("regular_mentee") || currentUser.getUser_type().equals("light_mentee")){
                     Mentee m = menteeController.getMentee(email);
                     session.setAttribute("mentee",m);
                 }else if(currentUser.getUser_type().equals("mentor")){
@@ -70,7 +70,7 @@ public class loginServlet extends HttpServlet {
                 session.setAttribute("user", currentUser);
                 if(currentUser.getUser_type().equals("admin")){
                     response.sendRedirect("adminHomepage.jsp");
-                }else if(currentUser.getUser_type().equals("mentee")){
+                }else if(currentUser.getUser_type().equals("regular_mentee") || currentUser.getUser_type().equals("light_mentee")){
                     response.sendRedirect("home.jsp");
                 }else{
                     response.sendRedirect("index.jsp");

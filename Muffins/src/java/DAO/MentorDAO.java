@@ -46,8 +46,8 @@ public class MentorDAO {
                     email = result.getString("email");
                     position = result.getString("position");
                     introduction = result.getString("introduction");
-                    bankAccount = result.getString("bank_account");
                     skills = result.getString("skills");
+                    bankAccount = result.getString("bank_account");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
                 mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());

@@ -475,11 +475,38 @@ public class TaskDAO {
         return result;
     }
     
+    public static int updateDeadlineForTask(int task_id, Date deadline){
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        Task task = null;
+        
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            String status = "";
+            stmt = conn.prepareStatement("UPDATE task SET  task_deadline = ? WHERE task_id = ?;");
+            stmt.setString(1, df.format(deadline));
+            stmt.setInt(2, task_id);
+            
+            result = stmt.executeUpdate();
+            //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        
+        return result;
+    }        
+            
     public static void main(String[] args){
-        int taskID = TaskDAO.getNextTaskID();
-        Date deadline = new Date();
-        Task task = new Task(taskID, "do work", "code finish the project", deadline, 2, 3, false);
-        int result = TaskDAO.addTask(task);
+        int result= TaskDAO.updateDeadlineForTask(101, new Date());
         System.out.println(result);
     }
 

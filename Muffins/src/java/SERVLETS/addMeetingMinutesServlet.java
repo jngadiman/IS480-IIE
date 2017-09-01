@@ -37,7 +37,10 @@ public class addMeetingMinutesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
+        //need add in the new fields for the meetingminutes to fit into the new db
+        //and call minutesController method updateDeadline(int taskID, Date deadline); 
+        //to update the deadline of the task if any
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         String meeting = request.getParameter("meeting_id");
