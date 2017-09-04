@@ -484,7 +484,8 @@ public class MenteeDAO {
 //        System.out.println(result);
             
             
-            Mentee m = MenteeDAO.getMenteeByEmail("y@smu.edu.sg");
+        ArrayList<Mentee> mentees = MenteeDAO.getMentees();
+        for(Mentee m: mentees){
             System.out.println(m.getEmail());
             System.out.println(m.getPassword());
             System.out.println(m.getName());
@@ -492,9 +493,13 @@ public class MenteeDAO {
             System.out.println(m.getProfile_pic());
             System.out.println(m.getUser_type());
             System.out.println(m.getCompanyid());
+            System.out.println(m.getRole());
+            System.out.println(m.getEquityPercentage());
+            System.out.println(m.getContactNumber());
+            System.out.println(m.getNationality());
             System.out.println(m.getDegree());
             System.out.println(m.getYear_of_grad());
             System.out.println(m.getMentor_email());
-        
+        }
     }
 }

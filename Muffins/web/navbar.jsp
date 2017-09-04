@@ -38,17 +38,23 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <%
                         User user = (User) session.getAttribute("user");
-//                        if (user.getUser_type().equals("mentee")) {
-//                            Mentee m = (Mentee) session.getAttribute("mentee");
+                        if (user.getUser_type().equals("regular_mentee")|| user.getUser_type().equals("light_mentee")) {
+                            Mentee m = (Mentee) session.getAttribute("mentee");
                     %>    
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="home.jsp">Homepage</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
+                                <%
+                                    if (user.getUser_type().equals("regular_mentee")) {
+                                %>
                                 <li><a href="stages.jsp">Progress</a></li>
+                                <%
+                                    }
+                                %>
                                 <li><a href="#">Meetings</a></li>
-                                <li><a href="#">Calendar</a></li>
+                                <li><a href="calendar.jsp">Calendar</a></li>
                                 <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
@@ -58,10 +64,14 @@
                                     %>
                                 <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
                                     <%
-                                            }
+                                            }else if(user.getUser_type().equals("light_mentee")){
                                         
                                     %>
                                 <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
+                                    <%
+                                            }
+                                        }   
+                                    %>
                             </ul>
                         </li>
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>
@@ -94,14 +104,32 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
+                                <%
+                                    if (user.getUser_type().equals("regular_mentee")) {
+                                %>
                                 <li><a href="stages.jsp">Progress</a></li>
+                                <%
+                                    }
+                                %>
                                 <li><a href="#">Meetings</a></li>
-                                <li><a href="#">Calendar</a></li>
+                                <li><a href="calendar.jsp">Calendar</a></li>
                                 <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
+                                <%
+                                    if (user.getUser_type().equals("admin")) {
+                                %>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
+                                <%
+                                    }
+                                %>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                                <%
+                                    if (user.getUser_type().equals("regular_mentee")) {
+                                %>
                                 <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                                <%
+                                    }
+                                %>
                             </ul>
                         </li>
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>

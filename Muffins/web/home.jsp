@@ -43,7 +43,13 @@
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+                        <%
+                            if (user.getUser_type().equals("regular_mentee")) {
+                        %>
                         <li><a href="stages.jsp">Progress</a></li>
+                        <%
+                            }
+                        %>
                         <li><a href="#">Meetings</a></li>
                         <li><a href="#">Calendar</a></li>
                         <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>

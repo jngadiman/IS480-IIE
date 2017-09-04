@@ -103,7 +103,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from user where user_type = 'both' and user_type = 'Incubation Mentor' and user_type = 'Open Mentorship Mentor' ;");
+            stmt = conn.prepareStatement("select * from user where user_type = 'both' or user_type = 'Incubation Mentor' or user_type = 'Open Mentorship Mentor' ;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -157,7 +157,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from user where user_type = 'regular_mentee' and user_type = 'light_mentee';");
+            stmt = conn.prepareStatement("select * from user where user_type = 'regular_mentee' or user_type = 'light_mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -796,16 +796,21 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-       ArrayList<User> mentors = UserDAO.getAllMentors();
-       for(User u: mentors){
-            System.out.println(u.getEmail());
-            System.out.println(u.getPassword());
-            System.out.println(u.getName());
-            System.out.println(u.getNric());
-            System.out.println(u.getProfile_pic());
-            System.out.println(u.getUser_type());
-            System.out.println(u.getCompanyid());
-       }
+       ArrayList<User> mentees = UserDAO.getAllMentors();
+       System.out.println("test");
+        for(User m: mentees){
+            System.out.println(m.getEmail());
+            System.out.println(m.getPassword());
+            System.out.println(m.getName());
+            System.out.println(m.getNric());
+            System.out.println(m.getProfile_pic());
+            System.out.println(m.getUser_type());
+            System.out.println(m.getCompanyid());
+            System.out.println(m.getRole());
+            System.out.println(m.getEquityPercentage());
+            System.out.println(m.getContactNumber());
+            System.out.println(m.getNationality());
+        }
     }
     
 }

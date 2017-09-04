@@ -62,7 +62,22 @@ public class menteeController {
     }
     
     public static void main(String[] args){
-        int result = menteeController.updateMentorEmail(2, "hello@hotmail.com");
-        System.out.println(result);
+        ArrayList<Mentee> mentees = menteeController.getAllMentees();
+        for(Mentee m: mentees){
+            System.out.println(m.getEmail());
+            System.out.println(m.getPassword());
+            System.out.println(m.getName());
+            System.out.println(m.getNric());
+            System.out.println(m.getProfile_pic());
+            System.out.println(m.getUser_type());
+            System.out.println(m.getCompanyid());
+            System.out.println(m.getRole());
+            System.out.println(m.getEquityPercentage());
+            System.out.println(m.getContactNumber());
+            System.out.println(m.getNationality());
+            System.out.println(m.getDegree());
+            System.out.println(m.getYear_of_grad());
+            System.out.println(m.getMentor_email());
+        }
     }
 }
