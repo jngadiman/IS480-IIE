@@ -39,7 +39,7 @@
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Company Logo</label>
                                     </br>
-                                    <input class="form-control" type="file" name="company_logo" id="company_logo" required>
+                                    <input class="form-control" type="file" name="company_logo" id="company_logo" >
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Company Name</label>

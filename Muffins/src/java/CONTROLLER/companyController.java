@@ -64,6 +64,16 @@ public class companyController {
         return companies;
     }
     
+    public static ArrayList<Company> getAllCompanies(){
+         ArrayList<Company> companies = CompanyDAO.getAllCompanies();
+         return companies;
+    }
+    
+    public static boolean deleteCompany(int companyID){
+        boolean status = CompanyDAO.deleteCompany(companyID);
+        return status;
+    }
+    
     public static void main(String[] args){
 //            Company c = companyController.getCompany(6);
 //            System.out.println(c.getId());
@@ -80,8 +90,9 @@ public class companyController {
 //        System.out.println(c.getId());
 //        System.out.println(c.getName());
 //        System.out.println(c.getCurrentStage());
-
-        Company c = new Company(2, "fr", "sell food", 11, 12, 302020, new Date(), 2, null, "hi1", "hi", "hi2", "hi3", null, null, null);
+        
+        String[] founders = new String[]{"mentor1@gmail.com","bla@abc.com"};
+        Company c = new Company(10, "comany name", "sell food looajdvjvn..",founders, 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
         int result = CompanyDAO.editCompanyDetails(c);
         System.out.println(result);
         

@@ -16,6 +16,7 @@ public class Company {
     private int id;
     private String name;
     private String description;
+    private String [] stakeholders;
     private int partTimers;
     private int fullTimers;
     private int industry;
@@ -32,10 +33,11 @@ public class Company {
     
     //constructor for incubator registration
 
-    public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, String productDiff, String revenueModel, String traction, String deployOfFunds, byte[] acraFile, byte[] bizFile, byte[] appForm) {
+    public Company(int id, String name, String description, String [] stakeholders, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, String productDiff, String revenueModel, String traction, String deployOfFunds, byte[] acraFile, byte[] bizFile, byte[] appForm) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.stakeholders = stakeholders;
         this.partTimers = partTimers;
         this.fullTimers = fullTimers;
         this.industry = industry;
@@ -50,6 +52,8 @@ public class Company {
         this.bizFile = bizFile;
         this.appForm = appForm;
     }
+
+    
     
     public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, byte[] acraFile, byte[] bizFile) {    
         this.id = id;
@@ -116,6 +120,16 @@ public class Company {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String[] getStakeholders() {
+        return stakeholders;
+    }
+
+    public void setStakeholders(String[] stakeholders) {
+        this.stakeholders = stakeholders;
+    }
+    
+    
 
     public int getPartTimers() {
         return partTimers;

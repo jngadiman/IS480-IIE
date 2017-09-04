@@ -5,12 +5,8 @@
  */
 package SERVLETS;
 
-import CONTROLLER.loginController;
-import CONTROLLER.menteeController;
-import CONTROLLER.registrationController;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author JJAY
  */
-@WebServlet(name = "confirmUserAsMenteeServlet", urlPatterns = {"/confirmUserAsMenteeServlet"})
-public class confirmUserAsMenteeServlet extends HttpServlet {
+@WebServlet(name = "meetingMinutesTasksServlet", urlPatterns = {"/meetingMinutesTasksServlet"})
+public class meetingMinutesTasksServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,31 +31,8 @@ public class confirmUserAsMenteeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
-        String activated = request.getParameter("activateBtn");
-        String declined = request.getParameter("rejectBtn");
-        String mentee_email = request.getParameter("mentee_email");
-        ArrayList<String> status = new ArrayList<String>();
-        if(activated!=null && !activated.equals("")){
-            //generates a random password
-            String password = registrationController.randomPassword();
-            System.out.println("NEW USER PASSWORD" + password);
-            //need to add codes to send email to the user HERE SO THAT THE PWD SENT TO THEM IS UNHASHED
-            
-            loginController.updateUserPassword(mentee_email, password);
-            status.add("Activation Email is sent!");
-            request.setAttribute("status", status);
-            request.getRequestDispatcher("confirmUserAsMentee.jsp").forward(request, response);
-           
-        }
-        
-        if(declined!=null &&!declined.equals("")){
-            //delete the user from the database (mentee and user tables)
-            menteeController.deleteMentee(mentee_email);
-            
-        }
-        request.setAttribute("status", status);
-        request.getRequestDispatcher("confirmUserAsMentee.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -58,6 +58,7 @@
                             <th>Click to change task status</th>
                             <th>Edit Task</th>
                             <th>Delete Task</th>
+                            <th>Meeting Minutes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,6 +81,7 @@
                                             out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
                                             out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-sccess btn-outline-rounded green'>Edit</a></td>");
                                             out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId()+ "&stageID="+stage+ " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
+                                            out.println("<td><a href='meetingMinutesTasksServlet?taskID=" + t.getTaskId()+ "&stageID="+stage+ " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
                                             out.println("</tr>");
                                         }
                                     }

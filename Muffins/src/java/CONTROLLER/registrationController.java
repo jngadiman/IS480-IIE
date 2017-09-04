@@ -59,6 +59,20 @@ public class registrationController {
         String randomPwd = strBuilder.toString();
         return randomPwd;
     }
+    
+    public static ArrayList<User> getFoundersGivenEmails (String [] emails){
+        ArrayList<User> founders = new ArrayList<User>();
+        for(String email: emails){
+            User u = UserDAO.getUserByEmail(email);
+            founders.add(u);
+        }
+        return founders;
+    }
+    
+    public static int editUser(User u){
+        int status = UserDAO.editUser(u);
+        return status;
+    }
     public static void main(String[] args){
         int companyID = registrationController.getNextCompanyID();
         System.out.println(companyID);

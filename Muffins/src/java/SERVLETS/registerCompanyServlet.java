@@ -5,13 +5,17 @@
  */
 package SERVLETS;
 
+import CONTROLLER.companyController;
 import CONTROLLER.registrationController;
 import MODELS.Company;
+import MODELS.User;
+import Utility.EmailSender;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,7 +53,25 @@ public class registerCompanyServlet extends HttpServlet {
         int numPartTime = Integer.parseInt(request.getParameter("parttimer"));
         int industry = Integer.parseInt(request.getParameter("industry"));
         String start_date = request.getParameter("start_date");
-        int current_stage = 1;
+        String shareholders = request.getParameter("shareholders");
+        int current_stage = 0; //set as 0 because this company is not accepted in incubation yet
+        String companyType = request.getParameter("companyType");
+        
+        //check if the company name is in the database 
+        ArrayList<Company> allCompanies = companyController.getAllCompanies();
+        for(Company c: allCompanies){
+            if(name.equals(c.getName())){
+                request.setAttribute("registerCompanyStatus", "Company Name already exist!");
+                if(companyType.equals("incubator")){
+                    RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
+                    rd.forward(request, response);
+                }else{
+                    RequestDispatcher rd = request.getRequestDispatcher("registerOpenCompany.jsp");
+                    rd.forward(request, response);
+                }
+                
+            }
+        }
         
         Date startDate = null;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -125,11 +147,27 @@ public class registerCompanyServlet extends HttpServlet {
                 bizSlides = IOUtils.toByteArray(inputStream3);
             }
         }
-        
-        Company c = new Company(companyID, name, description, numFullTime, numPartTime, industry, startDate, current_stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+        String [] stakeholders = shareholders.split(",");
+        Company c = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, startDate, current_stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
         String status = registrationController.addCompany(c);
         
-        String companyType = request.getParameter("companyType");
+        
+        
+        //email admin and founders that the company is registered
+        String [] admin = {"jiatung1218@gmail.com"};
+        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear founders of "+name+ ", Application to IIE is currently being proccessed, we will send you an email once the application is accepted! Thank you! ", stakeholders)){
+            System.out.println("email has been sent successfully");
+        }else{
+            System.out.println("email could not be sent");
+        }
+        
+        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear EIR, "+name+ " has applied to IIE kindly review the company details through the portal, Thank you!", admin)){
+            System.out.println("email has been sent successfully");
+        }else{
+            System.out.println("email could not be sent");
+        }
+        
+        
         if(companyType.equals("incubator")){
             request.setAttribute("registerCompanyStatus", status);
             RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");

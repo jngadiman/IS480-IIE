@@ -33,6 +33,7 @@
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                        <li><a href="confirmCompany.jsp">Pending Company</a></li>
                         
                     </ul>
                 </div>
@@ -55,6 +56,8 @@
                                         for(Company c: companies1){
                                             out.println("<li>" + c.getName() + "</li>");
                                         }
+                                    }else{
+                                        
                                     }
                                 %>
                             </div>

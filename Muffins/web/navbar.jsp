@@ -81,6 +81,7 @@
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                                <li><a href="confirmCompany.jsp">Pending Company</a></li>
                             </ul>
                         </li>
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>
@@ -100,6 +101,7 @@
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                                <li><a href="confirmCompany.jsp">Pending Company</a></li>
                             </ul>
                         </li>
                         <li><a href="viewPersonalProfile.jsp">Profile</a></li>

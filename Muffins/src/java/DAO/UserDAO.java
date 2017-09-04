@@ -40,7 +40,7 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
@@ -48,7 +48,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User;");
+            stmt = conn.prepareStatement("select * from user;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -59,7 +59,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -69,7 +69,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -96,14 +96,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'both' and user_type = 'Incubation Mentor' and user_type = 'Open Mentorship Mentor' ;");
+            stmt = conn.prepareStatement("select * from user where user_type = 'both' and user_type = 'Incubation Mentor' and user_type = 'Open Mentorship Mentor' ;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -114,7 +114,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -124,7 +124,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -150,14 +150,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'mentee';");
+            stmt = conn.prepareStatement("select * from user where user_type = 'regular_mentee' and user_type = 'light_mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -168,7 +168,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -178,7 +178,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -204,14 +204,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'both' and user_type = 'Incubation Mentor';");
+            stmt = conn.prepareStatement("select * from user where user_type = 'both' and user_type = 'Incubation Mentor';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -222,7 +222,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -232,7 +232,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -258,14 +258,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'both' and user_type = 'Open Mentorship Mentor' ;");
+            stmt = conn.prepareStatement("select * from user where user_type = 'both' and user_type = 'Open Mentorship Mentor' ;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -276,7 +276,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -285,8 +285,8 @@ public class UserDAO {
                 }else{
                     profilePic = null;
                 }
-                //role, equity_percentage, contact_number, nationality
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                //position, equity_percentage, contact_number, nationality
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -312,14 +312,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'light_mentee';");
+            stmt = conn.prepareStatement("select * from user where user_type = 'light_mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -330,7 +330,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -340,7 +340,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -366,14 +366,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where user_type = 'regular_mentee';");
+            stmt = conn.prepareStatement("select * from user where user_type = 'regular_mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -384,7 +384,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -394,7 +394,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
             }
 
@@ -420,14 +420,14 @@ public class UserDAO {
         byte[] profilePic = null;
         String user_type = "";
         int company_id = 0;
-        String role = "";
+        String position = "";
         int equity_percentage = 0;
         int contact_number = 0;
         String nationality = "";
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from User where email = ?;");
+            stmt = conn.prepareStatement("select * from user where email = ?;");
             stmt.setString(1, parseEmail);
             result = stmt.executeQuery();
             
@@ -439,7 +439,7 @@ public class UserDAO {
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
-                role = result.getString("role");
+                position = result.getString("position");
                 equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
@@ -450,7 +450,7 @@ public class UserDAO {
                     profilePic = null;
                 }
                 
-                u = new User(email, password, name, nric, profilePic, user_type, company_id, role, equity_percentage, contact_number, nationality);
+                u = new User(email, password, name, nric, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
             
             }
             //System.out.println("USER IN DAO CURRENT USER = "+u.getName());
@@ -472,7 +472,7 @@ public class UserDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("UPDATE User SET name = ?, nric = ?, profile_pic = ?, user_type = ?, company_id = ?, role = ?, equity_percentage = ?, contact_number = ?, nationality = ?  WHERE email = ?;");
+            stmt = conn.prepareStatement("UPDATE user SET name = ?, nric = ?, profile_pic = ?, user_type = ?, company_id = ?, position = ?, equity_percentage = ?, contact_number = ?, nationality = ?  WHERE email = ?;");
             stmt.setString(1, u.getName());
             stmt.setString(2, u.getNric());
             
@@ -538,7 +538,7 @@ public class UserDAO {
             conn = ConnectionManager.getConnection();
             
             //insert user to database
-            stmt = conn.prepareStatement("Insert into User values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("Insert into user values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             //set email
             stmt.setString(1, email);
@@ -564,7 +564,7 @@ public class UserDAO {
             stmt.setString(6, user.getUser_type());
             //set company id
             stmt.setInt(7, user.getCompanyid());
-            //set role
+            //set position
             stmt.setString(8, user.getRole());
             //set equity
             stmt.setInt(9, user.getEquityPercentage());
@@ -622,7 +622,7 @@ public class UserDAO {
             conn = ConnectionManager.getConnection();
             
             //insert user to database
-            stmt = conn.prepareStatement("UPDATE User SET password = ? WHERE email = ?");
+            stmt = conn.prepareStatement("UPDATE user SET password = ? WHERE email = ?");
 
             //set password
             stmt.setString(1, dbpwd);
@@ -689,7 +689,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("SELECT DISTINCT `company_id` FROM `User` WHERE `user_type`= 'light_mentee';");
+            stmt = conn.prepareStatement("SELECT DISTINCT `company_id` FROM `user` WHERE `user_type`= 'light_mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -715,7 +715,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("SELECT DISTINCT `company_id` FROM `User` WHERE `user_type`= 'regular_mentee';");
+            stmt = conn.prepareStatement("SELECT DISTINCT `company_id` FROM `user` WHERE `user_type`= 'regular_mentee';");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -742,7 +742,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select email from User where company_id = ?;");
+            stmt = conn.prepareStatement("select email from user where company_id = ?;");
             stmt.setInt(1, company_id);
             result = stmt.executeQuery();
 

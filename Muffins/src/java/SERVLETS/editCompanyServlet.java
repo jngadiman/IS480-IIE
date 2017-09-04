@@ -45,6 +45,7 @@ public class editCompanyServlet extends HttpServlet {
         int companyID = Integer.parseInt(request.getParameter("companyID"));
         String name = request.getParameter("companyName");
         String description = request.getParameter("description");
+        String shareholders = request.getParameter("shareholders");
         int numFullTime = Integer.parseInt(request.getParameter("num_fulltime"));
         int numPartTime = Integer.parseInt(request.getParameter("num_parttime"));
         int industry = Integer.parseInt(request.getParameter("industry"));
@@ -101,6 +102,9 @@ public class editCompanyServlet extends HttpServlet {
         }else{
             biz_slides = c.getAppForm();
         }
+        
+        String [] stakeholders = shareholders.split(",");
+        
         System.out.println(c.getId());
         System.out.println(c.getName());
         System.out.println(c.getDescription());
@@ -118,7 +122,7 @@ public class editCompanyServlet extends HttpServlet {
         System.out.println(c.getBizFile());
         System.out.println(c.getAppForm());
         
-        Company company = new Company(companyID, name, description, numFullTime, numPartTime, industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAppForm());
+        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAppForm());
         
         String status = companyController.editCompany(company);
         request.setAttribute("updateStatus", status);

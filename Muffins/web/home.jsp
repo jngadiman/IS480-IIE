@@ -19,13 +19,21 @@
     </head>
     <body>
         <%
+            
             Mentee m = (Mentee) session.getAttribute("mentee");
-            int menteeCompany = m.getCompanyid();
-            String mentorEmail = m.getMentor_email();
+            int menteeCompany = 0;
+            String mentorEmail= "";
+            if(m!=null){
+                menteeCompany = m.getCompanyid();
+                mentorEmail = m.getMentor_email();
+            }
+            
             String mentorName = "";
             if(mentorEmail != null && !mentorEmail.isEmpty()){
                 mentorName = mentorController.getMentor(mentorEmail).getName();
             }
+            
+            
             int companyStage = companyController.getCompany(menteeCompany).getCurrentStage();
             
         %>

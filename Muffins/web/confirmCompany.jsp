@@ -47,7 +47,18 @@
                 </thead>
                 <%
                 for(Company company: pendingCompanies){
-                                    
+                    String founders = "";
+                    String [] stakeholders = company.getStakeholders();
+                    for(int x = 0; x<stakeholders.length; x++ ){
+                        String s = stakeholders[x];
+                        if (x == (stakeholders.length - 1) ){
+                            founders+=s;
+                        }else{
+                            founders = s+",";
+                        }
+                        
+                    }
+                    
                     %>
                 
                 <tbody>
@@ -59,7 +70,20 @@
                         <td><%=company.getRevenueModel()%></td>
                         <td><%=company.getTraction()%></td>
                         <td><%=company.getDeployOfFunds()%></td>
-                        <td><a href="#" class="btn btn-success btn-xs">Accept</a><a href="#" class="btn btn-danger btn-xs">Reject</a></td>
+                        <td>
+                            <form action = "confirmCompanyServlet" method="post">
+                                
+                                <input type ="hidden" name ="stakeholders" value ="<%=founders%>">
+                                <input type ="hidden" name ="company" value ="<%=company.getName()%>">
+                                <input type ="hidden" name ="company_id" value ="<%=company.getId()%>">
+                                <div class="panel-body">
+                                <button type="submit" class="btn btn-success btn-xs" value="activated" name="activateBtn"/>Activate</button>
+                                <button type="submit" class="btn btn-danger btn-xs"  value="declined" name="rejectBtn"/>Reject</button>
+                                </div>
+                                
+                            </form>
+                        </td>
+                        <!--<a href="#" class="btn btn-success btn-xs">Accept</a><a href="#" class="btn btn-danger btn-xs">Reject</a></td>-->
                     </tr>
                 </tbody>
                 <%}%>
@@ -72,31 +96,7 @@
 
         </div>
 
-        Have a table or something that has all the registration request
-
-        <form action = "confirmCompanyServlet" method="post">
-
-            <%                ArrayList<User> users = registrationController.getAllUsers();
-                for (User u : users) {
-                    if (u.getPassword() == null || u.getPassword().equals("")) {
-
-                        //display all fields related to company and mentee applying with a button to activate/ deactivate user.
-            %>
-            User Name is <%=u.getName()%>
-            User Email is <%=u.getEmail()%>
-            User Company is <%=u.getCompanyid()%>
-            ect ect
-            <input type ="hidden" value ="<%=u.getEmail()%>" name = "mentee_email">
-            <div class="panel-body">
-                <button type="submit" class="btn btn-success btn-xs" value="activated" name="activateBtn"/>Activate</button>
-                <button type="submit" class="btn btn-danger btn-xs"  value="declined" name="rejectBtn"/>Reject</button>
-            </div>
-            <%
-                    }
-                }
-
-            %>
-        </form>
+        
 
     </body>
 </html>

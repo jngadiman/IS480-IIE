@@ -33,6 +33,7 @@ public class CompanyDAO {
         int company_id = 0;
         String company_name = "";
         String company_description = "";
+        String company_founders = "";
         int fulltimers = 0;
         int parttimers = 0;
         int industry = 0;
@@ -62,6 +63,7 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
+                company_founders = result.getString("stakeholders");
                 fulltimers = result.getInt("num_fulltime");
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
@@ -110,7 +112,12 @@ public class CompanyDAO {
                     bizSlides = null;
                 }
                 
-                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+               String [] stakeholders = null;
+                if(company_founders!=null){
+                    stakeholders = company_founders.split(",");
+                }
+                
+                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,6 +136,7 @@ public class CompanyDAO {
         int company_id = 0;
         String company_name = "";
         String company_description = "";
+        String company_founders = "";
         int fulltimers = 0;
         int parttimers = 0;
         int industry = 0;
@@ -157,6 +165,7 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
+                company_founders = result.getString("stakeholders");
                 fulltimers = result.getInt("num_fulltime");
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
@@ -204,8 +213,12 @@ public class CompanyDAO {
                 }else{
                     bizSlides = null;
                 }
+                String [] stakeholders = null;
+                if(company_founders!=null){
+                    stakeholders = company_founders.split(",");
+                }
                 
-                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
                 
                 companies.add(c);
             }
@@ -227,6 +240,7 @@ public class CompanyDAO {
         int company_id = 0;
         String company_name = "";
         String company_description = "";
+        String company_founders = "";
         int fulltimers = 0;
         int parttimers = 0;
         int industry = 0;
@@ -256,6 +270,7 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
+                company_founders = result.getString("stakeholders");
                 fulltimers = result.getInt("num_fulltime");
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
@@ -268,8 +283,6 @@ public class CompanyDAO {
                 } 
                 if(result.getString("current_stage") != null){
                     currentstage = Integer.parseInt(result.getString("current_stage"));
-                }else{
-                    currentstage = 0;
                 }
                 company_logo = result.getBlob("company_logo");
                 if(company_logo != null){
@@ -303,8 +316,12 @@ public class CompanyDAO {
                 }else{
                     bizSlides = null;
                 }
+                String [] stakeholders = null;
+                if(company_founders!=null){
+                    stakeholders = company_founders.split(",");
+                }
                 
-                c = new Company(company_id, company_name, company_description, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
                 
                 companies.add(c);
             }
@@ -354,45 +371,57 @@ public class CompanyDAO {
         
         int result = 0;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String [] company_founders = c.getStakeholders();
+        String stakeholders = "";
+        for(int x = 0; x<company_founders.length; x++ ){
+            String s = company_founders[0];
+            if (x == (company_founders.length - 1) ){
+                stakeholders+=s;
+            }else{
+                stakeholders = s+",";
+            }
+            
+        }
         
         try {
             conn = ConnectionManager.getConnection();
             
             String status = "";
             
-            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, business_slides = ? WHERE company_id = ?;");
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, stakeholders = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, business_slides = ? WHERE company_id = ?;");
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getDescription());
-            stmt.setInt(3, c.getFullTimers());
-            stmt.setInt(4, c.getPartTimers());
-            stmt.setInt(5, c.getIndustry());
-            stmt.setString(6, df.format(c.getStartDate()));
-            stmt.setInt(7, c.getCurrentStage());
+            stmt.setString(3, stakeholders );
+            stmt.setInt(4, c.getFullTimers());
+            stmt.setInt(5, c.getPartTimers());
+            stmt.setInt(6, c.getIndustry());
+            stmt.setString(7, df.format(c.getStartDate()));
+            stmt.setInt(8, c.getCurrentStage());
             
             if(c.getCompanyLogo() != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getCompanyLogo());
 
-                stmt.setBlob(8, blob);
+                stmt.setBlob(9, blob);
             }else{
-                stmt.setBlob(8, (Blob) null);
+                stmt.setBlob(9, (Blob) null);
             }   
             
-            stmt.setString(9, c.getProductDiff());
-            stmt.setString(10, c.getRevenueModel());
-            stmt.setString(11, c.getTraction());
-            stmt.setString(12, c.getDeployOfFunds());
+            stmt.setString(10, c.getProductDiff());
+            stmt.setString(11, c.getRevenueModel());
+            stmt.setString(12, c.getTraction());
+            stmt.setString(13, c.getDeployOfFunds());
             
             if(c.getBizFile() != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getBizFile());
 
-                stmt.setBlob(13, blob);
+                stmt.setBlob(14, blob);
             }else{
-                stmt.setBlob(13, (Blob) null);
+                stmt.setBlob(14, (Blob) null);
             }
             
-            stmt.setInt(14, c.getId());
+            stmt.setInt(15, c.getId());
             
             
             result = stmt.executeUpdate();
@@ -412,6 +441,17 @@ public class CompanyDAO {
         int id = c.getId();
         String name = c.getName();
         String description = c.getDescription();
+        String [] company_founders = c.getStakeholders();
+        String stakeholders = "";
+        for(int x = 0; x<company_founders.length; x++ ){
+            String s = company_founders[x];
+            if (x == (company_founders.length - 1) ){
+                stakeholders+=s;
+            }else{
+                stakeholders = s+",";
+            }
+            
+        }
         Date start_date = c.getStartDate();
         int current_stage = c.getCurrentStage();
         byte[] companyLogo = c.getCompanyLogo();
@@ -429,7 +469,7 @@ public class CompanyDAO {
             conn = ConnectionManager.getConnection();
             
             //insert company to database
-            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("Insert into Company values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             //set id
             stmt.setInt(1, id);
@@ -439,34 +479,37 @@ public class CompanyDAO {
 
             //set description
             stmt.setString(3, description);
+            
+            //set stakeholders
+            stmt.setString(4, stakeholders);
 
-            stmt.setInt(4, c.getFullTimers());
-            stmt.setInt(5, c.getPartTimers());
-            stmt.setInt(6, c.getIndustry());
-            stmt.setString(7, df.format(c.getStartDate()));
-            stmt.setInt(8, c.getCurrentStage());
+            stmt.setInt(5, c.getFullTimers());
+            stmt.setInt(6, c.getPartTimers());
+            stmt.setInt(7, c.getIndustry());
+            stmt.setString(8, df.format(c.getStartDate()));
+            stmt.setInt(9, c.getCurrentStage());
             
             if(companyLogo != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(companyLogo);
 
-                stmt.setBlob(9, blob);
+                stmt.setBlob(10, blob);
             }else{
-                stmt.setBlob(9, (Blob) null);
+                stmt.setBlob(10, (Blob) null);
             }   
             
-            stmt.setString(10, productDiff);
-            stmt.setString(11, revenueModel);
-            stmt.setString(12, traction);
-            stmt.setString(13, deployOfFunds);
+            stmt.setString(11, productDiff);
+            stmt.setString(12, revenueModel);
+            stmt.setString(13, traction);
+            stmt.setString(14, deployOfFunds);
             
             if(c.getAcraFile() != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getAcraFile());
 
-                stmt.setBlob(14, blob);
+                stmt.setBlob(15, blob);
             }else{
-                stmt.setBlob(14, (Blob) null);
+                stmt.setBlob(15, (Blob) null);
             }
             
             
@@ -474,18 +517,18 @@ public class CompanyDAO {
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getBizFile());
 
-                stmt.setBlob(15, blob);
+                stmt.setBlob(16, blob);
             }else{
-                stmt.setBlob(15, (Blob) null);
+                stmt.setBlob(16, (Blob) null);
             }
             
             if(c.getAppForm() != null){
                 //convert byte[] to Blob object before putting into db
                 Blob blob = new SerialBlob(c.getAppForm());
 
-                stmt.setBlob(16, blob);
+                stmt.setBlob(17, blob);
             }else{
-                stmt.setBlob(16, (Blob) null);
+                stmt.setBlob(17, (Blob) null);
             }
             
             int numRecordsUpdated = stmt.executeUpdate();
@@ -534,9 +577,48 @@ public class CompanyDAO {
         return companyID;
     }
     
+     public static boolean deleteCompany(int companyID){
+        
+        Connection conn = null;
+        int numRecordsUpdated = 0;
+        
+        PreparedStatement stmt0 = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+
+            //check the number of bids made by the student
+            stmt0 = conn.prepareStatement("DELETE FROM company WHERE company_id = ?");
+            stmt0.setInt(1, companyID);
+
+            numRecordsUpdated = stmt0.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (numRecordsUpdated != 1){
+            return false;
+        }
+        return true;
+    }
+    
     public static void main(String[] args){
-        Company c = new Company(2, "fr", "sell food..", 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
-        int result = CompanyDAO.editCompanyDetails(c);
+        //String[] stringArray = new String[2];
+        String[] founders = new String[]{"mentor1@gmail.com","bla@abc.com"};
+        Company c = new Company(10, "comany name", "sell food looajdvjvn..",founders, 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
+        String result = CompanyDAO.addCompany(c);
         System.out.println(result);
 //        Company c = CompanyDAO.getCompany(1);
 //        System.out.println(c.getId());

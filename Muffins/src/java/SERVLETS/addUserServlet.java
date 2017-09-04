@@ -44,11 +44,11 @@ public class addUserServlet extends HttpServlet {
         User currentUser;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String password = "";
-//        //password for new user to be randomized
-//        String password = registrationController.randomPassword();
-//        System.out.println("NEW USER PASSWORD" + password);
-        //must rmb to email ppl from here
+        //need change this add codes to validate and check
+        String accessCode = request.getParameter("accessCode");
+        String password = request.getParameter("password");
+        String confirmPwd = request.getParameter("confirm");
+        
         String nric = request.getParameter("nric");
         String comp = request.getParameter("company");
         String role = request.getParameter("role");
@@ -78,8 +78,9 @@ public class addUserServlet extends HttpServlet {
         
         User user = new User(email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
         Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
-        //Mentee mentee
-        int status = registrationController.addUser(user);
+        
+        //edit user instead of add user because the user is deleted once activated
+        int status = registrationController.editUser(user);
         int result = registrationController.addMentee(mentee);
         if(result==1&&status==1){
             request.setAttribute("registerStatus", "The registration is a success, an email of the login details will be sent to you once you are successfully registered into the Incubator");
