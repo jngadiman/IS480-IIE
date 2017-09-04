@@ -12,7 +12,7 @@
 <%@page import="MODELS.*"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="protect.jsp" %>
+<%@include file="protect.jsp" %>W
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,24 +31,23 @@
             <div class="row">
                 <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
 
-                    <div class="col-sm-8 well">
-                        <div class="col-xs-12 col-sm-8 ">
+                    <div class="col-sm-10 well">
+                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <div class="col-sm-offset-3">
-                            <%
-                                // display the image
-                                byte[] imgData = displayedUser.getProfile_pic();
-                                if(imgData != null){
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                                    
-                            %>
+                                <%                                // display the image
+                                    byte[] imgData = displayedUser.getProfile_pic();
+                                    if (imgData != null) {
+                                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+
+                                %>
                                 <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                            <%
-                                }else{
-                            %>
-                            <img src="img/user.png" width="200" height="200" alt=""/>
-                            <%
-                                }
-                            %>
+                                <%
+                                } else {
+                                %>
+                                <img src="img/user.png" width="200" height="200" alt=""/>
+                                <%
+                                    }
+                                %>
                             </div>
                             <h2><%= displayedUser.getName()%></h2>
 
@@ -58,9 +57,13 @@
 
                             <p><strong>NRIC</strong> : <%= displayedUser.getNric()%></p>
 
-                            <%String type = displayedUser.getUser_type(); %>
-
-                            <% if (type.equals("mentee")) {
+                            <p>Type : <%=displayedUser.getUser_type()%></p>
+                            
+                            
+                            
+                            <%String type = displayedUser.getUser_type();
+                            
+                             if (type.equals("regular_mentee") || type.equals("light_mentee")) {
                                     Mentee mentee = MenteeDAO.getMenteeByEmail(userEmail);
                                     String mentor_name = "";
                                     if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
@@ -74,12 +77,15 @@
                                     }
                             %>
 
+<!--                            <p><strong>User Type</strong> : <%= //mentee.getMentee_type() + " " + type%></p>
+                            -->
+
                             <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
 
                             <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
 
                             <p><strong>Company </strong> : <%= company_name%></p>
-                            
+
                             <p><strong>Mentor </strong> : <%= mentor_name%></p>
 
                             <br><a href="viewAllMentees.jsp" class="btn-sm btn-success">Back to Mentees</a>
