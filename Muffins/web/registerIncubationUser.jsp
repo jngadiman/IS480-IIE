@@ -95,16 +95,20 @@
                                     <input id="email" type="email" name="email" placeholder="Enter Email Address Here.." class="form-control" data-fv-emailaddress-message="The value is not a valid email address" required>
                                 </div>
                             </div>
-                            <!--                            <div class="row">
-                                                            <div class="col-sm-6 form-group required">
-                                                                <label class="control-label">Password</label> must be between 8 to 24 characters
-                                                                <input id="password" type="password" name="password" placeholder="Enter Password Here.." class="form-control" required>
-                                                            </div>
-                                                            <div class="col-sm-6 form-group required">
-                                                                <label class="control-label">Confirm Password</label> must be the same as Password
-                                                                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
-                                                            </div>
-                                                        </div>-->
+                            <div class="row">
+                                <div class="col-sm-4 form-group required">
+                                    <label class="control-label">Access Code</label> check email 
+                                    <input id="access_code" type="password" name="password" placeholder="Enter Access Code Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-4 form-group required">
+                                    <label class="control-label">Password</label> 8 to 24 characters
+                                    <input id="password" type="password" name="password" placeholder="Enter Password Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-4 form-group required">
+                                    <label class="control-label">Confirm Password</label> 
+                                    <input id="confirm_password" name="confirmPassword" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">NRIC</label>
@@ -143,18 +147,18 @@
                                     <label class="control-label">Company Role</label>
                                     <input id="role" type="text" name="role" placeholder="Enter Role Here.." class="form-control" required>
                                 </div>
-                                    
-                                     <div class="col-sm-4 form-group required">
+
+                                <div class="col-sm-4 form-group required">
                                     <label class="control-label">Equity Percentage</label>
                                     <input id="percentage" type="text" name="percentage" placeholder="Enter Equity % Here.." class="form-control" required>
                                 </div>
                             </div>
 
-<div class="row">
+                            <div class="row">
                                 <div class="col-sm-6 form-group">
-                                  <label  class="control-label">Only fill up the next part if you are SMU student</label>   
+                                    <label  class="control-label">Only fill up the next part if you are SMU student</label>   
                                 </div>
-                                
+
 
                             </div>
 

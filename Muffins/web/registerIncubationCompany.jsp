@@ -92,7 +92,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 form-group required">
-                                    <label class="control-label">Shareholder E-mails</label>
+                                    <label class="control-label">Stakeholders E-mails</label>
                                     <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" required multiple>
                                 </div>
                             </div>
