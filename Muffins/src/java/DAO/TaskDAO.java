@@ -427,22 +427,24 @@ public class TaskDAO {
     public static int getNextTaskID(){
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet count = null;
-        int taskID = 0;
+        ResultSet result = null;
+        int task_id = 0;
+        int next = 0;
         
         try{
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select count(*) from task;");
-            count = stmt.executeQuery();
-            count.next();
-            taskID = count.getInt(1)+1;
+            stmt = conn.prepareStatement("select * from task order by task_id desc;");
+            result = stmt.executeQuery();
+            result.next();
+            task_id = result.getInt("task_id");
+            next = task_id+1;
         } catch (SQLException ex) {
             Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionManager.close(conn, stmt, count);
+            ConnectionManager.close(conn, stmt, result);
         }
         
-        return taskID;
+        return next;
     }
     
     public static int completeTaskByID(int task_id) {

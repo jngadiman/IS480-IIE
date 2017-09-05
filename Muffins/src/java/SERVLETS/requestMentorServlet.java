@@ -6,9 +6,9 @@
 package SERVLETS;
 
 import CONTROLLER.mentorController;
-import CONTROLLER.requestController;
+import CONTROLLER.assignmentController;
 import MODELS.Mentor;
-import MODELS.Request;
+import MODELS.Relationship;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,11 +43,11 @@ public class requestMentorServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
         String yes = request.getParameter("yesBtn");
         if(yes != null){
-            int request_id = requestController.getNextRequestID();
+            int request_id = assignmentController.getNextRequestID();
             int company_id = currentUser.getCompanyid();
             String type = (String) session.getAttribute("requestType");
-            Request r = new Request(request_id, company_id, m.getEmail(), type, null, "requesting");
-            String status = requestController.addRequest(r);
+            Relationship r = new Relationship(request_id, company_id, m.getEmail(), type, null, "requesting");
+            String status = assignmentController.addRequest(r);
             session.setAttribute("status", status);
             response.sendRedirect("requestForMentorProfile.jsp");
         }else{

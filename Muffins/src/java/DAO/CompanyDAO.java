@@ -556,25 +556,27 @@ public class CompanyDAO {
         return status;
     }
     
-    public static int getNextCompanyID(){
+    public static int  getNextCompanyID(){
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet count = null;
+        ResultSet result = null;
         int companyID = 0;
+        int next = 0;
         
         try{
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select count(*) from company;");
-            count = stmt.executeQuery();
-            count.next();
-            companyID = count.getInt(1)+1;
+            stmt = conn.prepareStatement("select * from company order by company_id desc;");
+            result = stmt.executeQuery();
+            result.next();
+            companyID = result.getInt("company_id");
+            next = companyID+1;
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionManager.close(conn, stmt, count);
+            ConnectionManager.close(conn, stmt, result);
         }
         
-        return companyID;
+        return next;
     }
     
      public static boolean deleteCompany(int companyID){
