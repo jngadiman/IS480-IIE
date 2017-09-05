@@ -5,8 +5,8 @@
  */
 package SERVLETS;
 
-import CONTROLLER.requestController;
-import MODELS.Request;
+import CONTROLLER.assignmentController;
+import MODELS.Relationship;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Hui Min
  */
-@WebServlet(name = "adminDisplayRequestsServlet", urlPatterns = {"/adminDisplayRequestsServlet"})
-public class adminDisplayRequestsServlet extends HttpServlet {
+@WebServlet(name = "adminAssignmentServlet", urlPatterns = {"/adminAssignmentServlet"})
+public class adminAssignmentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,11 +38,11 @@ public class adminDisplayRequestsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String status = request.getParameter("requestStatus");
-        ArrayList<Request> requests = new ArrayList<Request>();
+        ArrayList<Relationship> requests = new ArrayList<Relationship>();
         if(status.equals("all")){
-            requests = requestController.getAllRequests();
+            requests = assignmentController.getAllRelationship();
         }else{
-            requests = requestController.getAllRequestsByStatus(status);
+            requests = assignmentController.getAllRelationshipByStatus(status);
         }
         session.setAttribute("requestStatus", status);
         session.setAttribute("requests", requests);

@@ -5,6 +5,7 @@
  */
 package SERVLETS;
 
+import CONTROLLER.loginController;
 import CONTROLLER.registrationController;
 import DAO.CompanyDAO;
 import MODELS.Company;
@@ -38,55 +39,67 @@ public class addUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User currentUser;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         //need change this add codes to validate and check
-        String accessCode = request.getParameter("accessCode");
+        String accessCode = request.getParameter("access_code");
         String password = request.getParameter("password");
-        String confirmPwd = request.getParameter("confirm");
-        
+        String confirmPwd = request.getParameter("confirm_password");
+
         String nric = request.getParameter("nric");
         String comp = request.getParameter("company");
         String role = request.getParameter("role");
         String equityPercentage = request.getParameter("percentage");
-        String contact= request.getParameter("contact");
+        String contact = request.getParameter("contact");
         String nationality = request.getParameter("nationality");
         String user_type = request.getParameter("user_type");
         String course = request.getParameter("course");
         String yrOfGrad = request.getParameter("yrOfGrad");
-        
+        String errorMsg = "";
+
         int companyID = 0;
-        if(comp!=null&&!(comp.equals(""))){
-           companyID = Integer.parseInt(comp); 
+        if (comp != null && !(comp.equals(""))) {
+            companyID = Integer.parseInt(comp);
         }
         int yearOfGrad = 0;
-        if(yrOfGrad!=null&&!(yrOfGrad.equals(""))){
-           yearOfGrad = Integer.parseInt(yrOfGrad);
+        if (yrOfGrad != null && !(yrOfGrad.equals(""))) {
+            yearOfGrad = Integer.parseInt(yrOfGrad);
         }
         int equity = 0;
-        if(equityPercentage!=null&&!(equityPercentage.equals(""))){
-           equity = Integer.parseInt(equityPercentage);
+        if (equityPercentage != null && !(equityPercentage.equals(""))) {
+            equity = Integer.parseInt(equityPercentage);
         }
         int number = 0;
-        if(contact!=null&&!(contact.equals(""))){
-           number = Integer.parseInt(contact);
+        if (contact != null && !(contact.equals(""))) {
+            number = Integer.parseInt(contact);
         }
+
+        //validate if the access code is correct
+        if ((currentUser = loginController.validateUser(email, accessCode)) == null) {
+            //user is not validated
+            errorMsg = "Invalid email/access code!";
+            request.setAttribute("registerStatus", errorMsg);
+            RequestDispatcher rd = request.getRequestDispatcher("registerIncubationUser.jsp");
+            rd.forward(request, response);
         
-        User user = new User(email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
-        Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
-        
-        //edit user instead of add user because the user is deleted once activated
-        int status = registrationController.editUser(user);
-        int result = registrationController.addMentee(mentee);
-        if(result==1&&status==1){
-            request.setAttribute("registerStatus", "The registration is a success, an email of the login details will be sent to you once you are successfully registered into the Incubator");
+        }else {
+            User user = new User(email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
+            Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
+
+            //edit user instead of add user because the user is added once activated
+            int status = registrationController.editUser(user);
+            int result = registrationController.addMentee(mentee);
+            if (result == 1 && status == 1) {
+                request.setAttribute("registerStatus", "Registration is successful!");
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
         }
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
