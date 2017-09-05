@@ -4,6 +4,8 @@
     Author     : Xinyao
 --%>
 
+<%@page import="MODELS.Preference"%>
+<%@page import="CONTROLLER.preferenceController"%>
 <%@page import="MODELS.Company"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="java.util.Base64"%>
@@ -22,6 +24,17 @@
         
     </head>
     <body>
+        <%
+            user = (User) session.getAttribute("user");
+            ArrayList<Preference> companyPref = preferenceController.getPreferencesOfCompany(user.getCompanyid());
+            if(companyPref == null || companyPref.size() == 0){
+                //show pop up
+            }else if(companyPref.size() < 3){
+                out.println("You can choose " + (3-companyPref.size()) + " more mentors!");
+            }else{
+                out.println("You cannot choose any more mentors! Go to View All Mentors if you want to view the mentors' details");
+            }
+        %>
         <div class="container">
         <div class="col-lg-8 col-lg-offset-2">
              <h1>List of Mentors</h1>
