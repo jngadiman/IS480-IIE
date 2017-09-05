@@ -42,8 +42,8 @@ public class adminPendingRequestServlet extends HttpServlet {
         if(request.getParameter("approveBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = assignmentController.updateRequest(requestID, "approved");
-            Relationship r = assignmentController.getRequest(requestID);
+            result = assignmentController.changeRelationshipStatus(requestID, "assigned");
+            Relationship r = assignmentController.getRelationship(requestID);
             
             if(result == 1){
                 int result1 = menteeController.updateMentorEmail(r.getCompanyID(), r.getMentorEmail());
@@ -52,12 +52,12 @@ public class adminPendingRequestServlet extends HttpServlet {
         }else if(request.getParameter("rejectBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = assignmentController.updateRequest(requestID, "declined");
+            result = assignmentController.changeRelationshipStatus(requestID, "declined");
             
         }else if(request.getParameter("overBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = assignmentController.updateRequest(requestID, "over");
+            result = assignmentController.changeRelationshipStatus(requestID, "over");
             
         }
         

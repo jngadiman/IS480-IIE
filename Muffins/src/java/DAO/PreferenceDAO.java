@@ -132,7 +132,7 @@ public class PreferenceDAO {
             
             p = new Preference(company_id, mentor_email, start_date, end_date,date_sent);
         } catch (SQLException ex) {
-            Logger.getLogger(RequestDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }
@@ -259,7 +259,7 @@ public class PreferenceDAO {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(RequestDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }
