@@ -457,6 +457,13 @@ public class RelationshipDAO {
         return next;
     }
     
+    public static int getNumCompaniesWithNoMentor(){
+        int numOfCompanies = 0;
+        
+        
+        
+        return numOfCompanies;
+    }
     
     public static void main(String[] args){
         //Relationship r = new Relationship(RelationshipDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");

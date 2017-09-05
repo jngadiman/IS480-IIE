@@ -4,9 +4,10 @@
     Author     : JEN
 --%>
 
-<%@page import="CONTROLLER.requestController"%>
+
+<%@page import="MODELS.Relationship"%>
+<%@page import="CONTROLLER.assignmentController"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="MODELS.Request"%>
 <%@page import="MODELS.Mentee"%>
 <%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -80,7 +81,7 @@
                     <%
                     } else if (user.getUser_type().equals("admin")) {
                         
-                        ArrayList<Request> pendingRequests = requestController.getAllRequestsByStatus("requesting");
+                        ArrayList<Relationship> pendingRequests = assignmentController.getAllRelationshipByStatus("requesting");
                     %>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="adminHomepage.jsp">Homepage</a></li>
