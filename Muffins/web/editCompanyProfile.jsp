@@ -45,76 +45,82 @@
         int companyID = user.getCompanyid();
         Company company = CompanyDAO.getCompany(companyID);
         /*
-        ArrayList<String> industries = new ArrayList<String>();
-        industries.add("-- select one --");
-        industries.add("Energy Equipment & Services");
-        industries.add("Oil, Gas & Consumable Fuels");
-        industries.add("Chemicals");
-        industries.add("Construction Materials");
-        industries.add("Containter & Packaging");
-        industries.add("Metals & Mining");
-        industries.add("Paper & Forest Products");
-        industries.add("Aerospace & Defense");
-        industries.add("Building Products");
-        industries.add("Construction & Engineering");
-        industries.add("Electrical Equipment");
-        industries.add("Industrial Conglomerates");
-        industries.add("Machinery");
-        industries.add("Trading Companies & Distributors");
-        industries.add("Commercial Services & Supplies");
-        industries.add("Professional Services");
-        industries.add("Air Freight & Logistics");
-        industries.add("Airlines");
-        industries.add("Marine");
-        industries.add("Road & Rail");
-        industries.add("Transportation Infrastructure");
-        industries.add("Auto Components");
-        industries.add("Automobiles");
-        industries.add("Household Durables");
-        industries.add("Leisure Products");
-        industries.add("Textiles, Apparel & Luxury Goods");
-        industries.add("Hotels, Restaurants & Leisure");
-        industries.add("Diversified Consumer Services");
-        industries.add("Media");
-        industries.add("Distributors");
-        industries.add("Internet & Direct Marketing Retail");
-        industries.add("Multiline Retail");
-        industries.add("Specialty Retail");
-        industries.add("Food & Staples Retailing");
-        industries.add("Beverages");
-        industries.add("Food Products");
-        industries.add("Tobacco");
-        industries.add("Household Products");
-        industries.add("Personal Products");
-        industries.add("Health Care Equipment & Supplies");
-        industries.add("Health Care Providers & Services");
-        industries.add("Health Care Technology");
-        industries.add("Biotechnology");
-        industries.add("Pharmaceuticals");
-        industries.add("Life Sciences Tools & Services");
-        industries.add("Banks");
-        industries.add("Thrifts & Mortgage Finance");
-        industries.add("Diversified Financial Services");
-        industries.add("Capital Markets");
-        industries.add("Mortgage Real Estate Investment Trusts (REITs)");
-        industries.add("Insurance");
-        industries.add("Internet Software & Services");
-        industries.add("IT Services");
-        industries.add("Software");
-        industries.add("Communications Equipment");
-        industries.add("Technology Hardware, Storage & Peripherals");
-        industries.add("Electronic Equipment, Instruments & Components");
-        industries.add("Semiconductors & Semiconductor Equipment");
-        industries.add("Diversified Telecommunication Services");
-        industries.add("Wireless Telecommunication Services");
-        industries.add("Electric Utilities");
-        industries.add("Gas Utilities");
-        industries.add("Multi-Utilities");
-        industries.add("Water Utilities");
-        industries.add("Independent Power and Renewable Electricity Producers");
-        industries.add("Equity Real Estate Investment Trusts (REITs)");
-        industries.add("Real Estate Management & Development");
+         ArrayList<String> industries = new ArrayList<String>();
+         industries.add("-- select one --");
+         industries.add("Energy Equipment & Services");
+         industries.add("Oil, Gas & Consumable Fuels");
+         industries.add("Chemicals");
+         industries.add("Construction Materials");
+         industries.add("Containter & Packaging");
+         industries.add("Metals & Mining");
+         industries.add("Paper & Forest Products");
+         industries.add("Aerospace & Defense");
+         industries.add("Building Products");
+         industries.add("Construction & Engineering");
+         industries.add("Electrical Equipment");
+         industries.add("Industrial Conglomerates");
+         industries.add("Machinery");
+         industries.add("Trading Companies & Distributors");
+         industries.add("Commercial Services & Supplies");
+         industries.add("Professional Services");
+         industries.add("Air Freight & Logistics");
+         industries.add("Airlines");
+         industries.add("Marine");
+         industries.add("Road & Rail");
+         industries.add("Transportation Infrastructure");
+         industries.add("Auto Components");
+         industries.add("Automobiles");
+         industries.add("Household Durables");
+         industries.add("Leisure Products");
+         industries.add("Textiles, Apparel & Luxury Goods");
+         industries.add("Hotels, Restaurants & Leisure");
+         industries.add("Diversified Consumer Services");
+         industries.add("Media");
+         industries.add("Distributors");
+         industries.add("Internet & Direct Marketing Retail");
+         industries.add("Multiline Retail");
+         industries.add("Specialty Retail");
+         industries.add("Food & Staples Retailing");
+         industries.add("Beverages");
+         industries.add("Food Products");
+         industries.add("Tobacco");
+         industries.add("Household Products");
+         industries.add("Personal Products");
+         industries.add("Health Care Equipment & Supplies");
+         industries.add("Health Care Providers & Services");
+         industries.add("Health Care Technology");
+         industries.add("Biotechnology");
+         industries.add("Pharmaceuticals");
+         industries.add("Life Sciences Tools & Services");
+         industries.add("Banks");
+         industries.add("Thrifts & Mortgage Finance");
+         industries.add("Diversified Financial Services");
+         industries.add("Capital Markets");
+         industries.add("Mortgage Real Estate Investment Trusts (REITs)");
+         industries.add("Insurance");
+         industries.add("Internet Software & Services");
+         industries.add("IT Services");
+         industries.add("Software");
+         industries.add("Communications Equipment");
+         industries.add("Technology Hardware, Storage & Peripherals");
+         industries.add("Electronic Equipment, Instruments & Components");
+         industries.add("Semiconductors & Semiconductor Equipment");
+         industries.add("Diversified Telecommunication Services");
+         industries.add("Wireless Telecommunication Services");
+         industries.add("Electric Utilities");
+         industries.add("Gas Utilities");
+         industries.add("Multi-Utilities");
+         industries.add("Water Utilities");
+         industries.add("Independent Power and Renewable Electricity Producers");
+         industries.add("Equity Real Estate Investment Trusts (REITs)");
+         industries.add("Real Estate Management & Development");
          */
+
+        ArrayList<Integer> stages = new ArrayList<Integer>();
+        stages.add(1);
+        stages.add(2);
+        stages.add(3);
+        stages.add(4);
     %>
     <body>
         <div class="container">
@@ -162,8 +168,8 @@
 
                             <div class="row">
                                 <div class="col-sm-6 form-group required"> <!-- Date input -->
-                                    <label for="inputDate">Start Date</label><br>
-                                    <input name="startDate" placeholder="MM/DD/YYY" type="text" value="<%= new SimpleDateFormat("dd/MM/yyyy").format(company.getStartDate())%>" required>
+                                    <label class="control-label">Start Date</label><br>
+                                    <input name="startDate" placeholder="MM/DD/YYYY" type="text" class="form-control" value="<%= new SimpleDateFormat("dd/MM/yyyy").format(company.getStartDate())%>" required>
                                 </div>
                             </div>
                             <!-- check if the current logged in user is a mentor or mentee. if mentee and regular mentee -> show stage -->
@@ -172,12 +178,16 @@
                                     <!-- NEED TO SHOW THE CURRENT STAGE FROM DB-->
                                     <label class="control-label">Current Stage</label> 
                                     <select class="form-control" name="stage" required>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        <option selected value = <%= company.getCurrentStage()%> ><%= company.getCurrentStage()%></option>
+                                        <% for (Integer s : stages) {
+                                                if (company.getCurrentStage() != s) {%>
+                                        <option value='<%=s%>'><%=s%></option>
+                                        <%      }
+                                            }
+                                        %>
+
                                     </select>
+
                                 </div>
                             </div>
 
@@ -218,6 +228,32 @@
                             </div>
 
                             <div class="row">
+
+                                <div class="col-sm-12 form-group required">
+                                    <label class="control-label">Stakeholders E-mails</label>
+                                    <%
+                                        String[] stakeholders;
+                                        stakeholders = company.getStakeholders();
+
+                                        if (stakeholders != null && stakeholders.length != 0) {
+
+                                            String stakeholderFull = stakeholders[0];
+                                            for (int i = 1; i < stakeholders.length; i++) {
+                                                stakeholderFull = stakeholderFull + ',' + stakeholders[i];
+                                            }
+                                    %>
+                                    <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" value="<%=stakeholderFull%>" required multiple>
+
+                                    <%
+                                        }else{
+                                            out.println("No stakeholder(s) found!");
+                                        }
+                                    %>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Number of Full-Time Staff</label>
                                     <input name="num_fulltime" type="text" placeholder="Enter Company Vision Here.." class="form-control" value="<%= company.getFullTimers()%>" required>
@@ -249,6 +285,7 @@
                                     <textarea class="form-control" rows="3" id="deployment_of_funds" name="deployment_of_funds" placeholder="Enter Deployment Of Funds Here.." required><%= company.getDeployOfFunds()%></textarea>
                                 </div>
                             </div>
+                                NEED TO PERFORM CHECK ONLY SHOW IF IT'S OPENMENTOR
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Update Business Slides </label>

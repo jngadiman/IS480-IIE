@@ -4,8 +4,7 @@
     Author     : JEN
 --%>
 
-<%@page import="CONTROLLER.requestController"%>
-<%@page import="MODELS.Request"%>
+
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.companyController"%>
@@ -26,10 +25,10 @@
                     <ul class="nav nav-sidebar">
                         <%
                             //print all requesting requests
-                            ArrayList<Request> pendingRequests = requestController.getAllRequestsByStatus("requesting");
+                            ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
                         %>
                         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"><%=pendingRequests.size()%></span>  </a> </li>
+                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"><%= noMentorCompanies.size()%></span>  </a> </li>
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>

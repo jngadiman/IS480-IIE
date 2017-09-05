@@ -48,9 +48,10 @@
 
                     </div>
                 </div>
-                <%  ArrayList<Request> requests = (ArrayList<Request>) session.getAttribute("requests");
+                <%  ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
+                //preferenceController.getPreferencesOfCompany(int companyID)
                     String requestStatus = (String) session.getAttribute("requestStatus");
-                    if (requests == null || requestStatus.equals("all")) {
+                    if (noMentorCompanies != null || requestStatus.equals("all")) {
                 %>
                 <div class="row">
                     <div class="col-md-8 well col-md-offset-2">

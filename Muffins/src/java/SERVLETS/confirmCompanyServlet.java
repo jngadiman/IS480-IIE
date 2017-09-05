@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author JJAY
  */
-@WebServlet(name = "confirmUserAsMenteeServlet", urlPatterns = {"/confirmUserAsMenteeServlet"})
+@WebServlet(name = "confirmCompanyServlet", urlPatterns = {"/confirmCompanyServlet"})
 public class confirmCompanyServlet extends HttpServlet {
 
     /**
@@ -62,20 +62,20 @@ public class confirmCompanyServlet extends HttpServlet {
                 }
             
             
-        //send email of the unhashed accessCode to founders
-        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been accepted into IIE Incubation. Kindly click on this link to register and provide the access code attached: "+accessCode, founders)){
-            System.out.println("email has been sent successfully");
-        }else{
-            System.out.println("email could not be sent");
-        }
-        
-        //send email to EIR and admin
-        String [] admin = {"jiatung1218@gmail.com"};
-        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been accepted into IIE Incubation.", admin)){
-            System.out.println("email has been sent successfully");
-        }else{
-            System.out.println("email could not be sent");
-        }
+            //send email of the unhashed accessCode to founders
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been accepted into IIE Incubation. Kindly click on this link to register and provide the access code attached: "+accessCode, founders)){
+                System.out.println("email has been sent successfully");
+            }else{
+                System.out.println("email could not be sent");
+            }
+
+            //send email to EIR and admin
+            String [] admin = {"jiatung1218@gmail.com"};
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been accepted into IIE Incubation.", admin)){
+                System.out.println("email has been sent successfully");
+            }else{
+                System.out.println("email could not be sent");
+            }
             
             
             status.add("Company is accepted into Incubation. Activation Email is sent to the founders!");

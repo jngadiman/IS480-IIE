@@ -36,7 +36,7 @@
                     <form action="registerCompanyServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-10 col-sm-offset-1">
                             <div class="row">
-                                <div class="col-sm-6 form-group required">
+                                <div class="col-sm-6 form-group">
                                     <label class="control-label">Company Logo</label>
                                     </br>
                                     <input class="form-control" type="file" name="company_logo" id="company_logo" >
@@ -92,7 +92,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 form-group required">
-                                    <label class="control-label">Shareholder E-mails</label>
+                                    <label class="control-label">Stakeholders E-mails</label>
                                     <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" required multiple>
                                 </div>
                             </div>

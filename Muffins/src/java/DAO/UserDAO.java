@@ -508,6 +508,8 @@ public class UserDAO {
         int status = 0;
         String email = user.getEmail();
         String password = user.getPassword();
+        System.out.println("USERDAO ADD USER EMAIL: "+ email);
+        System.out.println("USERDAO ADD USER PASSWORD: "+ password);
         String dbpwd = "";
         
         MessageDigest crypt = null;

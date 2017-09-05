@@ -6,12 +6,13 @@
 package SERVLETS;
 
 import CONTROLLER.mentorController;
-import CONTROLLER.requestController;
+import CONTROLLER.preferenceController;
 import MODELS.Mentor;
-import MODELS.Request;
+import MODELS.Preference;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,13 +42,14 @@ public class requestMentorServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Mentor m = (Mentor) session.getAttribute("requestedMentor");
         User currentUser = (User) session.getAttribute("user");
+        Date startDate = (Date) session.getAttribute("start_date");
+        Date endDate = (Date) session.getAttribute("end_date");
         String yes = request.getParameter("yesBtn");
         if(yes != null){
-            int request_id = requestController.getNextRequestID();
             int company_id = currentUser.getCompanyid();
-            String type = (String) session.getAttribute("requestType");
-            Request r = new Request(request_id, company_id, m.getEmail(), type, null, "requesting");
-            String status = requestController.addRequest(r);
+            Date dateSent = new Date();
+            Preference p = new Preference(company_id, m.getEmail(), startDate, endDate, dateSent);
+            String status = preferenceController.addPreference(p);
             session.setAttribute("status", status);
             response.sendRedirect("requestForMentorProfile.jsp");
         }else{

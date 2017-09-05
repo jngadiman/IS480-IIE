@@ -6,8 +6,8 @@
 package SERVLETS;
 
 import CONTROLLER.menteeController;
-import CONTROLLER.requestController;
-import MODELS.Request;
+import CONTROLLER.assignmentController;
+import MODELS.Relationship;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -42,8 +42,8 @@ public class adminPendingRequestServlet extends HttpServlet {
         if(request.getParameter("approveBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = requestController.updateRequest(requestID, "approved");
-            Request r = requestController.getRequest(requestID);
+            result = assignmentController.changeRelationshipStatus(requestID, "assigned");
+            Relationship r = assignmentController.getRelationship(requestID);
             
             if(result == 1){
                 int result1 = menteeController.updateMentorEmail(r.getCompanyID(), r.getMentorEmail());
@@ -52,12 +52,12 @@ public class adminPendingRequestServlet extends HttpServlet {
         }else if(request.getParameter("rejectBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = requestController.updateRequest(requestID, "declined");
+            result = assignmentController.changeRelationshipStatus(requestID, "declined");
             
         }else if(request.getParameter("overBtn") != null){
             
             int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = requestController.updateRequest(requestID, "over");
+            result = assignmentController.changeRelationshipStatus(requestID, "over");
             
         }
         

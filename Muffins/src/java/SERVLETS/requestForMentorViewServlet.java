@@ -6,9 +6,9 @@
 package SERVLETS;
 
 import CONTROLLER.mentorController;
-import CONTROLLER.requestController;
+import CONTROLLER.assignmentController;
 import MODELS.Mentor;
-import MODELS.Request;
+import MODELS.Relationship;
 import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,10 +43,10 @@ public class requestForMentorViewServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         int company_id = currentUser.getCompanyid();
-        ArrayList<Request> requestsOfCompany = requestController.getRequestsOfCompany(company_id);
+        ArrayList<Relationship> requestsOfCompany = assignmentController.getRlsOfCompany(company_id);
         boolean isCurrentMentor = false;
         
-        for(Request r: requestsOfCompany){
+        for(Relationship r: requestsOfCompany){
             String status = r.getStatus();
             String mentor_email = r.getMentorEmail();
             if(status.equals("approved") && mentor_email.equals(mentorEmail)){

@@ -1,4 +1,6 @@
 
+<%@page import="CONTROLLER.industryController"%>
+<%@page import="MODELS.Industry"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="MODELS.Mentor"%>
 <%@page import="MODELS.Mentor"%>
@@ -54,55 +56,95 @@
                                     <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                                 <label class="control-label">Start Date</label> : <%=startDate%>
                                 <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>
-                                <p><strong>Industry</strong> : <%= company.getIndustry()%></p>
-                                <p><strong>Company Current Mentor</strong> : 
+                                <%Industry industry = industryController.getIndustry(company.getIndustry());
+                                    if (industry != null) {
+                                        //industry still cannot edit properly%>
+                                <p><strong>Industry</strong> : <%=industry.getIndustryName()%></p>
+                                <%}%>
+                                <p><strong>Company Current Mentor</strong> : HELP IDK HOW TO GET MENTOR
                                     <%
                                         ArrayList<String> all_founders = UserDAO.getUserEmailsOfCompany(companyID);
                                         String first_founder_email = all_founders.get(0);
                                         User first_user = UserDAO.getUserByEmail(first_founder_email);
-                                        String first_user_type = first_user.getUser_type();
-                                        Mentee mentee2;
-                                        /*if (first_user_type.equals("mentee") && first_user!= null) {
-                                            mentee2 = (Mentee) first_user;
-                                            String mentor_email = mentee2.getMentor_email();
-                                            if (mentor_email !=null && !mentor_email.equals("")){
-                                                Mentor mentor2 = MentorDAO.getMentorByEmail(mentor_email);
-                                                String mentor2_name = mentor2.getName();
-                                                String mentor2_email = mentor2.getEmail();
-                                                out.println(" <a href='displayProfile.jsp?email=" + mentor2_email + " class='btn btn-success btn-xs'>" + mentor2_email + "</a>");
-                                            }
 
-                                        }
-*/
-                                %></p>
+                                        String first_user_type = first_user.getUser_type();
+
+                                        /*    if (first_user!= null&&first_user_type.equals("mentee")) {
+                                         Mentee first_user_mentee = (Mentee) first_user;
+                                         String mentor_email = first_user_mentee.getMentor_email();
+                                         if (mentor_email !=null && !mentor_email.equals("")){
+                                         Mentor mentor2 = MentorDAO.getMentorByEmail(mentor_email);
+                                         String mentor2_name = mentor2.getName();
+                                         String mentor2_email = mentor2.getEmail();
+                                         out.println(" <a href='displayProfile.jsp?email=" + mentor2_email + " class='btn btn-success btn-xs'>" + mentor2_name + "</a>");
+                                         }
+
+                                         } else{
+                                         out.println("Company is owned by mentor");
+                                         }
+                                            
+                                         */
+
+                                    %></p>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-12 form-group required">
-                                <p><strong>Company Founders</strong> :<br> 
-                                <p><%
-                                    ArrayList<String> allFounders = UserDAO.getUserEmailsOfCompany(companyID);
-                                    String firstFounderEmail = allFounders.get(0);
-                                    User firstUser = UserDAO.getUserByEmail(firstFounderEmail);
-                                    String firstUserName = firstUser.getName();
-                                    out.println(" <a href='displayProfile.jsp?email=" + firstFounderEmail + " class='btn btn-success btn-xs'>" + firstUserName + "</a>");
-                                    for (int i = 1; i < allFounders.size(); i++) {
-                                        String s = allFounders.get(i);
-                                        User u = UserDAO.getUserByEmail(s);
-                                        String userName = u.getName();
-                                        out.println(", <a href='displayProfile.jsp?email=" + s + "'>" + userName + "</a>");
-                                    }
+                        <!-- <div class="row">
+                             <div class="col-sm-12 form-group required">
+                                 <p><strong>Company Founders</strong> :<br> 
+                                 <p><%/*
+                                      ArrayList<String> allFounders = UserDAO.getUserEmailsOfCompany(companyID);
+                                      String firstFounderEmail = allFounders.get(0);
+                                      User firstUser = UserDAO.getUserByEmail(firstFounderEmail);
+                                      String firstUserName = firstUser.getName();
+                                      out.println(" <a href='displayProfile.jsp?email=" + firstFounderEmail + " class='btn btn-success btn-xs'>" + firstUserName + "</a>");
+                                      for (int i = 1; i < allFounders.size(); i++) {
+                                      String s = allFounders.get(i);
+                                      User u = UserDAO.getUserByEmail(s);
+                                      String userName = u.getName();
+                                      out.println(", <a href='displayProfile.jsp?email=" + s + "'>" + userName + "</a>");
+                                      }
 
-
-                                    %></p>
-                            </div>	
-                        </div>
+                                      */
+                        %></p>
+                </div>	
+            </div>
+                        -->
 
                         <div class="row">
                             <div class="col-sm-12 form-group required">
                                 <p><strong>Company Description</strong> :<br> 
                                 <p><%= company.getDescription()%></p>
+                            </div>	
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group required">
+                                <p><strong>Stakeholder(s)</strong> :<br> 
+                                    <%
+                                        String[] stakeholders;
+                                        stakeholders = company.getStakeholders();
+
+                                        if (stakeholders != null && stakeholders.length != 0) {
+
+                                            for (int i = 0; i < stakeholders.length; i++) {
+                                                User u = UserDAO.getUserByEmail(stakeholders[i]);
+                                                if (u != null) {
+                                                    String email = u.getEmail();
+                                                    String userName = u.getName();
+                                                    out.println("<a href='displayProfile.jsp?email=" + email + "'>" + userName + "</a>");
+                                                    if (i != stakeholders.length - 1) {
+                                                        out.print(", ");
+                                                    }
+                                                } else {
+                                                    out.print(stakeholders[i]);
+                                                    if (i != stakeholders.length - 1) {
+                                                        out.print(", ");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    %>
                             </div>	
                         </div>
 
