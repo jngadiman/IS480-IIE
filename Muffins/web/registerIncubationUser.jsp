@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Access Code</label> check email 
-                                    <input id="access_code" type="password" name="password" placeholder="Enter Access Code Here.." class="form-control" required>
+                                    <input id="access_code" type="password" name="access_code" placeholder="Enter Access Code Here.." class="form-control" required>
                                 </div>
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Password</label> 8 to 24 characters
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Confirm Password</label> 
-                                    <input id="confirm_password" name="confirmPassword" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
+                                    <input id="confirm_password" name="confirm_password" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
                                 </div>
                             </div>
                             <div class="row">

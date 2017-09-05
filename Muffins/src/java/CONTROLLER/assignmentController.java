@@ -5,7 +5,10 @@
  */
 package CONTROLLER;
 
+import DAO.CompanyDAO;
 import DAO.RelationshipDAO;
+import DAO.UserDAO;
+import MODELS.Company;
 import MODELS.Relationship;
 import java.util.ArrayList;
 
@@ -57,5 +60,37 @@ public class assignmentController {
     public static Relationship getRelationship(int rlsID){
         Relationship r = RelationshipDAO.getRelationship(rlsID);
         return r;
+    }
+    
+    public static ArrayList<Company> getNoMentorCompanies(){
+        ArrayList<Company> noMentorCompanies = new ArrayList<Company>();
+        ArrayList<Integer> companiesWMentor = RelationshipDAO.getCompanyIDsWithMentor();
+        ArrayList<Integer> companies = UserDAO.getRegularCompanyIDs();
+        
+        for(int i = 0; i < companies.size(); i++){
+            Integer company_id = companies.get(i);
+            for(Integer j: companiesWMentor){
+                if(company_id == j){
+                    companies.remove(company_id);
+                    i++;
+                }
+            }
+        }
+        
+        for(Integer i: companies){
+            Company c = CompanyDAO.getCompany(i);
+            noMentorCompanies.add(c);
+        }
+        
+        return noMentorCompanies;
+    }
+    
+    public static void main(String[] args){
+        ArrayList<Company> companies = assignmentController.getNoMentorCompanies();
+        for(Company c : companies){
+             System.out.println(c.getId());
+             System.out.println(c.getName());
+             System.out.println(c.getAcraFile());
+        }
     }
 }

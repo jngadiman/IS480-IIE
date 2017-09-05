@@ -36,7 +36,7 @@
                     <form action="registerCompanyServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-10 col-sm-offset-1">
                             <div class="row">
-                                <div class="col-sm-6 form-group required">
+                                <div class="col-sm-6 form-group">
                                     <label class="control-label">Company Logo</label>
                                     </br>
                                     <input class="form-control" type="file" name="company_logo" id="company_logo" >

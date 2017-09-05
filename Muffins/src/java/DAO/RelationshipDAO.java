@@ -457,19 +457,38 @@ public class RelationshipDAO {
         return next;
     }
     
-    public static int getNumCompaniesWithNoMentor(){
-        int numOfCompanies = 0;
+    public static ArrayList<Integer> getCompanyIDsWithMentor(){
+        ArrayList<Integer> companyIDsWMentor = new ArrayList<Integer>();
+        int company_id = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
         
-        
-        
-        return numOfCompanies;
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select company_id from Relationship where status = ?;");
+            stmt.setString(1, "assigned");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                companyIDsWMentor.add(company_id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return companyIDsWMentor;
     }
     
     public static void main(String[] args){
         //Relationship r = new Relationship(RelationshipDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");
-        int result = RelationshipDAO.getNextRelationshipID();
-        
-        System.out.println(result);
+        ArrayList<Integer> companyIDs = RelationshipDAO.getCompanyIDsWithMentor();
+        for(Integer i : companyIDs){
+            System.out.println(i);
+        }
         
     }
 }
