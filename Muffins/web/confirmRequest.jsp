@@ -23,17 +23,32 @@
     </head>
     <body>
         <form action="requestMentorServlet" method="post">
-        <%
-            Mentor m = (Mentor) session.getAttribute("requestedMentor");
-        %>
-        <div style="align-items: center">
-           <h4 style="text-align: center">Are you sure you want to request for this mentor?</h4>
-           <br/>
-           <h2 style="text-align: center"><%=m.getName()%></h2>
-           <br/>
-           <p align="center"> <button type="reset" class="btn btn-default">Cancel</button>    <button style="align-items: center" type="submit" class="btn btn-primary" name="yesBtn">Yes</button></p>
-           
-        </div>
+            <%            Mentor m = (Mentor) session.getAttribute("requestedMentor");
+            %>
+            <div style="align-items: center">
+                <br>
+                <br>
+                <br>
+                <div class="container">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <h3 style="text-align: center">A request of this mentor will be sent to administrator together with your preferred mentor period</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group col-sm-offset-3">
+                                    <p><strong>Mentor's Name</strong> : <%=m.getName()%></p>
+                                </div>
+                            
+                        </div>
+                            
+
+
+                        <p align="center"><button type="reset" class="btn btn-default">Cancel</button><button style="align-items: center" type="submit" class="btn btn-primary" name="yesBtn">Yes</button></p>
+                    </div>
+                </div>
         </form>
     </body>
 </html>
