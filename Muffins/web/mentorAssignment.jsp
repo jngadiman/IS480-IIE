@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="DAO.MentorDAO"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.profileController"%>
 <%@page import="MODELS.Company"%>
@@ -31,50 +32,55 @@
                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                 </div>
-                <%
-            byte[] imgData;
-            ArrayList<Mentor> allMentors = mentorController.getMentors();
-            for (Mentor mentor : allMentors){
                 
-                %>
                 
-                <div class="col-lg-4 well">
-                    <%
-                        // display the image
-                        imgData = mentor.getProfile_pic();
-                        if(imgData != null){
-                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                            out.println(imgData);
+                <% String type = request.getParameter("type");
+                        session.setAttribute("requestType", type);
+                        ArrayList<Mentor> mentors = MentorDAO.getMentors();
+                        for (Mentor m : mentors) {
                     %>
-                        <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                    <%
-                        }else{
-                    %>
-                        <img src="img/user.png" width="200" height="200" alt=""/>
+                    <div class="col-lg-6 well">
+
+                        <%
+                            Company c = companyController.getCompany(m.getCompanyid());
+                            // display the image
+                            byte[] imgData = m.getProfile_pic();
+                            if (imgData != null) {
+                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                        %>
+
+                        <div class="col-lg-4 ">
+                            <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
+                            <%
+                            } else {
+                            %>
+                            <img src="img/user.png" width="100" height="100" alt=""/>
+                            <%
+                                }
+                            %>
+
+                        <div class="col-lg-8 ">
+                            <h5><strong>Name: </strong><%= m.getName()%></h5>
+                            <h5><strong>Company: </strong><%=c.getName()%></h5>
+                            <h5><strong>Designation: </strong><%= m.getPosition()%></h5>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <h5><strong>Areas of Expertise: </strong></h5>
+                            <h5>Data Engineering, Data Management, Data Mining</h5>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-4 col-lg-offset-4">
+                                <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
+                                <a href='confirmAssignment.jsp?email=<%=m.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>           
+                            </div>
+                        </div>
+                    </div>
                     <%
                         }
                     %>
-                    
-                    <h2><%=mentor.getName()%></h2>
-                    <% 
-                        
-                    User displayedUser = profileController.displayUserDetails(mentor.getEmail());
-                    int companyID = displayedUser.getCompanyid();
-                    Company company = companyController.getCompany(companyID);
-                    String company_name = "";
-                    if(company != null){
-                        company_name = company.getName();    
-                    %>
-                    <span class="label label-primary"><%= company_name%></span><br><br>
-                    <%
-                    }
-                    %>
-                <a href='displayProfile.jsp?email=<%=mentor.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>
-                </div>
-                <%
-                imgData = null;
-            }
-        %>
         </div>
     </body>
 </html>

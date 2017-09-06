@@ -24,26 +24,19 @@
 
     </head>
     <body>
-        <%
-            user = (User) session.getAttribute("user");
+        <%            user = (User) session.getAttribute("user");
             ArrayList<Preference> companyPref = preferenceController.getPreferencesOfCompany(user.getCompanyid());
-            if(companyPref == null || companyPref.size() == 0){
+            if (companyPref == null || companyPref.size() == 0) {
                 //show pop up
-            }else if(companyPref.size() < 3){
-                out.println("You can choose " + (3-companyPref.size()) + " more mentors!");
-            }else{
+            } else if (companyPref.size() < 3) {
+                out.println("You can choose " + (3 - companyPref.size()) + " more mentors!");
+            } else {
                 out.println("You cannot choose any more mentors! Go to View All Mentors if you want to view the mentors' details");
             }
         %>
         <div class="container">
             <h2 class="col-lg-10 well col-sm-offset-1">List of Mentors</h2>
-            <%
-                String type = request.getParameter("type");
-                session.setAttribute("requestType", type);
-                ArrayList<Mentor> mentors = MentorDAO.getMentors();
-                for(Mentor m: mentors){    
-                    Company c = companyController.getCompany(m.getCompanyid());
-            %> 
+
             <div class="col-lg-10 well col-sm-offset-1">
                 <div class="row">
                     <div class="col-sm-12 form-group">
@@ -51,42 +44,47 @@
                     </div>
                     <div class="col-sm-5 form-group">
                         <p><strong>Start Date</strong> : </p>
-                        <% if (session.getAttribute("start_date") == null){%>
-                            <input id=mentor_period"  name="start_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
+                        <% if (session.getAttribute("start_date") == null) {%>
+                        <input id=mentor_period"  name="start_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
                         <%} else {%>
-                            <input id=mentor_period"  name="start_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
+                        <input id=mentor_period"  name="start_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
                         <%}%>
                     </div>
 
                     <div class="col-sm-5 form-group">
                         <p><strong>End Date</strong> : </p>
-                        <% if (session.getAttribute("start_date") == null){%>
-                            <input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
+                        <% if (session.getAttribute("start_date") == null) {%>
+                        <input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
                         <%} else {%>
-                            <input id=mentor_period"  name="end_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
+                        <input id=mentor_period"  name="end_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
                         <%}%>
                     </div>
+
                     <div class="col-sm-2">
                         <br>
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
+
                 </div>
 
-                <%  ArrayList<Mentor> mentors = MentorDAO.getMentors();
-                    for (Mentor m : mentors) {
-                        Company c = companyController.getCompany(m.getCompanyid());
-                %>       
-
                 <form action="requestForMentorViewServlet" method="post">
-                    <div class="col-lg-6 well">
-                        <div class="col-lg-4">
-                            <%
-                                // display the image
-                                byte[] imgData = m.getProfile_pic();
-                                if (imgData != null) {
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
 
-                            %>
+                    <% String type = request.getParameter("type");
+                        session.setAttribute("requestType", type);
+                        ArrayList<Mentor> mentors = MentorDAO.getMentors();
+                        for (Mentor m : mentors) {
+                    %>
+                    <div class="col-lg-6 well">
+
+                        <%
+                            Company c = companyController.getCompany(m.getCompanyid());
+                            // display the image
+                            byte[] imgData = m.getProfile_pic();
+                            if (imgData != null) {
+                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                        %>
+
+                        <div class="col-lg-4 ">
                             <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
                             <%
                             } else {
@@ -95,9 +93,8 @@
                             <%
                                 }
                             %>
-                        </div>
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 ">
                             <h5><strong>Name: </strong><%= m.getName()%></h5>
                             <h5><strong>Company: </strong><%=c.getName()%></h5>
                             <h5><strong>Designation: </strong><%= m.getPosition()%></h5>
@@ -108,23 +105,25 @@
                             <h5>Data Engineering, Data Management, Data Mining</h5>
                         </div>
 
+
                         <div class="col-lg-12">
                             <div class="col-lg-4 col-lg-offset-4">
                                 <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
-                                <%if (session.getAttribute("start_date") != null && session.getAttribute("end_date") != null){%>
+                                <%if (session.getAttribute(
+                                            "start_date") != null && session.getAttribute("end_date") != null) {%>
                                 <input type="submit" value="View Profile" class="btn btn-sm btn-success" name="submitBtn">
-                                <%} else{%>
+                                <%} else {%>
                                 <input type="submit" value="View Profile" class="btn btn-sm btn-success" name="submitBtn" disabled>
                                 <%}%>                               
                             </div>
                         </div>
                     </div>
-
+                    <%
+                        }
+                    %>
 
                 </form>
-                <%
-                    }
-                %>
+
             </div>
         </div>     
 
