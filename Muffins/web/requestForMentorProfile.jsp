@@ -6,7 +6,6 @@
 
 
 <%@page import="java.util.Base64"%>
-<%@page import="DAO.RequestDAO"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="MODELS.Mentor"%>
@@ -15,9 +14,7 @@
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="DAO.UserDAO"%>
-<%@page import="MODELS.User"%>
 <%@page import="MODELS.User"%>
 <%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

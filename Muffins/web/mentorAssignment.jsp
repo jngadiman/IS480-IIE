@@ -28,7 +28,7 @@
         <div class="container">
             <div class="col-lg-10 well">
                 <div class="col-lg-12 well">
-                    <p><strong>Mentee Comapany: </strong>get Mentee's Company</p>
+                    <p><strong>Mentee Company: </strong>get Mentee's Company</p>
                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                 </div>
