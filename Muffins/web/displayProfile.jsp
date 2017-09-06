@@ -57,7 +57,7 @@
 
                             <p><strong>NRIC</strong> : <%= displayedUser.getNric()%></p>
 
-                            <p>Type : <%=displayedUser.getUser_type()%></p>
+                            <p><strong>Type : </strong><%=displayedUser.getUser_type()%></p>
                             
                             
                             
@@ -77,7 +77,7 @@
                                     }
                             %>
 
-<!--                            <p><strong>User Type</strong> : <%= //mentee.getMentee_type() + " " + type%></p>
+<!--                            <p><strong>User Type</strong> :  //mentee.getMentee_type() + " " + type%></p>
                             -->
 
                             <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>

@@ -8,9 +8,7 @@
 <%@page import="MODELS.Mentor"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.mentorController"%>
-<%@page import="MODELS.Request"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="CONTROLLER.requestController"%>
 <%@include file="protect.jsp" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -58,6 +56,7 @@
                         <%
                             //print all requesting requests
                             ArrayList<Request> pendingRequests = requestController.getAllRequestsByStatus("requesting");
+                           
                         %>
                         <ul class="nav nav-pills ">
                             <li class=""><a href="#">Pending <span class="badge"><%=pendingRequests.size()%></span></a></li>
@@ -68,6 +67,7 @@
 
                                 Mentor m = mentorController.getMentor(mentor_email);
                                 Company c = companyController.getCompany(companyID);
+                            
                         %>            
                         <form action="adminPendingRequestServlet" method="post">
                             <div class="col-md-4"><div class="panel panel-primary">
