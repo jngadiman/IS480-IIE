@@ -263,6 +263,8 @@ public class MentorDAO {
             System.out.println(m.getCompanyid());
             System.out.println(m.getPosition());
             System.out.println(m.getIntroduction());
+            System.out.println(m.getSkills());
+            System.out.println(m.getBankAccount());
         }
     }
 }

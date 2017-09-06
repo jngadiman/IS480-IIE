@@ -4,6 +4,7 @@
     Author     : Hui Min
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page import="MODELS.Company"%>
 <%@page import="MODELS.Mentor"%>
 <%@page import="CONTROLLER.companyController"%>
@@ -30,22 +31,6 @@
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade" id="incubation">-->
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-8  col-md-offset-2"><ul class="nav nav-pills pull-right">
-                            <form method="post" action ="adminDisplayRequestsServlet">
-                                <li class="active"> Select Filter  <select name = "requestStatus">
-                                        <option value = "all">All</option>
-                                        <option value = "requesting">Requested</option>
-                                        <option value = "approved">Approved</option>
-                                        <option value = "declined">Declined</option>
-                                        <option value = "terminated">Terminated</option>
-                                    </select><input class="btn btn-primary btn-xs"type ="submit" value =" Choose "> 
-                                </li>
-                            </form>
-                        </ul>
-
-                    </div>
-                </div>
                 <%  ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
                 //preferenceController.getPreferencesOfCompany(int companyID)
                     String requestStatus = (String) session.getAttribute("requestStatus");
@@ -53,265 +38,44 @@
                 %>
                 <div class="row">
                     <div class="col-md-8 well col-md-offset-2">
-                        <%
-                            //print all requesting requests
-                            ArrayList<Request> pendingRequests = requestController.getAllRequestsByStatus("requesting");
-                           
-                        %>
+                        
                         <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Pending <span class="badge"><%=pendingRequests.size()%></span></a></li>
-                        </ul>
-                        <%  for (Request r : pendingRequests) {
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-                            
-                        %>            
+                                <li class=""><a href="#">Pending <span class="badge"><%=noMentorCompanies.size()%></span></a></li>
+                        </ul>            
                         <form action="adminPendingRequestServlet" method="post">
-                            <div class="col-md-4"><div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><%= c.getName()%> has requested for <%= m.getName()%></h3>
-                                        <input type="hidden" name="rlsID" value=<%= r.getRequestID()%>>
-                                    </div>
-                                    <div class="panel-body">
-                                        <button type="submit" class="btn btn-success btn-xs" value="approved" name="approveBtn"/>Approve</button>
-                                        <button type="submit" class="btn btn-danger btn-xs"  value="declined" name="rejectBtn"/>Reject</button>
-                                    </div>
-                                </div></div>
+                            <%  
+                                for (Company c: noMentorCompanies) {
+                            %>
+                            <div class="col-lg-4 well">
+                                 <% 
+                                    byte[] imgData = c.getCompanyLogo();
+                                    if (imgData != null) {
+                                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                 %>
+                                <a href="assignmentPage.jsp"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here"/></a>
+                                <%
+                                    }                            
+                                %>
+                                <div class="row">
+                                    <p style="text-align:center"><strong><%=c.getName()%></strong></p>
+                                </div>
+
+                                <div class="row">
+                                    <p><strong>Preferred Mentors:</strong></p>
+                                    <p>retrieve mentor names and display here</p>
+                                </div>
+                            <%
+                                }
+                            %>
+                            </div>
                         </form>
                         <%
                             }
                         %>
                     </div>
                 </div>
-                <div class="row">
-
-                    <div class="col-md-8 well col-md-offset-2">
-                        <%
-                            //print all approved requests
-                            ArrayList<Request> approvedRequests = requestController.getAllRequestsByStatus("approved");
-                        %>
-                        <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Approved <span class="badge"><%=approvedRequests.size()%></span></a></li>
-                        </ul>
-                        <%
-
-                            //print for pending
-                            for (Request r : approvedRequests) {
-                                //print all requests by default
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-                        %>
-                        <form action="adminPendingRequestServlet" method="post">
-                            <div class="col-md-4"><div class="panel panel-success">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><%= m.getName()%> - <%= c.getName()%></h3>
-                                        <input type="hidden" name="rlsID" value=<%= r.getRequestID()%>>
-                                    </div>
-                                    <div class="panel-body">
-                                        <button type="submit" class="btn btn-warning btn-xs" name="overBtn">Over</button>
-                                    </div>
-                                </div></div>
-                        </form>
-                        <%
-                            }
-                        %>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-8 well col-md-offset-2">
-                        <ul class="nav nav-pills ">
-                            <%
-                                //print all declined requests
-                                ArrayList<Request> rejectedRequests = requestController.getAllRequestsByStatus("declined");
-                            %>
-                            <li class=""><a href="#">Declined <span class="badge"><%=rejectedRequests.size()%></span></a></li>
-                        </ul>
-                        <%
-                            //print for pending
-                            for (Request r : rejectedRequests) {
-                                //print all requests by default
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-                        %>
-                        <div class="col-md-4"><div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><%= m.getName()%> - <%= c.getName()%></h3>
-                                </div>
-
-                            </div></div>
-                            <%
-                                }
-                            %>
-
-
-
-
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-8 well col-md-offset-2">
-                        <ul class="nav nav-pills ">
-                            <%
-                                //print all over requests
-                                ArrayList<Request> overRequests = requestController.getAllRequestsByStatus("over");
-
-                            %>
-                            <li class=""><a href="#">Over <span class="badge"><%=overRequests.size()%></span></a></li>
-                        </ul>
-                        <%                                     //print for pending
-                            for (Request r : overRequests) {
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-
-                                                            //print all requests by default%>
-
-
-                        <div class="col-md-4"><div class="panel panel-warning">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><%=m.getName()%> - <%=c.getName()%></h3>
-                                </div>
-
-                            </div></div>
-                            <%
-                                }
-
-                            %>
-
-
-
-                    </div>
-                </div>
-
-                <%} else{
-                        //print requests that are passed back from servlet
-                        if (requestStatus.equals("approved")) {%>
-                    <div class="row">
-                    <div class="col-md-8 well col-md-offset-2">
-                        <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Approved <span class="badge"><%=requests.size()%></span></a></li>
-                        </ul>
-                        <%for (Request r : requests) {
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);%>
-
-                        <form action="adminPendingRequestServlet" method="post">
-                            <div class="col-md-4"><div class="panel panel-success">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><%= m.getName()%> - <%= c.getName()%></h3>
-                                        <input type="hidden" name="rlsID" value=<%= r.getRequestID()%>>
-                                    </div>
-                                    <div class="panel-body">
-                                        <button type="submit" class="btn btn-warning btn-xs" name="overBtn">Over</button>
-                                    </div>
-                                </div></div>
-                        </form>
-                        <%}
-                            }else if(requestStatus.equals("requesting")){%>
-                            <div class="row">
-                            <div class="col-md-8 well col-md-offset-2">
-                            <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Pending <span class="badge"><%=requests.size()%></span></a></li>
-                            </ul>
-                        <%  for (Request r : requests) {
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-                        %>            
-                        <form action="adminPendingRequestServlet" method="post">
-                            <div class="col-md-4"><div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><%= c.getName()%> has requested for <%= m.getName()%></h3>
-                                        <input type="hidden" name="rlsID" value=<%= r.getRequestID()%>>
-                                    </div>
-                                    <div class="panel-body">
-                                        <button type="submit" class="btn btn-success btn-xs" value="approved" name="approveBtn"/>Approve</button>
-                                        <button type="submit" class="btn btn-danger btn-xs"  value="declined" name="rejectBtn"/>Reject</button>
-                                    </div>
-                                </div></div>
-                        </form>
-                        <%
-                            }
-                        }else if(requestStatus.equals("declined")){%>
-                        <div class="row">
-
-                    <div class="col-md-8 well col-md-offset-2">
-                        <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Declined <span class="badge"><%=requests.size()%></span></a></li>
-                        </ul>
-                        <%
-                            //print for pending
-                            for (Request r : requests) {
-                                //print all requests by default
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-                        %>
-                        <div class="col-md-4"><div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><%= m.getName()%> - <%= c.getName()%></h3>
-                                </div>
-
-                            </div></div>
-                    </div></div>
-                            <%
-                                }
-}else{%>
-                            <div class="row">
-
-                    <div class="col-md-8 well col-md-offset-2">
-                        <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Over <span class="badge"><%=requests.size()%></span></a></li>
-                        </ul>
-                        <%
-                            //print for pending
-                            for (Request r : requests) {
-                                //print all requests by default
-                                String mentor_email = r.getMentorEmail();
-                                int companyID = r.getCompanyID();
-
-                                Mentor m = mentorController.getMentor(mentor_email);
-                                Company c = companyController.getCompany(companyID);
-                        %>
-                        <div class="col-md-4"><div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><%= m.getName()%> - <%= c.getName()%></h3>
-                                </div>
-
-                            </div></div>
-            <%}
-}
-}%>
-
-
-                    </div>
-                </div>
-
-
-
             </div>
+        </div>
             <!--                </div>-->
             <!--                <div class="tab-pane fade active in" id="openmentor">
                                 <div class="container-fluid">

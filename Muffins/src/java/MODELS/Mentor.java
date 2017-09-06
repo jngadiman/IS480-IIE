@@ -50,8 +50,6 @@ public class Mentor extends User{
         this.bankAccount = bankAccount;
     }
     
-    
-
     public String getSkills() {
         return skills;
     }

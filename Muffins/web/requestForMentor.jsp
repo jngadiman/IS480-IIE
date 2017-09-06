@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="MODELS.Preference"%>
 <%@page import="CONTROLLER.preferenceController"%>
 <%@page import="MODELS.Company"%>
@@ -40,12 +41,16 @@
             <%
                 String type = request.getParameter("type");
                 session.setAttribute("requestType", type);
-                ArrayList<Mentor> mentors = MentorDAO.getMentors();
-                for(Mentor m: mentors){    
-                    Company c = companyController.getCompany(m.getCompanyid());
+                Date start_date = (Date) session.getAttribute("start_date");
+                Date end_date = (Date) session.getAttribute("end_date");
+                
+                if(start_date != null && end_date != null){
+                    //print out the dates in the text box if found
+                }
             %> 
             <div class="col-lg-10 well col-sm-offset-1">
                 <div class="row">
+                    <form action="retrieveMentorPeriodServlet" method="post">
                     <div class="col-sm-12 form-group">
                         Please choose mentorship period before viewing mentor profile
                     </div>
@@ -54,7 +59,7 @@
                         <% if (session.getAttribute("start_date") == null){%>
                             <input id=mentor_period"  name="start_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
                         <%} else {%>
-                            <input id=mentor_period"  name="start_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
+                            <input id=mentor_period"  name="start_date" text=<%=session.getAttribute("start_date")%> type="text" class="form-control">
                         <%}%>
                     </div>
 
@@ -70,8 +75,9 @@
                         <br>
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
+                    </form>
                 </div>
-
+                    
                 <%  ArrayList<Mentor> mentors = MentorDAO.getMentors();
                     for (Mentor m : mentors) {
                         Company c = companyController.getCompany(m.getCompanyid());
