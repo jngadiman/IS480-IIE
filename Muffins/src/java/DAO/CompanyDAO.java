@@ -374,7 +374,7 @@ public class CompanyDAO {
         String [] company_founders = c.getStakeholders();
         String stakeholders = "";
         for(int x = 0; x<company_founders.length; x++ ){
-            String s = company_founders[0];
+            String s = company_founders[x].trim();
             if (x == (company_founders.length - 1) ){
                 stakeholders+=s;
             }else{
@@ -444,7 +444,7 @@ public class CompanyDAO {
         String [] company_founders = c.getStakeholders();
         String stakeholders = "";
         for(int x = 0; x<company_founders.length; x++ ){
-            String s = company_founders[x];
+            String s = company_founders[x].trim();
             if (x == (company_founders.length - 1) ){
                 stakeholders+=s;
             }else{
@@ -614,6 +614,36 @@ public class CompanyDAO {
             return false;
         }
         return true;
+    }
+     
+     public static int changeCompanyStage(int stage, int companyID){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        int result = 0;
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            String status = "";
+            
+            stmt = conn.prepareStatement("UPDATE Company SET  current_stage = ? WHERE company_id = ?;");
+            
+            stmt.setInt(1, stage);
+            stmt.setInt(2, companyID);
+            
+            
+            result = stmt.executeUpdate();
+            
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
     }
     
     public static void main(String[] args){

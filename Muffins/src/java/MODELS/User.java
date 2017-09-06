@@ -39,9 +39,10 @@ public class User {
         this.nationality = nationality;
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, int companyid) {
         this.email = email;
         this.password = password;
+        this.companyid = companyid;
     }
     
     public String getEmail(){

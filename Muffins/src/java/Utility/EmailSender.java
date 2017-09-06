@@ -20,7 +20,7 @@ import javax.mail.internet.MimeMessage;
  * @author Hui Min
  */
 public class EmailSender {
-    public static boolean sendMail(String from, String password, String message, String[] to){
+    public static boolean sendMail(String from, String password, String message, String[] to, String subject){
         String host = "smtp.gmail.com";
         Properties props = System.getProperties();
         props.put("mail.smtp.starttls.enable", "true");
@@ -42,7 +42,7 @@ public class EmailSender {
             for(int i = 0; i < toAddress.length; i++){
                mimeMessage.setRecipient(Message.RecipientType.TO, toAddress[i]);
             }
-            mimeMessage.setSubject("No Reply IIE Portal");
+            mimeMessage.setSubject(subject);
             mimeMessage.setText(message);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, password);

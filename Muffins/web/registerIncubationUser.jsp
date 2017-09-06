@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Iterator"%>
@@ -85,7 +86,7 @@
                     <form action = "addUserServlet" method ="post" name="registerUser" onsubmit="return validateForm()">
                         <div class="col-sm-10 col-lg-offset-1">
                             <div class="row">
-
+                                <input type = "hidden" name ="user_type" value ="regular_mentee">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Full Name</label> 
                                     <input id="name" type="text" name="name" placeholder="Enter Full Name Here.." class="form-control" required>
@@ -131,16 +132,29 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 form-group required">
-                                    <label class="control-label">Company</label> not found sign up <a href="registerIncubationCompany.jsp">here</a>
-
-                                    <select class="form-control" id="select" name="company" required>
-                                        <%
+                                    
+                                    <%
+                                        int companyid = 0;
+                                        String id = request.getParameter("id");
+                                        if(id!=null){
+                                            companyid = Integer.parseInt(id);
+                                        }
+                                        Company company = companyController.getCompany(companyid);
+                                        String companyName = "";
+                                        if(company!=null){
+                                            companyName = company.getName();
+                                        }
+                                    %>
+                                    <input type ="hidden" name ="company" value ="<%=companyid%>" >
+                                    <label class="control-label">Company: <%=companyName%></label> 
+                                    <!--select class="form-control" id="select" name="company" required>
+                                        <%--
                                             ArrayList<Company> companies = loginController.getAllCompanies();
                                             for (Company c : companies) {
                                                 out.println("<option value='" + c.getId() + "'>" + c.getName() + "</option>");
                                             }
-                                        %>
-                                    </select>
+                                        --%>
+                                    </select>-->
                                 </div>	
 
                                 <div class="col-sm-4 form-group required">

@@ -155,13 +155,13 @@ public class registerCompanyServlet extends HttpServlet {
         
         //email admin and founders that the company is registered
         String [] admin = {"jiatung1218@gmail.com"};
-        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear founders of "+name+ ", Application to IIE is currently being proccessed, we will send you an email once the application is accepted! Thank you! ", stakeholders)){
+        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear founders of "+name+ ", \n Application to IIE is currently being proccessed, we will send you an email once the application is accepted! \n Thank you! ", stakeholders, "IIE Portal Application Success")){
             System.out.println("email has been sent successfully");
         }else{
             System.out.println("email could not be sent");
         }
         
-        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear EIR, "+name+ " has applied to IIE kindly review the company details through the portal, Thank you!", admin)){
+        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear EIR, \n"+name+ " has applied to IIE. \n Kindly review the company details through the portal \n Thank you!", admin, "IIE Portal Notification")){
             System.out.println("email has been sent successfully");
         }else{
             System.out.println("email could not be sent");
