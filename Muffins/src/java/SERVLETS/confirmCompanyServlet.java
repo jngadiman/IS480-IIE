@@ -64,12 +64,16 @@ public class confirmCompanyServlet extends HttpServlet {
             //generates a random access code
             String accessCode = registrationController.randomPassword();
             System.out.println("ACCESS CODE" + accessCode);
+            
             //add the founder emails into Users table with the password as accesscode
             for(String s: founders){
                 User u = new User(s, accessCode, companyID);
                 registrationController.addUser(u);
                 System.out.println("USERS IN CONFIRM COMPANY SERVLET "+u);
             }
+            
+            //change stage of the company to 1
+            companyController.changeCompanyStage(1, companyID);
             
             
             //send email of the unhashed accessCode to founders

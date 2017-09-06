@@ -74,6 +74,11 @@ public class companyController {
         return status;
     }
     
+    public static int changeCompanyStage(int stage, int companyID){
+        int result = CompanyDAO.changeCompanyStage(stage, companyID);
+        return result;
+    }
+    
     public static void main(String[] args){
 //            Company c = companyController.getCompany(6);
 //            System.out.println(c.getId());

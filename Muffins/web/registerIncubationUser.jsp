@@ -145,7 +145,7 @@
                                             companyName = company.getName();
                                         }
                                     %>
-                                    <input type ="hidden" name ="company" value ="<%=companyid%>">
+                                    <input type ="hidden" name ="company" value ="<%=companyid%>" >
                                     <label class="control-label">Company: <%=companyName%></label> 
                                     <!--select class="form-control" id="select" name="company" required>
                                         <%--

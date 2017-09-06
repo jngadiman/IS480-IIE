@@ -84,12 +84,11 @@ public class addUserServlet extends HttpServlet {
             //user is not validated
             errorMsg = "Invalid email/access code!";
             request.setAttribute("status", errorMsg);
-            //request.setAttribute("company_id",companyID);
             RequestDispatcher rd = request.getRequestDispatcher("registerIncubationUser.jsp");
             rd.forward(request, response);
         
         }else {
-            User user = new User(email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
+            User user = new User(email, password, name, nric, null, user_type,companyID , role, equity, number, nationality);
             Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
 
             //edit user instead of add user because the user is added once activated
