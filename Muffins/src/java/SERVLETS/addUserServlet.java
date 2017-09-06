@@ -79,10 +79,12 @@ public class addUserServlet extends HttpServlet {
         }
 
         //validate if the access code is correct
-        if ((currentUser = loginController.validateUser(email, accessCode)) == null) {
+        currentUser = loginController.validateUser(email, accessCode);
+        if (currentUser == null) {
             //user is not validated
             errorMsg = "Invalid email/access code!";
-            request.setAttribute("registerStatus", errorMsg);
+            request.setAttribute("status", errorMsg);
+            //request.setAttribute("company_id",companyID);
             RequestDispatcher rd = request.getRequestDispatcher("registerIncubationUser.jsp");
             rd.forward(request, response);
         
@@ -92,9 +94,10 @@ public class addUserServlet extends HttpServlet {
 
             //edit user instead of add user because the user is added once activated
             int status = registrationController.editUser(user);
+            loginController.updateUserPassword(email, password);
             int result = registrationController.addMentee(mentee);
             if (result == 1 && status == 1) {
-                request.setAttribute("registerStatus", "Registration is successful!");
+                request.setAttribute("status", "Registration is successful!");
             }
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);

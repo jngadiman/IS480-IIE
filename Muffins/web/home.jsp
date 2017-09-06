@@ -4,6 +4,7 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.Company"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Mentee"%>
@@ -33,8 +34,12 @@
                 mentorName = mentorController.getMentor(mentorEmail).getName();
             }
             
+            Company company = companyController.getCompany(menteeCompany);
+            int companyStage = 0;
+            if(company!=null){
+                companyStage = company.getCurrentStage();
+            }
             
-            int companyStage = companyController.getCompany(menteeCompany).getCurrentStage();
             
         %>
 

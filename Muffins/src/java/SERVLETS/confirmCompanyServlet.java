@@ -44,6 +44,13 @@ public class confirmCompanyServlet extends HttpServlet {
         String stakeholders = request.getParameter("stakeholders");
         String companyName = request.getParameter("company");
         String company_id = request.getParameter("company_id");
+        
+        System.out.println("----CONFIRM COMPANY SERVLET---- ");
+        
+        int companyID = 0;
+        if (company_id != null) {
+            companyID = Integer.parseInt(company_id);
+        }
         ArrayList<String> status = new ArrayList<String>();
         //String errorMsg = "";
         String[] founders = null;
@@ -52,18 +59,21 @@ public class confirmCompanyServlet extends HttpServlet {
             founders = stakeholders.split(","); //store all founders email
         }
         
-        if(activated!=null && !activated.equals("")){
+        if(activated!=null &&!activated.equals("")){
+            System.out.println("USER IS ACTIVATED");
             //generates a random access code
             String accessCode = registrationController.randomPassword();
             System.out.println("ACCESS CODE" + accessCode);
             //add the founder emails into Users table with the password as accesscode
-                for(String s: founders){
-                    registrationController.addUser(new User(s, accessCode));
-                }
+            for(String s: founders){
+                User u = new User(s, accessCode, companyID);
+                registrationController.addUser(u);
+                System.out.println("USERS IN CONFIRM COMPANY SERVLET "+u);
+            }
             
             
             //send email of the unhashed accessCode to founders
-            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been accepted into IIE Incubation. Kindly click on this link to register and provide the access code attached: "+accessCode, founders)){
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been accepted into IIE Incubation. \n Kindly click on this link to register below with the access code provided: \n Access Code: "+accessCode+" \n Registeration Link: http://localhost:8084/Muffins/registerIncubationUser.jsp?id="+companyID, founders,"IIE Portal Enrollment Results")){
                 System.out.println("email has been sent successfully");
             }else{
                 System.out.println("email could not be sent");
@@ -71,7 +81,7 @@ public class confirmCompanyServlet extends HttpServlet {
 
             //send email to EIR and admin
             String [] admin = {"jiatung1218@gmail.com"};
-            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been accepted into IIE Incubation.", admin)){
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been accepted into IIE Incubation.", admin, "IIE Portal Notification")){
                 System.out.println("email has been sent successfully");
             }else{
                 System.out.println("email could not be sent");
@@ -82,18 +92,14 @@ public class confirmCompanyServlet extends HttpServlet {
             request.setAttribute("status", status);
             request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
            
-        }
-        
-        if(declined!=null &&!declined.equals("")){
+        }else if(declined!=null &&!declined.equals("")){
+            System.out.println("USER IS DELETED");
+            
             //delete the company from company table
-            int companyID = 0;
-            if (company_id!=null){
-                companyID = Integer.parseInt(company_id);
-            }
             companyController.deleteCompany(companyID);
             
             //send email of the decline message to founders
-            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "I regret to inform you that, "+companyName+ " have not been accepted into IIE Incubation. ",founders)){
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "I regret to inform you that, "+companyName+ " have not been accepted into IIE Incubation. ",founders, "IIE Portal Enrollment Results")){
                 System.out.println("email has been sent successfully");
             }else{
                 System.out.println("email could not be sent");
@@ -102,9 +108,12 @@ public class confirmCompanyServlet extends HttpServlet {
             status.add("Company is declined, an email will be sent to the founders.");
             request.setAttribute("status", status);
             request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
+        }else{
+            status.add("An error had occured!");
+            request.setAttribute("status", status);
+            request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
         }
-        request.setAttribute("errorMsg", "An error had occured");
-        request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
