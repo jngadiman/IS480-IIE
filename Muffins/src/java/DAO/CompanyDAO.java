@@ -48,8 +48,8 @@ public class CompanyDAO {
         byte[] acraFile = null;
         Blob biz_slides = null;
         byte[] bizSlides = null;
-        Blob app_form = null;
-        byte[] appForm = null;
+        Blob agreement_form = null;
+        byte[] agreementForm = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -105,11 +105,11 @@ public class CompanyDAO {
                     bizSlides = null;
                 }
                 
-                app_form = result.getBlob("application_form");
-                if(app_form != null){
-                    appForm = app_form.getBytes(1, (int) app_form.length());
+                agreement_form = result.getBlob("agreement_form");
+                if(agreement_form != null){
+                    agreementForm = agreement_form.getBytes(1, (int) agreement_form.length());
                 }else{
-                    bizSlides = null;
+                    agreementForm = null;
                 }
                 
                String [] stakeholders = null;
@@ -117,7 +117,7 @@ public class CompanyDAO {
                     stakeholders = company_founders.split(",");
                 }
                 
-                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, agreementForm);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,8 +151,8 @@ public class CompanyDAO {
         byte[] acraFile = null;
         Blob biz_slides = null;
         byte[] bizSlides = null;
-        Blob app_form = null;
-        byte[] appForm = null;
+        Blob agreement_form = null;
+        byte[] agreementForm = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -207,18 +207,18 @@ public class CompanyDAO {
                     bizSlides = null;
                 }
                 
-                app_form = result.getBlob("application_form");
-                if(app_form != null){
-                    appForm = app_form.getBytes(1, (int) app_form.length());
+                agreement_form = result.getBlob("agreement_form");
+                if(agreement_form != null){
+                    agreementForm = agreement_form.getBytes(1, (int) agreement_form.length());
                 }else{
-                    bizSlides = null;
+                    agreementForm = null;
                 }
                 String [] stakeholders = null;
                 if(company_founders!=null){
                     stakeholders = company_founders.split(",");
                 }
                 
-                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, agreementForm);
                 
                 companies.add(c);
             }
@@ -255,8 +255,8 @@ public class CompanyDAO {
         byte[] acraFile = null;
         Blob biz_slides = null;
         byte[] bizSlides = null;
-        Blob app_form = null;
-        byte[] appForm = null;
+        Blob agreement_form = null;
+        byte[] agreementForm = null;
         Date date = new Date();
         int currentstage = 0;
 
@@ -310,18 +310,18 @@ public class CompanyDAO {
                     bizSlides = null;
                 }
                 
-                app_form = result.getBlob("application_form");
-                if(app_form != null){
-                    appForm = app_form.getBytes(1, (int) app_form.length());
+                agreement_form = result.getBlob("agreement_form");
+                if(agreement_form != null){
+                    agreementForm = agreement_form.getBytes(1, (int) agreement_form.length());
                 }else{
-                    bizSlides = null;
+                    agreementForm = null;
                 }
                 String [] stakeholders = null;
                 if(company_founders!=null){
                     stakeholders = company_founders.split(",");
                 }
                 
-                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+                c = new Company(company_id, company_name, company_description, stakeholders, fulltimers, parttimers, industry, date, currentstage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, agreementForm);
                 
                 companies.add(c);
             }
@@ -522,9 +522,9 @@ public class CompanyDAO {
                 stmt.setBlob(16, (Blob) null);
             }
             
-            if(c.getAppForm() != null){
+            if(c.getAgreementForm() != null){
                 //convert byte[] to Blob object before putting into db
-                Blob blob = new SerialBlob(c.getAppForm());
+                Blob blob = new SerialBlob(c.getAgreementForm());
 
                 stmt.setBlob(17, blob);
             }else{

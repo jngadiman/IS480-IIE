@@ -65,7 +65,7 @@
                     <tr>
                        <td><%=company.getCompanyLogo()%></td>
                         <td><%=company.getName()%></td>
-                        <td><%=company.getAcraFile()%><%=company.getAppForm()%></td>
+                        <td><%=company.getAcraFile()%><%=company.getAgreementForm()%></td>
                         <td><%= company.getProductDiff()%></td>
                         <td><%=company.getRevenueModel()%></td>
                         <td><%=company.getTraction()%></td>
@@ -77,6 +77,7 @@
                                 <input type ="hidden" name ="company" value ="<%=company.getName()%>">
                                 <input type ="hidden" name ="company_id" value ="<%=company.getId()%>">
                                 <div class="panel-body">
+                                <button type="submit" class="btn btn-success btn-xs" value="shortlist" name="shortListBtn"/>Shortlist</button>
                                 <button type="submit" class="btn btn-success btn-xs" value="activated" name="activateBtn"/>Activate</button>
                                 <button type="submit" class="btn btn-danger btn-xs"  value="declined" name="rejectBtn"/>Reject</button>
                                 </div>

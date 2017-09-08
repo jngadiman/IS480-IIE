@@ -41,6 +41,7 @@ public class confirmCompanyServlet extends HttpServlet {
         
         String activated = request.getParameter("activateBtn");
         String declined = request.getParameter("rejectBtn");
+        String shortlist = request.getParameter("shortListBtn");
         String stakeholders = request.getParameter("stakeholders");
         String companyName = request.getParameter("company");
         String company_id = request.getParameter("company_id");
@@ -112,6 +113,30 @@ public class confirmCompanyServlet extends HttpServlet {
             status.add("Company is declined, an email will be sent to the founders.");
             request.setAttribute("status", status);
             request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
+            
+        }else if(shortlist!=null &&!shortlist.equals("")){
+            
+            //send email of the unhashed accessCode to founders
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been shortlisted to join IIE Incubation Programme. \n It will be held on the 21/09/2017, 12PM at SMU BIG Meeting Room. Please come 15 minutes early to ensure that you get a chance to pitch!", founders,"IIE Portal Enrollment Results")){
+                System.out.println("email has been sent successfully");
+            }else{
+                System.out.println("email could not be sent");
+            }
+
+            //send email to EIR and admin
+            String [] admin = {"jiatung1218@gmail.com"};
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been shortlisted into IIE Incubation.", admin, "IIE Portal Notification")){
+                System.out.println("email has been sent successfully");
+            }else{
+                System.out.println("email could not be sent");
+            }
+            
+            
+            status.add("Company has been shortlisted to join the Incubation Programme. Activation Email is sent to the founders!");
+            request.setAttribute("status", status);
+            request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
+            
+            
         }else{
             status.add("An error had occured!");
             request.setAttribute("status", status);

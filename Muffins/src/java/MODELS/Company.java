@@ -29,11 +29,11 @@ public class Company {
     private String deployOfFunds;
     private byte[] acraFile;
     private byte[] bizFile;
-    private byte[] appForm;
+    private byte[] agreementForm;
     
     //constructor for incubator registration
 
-    public Company(int id, String name, String description, String [] stakeholders, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, String productDiff, String revenueModel, String traction, String deployOfFunds, byte[] acraFile, byte[] bizFile, byte[] appForm) {
+    public Company(int id, String name, String description, String [] stakeholders, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, String productDiff, String revenueModel, String traction, String deployOfFunds, byte[] acraFile, byte[] bizFile, byte[] agreementForm) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -50,7 +50,7 @@ public class Company {
         this.deployOfFunds = deployOfFunds;
         this.acraFile = acraFile;
         this.bizFile = bizFile;
-        this.appForm = appForm;
+        this.agreementForm = agreementForm;
     }
 
     
@@ -227,11 +227,11 @@ public class Company {
         this.bizFile = bizFile;
     }
 
-    public byte[] getAppForm() {
-        return appForm;
+    public byte[] getAgreementForm() {
+        return agreementForm;
     }
 
-    public void setAppForm(byte[] appForm) {
-        this.appForm = appForm;
+    public void setAgreementForm(byte[] agreementForm) {
+        this.agreementForm = agreementForm;
     }
 }
