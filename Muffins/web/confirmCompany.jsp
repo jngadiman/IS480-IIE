@@ -28,6 +28,7 @@
                 }
 
                 ArrayList<Company> pendingCompanies = companyController.getCompaniesInStage(0);
+                out.println("Pending companies - "+pendingCompanies.size());
 
                 if (pendingCompanies != null && pendingCompanies.size() != 0) {
                     
@@ -65,11 +66,8 @@
                     <tr>
                        <td><%=company.getCompanyLogo()%></td>
                         <td><%=company.getName()%></td>
-                        <td><%=company.getAcraFile()%><%=company.getAgreementForm()%></td>
+                        <td><%=company.getAcraFile()%><%=company.getBizFile()%></td>
                         <td><%= company.getProductDiff()%></td>
-                        <td><%=company.getRevenueModel()%></td>
-                        <td><%=company.getTraction()%></td>
-                        <td><%=company.getDeployOfFunds()%></td>
                         <td>
                             <form action = "confirmCompanyServlet" method="post">
                                 
@@ -77,11 +75,34 @@
                                 <input type ="hidden" name ="company" value ="<%=company.getName()%>">
                                 <input type ="hidden" name ="company_id" value ="<%=company.getId()%>">
                                 <div class="panel-body">
-                                <button type="submit" class="btn btn-success btn-xs" value="shortlist" name="shortListBtn"/>Shortlist</button>
+                                <button type="button" class="btn btn-warning btn-xs" value="shortlist" data-toggle="modal" data-target="#shortlistModal" name="shortListBtn"/>Shortlist</button>
+                                <div class="container">
+                      
+                                <!-- Modal -->
+                                <div class="modal fade" id="shortlistModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Modal Header</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Some text in the modal.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
                                 <button type="submit" class="btn btn-success btn-xs" value="activated" name="activateBtn"/>Activate</button>
                                 <button type="submit" class="btn btn-danger btn-xs"  value="declined" name="rejectBtn"/>Reject</button>
                                 </div>
-                                
                             </form>
                         </td>
                         <!--<a href="#" class="btn btn-success btn-xs">Accept</a><a href="#" class="btn btn-danger btn-xs">Reject</a></td>-->
