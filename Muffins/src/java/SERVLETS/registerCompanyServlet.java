@@ -118,7 +118,8 @@ public class registerCompanyServlet extends HttpServlet {
             }
         }
         String [] stakeholders = shareholders.split(",");
-        Company c = new Company(companyID, name, description, stakeholders, 0, 0, industry, null, current_stage, companyLogo, productDiff, null, null, null, acraFile, bizSlides, null);
+        Date startDate = new Date();
+        Company c = new Company(companyID, name, description, stakeholders, 0, 0, industry, startDate, current_stage, companyLogo, productDiff, null, null, null, acraFile, bizSlides, null);
         String status = registrationController.addCompany(c);
         
         
