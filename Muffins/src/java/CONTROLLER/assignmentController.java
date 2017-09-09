@@ -6,6 +6,7 @@
 package CONTROLLER;
 
 import DAO.CompanyDAO;
+import DAO.PreferenceDAO;
 import DAO.RelationshipDAO;
 import DAO.UserDAO;
 import MODELS.Company;
@@ -61,12 +62,6 @@ public class assignmentController {
     public static Relationship getRelationship(int rlsID){
         Relationship r = RelationshipDAO.getRelationship(rlsID);
         return r;
-    }
-    
-    public static ArrayList<Preference> getPreferencesByMentee(){
-        ArrayList<Preference> menteePreferences = new ArrayList<Preference>();
-        
-        return menteePreferences;
     }
     
     public static void main(String[] args){

@@ -4,6 +4,8 @@
     Author     : Hui Min
 --%>
 
+<%@page import="CONTROLLER.preferenceController"%>
+<%@page import="MODELS.Preference"%>
 <%@page import="java.util.Base64"%>
 <%@page import="MODELS.Company"%>
 <%@page import="MODELS.Mentor"%>
@@ -31,20 +33,21 @@
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade" id="incubation">-->
             <div class="container-fluid">
-                <%  ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
-                //preferenceController.getPreferencesOfCompany(int companyID)
+                <%  
+                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
+                    ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
                     String requestStatus = (String) session.getAttribute("requestStatus");
-                    if (noMentorCompanies != null || requestStatus.equals("all")) {
+                    if (preferences != null || requestStatus.equals("all")) {
                 %>
                 <div class="row">
                     <div class="col-md-8 well col-md-offset-2">
                         
                         <ul class="nav nav-pills ">
-                                <li class=""><a href="#">Pending <span class="badge"><%=noMentorCompanies.size()%></span></a></li>
+                                <li class=""><a href="#">Pending <span class="badge"><%=preferences.size()%></span></a></li>
                         </ul>            
                         <form action="adminPendingRequestServlet" method="post">
                             <%  
-                                for (Company c: noMentorCompanies) {
+                                for (Company c: companies) {
                             %>
                             <div class="col-lg-4 well">
                                  <% 
@@ -62,6 +65,9 @@
 
                                 <div class="row">
                                     <p><strong>Preferred Mentors:</strong></p>
+                                    <%
+                                        ArrayList<Mentor> mentors = mentorController.getMentors();
+                                    %>
                                     <p>retrieve mentor names and display here</p>
                                 </div>
                             <%

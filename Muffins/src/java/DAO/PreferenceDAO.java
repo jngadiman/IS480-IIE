@@ -35,6 +35,7 @@ public class PreferenceDAO {
         Date start_date = new Date();
         String endDate = "";
         Date end_date = new Date();
+        String need = "";
         String dateSent = "";
         Date date_sent = new Date();
 
@@ -48,17 +49,30 @@ public class PreferenceDAO {
                 mentor_email = result.getString("mentor_email");
                 startDate = result.getString("start_date");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    start_date = dateformat.parse(startDate);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
+                
+                if(startDate != null && !startDate.isEmpty()){
+                    try {
+                        start_date = dateformat.parse(startDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    start_date = null;
+                }
+                
                 endDate = result.getString("end_date");
-                try {
-                    end_date = dateformat.parse(endDate);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
+                if(endDate != null && !endDate.isEmpty()){
+                    try {
+                        end_date = dateformat.parse(endDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    end_date = null;
+                }
+                
+                need = result.getString("need");
+                
                 dateSent = result.getString("date_sent");
                 if(dateSent != null && !dateSent.isEmpty()){
                     try {
@@ -69,7 +83,7 @@ public class PreferenceDAO {
                 }else{
                     date_sent = null;
                 }
-                p = new Preference(company_id, mentor_email, start_date, end_date,date_sent);
+                p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
                 preferences.add(p);
             }
 
@@ -92,6 +106,7 @@ public class PreferenceDAO {
         Date start_date = new Date();
         String endDate = "";
         Date end_date = new Date();
+        String need = "";
         String dateSent = "";
         Date date_sent = new Date();
 
@@ -107,17 +122,29 @@ public class PreferenceDAO {
                 mentor_email = result.getString("mentor_email");
                 startDate = result.getString("start_date");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    start_date = dateformat.parse(startDate);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
+                if(startDate != null && !startDate.isEmpty()){
+                    try {
+                        start_date = dateformat.parse(startDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    start_date = null;
+                }
+                
                 endDate = result.getString("end_date");
-                try {
-                    end_date = dateformat.parse(endDate);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
+                if(endDate != null && !endDate.isEmpty()){
+                    try {
+                        end_date = dateformat.parse(endDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    end_date = null;
+                }
+                
+                need = result.getString("need");
+                
                 dateSent = result.getString("date_sent");
                 if(dateSent != null && !dateSent.isEmpty()){
                     try {
@@ -130,7 +157,7 @@ public class PreferenceDAO {
                 }
             }
             
-            p = new Preference(company_id, mentor_email, start_date, end_date,date_sent);
+            p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -151,12 +178,13 @@ public class PreferenceDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("INSERT INTO mentor_preference (company_id, mentor_email, start_date, end_date, date_sent)" + "VALUES (?, ?, ?, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO mentor_preference (company_id, mentor_email, start_date, end_date, need, date_sent)" + "VALUES (?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, p.getCompany_id());
             stmt.setString(2, p.getMentor_email());
             stmt.setString(3, df.format(p.getStart_date()));
             stmt.setString(4, df.format(p.getEnd_date()));
-            stmt.setString(5, df.format(p.getDate_sent()));
+            stmt.setString(5, p.getNeed());
+            stmt.setString(6, df.format(p.getDate_sent()));
             
             result = stmt.executeUpdate();
           
@@ -206,6 +234,50 @@ public class PreferenceDAO {
         return true;
     }
     
+    public static int editPreference(Preference p) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        int result = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            
+            stmt = conn.prepareStatement("UPDATE mentor_preference SET  mentor_email = ?, start_date = ?, end_date = ?, need = ?, date_sent = ? WHERE company_id = ?;");
+            stmt.setString(1, p.getMentor_email());
+            if(p.getStart_date() != null){
+                stmt.setString(2, df.format(p.getStart_date()));
+            }else{
+                stmt.setString(2, null);
+            }
+            if(p.getEnd_date() != null){
+                stmt.setString(3, df.format(p.getEnd_date()));
+            }else{
+                stmt.setString(3, null);
+            }
+            stmt.setString(4, p.getNeed());
+            
+            if(p.getDate_sent() != null){
+                stmt.setString(5, df.format(p.getDate_sent()));
+            }else{
+                stmt.setString(5, null);
+            }
+            stmt.setInt(6, p.getCompany_id());
+            
+            result = stmt.executeUpdate();
+            //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
     public static ArrayList<Preference> getPreferencesOfCompany(int companyID){
         ArrayList<Preference> preferences = new ArrayList<Preference>();
         Preference p = null;
@@ -218,6 +290,7 @@ public class PreferenceDAO {
         Date start_date = new Date();
         String endDate = "";
         Date end_date = new Date();
+        String need = "";
         String dateSent = "";
         Date date_sent = new Date();
 
@@ -232,17 +305,29 @@ public class PreferenceDAO {
                 mentor_email = result.getString("mentor_email");
                 startDate = result.getString("start_date");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    start_date = dateformat.parse(startDate);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
+                if(startDate != null && !startDate.isEmpty()){
+                    try {
+                        start_date = dateformat.parse(startDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    start_date = null;
+                }
+                
                 endDate = result.getString("end_date");
-                try {
-                    end_date = dateformat.parse(endDate);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                } 
+                if(endDate != null && !endDate.isEmpty()){
+                    try {
+                        end_date = dateformat.parse(endDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    end_date = null;
+                }
+                
+                need = result.getString("need");
+                
                 dateSent = result.getString("date_sent");
                 if(dateSent != null && !dateSent.isEmpty()){
                     try {
@@ -254,7 +339,7 @@ public class PreferenceDAO {
                     date_sent = null;
                 }
                 
-                p = new Preference(company_id, mentor_email, start_date, end_date,date_sent);
+                p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
                 preferences.add(p);
             }
             
@@ -271,12 +356,13 @@ public class PreferenceDAO {
         //Preference p = new Preference(5, "mentor3@hotmail.com", new Date(), new Date(), new Date());
 //        boolean success = PreferenceDAO.deletePreference(5, "mentor3@hotmail.com");
 //        System.out.println(success);
-        ArrayList<Preference> preferences = PreferenceDAO.getPreferencesOfCompany(1);
+        ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
         for(Preference p: preferences){
             System.out.println(p.getCompany_id());
             System.out.println(p.getMentor_email());
             System.out.println(p.getStart_date());
             System.out.println(p.getEnd_date());
+            System.out.println(p.getNeed());
             System.out.println(p.getDate_sent());
         }
     }

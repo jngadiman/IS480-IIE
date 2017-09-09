@@ -5,7 +5,9 @@
  */
 package CONTROLLER;
 
+import DAO.CompanyDAO;
 import DAO.PreferenceDAO;
+import MODELS.Company;
 import MODELS.Preference;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +25,19 @@ public class preferenceController {
             status = "Preference could not be added!";
         }else{
             status = "Preference has been sent successfully!";
+        }
+        
+        return status;
+    }
+    
+    public static String editPreference(Preference p){
+        int result = PreferenceDAO.editPreference(p);
+        String status = "";
+        
+        if(result == 1){
+            status = "Preference has been edited!";
+        }else{
+            status = "Preference could not be edited!";
         }
         
         return status;
@@ -54,7 +69,19 @@ public class preferenceController {
     public static ArrayList<Preference> getPreferencesOfCompany(int companyID){
         ArrayList<Preference> preferences = PreferenceDAO.getPreferencesOfCompany(companyID);
         return preferences;
-    }        
+    }       
+    
+    public static ArrayList<Company> getCompaniesWPreference(){
+        ArrayList<Company> companies = new ArrayList<Company>();
+        ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
+        for(Preference p: preferences){
+            int company_id = p.getCompany_id();
+            Company c = CompanyDAO.getCompany(company_id);
+            companies.add(c);
+        }
+        
+        return companies;
+    }
             
     public static void main(String[] args){
         ArrayList<Preference> preferences = preferenceController.getPreferencesOfCompany(2);
