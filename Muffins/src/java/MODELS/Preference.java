@@ -16,13 +16,15 @@ public class Preference {
     private String mentor_email;
     private Date start_date;
     private Date end_date;
+    private String need;
     private Date date_sent;
 
-    public Preference(int company_id, String mentor_email, Date start_date, Date end_date, Date date_sent) {
+    public Preference(int company_id, String mentor_email, Date start_date, Date end_date, String need, Date date_sent) {
         this.company_id = company_id;
         this.mentor_email = mentor_email;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.need = need;
         this.date_sent = date_sent;
     }
 
@@ -56,6 +58,14 @@ public class Preference {
 
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
+    }
+
+    public String getNeed() {
+        return need;
+    }
+
+    public void setNeed(String need) {
+        this.need = need;
     }
 
     public Date getDate_sent() {

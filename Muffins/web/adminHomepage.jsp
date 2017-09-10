@@ -25,10 +25,10 @@
                     <ul class="nav nav-sidebar">
                         <%
                             //print all requesting requests
-                            ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
+                            //ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
                         %>
                         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"><%= noMentorCompanies.size()%></span>  </a> </li>
+                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"></span>  </a> </li>
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>

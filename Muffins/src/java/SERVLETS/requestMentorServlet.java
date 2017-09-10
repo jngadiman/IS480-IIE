@@ -44,11 +44,12 @@ public class requestMentorServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
         Date startDate = (Date) session.getAttribute("start_date");
         Date endDate = (Date) session.getAttribute("end_date");
+        String need = (String) session.getAttribute("need");
         String yes = request.getParameter("yesBtn");
         if(yes != null){
             int company_id = currentUser.getCompanyid();
             Date dateSent = new Date();
-            Preference p = new Preference(company_id, m.getEmail(), startDate, endDate, dateSent);
+            Preference p = new Preference(company_id, m.getEmail(), startDate, endDate, need, dateSent);
             String status = preferenceController.addPreference(p);
             session.setAttribute("status", status);
             response.sendRedirect("requestForMentorProfile.jsp");

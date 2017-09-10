@@ -37,7 +37,6 @@
         %>
         <div class="container">
             <h2 class="col-lg-10 well col-sm-offset-1">List of Mentors</h2>
-<<<<<<< HEAD
             <%
                 String type = request.getParameter("type");
                 session.setAttribute("requestType", type);
@@ -48,9 +47,6 @@
                     //print out the dates in the text box if found
                 }
             %> 
-=======
-
->>>>>>> 4dd3d7acff27c12bead5b60895ca03b45a226f1e
             <div class="col-lg-10 well col-sm-offset-1">
                 <div class="row">
                     <form action="retrieveMentorPeriodServlet" method="post">
@@ -60,22 +56,18 @@
                     <div class="col-sm-5 form-group">
                         <p><strong>Start Date</strong> : </p>
                         <% if (session.getAttribute("start_date") == null) {%>
-                        <input id=mentor_period"  name="start_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
+                            <input id=mentor_period"  name="start_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
                         <%} else {%>
-<<<<<<< HEAD
                             <input id=mentor_period"  name="start_date" text=<%=session.getAttribute("start_date")%> type="text" class="form-control">
-=======
-                        <input id=mentor_period"  name="start_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
->>>>>>> 4dd3d7acff27c12bead5b60895ca03b45a226f1e
                         <%}%>
                     </div>
 
                     <div class="col-sm-5 form-group">
                         <p><strong>End Date</strong> : </p>
                         <% if (session.getAttribute("start_date") == null) {%>
-                        <input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
+                            <input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control">
                         <%} else {%>
-                        <input id=mentor_period"  name="end_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
+                            <input id=mentor_period"  name="end_date" text=<%=session.getAttribute("sart_date")%> type="text" class="form-control">
                         <%}%>
                     </div>
 
@@ -83,7 +75,6 @@
                         <br>
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                     </div>
-<<<<<<< HEAD
                     </form>
                 </div>
                     
@@ -91,22 +82,13 @@
                     for (Mentor m : mentors) {
                         Company c = companyController.getCompany(m.getCompanyid());
                 %>       
-=======
-
                 </div>
->>>>>>> 4dd3d7acff27c12bead5b60895ca03b45a226f1e
 
                 <form action="requestForMentorViewServlet" method="post">
 
-                    <% String type = request.getParameter("type");
-                        session.setAttribute("requestType", type);
-                        ArrayList<Mentor> mentors = MentorDAO.getMentors();
-                        for (Mentor m : mentors) {
-                    %>
                     <div class="col-lg-6 well">
 
                         <%
-                            Company c = companyController.getCompany(m.getCompanyid());
                             // display the image
                             byte[] imgData = m.getProfile_pic();
                             if (imgData != null) {

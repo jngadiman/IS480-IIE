@@ -100,7 +100,7 @@ public class editCompanyServlet extends HttpServlet {
             inputStream1 = filePart1.getInputStream();
             biz_slides = IOUtils.toByteArray(inputStream1);
         }else{
-            biz_slides = c.getAppForm();
+            biz_slides = c.getAgreementForm();
         }
         
         String [] stakeholders = shareholders.split(",");
@@ -120,9 +120,9 @@ public class editCompanyServlet extends HttpServlet {
         System.out.println(c.getDeployOfFunds());
         System.out.println(c.getAcraFile());
         System.out.println(c.getBizFile());
-        System.out.println(c.getAppForm());
+        System.out.println(c.getAgreementForm());
         
-        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAppForm());
+        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAgreementForm());
         
         String status = companyController.editCompany(company);
         request.setAttribute("updateStatus", status);

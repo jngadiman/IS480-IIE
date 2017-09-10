@@ -74,8 +74,9 @@ public class registrationController {
         return status;
     }
     public static void main(String[] args){
-        int companyID = registrationController.getNextCompanyID();
-        System.out.println(companyID);
+        Company c = new Company(11, "Banana", "sell bananas", new String[]{"shm_zen@hotmail.com"}, 0, 0, 302020, new Date(), 0, null, null, null, null, null, null, null, null);
+        String result = registrationController.addCompany(c);
+        System.out.println(result);
     }
     
     

@@ -4,9 +4,14 @@
     Author     : Hui Min
 --%>
 
+<<<<<<< HEAD
 <%@page import="DAO.MentorDAO"%>
 <%@page import="MODELS.Preference"%>
 <%@page import="CONTROLLER.preferenceController"%>
+=======
+<%@page import="CONTROLLER.preferenceController"%>
+<%@page import="MODELS.Preference"%>
+>>>>>>> eba72689d61b634a4d72d83c6d04f639725f497e
 <%@page import="java.util.Base64"%>
 <%@page import="MODELS.Company"%>
 <%@page import="MODELS.Mentor"%>
@@ -33,19 +38,33 @@
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade" id="incubation">-->
             <div class="container-fluid">
+<<<<<<< HEAD
                 <%  ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
+=======
+                <%  
+                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
+                    ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
+>>>>>>> eba72689d61b634a4d72d83c6d04f639725f497e
                     String requestStatus = (String) session.getAttribute("requestStatus");
-                    if (noMentorCompanies != null || requestStatus.equals("all")) {
+                    if (preferences != null || requestStatus.equals("all")) {
                 %>
                 <div class="row">
                     <div class="col-md-10 well col-md-offset-1">
 
                         <ul class="nav nav-pills ">
+<<<<<<< HEAD
                             <li class=""><a href="#">pending <span class="badge"><%=noMentorCompanies.size()%></span></a></li>
                         </ul>            
                         <form action="adminPendingRequestServlet" method="post"> 
                             <%
                                 for (Company c : noMentorCompanies) {
+=======
+                                <li class=""><a href="#">Pending <span class="badge"><%=preferences.size()%></span></a></li>
+                        </ul>            
+                        <form action="adminPendingRequestServlet" method="post">
+                            <%  
+                                for (Company c: companies) {
+>>>>>>> eba72689d61b634a4d72d83c6d04f639725f497e
                             %>
                             <div class="col-lg-4 well">
                                 <%
@@ -65,6 +84,7 @@
                                 <div class="row">
                                     <p><strong>Preferred Mentors:</strong></p>
                                     <%
+<<<<<<< HEAD
                                         for (Preference p : allPreferences){
                                             String mentor_email = p.getMentor_email();
                                             Mentor m = MentorDAO.getMentorByEmail(mentor_email);
@@ -75,6 +95,11 @@
                                         }
                                     %>
                                     <div class="col-lg-6 col-md-offset-3"><a href="mentorAssignment.jsp">Assign Mentor</a></div>
+=======
+                                        ArrayList<Mentor> mentors = mentorController.getMentors();
+                                    %>
+                                    <p>retrieve mentor names and display here</p>
+>>>>>>> eba72689d61b634a4d72d83c6d04f639725f497e
                                 </div>
                             </div>
                             <%

@@ -49,10 +49,7 @@ public class registerCompanyServlet extends HttpServlet {
         int companyID = registrationController.getNextCompanyID();
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        int numFullTime = Integer.parseInt(request.getParameter("fulltimer"));
-        int numPartTime = Integer.parseInt(request.getParameter("parttimer"));
         int industry = Integer.parseInt(request.getParameter("industry"));
-        String start_date = request.getParameter("start_date");
         String shareholders = request.getParameter("shareholders");
         int current_stage = 0; //set as 0 because this company is not accepted in incubation yet
         String companyType = request.getParameter("companyType");
@@ -73,14 +70,6 @@ public class registerCompanyServlet extends HttpServlet {
             }
         }
         
-        Date startDate = null;
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            startDate = df.parse(start_date);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-        
         byte[] companyLogo = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("company_logo");
@@ -96,25 +85,6 @@ public class registerCompanyServlet extends HttpServlet {
         }   
         
         String productDiff = request.getParameter("product_differetiation");
-        String revenueModel = request.getParameter("revenue_model");
-        String traction = request.getParameter("traction");
-        String deployOfFunds = request.getParameter("deployment_of_funds");
-        
-        byte[] appForm = null;
-        InputStream inputStream1 = null; // input stream of the upload file
-        Part filePart1 = request.getPart("application_form");
-        if(filePart1 != null){
-            if (filePart1.getSubmittedFileName() != null && !filePart1.getSubmittedFileName().isEmpty()) {
-                // prints out some information for debugging
-                System.out.println(filePart1.getName());
-                System.out.println(filePart1.getSize());
-                System.out.println(filePart1.getContentType());
-
-                // obtains input stream of the upload file
-                inputStream1 = filePart1.getInputStream();
-                appForm = IOUtils.toByteArray(inputStream1);
-            } 
-        }
         
         byte[] acraFile = null;
         InputStream inputStream2 = null; // input stream of the upload file
@@ -148,7 +118,8 @@ public class registerCompanyServlet extends HttpServlet {
             }
         }
         String [] stakeholders = shareholders.split(",");
-        Company c = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, startDate, current_stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, acraFile, bizSlides, appForm);
+        Date startDate = new Date();
+        Company c = new Company(companyID, name, description, stakeholders, 0, 0, industry, startDate, current_stage, companyLogo, productDiff, null, null, null, acraFile, bizSlides, null);
         String status = registrationController.addCompany(c);
         
         
