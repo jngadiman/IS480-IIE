@@ -251,19 +251,19 @@ public class MeetingMinutesDAO {
         ResultSet result = null;
         int status = 0;
         
-        ArrayList<Task> completedTasks = minutes.getTasksToComplete();
+        //ArrayList<Task> completedTasks = minutes.getTasksToComplete();
         int minutesID = minutes.getMinutesID();
         String title = minutes.getTitle();
-        int meeting = minutes.getM().getMeetingID();
-        String mentor = minutes.getMentor().getEmail();
+        //int meeting = minutes.getM().getMeetingID();
+        //String mentor = minutes.getMentor().getEmail();
         String comment = minutes.getComments();
-        String submitted_user = minutes.getSubmittedUser().getEmail();
+        //String submitted_user = minutes.getSubmittedUser().getEmail();
         
         
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement("INSERT INTO meeting_minutes VALUES (?, ?, ?, ?, ?, ?, ?);");
-
+            /*
             for (Task t: completedTasks){
                 stmt.setInt(1, minutesID);
                 stmt.setString(2,title);
@@ -275,7 +275,7 @@ public class MeetingMinutesDAO {
                 status = stmt.executeUpdate();
             }
             
-            
+            */
         } catch (SQLException ex) {
             Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -364,14 +364,99 @@ public class MeetingMinutesDAO {
         }
         return minutesByTask;
     }
-      public static void main(String[] args){
-        boolean minutesID = MeetingMinutesDAO.deleteMeetingMinutesByID(3);
+    
+    public static ArrayList<Integer> getMeetingIDsOfMentor(String mentor_email){
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        //SELECT DISTINCT `meeting_id` FROM `meeting_minutes` WHERE `mentor` = "mentor3@hotmail.com"
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+       
+        int meetingID = 0;
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT DISTINCT `meeting_id` FROM `meeting_minutes` WHERE `mentor` = ?;");
+            
+            stmt.setString(1, mentor_email);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return meetingIDs;
+    }
+            
+    public static ArrayList<MeetingMinutes> getMeetingMinutes(int meetingMinutesID){
+        ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<MeetingMinutes>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        
+        MeetingMinutes mm = null;
+        int minutesID = 0;
+        String title = "";
+        int meetingID = 0;
+        String mentorEmail = "";
+        int taskID = 0;
+        String comments = "";
+        String submitted_user = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from meeting_minutes where minutes_id = ?;");
+            stmt.setInt(1,meetingMinutesID);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                minutesID = result.getInt("minutes_id");
+                title = result.getString("title");
+                meetingID = result.getInt("meeting_id");
+                mentorEmail = result.getString("mentor");
+                taskID = result.getInt("task_id");
+                comments = result.getString("comment");
+                submitted_user = result.getString("submitted_user");
+                mm = new MeetingMinutes(minutesID, title, meetingID, mentorEmail, taskID, comments, submitted_user);
+                meetingMinutes.add(mm);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingMinutes;
+    } 
+            
+    public static void main(String[] args){
+        ArrayList<MeetingMinutes> meetingMinutes = MeetingMinutesDAO.getMeetingMinutes(2);
+        for(MeetingMinutes mm : meetingMinutes){
+            System.out.println(mm.getMinutesID()); 
+            System.out.println(mm.getTitle());
+            System.out.println(mm.getMeeting_id()); 
+            System.out.println(mm.getMentor_email()); 
+            System.out.println(mm.getTask_id()); 
+            System.out.println(mm.getComments());
+            System.out.println(mm.getSubmitted_user()); 
+        }
         //Date deadline = new Date();
 //        for(String task:minutesID){
 //           System.out.println(task); 
 //        }
-
-        System.out.println(minutesID); 
         
     }
         
