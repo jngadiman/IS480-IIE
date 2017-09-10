@@ -13,12 +13,12 @@
 <%@page import="MODELS.*"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="protect.jsp" %>W
+<%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Display Profile</title>
+        <title>Mentor Profile and Assignment</title>
         <%@include file="navbar.jsp" %>
 
     </head>
@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
-                    <h2 class="col-lg-10 well col-sm-offset-1">Personal Profile</h2>
+                    <h2 class="col-lg-10 well col-sm-offset-1">Mentor Profile</h2>
                     <div class="col-lg-10 well col-sm-offset-1">
                         <div class ="row">
 
@@ -115,9 +115,21 @@
                                 <p><strong>Introduction</strong><br>
                                     <%= mentor.getIntroduction()%></p>
                                     <% }%>
-                            </div>                
+                            </div> 
                         </div>
-                    </div>             
+                            
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p><strong>Start Date: </strong><input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control"></p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p><strong>Start Date: </strong><input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control"></p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="submit">Confirm Assignment</button>
+                   
+                    </div> 
+
 
                 </div>
             </div>

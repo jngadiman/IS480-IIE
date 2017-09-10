@@ -4,6 +4,9 @@
     Author     : Hui Min
 --%>
 
+<%@page import="DAO.MentorDAO"%>
+<%@page import="MODELS.Preference"%>
+<%@page import="CONTROLLER.preferenceController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="MODELS.Company"%>
 <%@page import="MODELS.Mentor"%>
@@ -21,7 +24,6 @@
         <%@include file="navbar.jsp" %>
     </head>
     <body>
-        <h1>Requests</h1>
         <div class="col-md-9  col-md-offset-2">
             <!--            <ul class="nav nav-tabs">
                             <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
@@ -32,42 +34,53 @@
                             <div class="tab-pane fade" id="incubation">-->
             <div class="container-fluid">
                 <%  ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
-                //preferenceController.getPreferencesOfCompany(int companyID)
                     String requestStatus = (String) session.getAttribute("requestStatus");
                     if (noMentorCompanies != null || requestStatus.equals("all")) {
                 %>
                 <div class="row">
-                    <div class="col-md-8 well col-md-offset-2">
-                        
+                    <div class="col-md-10 well col-md-offset-1">
+
                         <ul class="nav nav-pills ">
-                                <li class=""><a href="#">Pending <span class="badge"><%=noMentorCompanies.size()%></span></a></li>
+                            <li class=""><a href="#">pending <span class="badge"><%=noMentorCompanies.size()%></span></a></li>
                         </ul>            
-                        <form action="adminPendingRequestServlet" method="post">
-                            <%  
-                                for (Company c: noMentorCompanies) {
+                        <form action="adminPendingRequestServlet" method="post"> 
+                            <%
+                                for (Company c : noMentorCompanies) {
                             %>
                             <div class="col-lg-4 well">
-                                 <% 
+                                <%
+                                    ArrayList<Preference> allPreferences = preferenceController.getPreferencesOfCompany(c.getId());
                                     byte[] imgData = c.getCompanyLogo();
                                     if (imgData != null) {
                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                                 %>
-                                <a href="assignmentPage.jsp"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here"/></a>
-                                <%
-                                    }                            
                                 %>
+                                <a href="mentorAssignment.jsp"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here"/></a>
+                                    <%
+                                        }
+                                    %>
                                 <div class="row">
                                     <p style="text-align:center"><strong><%=c.getName()%></strong></p>
                                 </div>
 
                                 <div class="row">
                                     <p><strong>Preferred Mentors:</strong></p>
-                                    <p>retrieve mentor names and display here</p>
+                                    <%
+                                        for (Preference p : allPreferences){
+                                            String mentor_email = p.getMentor_email();
+                                            Mentor m = MentorDAO.getMentorByEmail(mentor_email);
+                                            String mentor_name = m.getName();
+                                    %>
+                                    <p><%=mentor_name%>, </p>
+                                    <%
+                                        }
+                                    %>
+                                    <div class="col-lg-6 col-md-offset-3"><a href="mentorAssignment.jsp">Assign Mentor</a></div>
                                 </div>
+                            </div>
                             <%
                                 }
                             %>
-                            </div>
+
                         </form>
                         <%
                             }
@@ -76,173 +89,173 @@
                 </div>
             </div>
         </div>
-            <!--                </div>-->
-            <!--                <div class="tab-pane fade active in" id="openmentor">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-8  col-md-offset-2"><ul class="nav nav-pills pull-right">
-                                                <form method="post" action ="adminDisplayRequestsServlet">
-                                                    <li class="active"> Select Filter  <select name = "requestStatus">
-                                                            <option value = "all">All</option>
-                                                            <option value = "requesting">Requested</option>
-                                                            <option value = "approved">Approved</option>
-                                                            <option value = "declined">Declined</option>
-                                                            <option value = "over">Over</option>
-                                                        </select><input class="btn btn-primary btn-xs"type ="submit" value =" Choose "> 
-                                                    </li></form>
-                                            </ul>
-            
-                                        </div>
+        <!--                </div>-->
+        <!--                <div class="tab-pane fade active in" id="openmentor">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-8  col-md-offset-2"><ul class="nav nav-pills pull-right">
+                                            <form method="post" action ="adminDisplayRequestsServlet">
+                                                <li class="active"> Select Filter  <select name = "requestStatus">
+                                                        <option value = "all">All</option>
+                                                        <option value = "requesting">Requested</option>
+                                                        <option value = "approved">Approved</option>
+                                                        <option value = "declined">Declined</option>
+                                                        <option value = "over">Over</option>
+                                                    </select><input class="btn btn-primary btn-xs"type ="submit" value =" Choose "> 
+                                                </li></form>
+                                        </ul>
+        
                                     </div>
-            
-                                    <div class="row">
-            
-                                        <div class="col-md-8 well col-md-offset-2">
-                                            <ul class="nav nav-pills ">
-                                                <li class=""><a href="#">Pending <span class="badge">3</span></a></li>
-                                            </ul>
-                                            <div class="col-md-4"><div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel primary</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel primary</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel primary</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-            
-                                        </div>
+                                </div>
+        
+                                <div class="row">
+        
+                                    <div class="col-md-8 well col-md-offset-2">
+                                        <ul class="nav nav-pills ">
+                                            <li class=""><a href="#">Pending <span class="badge">3</span></a></li>
+                                        </ul>
+                                        <div class="col-md-4"><div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel primary</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel primary</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel primary</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+        
                                     </div>
-            
-                                    <div class="row">
-            
-                                        <div class="col-md-8 well col-md-offset-2">
-                                            <ul class="nav nav-pills ">
-                                                <li class=""><a href="#">Approved <span class="badge">3</span></a></li>
-                                            </ul>
-                                            <div class="col-md-4"><div class="panel panel-success">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-success">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-success">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-            
-                                        </div>
+                                </div>
+        
+                                <div class="row">
+        
+                                    <div class="col-md-8 well col-md-offset-2">
+                                        <ul class="nav nav-pills ">
+                                            <li class=""><a href="#">Approved <span class="badge">3</span></a></li>
+                                        </ul>
+                                        <div class="col-md-4"><div class="panel panel-success">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-success">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-success">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+        
                                     </div>
-            
-            
-            
-                                    <div class="row">
-            
-                                        <div class="col-md-8 well col-md-offset-2">
-                                            <ul class="nav nav-pills ">
-                                                <li class=""><a href="#">Declined <span class="badge">3</span></a></li>
-                                            </ul>
-                                            <div class="col-md-4"><div class="panel panel-danger">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-danger">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-danger">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-            
-                                        </div>
+                                </div>
+        
+        
+        
+                                <div class="row">
+        
+                                    <div class="col-md-8 well col-md-offset-2">
+                                        <ul class="nav nav-pills ">
+                                            <li class=""><a href="#">Declined <span class="badge">3</span></a></li>
+                                        </ul>
+                                        <div class="col-md-4"><div class="panel panel-danger">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-danger">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-danger">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+        
                                     </div>
-            
-                                    <div class="row">
-            
-                                        <div class="col-md-8 well col-md-offset-2">
-                                            <ul class="nav nav-pills ">
-                                                <li class=""><a href="#">Over <span class="badge">3</span></a></li>
-                                            </ul>
-                                            <div class="col-md-4"><div class="panel panel-warning">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-warning">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-                                            <div class="col-md-4"><div class="panel panel-warning">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title">Panel success</h3>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        Panel content
-                                                    </div>
-                                                </div></div>
-            
-                                        </div>
+                                </div>
+        
+                                <div class="row">
+        
+                                    <div class="col-md-8 well col-md-offset-2">
+                                        <ul class="nav nav-pills ">
+                                            <li class=""><a href="#">Over <span class="badge">3</span></a></li>
+                                        </ul>
+                                        <div class="col-md-4"><div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+                                        <div class="col-md-4"><div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Panel success</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    Panel content
+                                                </div>
+                                            </div></div>
+        
                                     </div>
-            
-            
-            
-            
-                                </div> 
-            
-                            </div>-->
-
-        </div>
+                                </div>
+        
+        
+        
+        
+                            </div> 
+        
+                        </div>-->
 
     </div>
+
+</div>
 </div>
 </body>
 </html>
