@@ -54,8 +54,13 @@
                                     if (imgData != null) {
                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                 %>
-                                <img width="150" class="rounded img-thumbnail" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here"/></a>
+                                <img width="150" height="150" class="rounded img-thumbnail" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here"/></a>
                                 <%
+                                    }else{
+                                        %>
+                                <img width="150" height="150" class="rounded img-thumbnail" src="img/factory.png"  alt="Profile Picture" />
+                            
+                            <%
                                     }
                                 %>
                                 <div class="row">

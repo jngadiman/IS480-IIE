@@ -26,12 +26,23 @@
     </head>
     <body>
         <div class="container">
-            <div class="col-lg-10 well">
-                <div class="col-lg-12 well">
+            <div class="btn-group">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Small button
+  </button>
+  <div class="dropdown-menu">
+    <li><a href="#">Entrepreneur</a></li>
+    <li><a href="#">Venture Capitalist</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+  </div>
+</div>
+            <div class="col-lg-10 col-lg-offset-1 well">
+<!--                <div class="col-lg-12 well">
                     <p><strong>Mentee Company: </strong>get Mentee's Company</p>
                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
-                </div>
+                </div>-->
                 
                 
                 <% String type = request.getParameter("type");
@@ -62,12 +73,13 @@
                         <div class="col-lg-8 ">
                             <h5><strong>Name: </strong><%= m.getName()%></h5>
                             <h5><strong>Company: </strong><%=c.getName()%></h5>
-                            <h5><strong>Designation: </strong><%= m.getPosition()%></h5>
+                            <h5><strong>Position: </strong><%= m.getPosition()%></h5>
                         </div>
 
                         <div class="col-lg-12">
                             <h5><strong>Areas of Expertise: </strong></h5>
-                            <h5>Data Engineering, Data Management, Data Mining</h5>
+                            <h5>Static, should change when database is updated
+                                <br> Data Engineering, Data Management, Data Mining</h5>
                         </div>
 
 
@@ -81,6 +93,7 @@
                     <%
                         }
                     %>
+        </div>
         </div>
     </body>
 </html>

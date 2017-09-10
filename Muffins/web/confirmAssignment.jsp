@@ -18,85 +18,65 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mentor Profile and Assignment</title>
+        <title>Mentor Assignment</title>
         <%@include file="navbar.jsp" %>
 
     </head>
     <body>
         <%            String userEmail = request.getParameter("email");
             User displayedUser = profileController.displayUserDetails(userEmail);
+            Company c = companyController.getCompany(user.getCompanyid());
 
         %>
 
         <div class="container">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <h2 class="col-lg-10 well col-sm-offset-1">Mentor Profile</h2>
-                    <div class="col-lg-10 well col-sm-offset-1">
-                        <div class ="row">
 
-                            <div class="col-sm-12 form-group">
-                                <%  // display the image
-                                    byte[] imgData = user.getProfile_pic();
-                                    if (imgData == null) {
-                                %>
-                                <img src="img/user.png" width="200px" alt=""/>
-                                <%
-                                } else {
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                                %>
-                                <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                                <%}%>
-                            </div>
+            <div class="col-sm-10 col-sm-offset-1">
+                <h2 class="col-lg-10 well col-sm-offset-1">Confirmation for Assignment</h2>
+                <div class="col-lg-10 well col-sm-offset-1">
+                    <div class ="row">
+                        <div class="col-sm-10 form-group required">
+                        <h4>Confirm request assignment for <b><%=displayedUser.getName()%></b> to mentor <b><%=c.getName()%></b>? <br/></h4>
                         </div>
-                        <div class ="row">
-                            <div class="col-sm-6 form-group">
-                                <p><font size="+3"><%= user.getName()%></font></p>
-                                <p><strong>Email Address</strong> : <%= user.getEmail()%></p>
-                                <p><strong>NRIC</strong> : <%= user.getNric()%></p>
-                            </div>
+                        <div class="col-sm-6 form-group required">
+                            <label class="control-label">State your reason for request </label>
+                            <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Compulsory)" class="form-control" required>
+                            <input type="submit" class="btn btn-xs btn-info" value="Submit">       
                         </div>
 
-                        <%String type = user.getUser_type(); %>
 
-                        <% if (type.equals("regular_mentee") || type.equals("light_mentee")) {
-                                Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
-                                String mentor_name = "";
-                                if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
-                                    Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
-                                    mentor_name = myMentor.getName();
-                                }
+                        <!--  
+                        
+                                                    <div class="col-sm-12 form-group">
+                        <%  // display the image
+                            byte[] imgData = displayedUser.getProfile_pic();
+                            if (imgData == null) {
+                        %>
+                        <img src="img/user.png" width="200px" alt=""/>
+                        <%
+                        } else {
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                        %>
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                        <%}%>
+                    </div>
+                </div>
+                <div class ="row">
+                    <div class="col-sm-6 form-group">
+                        <p><font size="+3"><%= displayedUser.getName()%></font></p>
+                        <p><strong>Email Address</strong> : <%= displayedUser.getEmail()%></p>
+
+                    </div>
+                </div>
+
+                        <%String type = displayedUser.getUser_type(); %>
+
+                        <%  if (type.equals("Incubation Mentor")) {
+                                Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
                                 String company_name = "";
-                                if (mentee.getCompanyid() != 0) {
-                                    Company c = companyController.getCompany(mentee.getCompanyid());
+                                if (mentor.getCompanyid() != 0) {
                                     company_name = c.getName();
                                 }
-                        %>
-
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <p><strong>Company </strong> : <%= company_name%></p>
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <p><strong>Mentor </strong> : <%= mentor_name%></p>
-                            </div>
-                        </div>
-
-                        <%} else if (type.equals("mentor")) {
-                            Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
-                            String company_name = "";
-                            if (mentor.getCompanyid() != 0) {
-                                Company c = companyController.getCompany(mentor.getCompanyid());
-                                company_name = c.getName();
-                            }
                         %>
 
                         <div class="row">
@@ -111,29 +91,21 @@
                             <div class="col-sm-6 form-group">
                                 <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6 form-group">
                                 <p><strong>Introduction</strong><br>
-                                    <%= mentor.getIntroduction()%></p>
-                                    <% }%>
-                            </div> 
-                        </div>
-                            
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p><strong>Start Date: </strong><input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control"></p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p><strong>Start Date: </strong><input id=mentor_period"  name="end_date" placeholder="DD/MM/YYYY" type="text" class="form-control"></p>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="submit">Confirm Assignment</button>
-                   
-                    </div> 
-
-
-                </div>
+                        <%= mentor.getIntroduction()%></p>
+                        <% }%>
+                </div> 
             </div>
-        </div>   
 
-    </body>
-</html>
+        </div> -->
+
+
+
+                    </div>
+                </div>
+
+                </body>
+                </html>
