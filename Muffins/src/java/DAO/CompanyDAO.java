@@ -650,7 +650,7 @@ public class CompanyDAO {
         //String[] stringArray = new String[2];
         String[] founders = new String[]{"mentor1@gmail.com","bla@abc.com"};
         Company c = new Company(10, "comany name", "sell food looajdvjvn..",founders, 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
-        String result = CompanyDAO.addCompany(c);
+        int result = CompanyDAO.editCompanyDetails(c);
         System.out.println(result);
 //        Company c = CompanyDAO.getCompany(1);
 //        System.out.println(c.getId());

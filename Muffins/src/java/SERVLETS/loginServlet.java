@@ -63,7 +63,7 @@ public class loginServlet extends HttpServlet {
                     if(userType.equals("regular_mentee") || userType.equals("light_mentee")){
                     Mentee m = menteeController.getMentee(email);
                     session.setAttribute("mentee",m);
-                    }else if(userType.equals("mentor")){
+                    }else if(userType.equals("Incubation Manager Mentor") || userType.equals("Entrepreneur Mentor") || userType.equals("Venture Capitalist Mentor") || userType.equals("Industry Professional Mentor")){
                         Mentor m = mentorController.getMentor(email);
                         session.setAttribute("mentor",m);
                     }

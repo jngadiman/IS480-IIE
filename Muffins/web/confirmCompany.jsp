@@ -11,6 +11,18 @@
 <%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script>
+    $('#shortlistModal').on('show.bs.modal', function(e) {
+        // Now you have the key and label in variables.
+
+        // Write the key into the textfield.
+        $('#shortlistModal input[name="eventName"]').val(metrics_key);
+        // Change the HTML of an element to the label.
+        $('#shortlistModal label[for="priority"]').text(metrics_label);
+        $.post("/confirmCompanyServlet", { val : $("#eventName").text()});
+        alert($('#eventName').text()); 
+   });
+</script>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

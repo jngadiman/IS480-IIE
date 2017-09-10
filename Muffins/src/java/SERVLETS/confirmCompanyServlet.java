@@ -41,7 +41,7 @@ public class confirmCompanyServlet extends HttpServlet {
         
         String activated = request.getParameter("activateBtn");
         String declined = request.getParameter("rejectBtn");
-        String shortlist = request.getParameter("shortListBtn");
+        String eventSubmit = request.getParameter("eventSubmit");
         String stakeholders = request.getParameter("stakeholders");
         String companyName = request.getParameter("company");
         String company_id = request.getParameter("company_id");
@@ -114,14 +114,13 @@ public class confirmCompanyServlet extends HttpServlet {
             request.setAttribute("status", status);
             request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
             
-        }else if(shortlist!=null &&!shortlist.equals("")){
-            String submit = request.getParameter("eventSubmit");
-            if(submit!=null &&!submit.equals("")){
+        }else if(eventSubmit!=null &&!eventSubmit.equals("")){
+                System.out.println(eventSubmit);
                 String eventName = request.getParameter("eventName");
                 
                 System.out.println("EVENT NAME"+eventName);
  
-            }
+            
             //send email of the unhashed accessCode to founders
             if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been shortlisted to join IIE Incubation Programme. \n It will be held on the 21/09/2017, 12PM at SMU BIG Meeting Room. Please come 15 minutes early to ensure that you get a chance to pitch!", founders,"IIE Portal Enrollment Results")){
                 System.out.println("email has been sent successfully");
