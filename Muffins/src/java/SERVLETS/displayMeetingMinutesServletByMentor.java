@@ -6,6 +6,7 @@
 package SERVLETS;
 
 import CONTROLLER.meetingController;
+import CONTROLLER.minutesController;
 import DAO.UserDAO;
 import MODELS.MeetingMinutes;
 import MODELS.Mentor;
@@ -58,7 +59,7 @@ public class displayMeetingMinutesServletByMentor extends HttpServlet {
 //            mentor = (Mentor) (userDAO.getUserByEmail(mentor_email));
 //            mentor = (Mentor)sub;
         
-        ArrayList<MeetingMinutes> minutes = meetingController.viewMeetingMinutesOfMentor(mentor_email);
+        ArrayList<ArrayList<MeetingMinutes>> minutes = minutesController.getMeetingMinutesOfMentor(mentor_email);
         request.setAttribute("mentorMeetingMinutes", minutes);
         System.out.println("SERVLET MEETING MINUTES" +minutes);
         RequestDispatcher rd = request.getRequestDispatcher("viewMeetingMinutes.jsp");

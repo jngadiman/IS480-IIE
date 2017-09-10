@@ -6,6 +6,7 @@
 package SERVLETS;
 
 import CONTROLLER.meetingController;
+import CONTROLLER.minutesController;
 import DAO.*;
 import MODELS.*;
 import java.io.IOException;
@@ -79,13 +80,15 @@ public class addMeetingMinutesServlet extends HttpServlet {
 //                }
                 //mentor = MentorDAO.getMentorByEmail(current.getMentor_email());
             }
-
+            //STILL NEED TO CHANGE DEPENDING ON HOW THE addMeetingMinutes.jsp WILL LOOK LIKE!!!!
+            ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();
+            
             for (String task : tasksCompleted) {
                 int taskID = Integer.parseInt(task);
                 taskIDs.add(taskID);
             }
 
-            int status = meetingController.setMeetingMinutes(title, Integer.parseInt(meeting), mentor, taskIDs, comments, currentUser.getEmail());
+            int status = minutesController.setMeetingMinutes(meetingMinutes);
 
             if (status == 0) {
                 errorMsg.add("An error occured, Please try again");

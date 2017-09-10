@@ -4,6 +4,7 @@
     Author     : JJAY
 --%>
 
+<%@page import="CONTROLLER.minutesController"%>
 <%@page import="MODELS.MeetingMinutes"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="protect.jsp" %>
@@ -20,14 +21,16 @@
         <h1>TO VIEW ALL THE MEETING MINUTES</h1>
        <%
             
-            ArrayList<MeetingMinutes> minutes = (ArrayList<MeetingMinutes>)request.getAttribute("mentorMeetingMinutes");
+            ArrayList<ArrayList<MeetingMinutes>> minutes = minutesController.getAllMeetingMinutes();
             
-            for(MeetingMinutes each:minutes){
-                System.out.println(each.getMinutesID());%>
-                EACH = <%=each.getMinutesID()%> DELETE 
-            <%}
-
-            %>
+            for(ArrayList<MeetingMinutes> mm: minutes){
+                for(MeetingMinutes each : mm){
+                    System.out.println(each.getMinutesID());
+        %>
+                    EACH = <%=each.getMinutesID()%> DELETE 
+        <%      }
+            }
+        %>
             
             <div class="col-md-8 well col-md-offset-2">
             <div class="row col-md-offset-1">
