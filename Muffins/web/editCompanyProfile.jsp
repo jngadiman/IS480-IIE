@@ -124,10 +124,17 @@
     %>
     <body>
         <div class="container">
-            <h1 class="col-lg-10 well col-sm-offset-1">Edit Company Profile</h1>
-            <%                String status = (String) request.getAttribute("updateStatus");
-                if (status != null && !status.isEmpty()) {
-                    out.println("<div align='center'>" + status + "</div>");
+            <div class="col-lg-10 well col-sm-offset-1"><h1>Edit Company Profile</h1>
+                <%                String status = (String) request.getAttribute("updateStatus");
+                    if (status != null && !status.isEmpty()) {
+                %>
+
+                <div class="alert alert-dismissible alert-success col-lg-5">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <%=status%>
+                </div>
+            </div>
+            <%
                 }
             %>
 
@@ -245,8 +252,11 @@
                                     <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" value="<%=stakeholderFull%>" required multiple>
 
                                     <%
-                                        }else{
-                                            out.println("No stakeholder(s) found!");
+                                    } else {
+                                    %>
+                                    <input id="shareholders" name="shareholders" type="text" placeholder="Currently, no stakeholders found! Enter emails separated by , (comma) " class="form-control" required multiple>
+
+                                    <%
                                         }
                                     %>
 
@@ -285,7 +295,7 @@
                                     <textarea class="form-control" rows="3" id="deployment_of_funds" name="deployment_of_funds" placeholder="Enter Deployment Of Funds Here.." required><%= company.getDeployOfFunds()%></textarea>
                                 </div>
                             </div>
-                                NEED TO PERFORM CHECK ONLY SHOW IF IT'S OPENMENTOR
+                            NEED TO PERFORM CHECK ONLY SHOW IF IT'S OPENMENTOR
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Update Business Slides </label>

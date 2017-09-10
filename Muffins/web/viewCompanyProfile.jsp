@@ -40,14 +40,14 @@
                     <h2 class="col-lg-10 well col-sm-offset-1">Company Profile</h2>
                     <div class="col-lg-10 well col-sm-offset-1">
                         <div class="row">
-                            <div class="col-sm-6 form-group"
+                            <div class="col-sm-6 form-group">
 
                                  <%  // display the image
                                      byte[] imgData = company.getCompanyLogo();
                                      if (imgData != null) {
                                          String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                  %>
-                                 <div class="row"><img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" /></div>
+                                 <img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" />
                                     <%
                                         }
                                     %>
