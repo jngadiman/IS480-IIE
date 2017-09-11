@@ -76,34 +76,35 @@
                         }
                     %>
                     <div class="col-lg-12">
-                        <ul class="nav nav-pills ">
-                            <div class='row'>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company A <span class="badge">1</span></a></li></button>	
-                                </div>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company B <span class="badge">2</span></a></li></button>	
-                                </div>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company C <span class="badge">3</span></a></li></button>	
-                                </div>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>CompanyD <span class="badge">4</span></a></li></button>	
-                                </div>
-                            </div>
-                            
-                        </ul> 
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <a href='' class='btn btn-success btn-xs'>Generate All Payment Vouchers</a>
-                        </div>
-                    </div>
+                        <form action ="mentorPaymentServlet" method ="post">
 
-                </div>
+                            <ul class="nav nav-pills ">
+                                   
+                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company A <span class="badge">1</span></a></li></button>	
+                                    
+                                    
+                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company B <span class="badge">2</span></a></li></button>	
+                                    
+                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company C <span class="badge">3</span></a></li></button>	
+                                    
+                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>CompanyD <span class="badge">4</span></a></li></button>	
+                                    
+                                        
+                            </ul> 
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
+                                <input type ="submit" class='btn btn-success btn-xs'>Generate All Payment Vouchers>
+                            </div>
+                    
                 <%
                         imgData = null;
                     }
                 %>
+                </form>
+
             </div>
+                </div>
+                </div>
         </div>
     </body>
 </html>
