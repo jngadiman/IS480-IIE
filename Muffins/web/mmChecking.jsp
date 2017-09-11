@@ -44,7 +44,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class='containter'>
-                                    <div class='col-lg-10 well'>
+                                    <div class='col-lg-10 col-lg-offset-1'>
                                         <div class='row'>
                                             <p>Meeting Minutes ID: <strong></strong>1</p>
                                             <p>Meeting Minutes Title: <strong></strong>Meeting #1</p>
@@ -52,39 +52,32 @@
                                             <p>Mentor Name: <strong></strong>Meeting #1</p>
                                             <p>Meeting ID: <strong></strong>Meeting #1</p>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
+                            <div id="modal2" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Meeting 2</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            GET ALL THE FIELDS FROM MEETINGS
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style='text-align:center'>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <a href='' class='btn btn-success btn-dm'>Generate Payment Voucher</a>
                             </div>
                         </div>
-                        <div id="modal2" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title">Meeting 2</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        GET ALL THE FIELDS FROM MEETINGS
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
-                </div>
-                <div style='text-align:center'>
-                    <a href='' class='btn btn-success btn-dm'>Generate Payment Voucher</a>
                 </div>
             </div>
-        </div>
 
 
     </body>
