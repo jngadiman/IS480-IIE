@@ -24,15 +24,12 @@
     <body>
 
         <div class="container">
-            <div class="col-lg-12 col-lg-offset-2">
-                <h1>Choose the mentor to generate payment voucher</h1>
-            </div>
+            <h1><center>Choose the mentor to generate payment voucher</center></h1>
 
             <div class="col-lg-10 col-lg-offset-1">
                 <%                    byte[] imgData;
                     ArrayList<Mentor> allMentors = mentorController.getMentors();
                     for (Mentor mentor : allMentors) {
-
                 %>
 
                 <div class="col-lg-6 well">
@@ -43,14 +40,14 @@
                             out.print(imgData);
                     %>
                     <div class="col-lg-6">
-                        <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                        <img width="150" height="150" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                     </div>
 
                     <%
                     } else {
                     %>
                     <div class="col-lg-6">
-                        <img src="img/user.png" width="100" height="100" alt=""/>
+                        <img src="img/user.png" width="150" height="150" alt=""/>
                     </div>
 
                     <%
@@ -75,6 +72,7 @@
                     <%
                         }
                     %>
+
                     <div class="col-lg-12">
                         <ul class="nav nav-pills ">
                             <div class='row'>
@@ -88,14 +86,12 @@
                                     <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company C <span class="badge">3</span></a></li></button>	
                                 </div>
                                 <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>CompanyD <span class="badge">4</span></a></li></button>	
+                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company D <span class="badge">4</span></a></li></button>	
                                 </div>
                             </div>
-                            
+
                         </ul> 
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <a href='' class='btn btn-success btn-xs'>Generate All Payment Vouchers</a>
-                        </div>
+
                     </div>
 
                 </div>
@@ -103,6 +99,9 @@
                         imgData = null;
                     }
                 %>
+                <div class="col-lg-4 col-lg-offset-4">
+                    <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
+                </div>
             </div>
         </div>
     </body>
