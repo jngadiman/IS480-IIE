@@ -240,6 +240,69 @@ public class MentorDAO {
         return skills;
     }
     
+    public static ArrayList<String> getMentorsBySkills(ArrayList<String> skillSet){
+        ArrayList<String> mentorEmails = new ArrayList<String>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String sqlStatement = "SELECT email FROM `mentor` WHERE ";
+        String statement = " skills LIKE '%";
+                
+        for(int i = 0; i < skillSet.size(); i++){
+            sqlStatement += statement + skillSet.get(i) + "%'";
+            if(i != skillSet.size()- 1){
+                sqlStatement += " AND ";
+            }
+        }
+        System.out.println(sqlStatement);
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sqlStatement);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                mentorEmails.add(email);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        sqlStatement = "SELECT email FROM `mentor` WHERE ";
+        for(int i = 0; i < skillSet.size(); i++){
+            sqlStatement += statement + skillSet.get(i) + "%'";
+            if(i != skillSet.size()- 1){
+                sqlStatement += " OR ";
+            }
+        }
+        System.out.println(sqlStatement);
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement(sqlStatement);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                if(!mentorEmails.contains(email)){
+                    mentorEmails.add(email);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return mentorEmails;
+    }
+    
     public static void main(String[] args){
 //        Mentor m = MentorDAO.getMentorByEmail("hello@hotmail.com");
 //        System.out.println(m.getEmail());
@@ -252,19 +315,26 @@ public class MentorDAO {
 //        System.out.println(m.getPosition());
 //        System.out.println(m.getIntroduction());
         
-        ArrayList<Mentor> mentors = MentorDAO.getMentors();
-        for(Mentor m: mentors){
-            System.out.println(m.getEmail());
-            System.out.println(m.getPassword());
-            System.out.println(m.getName());
-            System.out.println(m.getNric());
-            System.out.println(m.getProfile_pic());
-            System.out.println(m.getUser_type());
-            System.out.println(m.getCompanyid());
-            System.out.println(m.getPosition());
-            System.out.println(m.getIntroduction());
-            System.out.println(m.getSkills());
-            System.out.println(m.getBankAccount());
-        }
+//        ArrayList<Mentor> mentors = MentorDAO.getMentors();
+//        for(Mentor m: mentors){
+//            System.out.println(m.getEmail());
+//            System.out.println(m.getPassword());
+//            System.out.println(m.getName());
+//            System.out.println(m.getNric());
+//            System.out.println(m.getProfile_pic());
+//            System.out.println(m.getUser_type());
+//            System.out.println(m.getCompanyid());
+//            System.out.println(m.getPosition());
+//            System.out.println(m.getIntroduction());
+//            System.out.println(m.getSkills());
+//            System.out.println(m.getBankAccount());
+//        }
+            ArrayList<String> skillSet = new ArrayList<String>();
+            skillSet.add("Business Development");
+            skillSet.add("Product Management");
+            ArrayList<String> mentorEmails = MentorDAO.getMentorsBySkills(skillSet);
+            for(String email : mentorEmails){
+                System.out.println(email);
+            }
     }
 }

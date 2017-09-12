@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import MODELS.Company;
 import MODELS.Relationship;
 import Utility.ConnectionManager;
 import java.sql.Connection;
@@ -483,11 +484,38 @@ public class RelationshipDAO {
         return companyIDsWMentor;
     }
     
+    public static ArrayList<String> getUniqueMentorsByCompany(int company_id){
+       ArrayList<String> mentorEmails = new ArrayList<String>(); 
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String mentor_email = "";
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT DISTINCT `mentor_email` FROM `relationship` WHERE `company_id` = ? and `status` != \"requesting\"");
+            stmt.setInt(1, company_id);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                mentor_email = result.getString("mentor_email");
+                mentorEmails.add(mentor_email);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+       return mentorEmails;
+    }
+    
     public static void main(String[] args){
         //Relationship r = new Relationship(RelationshipDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");
-        ArrayList<Integer> companyIDs = RelationshipDAO.getCompanyIDsWithMentor();
-        for(Integer i : companyIDs){
-            System.out.println(i);
+        ArrayList<String> mentorEmails = RelationshipDAO.getUniqueMentorsByCompany(3);
+        for(String email: mentorEmails){
+            System.out.println(email);
         }
         
     }
