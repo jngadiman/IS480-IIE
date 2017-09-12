@@ -7,6 +7,8 @@ package SERVLETS;
 
 import CONTROLLER.menteeController;
 import CONTROLLER.assignmentController;
+import CONTROLLER.preferenceController;
+import MODELS.Preference;
 import MODELS.Relationship;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,24 +43,30 @@ public class adminPendingRequestServlet extends HttpServlet {
         
         if(request.getParameter("approveBtn") != null){
             
-            int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = assignmentController.changeRelationshipStatus(requestID, "assigned");
-            Relationship r = assignmentController.getRelationship(requestID);
+            int company_id = Integer.parseInt(request.getParameter("company_id"));
+            String mentor_email = request.getParameter("mentor_email");
             
-            if(result == 1){
-                int result1 = menteeController.updateMentorEmail(r.getCompanyID(), r.getMentorEmail());
-            }
+            Preference p = preferenceController.getPreference(company_id, mentor_email);
+            
+            //get values from pop up for the start and end date of the assignment period
+            //store in the mentor preference object
+
+            status = preferenceController.editPreference(p);
             
         }else if(request.getParameter("rejectBtn") != null){
+            //need send email to the mentees to inform of failure
+            int company_id = Integer.parseInt(request.getParameter("company_id"));
+            String mentor_email = request.getParameter("mentor_email");
             
-            int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = assignmentController.changeRelationshipStatus(requestID, "declined");
+            Preference p = preferenceController.getPreference(company_id, mentor_email);
             
-        }else if(request.getParameter("overBtn") != null){
+        }else if(request.getParameter("editBtn") != null){
+            //change mentor and start date and end date
+            //get from pop up box
+            int company_id = Integer.parseInt(request.getParameter("company_id"));
+            String mentor_email = request.getParameter("mentor_email");
             
-            int requestID = Integer.parseInt(request.getParameter("rlsID"));
-            result = assignmentController.changeRelationshipStatus(requestID, "over");
-            
+            Preference p = preferenceController.getPreference(company_id, mentor_email);
         }
         
         response.sendRedirect("adminViewAllRequests.jsp");

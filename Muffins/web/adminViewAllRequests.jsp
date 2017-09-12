@@ -33,8 +33,9 @@
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade" id="incubation">-->
             <div class="container-fluid">
-                <%                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
-                    ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
+                <%                    
+                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
+                    //ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
                     String requestStatus = (String) session.getAttribute("requestStatus");
                     if (preferences != null || requestStatus.equals("all")) {
                 %>
@@ -46,10 +47,11 @@
                         </ul>            
                         <form action="adminPendingRequestServlet" method="post">
                             <%
-                                for (Company c : companies) {
+                                for (Preference p: preferences) {
                             %>
                             <div class="col-lg-4 well">
                                 <%
+                                    Company c = companyController.getCompany(p.getCompany_id());
                                     byte[] imgData = c.getCompanyLogo();
                                     if (imgData != null) {
                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
@@ -60,7 +62,7 @@
                                         %>
                                 <img width="150" height="150" class="rounded img-thumbnail" src="img/factory.png"  alt="Profile Picture" />
                             
-                            <%
+                                <%
                                     }
                                 %>
                                 <div class="row">
@@ -70,15 +72,18 @@
                                 <div class="row">
                                     <p><strong>Preferred Mentors:</strong></p>
                                     <%
-                                        ArrayList<Mentor> mentors = mentorController.getMentors();
+                                        String mentor_email = p.getMentor_email();
+                                        Mentor m = mentorController.getMentor(mentor_email);
                                     %>
-                                    <p>retrieve mentor names and display here</p>
+                                    <p><%= m.getName()%></p>
                                 </div>
-
+                                <input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/>
+                                <input type="hidden" name="mentor_email" value="<%= p.getMentor_email()%>"/>
                                 <div class="row">
-                                    <a href="#" class="btn-xs btn-success">Approve</a>
-                                    <a href="#" class="btn-xs btn-primary">Edit</a>
-                                    <a href="#" class="bt-xs btn-danger">Reject</a></div>
+                                    <button type="submit" class="btn-xs btn-success" name="approveBtn">Approve</a>
+                                    <button type="submit" class="btn-xs btn-primary" name="editBtn">Edit</a>
+                                    <button type="submit" class="bt-xs btn-danger" name="rejectBtn">Reject</a>
+                                </div>
                             </div>
                             <%
                                 }
