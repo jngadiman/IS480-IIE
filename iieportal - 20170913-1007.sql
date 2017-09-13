@@ -453,7 +453,14 @@ INSERT INTO `mentee` (`email`, `degree`, `year_of_grad`, `mentor_email`) VALUES
 ('j.mabeline.2009@smu.edu.sg', 'Business', 2013, NULL),
 ('b.wee.2008@smu.edu.sg', 'Information', 2012, 'mentor3@hotmail.com');
 
+--
+-- Dumping data for table `mentor`
+--
 
+INSERT INTO `mentor` (`email`, `position`, `introduction`, `skills`, `bank_account`) VALUES
+('mentor1@hotmail.com', 'Co-Founder, Chief Brand Officer', 'Experience\na) Reebonz (Oct 2008-Present)\nb) Credit Suisse (Aug 2008-Dec2008)\nc) eFsuion (Jun 2006-Aug 2006)\n\nHighest Qualification - BBM\n\nhttps://www.linkedin.com/in/reebonz/?ppe=1\n', 'E-commerce, Branding & Marketing', ''),
+('mentor2@hotmail.com', 'Co-founder and CEO', 'a) e27 (2011-Present)\nb) Little Lives (2011-12)\nc) Gokil Games (2010-11)\n\nHighest Qualification - Bachelors in Computer Engineering\n\nhttps://www.linkedin.com/in/mohanbelani/?ppe=1', 'Business Development, Business Strategy, Product Management', ''),
+('mentor3@hotmail.com', 'Managing Director', 'a) The Wicked Quiz (2006-Present)\nb) Originally U.S. (2014-Present)\n\nHighest Qualification - Bachelors, Information Systems Management\n\nhttps://www.linkedin.com/in/tayweikiat/?ppe=1', 'Digital Marketing', '');
 
 --
 -- Dumping data for table `predefined_task`
@@ -489,6 +496,25 @@ INSERT INTO `predefined_task` (`task_id`, `task_name`, `program_stage`) VALUES
 (405, 'Pitch Deck On Valuation', 4),
 (406, 'Investment Term Sheet & Negotiation', 4)
 ;
+
+--
+-- Dumping data for table `meeting`
+--
+
+INSERT INTO `meeting` (`meeting_id`, `meeting_name`, `meeting_type`, `start_time`, `end_time`, `attendees`, `status`, `mentee_company_id`) VALUES
+(1, 'Meeting #1', 'Incubation', '2017-08-31 19:35:43', '2017-08-31 20:55:23', 'yvonne.tan.2011@smu.edu.sg,mentor3@hotmail.com', 'accepted', 2),
+(2, 'Meeting #2', 'Incubation', '2017-09-04 00:00:00', '2017-09-05 00:00:00', 'mentor3@hotmail.com, b2utylovesb2st@hotmail.com', 'accepted', 10),
+(3, 'Meeing #3', 'Incubation', '2017-09-05 00:00:00', '2017-09-06 00:00:00', 'mentor3@hotmail.com, b.wee.2008@smu.edu.sg', 'accepted', 3);
+
+--
+-- Dumping data for table `program_stages`
+--
+
+INSERT INTO `program_stages` (`stage_no`, `stage_name`) VALUES
+(1, 'Business Model Validation Stage'),
+(2, 'Innovation Development Stage'),
+(3, 'Go-To-Market & Early Customer Acquisition Stage'),
+(4, 'Business Plan/ Financial Modelling Stage');
 
 --
 -- Dumping data for table `industry`
@@ -564,6 +590,91 @@ INSERT INTO `industry` (`industry_code`, `industry_name`) VALUES
 ('601010', 'Equity Real Estate Investment Trusts (REITs)'),
 ('601020', 'Real Estate Management & Development')
 ;
+
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`task_id`, `task_name`, `task_deadline`, `program_stage`, `company_id`, `is_completed`) VALUES
+(108, 'Meet Mentor', NULL, 1, 0, NULL);
+
+--
+-- Dumping data for table `company_competition`
+--
+
+INSERT INTO `company_competition` (`company_id`, `competition_name`, `competition_date`, `prize_amount`) VALUES
+(1, 'Big Sound Festival 2016', '2016-05-14', '6500.00'),
+(1, 'Save The Environment 2016', '2016-06-13', '7000.00'),
+(1, 'The Get Together 2016', '2016-07-22', '8500.00'),
+(1, 'The Great Chilli Competition 2016', '2016-02-06', '5000.00'),
+(1, 'The Ultimate Business Compeition 2016', '2016-07-31', '10000.00');
+
+--
+-- Dumping data for table `company_costs`
+--
+
+INSERT INTO `company_costs` (`company_id`, `year`, `paid_up_capital`, `rev_q1`, `rev_q2`, `rev_q3`, `rev_q4`) VALUES
+(2, '2016-01-01', '20000.00', '3200.00', '1000.00', '4600.00', '3520.00');
+
+--
+-- Dumping data for table `company_grant`
+--
+
+INSERT INTO `company_grant` (`company_id`, `grant_name`, `grant_date`, `grant_amount`) VALUES
+(1, 'EzTech Research Foundation', '2016-04-30', '2000.00'),
+(1, 'Singapore Teaching Materials Grant', '2016-03-14', '1000.00'),
+(1, 'Wonder League Competition', '2016-11-14', '3000.00');
+
+--
+-- Dumping data for table `company_investment`
+--
+
+INSERT INTO `company_investment` (`company_id`, `investor`, `investment_stage`, `investment_date`, `investment_amount`, `investment_valuation`) VALUES
+(1, 'Master of Business Applications', NULL, '2016-03-14', '100000.00', ''),
+(2, 'uGrape', NULL, '2016-08-15', '200000.00', ''),
+(3, 'HotelStay', NULL, '2016-11-04', '3000.00', '');
+
+--
+-- Dumping data for table `meeting_minutes`
+--
+
+INSERT INTO `meeting_minutes` (`minutes_id`, `title`, `meeting_id`, `mentor`, `task_id`, `comment`, `submitted_user`) VALUES
+(1, 'Meeting #1', 1, 'mentor2@hotmail.com', 1, 'well done', 'b.wee.2008@smu.edu.sg'),
+(2, 'Meeting #2', 2, 'mentor3@hotmail.com', 2, 'good job', 'b2utylovesb2st@hotmail.com'),
+(2, 'Meeting #2', 2, 'mentor3@hotmail.com', 4, 'done', 'b2utylovesb2st@hotmail.com'),
+(3, 'Meeting #3', 3, 'mentor3@hotmail.com', 2, 'done', 'b.wee.2008@smu.edu.sg');
+
+--
+-- Dumping data for table `mentor_preference`
+--
+
+INSERT INTO `mentor_preference` (`company_id`, `mentor_email`, `start_date`, `end_date`, `need`, `date_sent`) VALUES
+(1, 'mentor1@hotmail.com', '2017-09-01', '2017-09-02', 'Revenue Model', NULL),
+(2, 'mentor3@hotmail.com', '2017-09-03', '2017-09-07', 'Investment', NULL),
+(3, 'mentor2@hotmail.com', '2017-09-13', '2017-09-15', 'Differentiation of Product', NULL),
+(4, 'mentor3@hotmail.com', '2017-09-11', '2017-09-13', 'Revenue Model', '2017-09-05 16:02:20'),
+(5, 'mentor1@hotmail.com', NULL, NULL, 'Deployment of Funds', '2017-09-09 00:00:00');
+
+--
+-- Dumping data for table `relationship`
+--
+
+INSERT INTO `relationship` (`rls_id`, `company_id`, `mentor_email`, `type`, `start_date`, `end_date`, `status`) VALUES
+(1, 2, 'mentor2@hotmail.com', 'incubator', NULL, NULL, 'requesting'),
+(2, 8, 'mentor3@hotmail.com', 'incubator', NULL, NULL, 'assigned'),
+(3, 9, 'mentor1@hotmail.com', 'incubator', NULL, NULL, 'requesting'),
+(4, 10, 'mentor3@hotmail.com', 'incubation', '2017-09-06', '2017-09-07', 'over'),
+(5, 11, 'mentor2@hotmail.com', 'incubation', '2017-09-07', '2017-09-15', 'over'),
+(6, 12, 'mentor1@hotmail.com', 'incubation', '2017-09-06', '2017-09-09', 'over'),
+(7, 7, 'mentor2@hotmail.com', 'incubation', '2017-09-04', '2017-09-08', 'over');
+
+--
+-- Dumping data for table `acquisition`
+--
+
+INSERT INTO `acquisition` (`company_id`, `acquired_name`, `acquired_date`, `acquired_amount`, `acquired_type`) VALUES
+(4, 'Wandas Private Limited', '2016-11-30', '6500.00', 'exit_by_sale'),
+(5, 'Pully Ten Limited', '2016-10-31', '8500.00', 'public_offerings');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
