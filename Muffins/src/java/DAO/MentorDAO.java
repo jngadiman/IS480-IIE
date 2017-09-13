@@ -50,7 +50,7 @@ public class MentorDAO {
                     bankAccount = result.getString("bank_account");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -92,7 +92,7 @@ public class MentorDAO {
                     skills = result.getString("skills");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -134,7 +134,7 @@ public class MentorDAO {
                     skills = result.getString("skills");
                 }
                 System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -174,7 +174,7 @@ public class MentorDAO {
                 skills = result.getString("skills");
             }
             
-            m = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            m = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
         } catch (SQLException ex) {
             Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -309,6 +309,7 @@ public class MentorDAO {
 //        System.out.println(m.getPassword());
 //        System.out.println(m.getName());
 //        System.out.println(m.getNric());
+//        System.out.println(m.getJoinedDate());
 //        System.out.println(m.getProfile_pic());
 //        System.out.println(m.getUser_type());
 //        System.out.println(m.getCompanyid());
@@ -321,6 +322,7 @@ public class MentorDAO {
 //            System.out.println(m.getPassword());
 //            System.out.println(m.getName());
 //            System.out.println(m.getNric());
+//            System.out.println(m.getJoinedDate());
 //            System.out.println(m.getProfile_pic());
 //            System.out.println(m.getUser_type());
 //            System.out.println(m.getCompanyid());

@@ -40,6 +40,7 @@ public class mentorController {
             System.out.println(m.getPassword());
             System.out.println(m.getName());
             System.out.println(m.getNric());
+            System.out.println(m.getJoinedDate());
             System.out.println(m.getProfile_pic());
             System.out.println(m.getUser_type());
             System.out.println(m.getCompanyid());

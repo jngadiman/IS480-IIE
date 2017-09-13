@@ -5,6 +5,8 @@
  */
 package MODELS;
 
+import java.util.*;
+
 /**
  *
  * @author jiatung.lim
@@ -15,6 +17,7 @@ public class User {
     private String password;
     private String name;
     private String nric;
+    private Date joinedDate;
     private byte[] profile_pic;
     private String user_type;
     private int companyid;
@@ -25,11 +28,12 @@ public class User {
     
     //constructor for add new user
 
-    public User(String email, String password, String name, String nric, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality) {
+    public User(String email, String password, String name, String nric, Date joinedDate, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.nric = nric;
+        this.joinedDate = joinedDate;
         this.profile_pic = profile_pic;
         this.user_type = user_type;
         this.companyid = companyid;
@@ -61,6 +65,10 @@ public class User {
         return nric;
     }
     
+    public Date getJoinedDate() {
+        return joinedDate;
+    }
+    
     public String getUser_type() {
         return user_type;
     }
@@ -87,6 +95,10 @@ public class User {
     
     public void setNric(String nric){
         this.nric = nric;
+    }
+    
+    public void setJoinedDate(Date joinedDate) {
+        this.joinedDate = joinedDate;
     }
     
     public void setUser_type(String user_type) {
