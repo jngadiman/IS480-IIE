@@ -110,7 +110,7 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from user where user_type = 'Entrepreneur Mentor' or user_type = 'Incubation Manager Mentor' or user_type = 'Venture Capitalist Mentor' or user_type='Industry Professional Mentor';");
+            stmt = conn.prepareStatement("select * from user where user_type = 'Entrepreneur Mentor' or user_type = 'Incubation Manager Mentor' or user_type = 'Venture Capitalist Mentor' or user_type='Industry Professional Mentor' ORDER BY `name` asc ;");
             result = stmt.executeQuery();
 
             while (result.next()) {

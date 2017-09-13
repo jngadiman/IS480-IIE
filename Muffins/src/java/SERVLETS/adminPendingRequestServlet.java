@@ -12,6 +12,9 @@ import MODELS.Preference;
 import MODELS.Relationship;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,9 +52,31 @@ public class adminPendingRequestServlet extends HttpServlet {
             Preference p = preferenceController.getPreference(company_id, mentor_email);
             
             //get values from pop up for the start and end date of the assignment period
+            Date start_date = null;
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            
+            String startDate = request.getParameter("start_date");
+            if (startDate != null || !startDate.isEmpty()){
+                 try {
+                    start_date = df.parse(startDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+            Date end_date = null;
+            String endDate = request.getParameter("end_date");
+            if (endDate != null || !endDate.isEmpty()){
+                 try {
+                    end_date = df.parse(endDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
             //store in the mentor preference object
-
-            status = preferenceController.editPreference(p);
+            Preference pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
+            status = preferenceController.editPreference(pref);
             
         }else if(request.getParameter("rejectBtn") != null){
             //need send email to the mentees to inform of failure
@@ -67,6 +92,33 @@ public class adminPendingRequestServlet extends HttpServlet {
             String mentor_email = request.getParameter("mentor_email");
             
             Preference p = preferenceController.getPreference(company_id, mentor_email);
+            
+            //get values from pop up for the start and end date of the assignment period
+            Date start_date = null;
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            
+            String startDate = request.getParameter("start_date");
+            if (startDate != null || !startDate.isEmpty()){
+                 try {
+                    start_date = df.parse(startDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+            Date end_date = null;
+            String endDate = request.getParameter("end_date");
+            if (endDate != null || !endDate.isEmpty()){
+                 try {
+                    end_date = df.parse(endDate);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+            //store in the mentor preference object
+            Preference pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
+            status = preferenceController.editPreference(pref);
         }
         
         response.sendRedirect("adminViewAllRequests.jsp");
