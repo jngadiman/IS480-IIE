@@ -513,11 +513,16 @@ public class RelationshipDAO {
     
     public static void main(String[] args){
         //Relationship r = new Relationship(RelationshipDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");
-        ArrayList<String> mentorEmails = RelationshipDAO.getUniqueMentorsByCompany(3);
-        for(String email: mentorEmails){
-            System.out.println(email);
-        }
-        
+//        ArrayList<String> mentorEmails = RelationshipDAO.getUniqueMentorsByCompany(3);
+//        for(String email: mentorEmails){
+//            System.out.println(email);
+//        }
+          ArrayList<Relationship> relationships = RelationshipDAO.getAllRelationshipsByStatus("assigned");
+          for(Relationship r: relationships){
+              System.out.println(r.getRelationshipID());
+              System.out.println(r.getCompanyID());
+              System.out.println(r.getStatus());
+          }
     }
 }
 

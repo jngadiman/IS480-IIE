@@ -109,7 +109,7 @@
                                                                     </div>
                                                                     <div class="col-sm-6 form-group required">
                                                                         <label class="control-label">Venue</label>
-                                                                        <input id="email" type="text" name="email" placeholder="Enter Venue Here.." class="form-control" required>
+                                                                        <input id="email" type="text" name="eventVenue" placeholder="Enter Venue Here.." class="form-control" required>
                                                                     </div>
 
                                                                     <div class="col-sm-6 form-group ">
@@ -135,7 +135,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-default" name="eventSubmit">Submit</button>
+                                                            <button type="submit" class="btn btn-default" name="eventSubmit" value="yes">Submit</button>
                                                             <!--<button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>-->
                                                         </div>
                                                     </div>

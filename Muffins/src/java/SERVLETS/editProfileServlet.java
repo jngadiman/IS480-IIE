@@ -9,6 +9,7 @@ import CONTROLLER.profileController;
 import MODELS.Mentee;
 import MODELS.Mentor;
 import MODELS.User;
+import java.util.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -94,7 +95,7 @@ public class editProfileServlet extends HttpServlet {
             System.out.println(yearOfGrad);
             System.out.println(mentor_email);
             
-            Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
+            Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             
             status = profileController.editMentee(mentee);
             request.setAttribute("updateStatus", status);
@@ -105,7 +106,7 @@ public class editProfileServlet extends HttpServlet {
             String bankAccount = request.getParameter("bank_account");
             String skills = request.getParameter("skills");
             
-            Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
+            Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             status = profileController.editMentor(m);
             request.setAttribute("updateStatus", status);
         }

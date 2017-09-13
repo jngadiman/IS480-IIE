@@ -27,6 +27,7 @@
     <body>
         <div class="container">
             <div class="btn-group">
+<!--
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Small button
                 </button>
@@ -47,18 +48,45 @@
                 </div>
             </div>
             <div class="col-lg-10 col-lg-offset-1 well">
-                <!--                <div class="col-lg-12 well">
+                                <div class="col-lg-12 well">
                                     <p><strong>Mentee Company: </strong>get Mentee's Company</p>
                                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                                 </div>-->
 
 
-                <% String type = request.getParameter("type");
+                <% String type = request.getParameter("type");%>
+
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Small button
+            </button>
+            <div class="dropdown-menu">
+              <li><a href="#" value="Incubation Manager Mentor">Incubation Manager</a></li>
+              <li><a href="#" value="Venture Capitalist Mentor">Venture Capitalist</a></li>
+              <li><a href="#" value="Industry Professional Mentor">Industry Professional</a></li>
+              <li><a href="#" value="Entrepreneur Mentor">Entrepreneur</a></li>
+            </div>
+          </div>
+            <div class="col-lg-10 col-lg-offset-1 well">
+<!--                <div class="col-lg-12 well">
+                    <p><strong>Mentee Company: </strong>get Mentee's Company</p>
+                    <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
+                    <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
+                </div>-->
+                
+                
+                <% 
+                    if(session.getAttribute("addPreferenceStatus") != null){
+                        String status = (String) session.getAttribute("addPreferenceStatus");
+                        out.println(status);
+                    }
+                    
+
                     session.setAttribute("requestType", type);
                     ArrayList<Mentor> mentors = MentorDAO.getMentors();
                     for (Mentor m : mentors) {
                 %>
+
                 <div class="col-lg-6 well">
 
                     <%
@@ -68,6 +96,8 @@
                         if (imgData != null) {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                     %>
+
+                    <div class="col-lg-6 well">
 
                     <div class="col-lg-4 ">
                         <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
