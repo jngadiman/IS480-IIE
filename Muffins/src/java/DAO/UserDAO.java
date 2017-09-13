@@ -62,7 +62,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -119,7 +123,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -175,7 +183,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -231,7 +243,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -287,7 +303,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -343,7 +363,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -399,7 +423,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
@@ -456,7 +484,11 @@ public class UserDAO {
                 user_type = result.getString("user_type");
                 company_id = Integer.parseInt(result.getString("company_id"));
                 position = result.getString("position");
-                equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
                 contact_number = Integer.parseInt(result.getString("contact_number"));
                 nationality = result.getString("nationality");
                 

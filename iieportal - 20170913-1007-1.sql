@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 DROP TABLE IF EXISTS `acquisition`, `company_competition`, `company_costs`, `company_grant`, `company_investment`, `industry`, `meeting_minutes`, `mentee`, `mentor`, `mentor_preference`, `mentor_rating`, `payment_voucher`, `predefined_task`, `program_stages`, `relationship`, `skills`, `task`, `user`;
-DROP TABLE `company`, `meeting`;
+DROP TABLE IF EXISTS `company`, `meeting`;
 
 --
 -- Table structure for table `company`
