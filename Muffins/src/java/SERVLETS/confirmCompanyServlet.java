@@ -125,7 +125,7 @@ public class confirmCompanyServlet extends HttpServlet {
             
             
             //send email of the unhashed accessCode to founders
-            if(EmailSender.sendMail("shm_zen@hotmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been shortlisted to join IIE Incubation Programme. \n It will be held on the 21/09/2017, 12PM at SMU BIG Meeting Room. Please come 15 minutes early to ensure that you get a chance to pitch! " + eventName + " " + eventVenue + " " + eventTime, founders,"IIE Portal Enrollment Results")){
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been shortlisted to join IIE Incubation Programme. \n It will be held on the 21/09/2017, 12PM at SMU BIG Meeting Room. Please come 15 minutes early to ensure that you get a chance to pitch! " + eventName + " " + eventVenue + " " + eventTime, founders,"IIE Portal Enrollment Results")){
                 System.out.println("email has been sent successfully");
             }else{
                 System.out.println("email could not be sent");
