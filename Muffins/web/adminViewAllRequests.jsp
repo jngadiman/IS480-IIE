@@ -4,6 +4,9 @@
     Author     : Hui Min
 --%>
 
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Collection"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="CONTROLLER.preferenceController"%>
 <%@page import="MODELS.Preference"%>
 <%@page import="java.util.Base64"%>
@@ -24,79 +27,162 @@
     </head>
     <body>
         <h1>Requests</h1>
-        <div class="col-md-9  col-md-offset-2">
-            //drop down list of user without company
-        <button type="submit" class="bt-xs btn-primary" name="submit">Submit</button>
-        </div>
-        <div class="col-md-9  col-md-offset-2">
-            <!--            <ul class="nav nav-tabs">
-                            <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
-                            <li class=""><a href="#openmentor" data-toggle="tab" aria-expanded="false">Open Mentor <span class="badge">5</span></a></li>
-                            </li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade" id="incubation">-->
-            <div class="container-fluid">
-                <%                    
-                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
-                    //ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
-                    String requestStatus = (String) session.getAttribute("requestStatus");
-                    if (preferences != null || requestStatus.equals("all")) {
-                %>
-                <div class="row">
-                    <div class="col-md-8 well col-md-offset-2">
+        <div class="col-md-6  col-md-offset-3 well">
+            <h4>Assign Mentor to Company</h4>
+            <div class="col-sm-8 form-group required">
+                <select class="form-control" id="mentor" name="mentor" required>
+                    <% ArrayList<Company> companyWoMentor = companyController.getAllCompanies();
+                        for (Company company : companyWoMentor) {
+                    %>
+                    <option value="<%= company.getId()%>"><%= company.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+            </div>
+                <button type="submit" class="btn-sm btn-primary" name="submit">Submit</button>
+            </div>
+            <div class="col-md-10  col-md-offset-1">
+                <!--            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
+                                <li class=""><a href="#openmentor" data-toggle="tab" aria-expanded="false">Open Mentor <span class="badge">5</span></a></li>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade" id="incubation">-->
+                <div class="container-fluid">
+                    <%                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
+                        //ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
+                        String requestStatus = (String) session.getAttribute("requestStatus");
+                        if (preferences != null || requestStatus.equals("all")) {
+                    %>
+                    <div class="row">
+                        <div class="col-md-8 well col-md-offset-2">
 
-                        <ul class="nav nav-pills ">
-                            <li class=""><a href="#">Pending <span class="badge"><%=preferences.size()%></span></a></li>
-                        </ul>            
-                        <form action="adminPendingRequestServlet" method="post">
-                            <%
-                                for (Preference p: preferences) {
-                            %>
-                            <div class="col-lg-4 well">
+                            <ul class="nav nav-pills ">
+                                <li class=""><a href="#">Pending <span class="badge"><%=preferences.size()%></span></a></li>
+                            </ul>            
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Preferred Mentor</th>
+                                        <th>Approve</th>
+                                        <th>Edit</th>
+                                        <th>Reject</th>
+                                    </tr>
+                                </thead>
+                                <%
+                                    for (Preference p : preferences) {
+                                %>
+
+
                                 <%
                                     Company c = companyController.getCompany(p.getCompany_id());
-                                    byte[] imgData = c.getCompanyLogo();
-                                    if (imgData != null) {
-                                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                    String mentor_email = p.getMentor_email();
+                                    Mentor m = mentorController.getMentor(mentor_email);
+
                                 %>
-                                <img width="150" height="150" class="rounded img-thumbnail" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here"/></a>
-                                <%
-                                    }else{
-                                        %>
-                                <img width="150" height="150" class="rounded img-thumbnail" src="img/factory.png"  alt="Profile Picture" />
-                            
+                                <tbody>
+                                    <tr>
+                                        <td><%=c.getName()%></td>
+                                        <td><%= m.getName()%></td>
+                                        <td><button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#approve">Approve</a></td>
+                                        <td><button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#edit">Edit</a></td>
+                                        <td><button type="button" class="bt-xs btn-danger" name="rejectBtn">Reject</a></td>
+                                        <td><input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/></td>
+                                        <td><input type="hidden" name="mentor_email" value="<%= p.getMentor_email()%>"/></td>
+                                    </tr>
+                                </tbody>
+
                                 <%
                                     }
                                 %>
-                                <div class="row">
-                                    <p style="text-align:center"><strong><%=c.getName()%></strong></p>
-                                </div>
+                            </table>
+                            <!-- Modal -->
+                            <div id="approve" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
 
-                                <div class="row">
-                                    <p><strong>Preferred Mentors:</strong></p>
-                                    <%
-                                        String mentor_email = p.getMentor_email();
-                                        Mentor m = mentorController.getMentor(mentor_email);
-                                    %>
-                                    <p><%= m.getName()%></p>
-                                </div>
-                                <input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/>
-                                <input type="hidden" name="mentor_email" value="<%= p.getMentor_email()%>"/>
-                                <div class="row">
-                                    <button type="submit" class="btn-xs btn-success" name="approveBtn">Approve</a>
-                                    <button type="submit" class="btn-xs btn-primary" name="editBtn">Edit</a>
-                                    <button type="submit" class="bt-xs btn-danger" name="rejectBtn">Reject</a>
+                                    <!-- Modal content-->
+                                    <form action="adminPendingRequestServlet" method="post">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Approve Mentor Assignment</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="col-sm-6 form-group required">
+                                                    <label class="control-label">Start Date</label>
+                                                    <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
+                                                </div>
+                                                <div class="col-sm-6 form-group required">
+                                                    <label class="control-label">End Date</label>
+                                                    <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-xs btn-default">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+
+                            <!-- Modal -->
+                            <div id="edit" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <form action="adminPendingRequestServlet" method="post">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Mentor Assignment</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="col-sm-6 form-group required">
+                                                    <label class="control-label">Start Date</label>
+                                                    <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
+                                                </div>
+                                                <div class="col-sm-6 form-group required">
+                                                    <label class="control-label">End Date</label>
+                                                    <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
+                                                </div>
+                                                <div class="col-sm-6 form-group required">
+                                                    <label class="control-label">Mentor</label>
+                                                    <select class="form-control" id="mentor" name="mentor" required>
+                                                        <%
+                                                            ArrayList<Mentor> mentors = mentorController.getMentors();
+
+                                                            for (Mentor mentor : mentors) {
+                                                        %>
+                                                        <option value="<%= mentor.getEmail()%>"><%= mentor.getName()%></option>
+                                                        <%
+                                                            }
+                                                        %>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6 form-group required">
+                                                    <label class="control-label">Reason for Request</label>
+                                                    <textarea rows="3" class="form-control" name="need" placeholder="Enter Reason Here.." required>
+                                            </div>
+                                            
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-xs btn-default">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                             <%
                                 }
                             %>
-
-                        </form>
-                        <%
-                            }
-                        %>
                     </div>
                 </div>
             </div>
