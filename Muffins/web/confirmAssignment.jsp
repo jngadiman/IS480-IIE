@@ -38,6 +38,7 @@
                         <div class="col-sm-10 form-group required">
                         <h4>Confirm request for <b><%=displayedUser.getName()%></b> as Mentor for <b><%=c.getName()%></b>? <br/></h4>
                         </div>
+
                         <form action="confirmMentorPreferenceServlet" method="post">
                         <div class="col-sm-6 form-group required">
                             <label class="control-label">State your reason for request </label>

@@ -27,6 +27,36 @@
     <body>
         <div class="container">
             <div class="btn-group">
+<!--
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Small button
+                </button>
+                <div class="dropdown-menu">
+                    <li><a href="#">Entrepreneur</a></li>
+                    <li><a href="#">Venture Capitalist</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                </div>
+                <div class="col-lg-10 col-lg-offset-1 well">
+                    <div class ="row">
+                        <div class="col-sm-6 form-group required">
+                            <label class="control-label">State your reason for request </label>
+                            <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Compulsory)" class="form-control" required>
+                            <input type="submit" class="btn btn-xs btn-info" value="Submit">       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-lg-offset-1 well">
+                                <div class="col-lg-12 well">
+                                    <p><strong>Mentee Company: </strong>get Mentee's Company</p>
+                                    <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
+                                    <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
+                                </div>-->
+
+
+                <% String type = request.getParameter("type");%>
+
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Small button
             </button>
@@ -50,30 +80,34 @@
                         String status = (String) session.getAttribute("addPreferenceStatus");
                         out.println(status);
                     }
-                    String type = request.getParameter("type");
+                    
+
                     session.setAttribute("requestType", type);
                     ArrayList<Mentor> mentors = MentorDAO.getMentors();
                     for (Mentor m : mentors) {
                 %>
+
+                <div class="col-lg-6 well">
+
+                    <%
+                        Company c = companyController.getCompany(m.getCompanyid());
+                        // display the image
+                        byte[] imgData = m.getProfile_pic();
+                        if (imgData != null) {
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                    %>
+
                     <div class="col-lg-6 well">
 
+                    <div class="col-lg-4 ">
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
                         <%
-                            Company c = companyController.getCompany(m.getCompanyid());
-                            // display the image
-                            byte[] imgData = m.getProfile_pic();
-                            if (imgData != null) {
-                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                        } else {
                         %>
-
-                        <div class="col-lg-4 ">
-                            <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
-                            <%
-                            } else {
-                            %>
-                            <img src="img/user.png" width="100" height="100" alt=""/>
-                            <%
-                                }
-                            %>
+                        <img src="img/user.png" width="100" height="100" alt=""/>
+                        <%
+                            }
+                        %>
 
                         <div class="col-lg-8 ">
                             <h5><strong>Name: </strong><%= m.getName()%></h5>
@@ -98,7 +132,7 @@
                     <%
                         }
                     %>
-        </div>
-        </div>
+                </div>
+            </div>
     </body>
 </html>
