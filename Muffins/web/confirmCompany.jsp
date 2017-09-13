@@ -58,7 +58,8 @@
                         <th>Accept/Reject</th>
                     </tr>
                 </thead>
-                <%                    for (Company company : pendingCompanies) {
+                <%                    
+                    for (Company company : pendingCompanies) {
                         String founders = "";
                         String[] stakeholders = company.getStakeholders();
                         for (int x = 0; x < stakeholders.length; x++) {
