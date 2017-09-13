@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import MODELS.Company;
 import MODELS.Relationship;
 import Utility.ConnectionManager;
 import java.sql.Connection;
@@ -537,6 +538,7 @@ public class RelationshipDAO {
         return companyIDsWMentor;
     }
     
+<<<<<<< HEAD
     public static ArrayList<Relationship> getRelationshipsInMonthYear(int month, int year) {
 
         Connection conn = null;
@@ -604,8 +606,47 @@ public class RelationshipDAO {
         ArrayList<Integer> companyIDs = RelationshipDAO.getCompanyIDsWithMentor();
         for(Integer i : companyIDs){
             System.out.println(i);
+=======
+    public static ArrayList<String> getUniqueMentorsByCompany(int company_id){
+       ArrayList<String> mentorEmails = new ArrayList<String>(); 
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String mentor_email = "";
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT DISTINCT `mentor_email` FROM `relationship` WHERE `company_id` = ? and `status` != \"requesting\"");
+            stmt.setInt(1, company_id);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                mentor_email = result.getString("mentor_email");
+                mentorEmails.add(mentor_email);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+>>>>>>> 72fd4d6c7cd4787b0479b20b25d8a65243d9b620
         }
         
+       return mentorEmails;
+    }
+    
+    public static void main(String[] args){
+        //Relationship r = new Relationship(RelationshipDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");
+//        ArrayList<String> mentorEmails = RelationshipDAO.getUniqueMentorsByCompany(3);
+//        for(String email: mentorEmails){
+//            System.out.println(email);
+//        }
+          ArrayList<Relationship> relationships = RelationshipDAO.getAllRelationshipsByStatus("assigned");
+          for(Relationship r: relationships){
+              System.out.println(r.getRelationshipID());
+              System.out.println(r.getCompanyID());
+              System.out.println(r.getStatus());
+          }
     }
 }
 

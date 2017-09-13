@@ -11,6 +11,7 @@ import DAO.CompanyDAO;
 import MODELS.Company;
 import MODELS.Mentee;
 import MODELS.User;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -88,8 +89,8 @@ public class addUserServlet extends HttpServlet {
             rd.forward(request, response);
         
         }else {
-            User user = new User(email, password, name, nric, null, user_type,companyID , role, equity, number, nationality);
-            Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, null, user_type, companyID, role, equity, number, nationality);
+            User user = new User(email, password, name, nric, new Date(), null, user_type,companyID , role, equity, number, nationality);
+            Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, new Date(), null, user_type, companyID, role, equity, number, nationality);
 
             //edit user instead of add user because the user is added once activated
             int status = registrationController.editUser(user);

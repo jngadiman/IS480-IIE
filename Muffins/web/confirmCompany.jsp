@@ -11,18 +11,6 @@
 <%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<script>
-    $('#shortlistModal').on('show.bs.modal', function(e) {
-        // Now you have the key and label in variables.
-
-        // Write the key into the textfield.
-        $('#shortlistModal input[name="eventName"]').val(metrics_key);
-        // Change the HTML of an element to the label.
-        $('#shortlistModal label[for="priority"]').text(metrics_label);
-        $.post("/confirmCompanyServlet", { val : $("#eventName").text()});
-        alert($('#eventName').text()); 
-   });
-</script>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -58,7 +46,8 @@
                         <th>Accept/Reject</th>
                     </tr>
                 </thead>
-                <%                    for (Company company : pendingCompanies) {
+                <%                    
+                    for (Company company : pendingCompanies) {
                         String founders = "";
                         String[] stakeholders = company.getStakeholders();
                         for (int x = 0; x < stakeholders.length; x++) {
@@ -109,7 +98,7 @@
                                                                     </div>
                                                                     <div class="col-sm-6 form-group required">
                                                                         <label class="control-label">Venue</label>
-                                                                        <input id="email" type="text" name="email" placeholder="Enter Venue Here.." class="form-control" required>
+                                                                        <input id="email" type="text" name="eventVenue" placeholder="Enter Venue Here.." class="form-control" required>
                                                                     </div>
 
                                                                     <div class="col-sm-6 form-group ">
@@ -117,25 +106,25 @@
                                                                         <select class="form-control" name="eventTime" id="eventTime">
 
                                                                             <option value="00:00">00:00</option>
-                                                                            <option value="00:00">01:00</option>
-                                                                            <option value="00:00">02:00</option>
-                                                                            <option value="00:00">03:00</option>
-                                                                            <option value="00:00">04:00</option>
-                                                                            <option value="00:00">05:00</option>
-                                                                            <option value="00:00">06:00</option>
-                                                                            <option value="00:00">07:00</option>
-                                                                            <option value="00:00">08:00</option>
-                                                                            <option value="00:00">09:00</option>
-                                                                            <option value="00:00">10:00</option>
-                                                                            <option value="00:00">11:00</option>
-                                                                            <option value="00:00">12:00</option>
+                                                                            <option value="01:00">01:00</option>
+                                                                            <option value="02:00">02:00</option>
+                                                                            <option value="03:00">03:00</option>
+                                                                            <option value="04:00">04:00</option>
+                                                                            <option value="05:00">05:00</option>
+                                                                            <option value="06:00">06:00</option>
+                                                                            <option value="07:00">07:00</option>
+                                                                            <option value="08:00">08:00</option>
+                                                                            <option value="09:00">09:00</option>
+                                                                            <option value="10:00">10:00</option>
+                                                                            <option value="11:00">11:00</option>
+                                                                            <option value="12:00">12:00</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-default" name="eventSubmit">Submit</button>
+                                                            <button type="submit" class="btn btn-default" name="eventSubmit" value="yes">Submit</button>
                                                             <!--<button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>-->
                                                         </div>
                                                     </div>
