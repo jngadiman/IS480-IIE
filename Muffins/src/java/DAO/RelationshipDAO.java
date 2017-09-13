@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -185,6 +187,58 @@ public class RelationshipDAO {
         return mentorRequests;
     }
     
+    //to return all Relationships for a specific Mentor and specific Company
+    public static ArrayList<Relationship> getRelationshipsForMentorNCompany(String mentorEmail, int company){
+        ArrayList<Relationship> rls = new ArrayList<Relationship>();
+        Relationship r = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int rlsID = 0;
+       
+        String mentor_email = "";
+        String type = "";
+        String admin_email = "";
+        String status = "";
+        Date start = null;
+        Date end = null;
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from Relationship where mentor_email = ? and company_id = ?;");
+            stmt.setString(1, mentorEmail);
+            stmt.setInt(2, company);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                rlsID = Integer.parseInt(result.getString("rls_id"));
+                company = Integer.parseInt(result.getString("company_id"));
+                mentor_email = result.getString("mentor_email");
+                type = result.getString("type");
+                String start_date =result.getString("start_date");
+                String end_date =result.getString("end_date");
+                if(start_date!=null && end_date!=null){
+                    try {
+                        start = dateformat.parse(start_date);
+                        end = dateformat.parse(end_date);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                }
+                
+                status = result.getString("status");
+                r = new Relationship(rlsID, company, mentor_email, type, start, end, status);
+                rls.add(r);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return rls;
+    }
     
     //to return all Relationships of a Company based on Company ID
     public static ArrayList<Relationship> getRelationshipsByCompany(int companyID){
@@ -481,6 +535,68 @@ public class RelationshipDAO {
             ConnectionManager.close(conn, stmt, result);
         }
         return companyIDsWMentor;
+    }
+    
+    public static ArrayList<Relationship> getRelationshipsInMonthYear(int month, int year) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
+        LocalDate endMonth = YearMonth.of(year,month).atEndOfMonth(); //2015-12-31
+        
+        Date startDate = java.sql.Date.valueOf(startMonth) ;
+        Date endDate = java.sql.Date.valueOf(endMonth) ;
+        
+        int voucher_no = 0;
+        String mentor_email = "";
+        int mentee_company = 0;
+        Date start = null;
+        Date end = null;        
+        
+        double amount = 0;
+        
+        
+        ArrayList<Relationship> relationships = new ArrayList<Relationship>();
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            
+            stmt = conn.prepareStatement("SELECT * FROM relationship WHERE start_period >= ? and end_period <= ?;");
+            stmt.setString(1, df.format(startDate));
+            stmt.setString(2, df.format(endDate));
+            
+            result = stmt.executeQuery();
+            
+            while (result.next()){
+                voucher_no = Integer.parseInt(result.getString("voucher_no"));
+                mentor_email = result.getString("mentor_email");
+                mentee_company = Integer.parseInt(result.getString("mentee_company_id"));
+                String start_period = result.getString("start_period");
+                String end_period = result.getString("end_period");
+                if(start_period!=null && end_period!=null){
+                    try {
+                        start = df.parse(start_period);
+                        end = df.parse(end_period);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                }
+                amount = Double.parseDouble(result.getString("amount"));
+
+                //Relationship payslip = new Relationship(voucher_no, mentor_email, mentee_company, start,end, amount);
+                //relationships.add(payslip);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PayslipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return relationships;
     }
     
     public static void main(String[] args){

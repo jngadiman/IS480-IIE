@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.time.LocalDate"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.profileController"%>
 <%@page import="MODELS.Company"%>
@@ -24,7 +25,14 @@
     <body>
 
         <div class="container">
-            <h1><center>Choose the mentor to generate payment voucher</center></h1>
+            <%
+                LocalDate today = LocalDate.now();
+                int month = today.getMonthValue();
+                int year = today.getYear();
+                
+            %>
+            
+            <h1><center>Choose the mentor to generate payment voucher for Month: <%=month%> Year: <%=year%></center></h1>
 
             <div class="col-lg-10 col-lg-offset-1">
                 <%                    byte[] imgData;
@@ -74,9 +82,9 @@
                     %>
 
                     <div class="col-lg-12">
-<<<<<<< HEAD
+
                         <form action ="mentorPaymentServlet" method ="post">
-=======
+
                         <ul class="nav nav-pills ">
                             <div class='row'>
                                 <div class='col-lg-4'>
@@ -96,23 +104,14 @@
                         </ul> 
 
                     </div>
->>>>>>> ca11a44131d9cc6ec9f3ef78ccc5e16faf2d6c1a
 
-                            <ul class="nav nav-pills ">
-                                   
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company A <span class="badge">1</span></a></li></button>	
-                                    
-                                    
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company B <span class="badge">2</span></a></li></button>	
-                                    
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company C <span class="badge">3</span></a></li></button>	
-                                    
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>CompanyD <span class="badge">4</span></a></li></button>	
-                                    
-                                        
-                            </ul> 
+
+                            
                             <div class="col-lg-6 col-lg-offset-3">
+                                <input type ="hidden" name ="month" value ="<%=month%>">
+                                <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
+                                <input type ="hidden" name ="company_id" value ="<%=companyID%>"> I THINK NEED PASS ARRAY OVER??
                                 <input type ="submit" class='btn btn-success btn-xs'>Generate All Payment Vouchers>
                             </div>
                     
@@ -120,14 +119,14 @@
                         imgData = null;
                     }
                 %>
-<<<<<<< HEAD
+
                 </form>
 
-=======
+
                 <div class="col-lg-4 col-lg-offset-4">
                     <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
                 </div>
->>>>>>> ca11a44131d9cc6ec9f3ef78ccc5e16faf2d6c1a
+
             </div>
                 </div>
                 </div>

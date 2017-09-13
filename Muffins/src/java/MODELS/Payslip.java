@@ -5,77 +5,80 @@
  */
 package MODELS;
 
+import java.util.Date;
+
 /**
  *
  * @author Hui Min
  */
 public class Payslip {
-    private String mentorName;
-    private String staffIdOrNRIC;
-    private String address;
-    private String eventName;
-    private String typeOfPayment;
-    private String methodToDeliverCheque;
-    private String accountName;
-    private String bankAcctNo;
-    private String branch;
-    private String swiftCode;
-    private String bankAddress;
-    private double amount;
-    private String costCentre;
-    private String gstTotalAmtPayable;
-    private String internalOrder;
-    private String reasons;
+    private int voucherNumber;
+    private String mentor_email; //payee name (mentor name)
+    private int mentee_company; 
+    private Date start_period; 
+    private Date end_period; //Business Mentorship Payment – (name of mentee company) for period dd mm yyyy to dd mm yyyy 
+    private String typeOfPayment; 
+    private String methodToDeliverCheque; 
     
-    public Payslip(String mentorName, String staffIdOrNRIC, String address, String eventName, String typeOfPayment, String methodToDeliverCheque, String accountName, String bankAcctNo, String branch, String swiftCode, String bankAddress, double amount, String costCentre, String gstTotalAmtPayable, String internalOrder, String reasons) {
-        this.mentorName = mentorName;
-        this.staffIdOrNRIC = staffIdOrNRIC;
-        this.address = address;
-        this.eventName = eventName;
-        this.typeOfPayment = typeOfPayment;
-        this.methodToDeliverCheque = methodToDeliverCheque;
-        this.accountName = accountName;
-        this.bankAcctNo = bankAcctNo;
-        this.branch = branch;
-        this.swiftCode = swiftCode;
-        this.bankAddress = bankAddress;
+    private double amount; //amount in payment/payslip
+    private String costCentre; //C249 no need?
+    private String gstTotalAmtPayable; //NA no need?
+    private String internalOrder; //ZIE1MOECA1 no need?
+    
+    //private double baseAmount; //store base amount where voucher no = 0
+
+    public Payslip(int voucherNumber, String mentor_email, int mentee_company, Date start_period, Date end_period, double amount) {
+        this.voucherNumber = voucherNumber;
+        this.mentor_email = mentor_email;
+        this.mentee_company = mentee_company;
+        this.start_period = start_period;
+        this.end_period = end_period;
         this.amount = amount;
-        this.costCentre = costCentre;
-        this.gstTotalAmtPayable = gstTotalAmtPayable;
-        this.internalOrder = internalOrder;
-        this.reasons = reasons;
-    }
-    
-    public String getMentorName() {
-        return mentorName;
+        this.typeOfPayment = "giro";
+        this.methodToDeliverCheque = "NA";
+        this.costCentre ="C249";
+        this.gstTotalAmtPayable = "NA";
+        this.internalOrder = "ZIE1MOECA1";
     }
 
-    public void setMentorName(String mentorName) {
-        this.mentorName = mentorName;
+    public int getVoucherNumber() {
+        return voucherNumber;
     }
 
-    public String getStaffIdOrNRIC() {
-        return staffIdOrNRIC;
+    public void setVoucherNumber(int voucherNumber) {
+        this.voucherNumber = voucherNumber;
     }
 
-    public void setStaffIdOrNRIC(String staffIdOrNRIC) {
-        this.staffIdOrNRIC = staffIdOrNRIC;
+    public String getMentor_email() {
+        return mentor_email;
     }
 
-    public String getAddress() {
-        return address;
+    public void setMentor_email(String mentor_email) {
+        this.mentor_email = mentor_email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public int getMentee_company() {
+        return mentee_company;
     }
 
-    public String getEventName() {
-        return eventName;
+    public void setMentee_company(int mentee_company) {
+        this.mentee_company = mentee_company;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public Date getStart_period() {
+        return start_period;
+    }
+
+    public void setStart_period(Date start_period) {
+        this.start_period = start_period;
+    }
+
+    public Date getEnd_period() {
+        return end_period;
+    }
+
+    public void setEnd_period(Date end_period) {
+        this.end_period = end_period;
     }
 
     public String getTypeOfPayment() {
@@ -92,46 +95,6 @@ public class Payslip {
 
     public void setMethodToDeliverCheque(String methodToDeliverCheque) {
         this.methodToDeliverCheque = methodToDeliverCheque;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
-
-    public String getBankAcctNo() {
-        return bankAcctNo;
-    }
-
-    public void setBankAcctNo(String bankAcctNo) {
-        this.bankAcctNo = bankAcctNo;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
-        this.branch = branch;
-    }
-
-    public String getSwiftCode() {
-        return swiftCode;
-    }
-
-    public void setSwiftCode(String swiftCode) {
-        this.swiftCode = swiftCode;
-    }
-
-    public String getBankAddress() {
-        return bankAddress;
-    }
-
-    public void setBankAddress(String bankAddress) {
-        this.bankAddress = bankAddress;
     }
 
     public double getAmount() {
@@ -165,12 +128,7 @@ public class Payslip {
     public void setInternalOrder(String internalOrder) {
         this.internalOrder = internalOrder;
     }
+    
+    
 
-    public String getReasons() {
-        return reasons;
-    }
-
-    public void setReasons(String reasons) {
-        this.reasons = reasons;
-    }
 }

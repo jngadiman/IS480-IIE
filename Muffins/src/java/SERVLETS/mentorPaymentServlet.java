@@ -5,8 +5,17 @@
  */
 package SERVLETS;
 
+import CONTROLLER.mentorController;
+import CONTROLLER.minutesController;
+import CONTROLLER.paymentController;
+import MODELS.MeetingMinutes;
+import MODELS.Mentor;
+import MODELS.Payslip;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,18 +41,37 @@ public class mentorPaymentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet mentorPaymentServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet mentorPaymentServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String mentor_email = request.getParameter("mentor_email");
+        String monthStr = request.getParameter("month");
+        String yearStr = request.getParameter("year");
+        String [] companies = request.getParameterValues("company_id");
+        Mentor mentor = mentorController.getMentor(mentor_email);
+        
+        int month = 0;
+        if(monthStr!=null){
+            month = Integer.parseInt(monthStr);
         }
+        int year = 0;
+        if(yearStr!=null){
+            year = Integer.parseInt(yearStr);
+        }
+        
+        ArrayList<MeetingMinutes> mins = new ArrayList<MeetingMinutes>();
+        
+        
+        if(companies!=null && companies.length!=0){
+            for(String c: companies){
+                int id = Integer.parseInt(c);
+                
+                //generate and print one payslip
+                Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
+                paymentController.printPayslip(payslip);
+            }
+        }
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
