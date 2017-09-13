@@ -25,6 +25,10 @@
     <body>
         <h1>Requests</h1>
         <div class="col-md-9  col-md-offset-2">
+            //drop down list of user without company
+        <button type="submit" class="bt-xs btn-primary" name="submit">Submit</button>
+        </div>
+        <div class="col-md-9  col-md-offset-2">
             <!--            <ul class="nav nav-tabs">
                             <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
                             <li class=""><a href="#openmentor" data-toggle="tab" aria-expanded="false">Open Mentor <span class="badge">5</span></a></li>

@@ -38,13 +38,6 @@
                         <div class="col-sm-10 form-group required">
                         <h4>Confirm request assignment for <b><%=displayedUser.getName()%></b> to mentor <b><%=c.getName()%></b>? <br/></h4>
                         </div>
-                        <div class="col-sm-6 form-group required">
-                            <label class="control-label">State your reason for request </label>
-                            <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Compulsory)" class="form-control" required>
-                            <input type="submit" class="btn btn-xs btn-info" value="Submit">       
-                        </div>
-
-
                         <!--  
                         
                                                     <div class="col-sm-12 form-group">
