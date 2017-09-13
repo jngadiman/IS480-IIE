@@ -158,7 +158,7 @@ public class CompanyDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Company;");
+            stmt = conn.prepareStatement("select * from Company order by `company_name` asc ;");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -674,12 +674,40 @@ public class CompanyDAO {
         
         return companyIDs;
     }
+    
+    public static ArrayList<Integer> getAllCompanyIDs(){
+        ArrayList<Integer> companyIDs = new ArrayList<Integer>();
+        
+        Company c = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select company_id from Company;");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                companyIDs.add(company_id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return companyIDs;
+    }
      
     public static void main(String[] args){
-//        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDsByIndustry(302020);
-//        for(Integer i: companyIDs){
-//            System.out.println(i);
-//        }
+        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDs();
+        for(Integer i: companyIDs){
+            System.out.println(i);
+        }
         
         //String[] stringArray = new String[2];
 //        String[] founders = new String[]{"mentor1@gmail.com","bla@abc.com"};

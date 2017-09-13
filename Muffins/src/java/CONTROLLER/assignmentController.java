@@ -99,6 +99,41 @@ public class assignmentController {
             return mentors;
         }
     
+    public static ArrayList<Company> getCompaniesWNoMentorNPref(){
+        ArrayList<Company> companies = new ArrayList<Company>();
+        
+        ArrayList<Integer> allCompanyIDs = CompanyDAO.getAllCompanyIDs();
+        ArrayList<Integer> companyIDsWPref = PreferenceDAO.getAllCompanyIDsWPreference();
+        ArrayList<Integer> companyIDsWMentor = RelationshipDAO.getCompanyIDsWithMentor();
+        
+        for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
+            Integer company_id = allCompanyIDs.get(i);
+            for(int j = companyIDsWPref.size()-1; i >= 0; i--){
+                Integer companyID = companyIDsWPref.get(j);
+                if(company_id == companyID){
+                    allCompanyIDs.remove(company_id);
+                }
+            }
+        }
+        
+        for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
+            Integer company_id = allCompanyIDs.get(i);
+            for(int j = companyIDsWMentor.size()-1; i >= 0; i--){
+                Integer companyID = companyIDsWMentor.get(j);
+                if(company_id == companyID){
+                    allCompanyIDs.remove(company_id);
+                }
+            }
+        }
+        
+        for(Integer i : allCompanyIDs){
+            Company c = CompanyDAO.getCompany(i);
+            companies.add(c);
+        }
+         
+        return companies;
+    }
+        
     public static void main(String[] args){
         ArrayList<String> skillSet = new ArrayList<String>();
         skillSet.add("Business Development");

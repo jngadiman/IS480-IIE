@@ -368,18 +368,49 @@ public class PreferenceDAO {
         return preferences;
     }
     
+    public static ArrayList<Integer> getAllCompanyIDsWPreference(){
+        ArrayList<Integer> companyIDs = new ArrayList<Integer>(); 
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select company_id from mentor_preference order by company_id asc;");
+            result = stmt.executeQuery();
+            
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                companyIDs.add(company_id);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return companyIDs;
+    }
+            
     public static void main(String[] args){
 //        Preference p = new Preference(7, "mentor3@hotmail.com", null, null, "Refine Revenue Model", new Date());
 //        int success = PreferenceDAO.addPreference(p);
 //        System.out.println(success);
-        ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
-        for(Preference p: preferences){
-            System.out.println(p.getCompany_id());
-            System.out.println(p.getMentor_email());
-            System.out.println(p.getStart_date());
-            System.out.println(p.getEnd_date());
-            System.out.println(p.getNeed());
-            System.out.println(p.getDate_sent());
+//        ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
+//        for(Preference p: preferences){
+//            System.out.println(p.getCompany_id());
+//            System.out.println(p.getMentor_email());
+//            System.out.println(p.getStart_date());
+//            System.out.println(p.getEnd_date());
+//            System.out.println(p.getNeed());
+//            System.out.println(p.getDate_sent());
+//        }
+        ArrayList<Integer> companyIDs = PreferenceDAO.getAllCompanyIDsWPreference();
+        for(Integer i: companyIDs){
+            System.out.println(i);
         }
     }
 }

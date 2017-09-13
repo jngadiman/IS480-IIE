@@ -10,6 +10,7 @@ import CONTROLLER.assignmentController;
 import CONTROLLER.preferenceController;
 import MODELS.Preference;
 import MODELS.Relationship;
+import Utility.EmailSender;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -77,6 +78,26 @@ public class adminPendingRequestServlet extends HttpServlet {
             //store in the mentor preference object
             Preference pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
             status = preferenceController.editPreference(pref);
+            
+            if(status.equals("Preference has been edited!")){
+                //send email of the unhashed accessCode to founders
+//                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, have been accepted into IIE Incubation. \n Kindly click on this link to register below with the access code provided: \n Access Code: "+accessCode+" \n Registeration Link: http://localhost:8084/Muffins/registerIncubationUser.jsp?id="+companyID, founders,"IIE Portal Enrollment Results")){
+//                    System.out.println("email has been sent successfully");
+//                }else{
+//                    System.out.println("email could not be sent");
+//                }
+
+                //send email to EIR and admin
+                String [] admin = {"jiatung1218@gmail.com"};
+//                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been accepted into IIE Incubation.", admin, "IIE Portal Notification")){
+//                    System.out.println("email has been sent successfully");
+//                }else{
+//                    System.out.println("email could not be sent");
+//                }
+            }
+            
+             
+            request.setAttribute("status", status);
             
         }else if(request.getParameter("rejectBtn") != null){
             //need send email to the mentees to inform of failure
