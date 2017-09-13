@@ -45,7 +45,7 @@ public class adminPendingRequestServlet extends HttpServlet {
         
         //get mentee details frm the relationship using the company
         
-        if(request.getParameter("approveBtn") != null){
+        if(request.getParameter("approve") != null){
             
             int company_id = Integer.parseInt(request.getParameter("company_id"));
             String mentor_email = request.getParameter("mentor_email");
@@ -54,7 +54,7 @@ public class adminPendingRequestServlet extends HttpServlet {
             
             //get values from pop up for the start and end date of the assignment period
             Date start_date = null;
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             
             String startDate = request.getParameter("start_date");
             if (startDate != null || !startDate.isEmpty()){
@@ -106,7 +106,7 @@ public class adminPendingRequestServlet extends HttpServlet {
             
             Preference p = preferenceController.getPreference(company_id, mentor_email);
             
-        }else if(request.getParameter("editBtn") != null){
+        }else if(request.getParameter("edit") != null){
             //change mentor and start date and end date
             //get from pop up box
             int company_id = Integer.parseInt(request.getParameter("company_id"));
