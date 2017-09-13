@@ -316,27 +316,27 @@ public class MentorDAO {
 //        System.out.println(m.getPosition());
 //        System.out.println(m.getIntroduction());
         
-//        ArrayList<Mentor> mentors = MentorDAO.getMentors();
-//        for(Mentor m: mentors){
-//            System.out.println(m.getEmail());
-//            System.out.println(m.getPassword());
-//            System.out.println(m.getName());
-//            System.out.println(m.getNric());
-//            System.out.println(m.getJoinedDate());
-//            System.out.println(m.getProfile_pic());
-//            System.out.println(m.getUser_type());
-//            System.out.println(m.getCompanyid());
-//            System.out.println(m.getPosition());
-//            System.out.println(m.getIntroduction());
-//            System.out.println(m.getSkills());
-//            System.out.println(m.getBankAccount());
-//        }
-            ArrayList<String> skillSet = new ArrayList<String>();
-            skillSet.add("Business Development");
-            skillSet.add("Product Management");
-            ArrayList<String> mentorEmails = MentorDAO.getMentorsBySkills(skillSet);
-            for(String email : mentorEmails){
-                System.out.println(email);
-            }
+        ArrayList<Mentor> mentors = MentorDAO.getMentors();
+        for(Mentor m: mentors){
+            System.out.println(m.getEmail());
+            System.out.println(m.getPassword());
+            System.out.println(m.getName());
+            System.out.println(m.getNric());
+            System.out.println(m.getJoinedDate());
+            System.out.println(m.getProfile_pic());
+            System.out.println(m.getUser_type());
+            System.out.println(m.getCompanyid());
+            System.out.println(m.getPosition());
+            System.out.println(m.getIntroduction());
+            System.out.println(m.getSkills());
+            System.out.println(m.getBankAccount());
+        }
+//            ArrayList<String> skillSet = new ArrayList<String>();
+//            skillSet.add("Business Development");
+//            skillSet.add("Product Management");
+//            ArrayList<String> mentorEmails = MentorDAO.getMentorsBySkills(skillSet);
+//            for(String email : mentorEmails){
+//                System.out.println(email);
+//            }
     }
 }

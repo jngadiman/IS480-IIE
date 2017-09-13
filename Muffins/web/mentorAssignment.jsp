@@ -27,16 +27,16 @@
     <body>
         <div class="container">
             <div class="btn-group">
-  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Small button
-  </button>
-  <div class="dropdown-menu">
-    <li><a href="#">Entrepreneur</a></li>
-    <li><a href="#">Venture Capitalist</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-  </div>
-</div>
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Small button
+            </button>
+            <div class="dropdown-menu">
+              <li><a href="#" value="Incubation Manager Mentor">Incubation Manager</a></li>
+              <li><a href="#" value="Venture Capitalist Mentor">Venture Capitalist</a></li>
+              <li><a href="#" value="Industry Professional Mentor">Industry Professional</a></li>
+              <li><a href="#" value="Entrepreneur Mentor">Entrepreneur</a></li>
+            </div>
+          </div>
             <div class="col-lg-10 col-lg-offset-1 well">
 <!--                <div class="col-lg-12 well">
                     <p><strong>Mentee Company: </strong>get Mentee's Company</p>
@@ -45,11 +45,16 @@
                 </div>-->
                 
                 
-                <% String type = request.getParameter("type");
-                        session.setAttribute("requestType", type);
-                        ArrayList<Mentor> mentors = MentorDAO.getMentors();
-                        for (Mentor m : mentors) {
-                    %>
+                <% 
+                    if(session.getAttribute("addPreferenceStatus") != null){
+                        String status = (String) session.getAttribute("addPreferenceStatus");
+                        out.println(status);
+                    }
+                    String type = request.getParameter("type");
+                    session.setAttribute("requestType", type);
+                    ArrayList<Mentor> mentors = MentorDAO.getMentors();
+                    for (Mentor m : mentors) {
+                %>
                     <div class="col-lg-6 well">
 
                         <%

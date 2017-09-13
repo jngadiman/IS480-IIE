@@ -63,7 +63,7 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
-                company_founders = result.getString("stakeholders");
+                company_founders = result.getString("founders");
                 fulltimers = result.getInt("num_fulltime");
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
@@ -165,7 +165,7 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
-                company_founders = result.getString("stakeholders");
+                company_founders = result.getString("founders");
                 fulltimers = result.getInt("num_fulltime");
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
@@ -270,7 +270,7 @@ public class CompanyDAO {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
                 company_description = result.getString("company_description");
-                company_founders = result.getString("stakeholders");
+                company_founders = result.getString("founders");
                 fulltimers = result.getInt("num_fulltime");
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
@@ -388,7 +388,7 @@ public class CompanyDAO {
             
             String status = "";
             
-            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, stakeholders = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, business_slides = ? WHERE company_id = ?;");
+            stmt = conn.prepareStatement("UPDATE Company SET  company_name = ?, company_description = ?, founders = ?, num_fulltime = ?, num_parttime = ?, industry = ?, start_date = ?, current_stage = ?, company_logo = ?, product_differentiation = ?, revenue_model = ?, traction = ?, deployment_of_funds = ?, business_slides = ? WHERE company_id = ?;");
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getDescription());
             stmt.setString(3, stakeholders );
@@ -676,19 +676,19 @@ public class CompanyDAO {
     }
      
     public static void main(String[] args){
-        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDsByIndustry(302020);
-        for(Integer i: companyIDs){
-            System.out.println(i);
-        }
+//        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDsByIndustry(302020);
+//        for(Integer i: companyIDs){
+//            System.out.println(i);
+//        }
         
         //String[] stringArray = new String[2];
 //        String[] founders = new String[]{"mentor1@gmail.com","bla@abc.com"};
 //        Company c = new Company(10, "comany name", "sell food looajdvjvn..",founders, 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
 //        int result = CompanyDAO.editCompanyDetails(c);
 //        System.out.println(result);
-//        Company c = CompanyDAO.getCompany(1);
-//        System.out.println(c.getId());
-//        System.out.println(c.getName());
-//        System.out.println(c.getCurrentStage());
+        Company c = CompanyDAO.getCompany(1);
+        System.out.println(c.getId());
+        System.out.println(c.getName());
+        System.out.println(c.getCurrentStage());
     }
 }
