@@ -37,13 +37,13 @@ public class PayslipDAO {
         PreparedStatement stmt = null;
         ResultSet count = null;
         int result = 0;
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("INSERT INTO payslip VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO payment_voucher VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, payslip.getVoucherNumber());
             stmt.setString(2, payslip.getMentor_email());
             stmt.setInt(3, payslip.getMentee_company());
@@ -91,7 +91,7 @@ public class PayslipDAO {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("SELECT * FROM payslip WHERE voucher_no = ?;");
+            stmt = conn.prepareStatement("SELECT * FROM payment_voucher WHERE voucher_no = ?;");
             stmt.setInt(1, voucher_no);
             
             result = stmt.executeQuery();
@@ -168,7 +168,7 @@ public class PayslipDAO {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("SELECT * FROM payslip WHERE start_period >= ? and end_period <= ?;");
+            stmt = conn.prepareStatement("SELECT * FROM payment_voucher WHERE start_period >= ? and end_period <= ?;");
             stmt.setString(1, df.format(startDate));
             stmt.setString(2, df.format(endDate));
             
@@ -230,7 +230,7 @@ public class PayslipDAO {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("SELECT * FROM payslip WHERE mentor_email = ? and mentee_company_id = ?;");
+            stmt = conn.prepareStatement("SELECT * FROM payment_voucher WHERE mentor_email = ? and mentee_company_id = ?;");
             stmt.setString(1, mentor);
             stmt.setInt(2, company);
             
@@ -273,7 +273,7 @@ public class PayslipDAO {
         
         try{
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from payslip order by voucher_no desc;");
+            stmt = conn.prepareStatement("select * from payment_voucher order by voucher_no desc;");
             result = stmt.executeQuery();
             result.next();
             voucher_no = result.getInt("voucher_no");

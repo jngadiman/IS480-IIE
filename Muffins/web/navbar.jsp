@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="CONTROLLER.relationshipController"%>
 <%@page import="MODELS.Relationship"%>
 <%@page import="CONTROLLER.assignmentController"%>
 <%@page import="java.util.ArrayList"%>
@@ -81,7 +82,7 @@
                     <%
                     } else if (user.getUser_type().equals("admin")) {
                         
-                        ArrayList<Relationship> pendingRequests = assignmentController.getAllRelationshipByStatus("requesting");
+                        ArrayList<Relationship> pendingRequests = relationshipController.getAllRelationshipByStatus("requesting");
                     %>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="adminHomepage.jsp">Homepage</a></li>

@@ -15,6 +15,7 @@ import MODELS.MeetingMinutes;
 import MODELS.Mentor;
 import MODELS.Payslip;
 import MODELS.Relationship;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,37 +40,11 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * @author Hui Min
  */
 public class paymentController {
-    public static int getNumMeetingMinutesPerMentorNCompany(String mentor_email, int company_id){
-        int numMM = 0;
-        
-        ArrayList<Integer> meetingMinutesIDs = MeetingMinutesDAO.getMeetingMinutesIDsOfMentor(mentor_email);
-        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
-        
-        for(Integer i: meetingMinutesIDs){
-            Meeting m = meetingController.getMeetingByMeetingID(i);
-            Company c = m.getMenteeCompany();
-            if(c.getId() == company_id){
-                numMM++;
-            }
-        }
-        return numMM;
-    }
     
-    public static ArrayList<MeetingMinutes> getMeetingMinutesByMonthNYear(int month, int year, int company, String mentor_email){
-        ArrayList<MeetingMinutes> mm = new ArrayList<MeetingMinutes>();
-        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(month, year, company);
-        for(int m: meetings){
-            ArrayList<MeetingMinutes> temp = MeetingMinutesDAO.getMeetingMinutesOfMentorByMeetingIDs(m, mentor_email);
-            for(MeetingMinutes mins: temp){
-                mm.add(mins);
-            }
-        }
-        return mm;
-    }
     
     public static int getCountOfMonthYearByMentorNCompany(int month, int year, int company, String mentor_email){
         
-        ArrayList<MeetingMinutes> mins = paymentController.getMeetingMinutesByMonthNYear(month, year, company, mentor_email);
+        ArrayList<MeetingMinutes> mins = minutesController.getMeetingMinutesByMonthNYear(month, year, company, mentor_email);
         int count = 0;
         for(MeetingMinutes m: mins){
             count++;
@@ -113,7 +88,7 @@ public class paymentController {
         return payslip;
     }
     
-    public static String printPayslip(Payslip payslip)throws FileNotFoundException, IOException {
+    public static String printPayslip(Payslip payslip, File file)throws FileNotFoundException, IOException {
         
         String result = "";
         int voucher_no = payslip.getVoucherNumber();
@@ -168,8 +143,11 @@ public class paymentController {
         HWPFDocument hwpfdoc = null;
         //Business Mentorship Payment –  (name of mentee company) for period dd mm yyyy to dd mm yyyy
 
-        InputStream resourceAsStream =  new FileInputStream("./iie documents/Mentor Payment Voucher Template.doc");
+        InputStream resourceAsStream =  new FileInputStream(file);
+        //new BufferedInputStream(resourceAsStream);
+        
         try {
+            
             fsfilesystem = new POIFSFileSystem(resourceAsStream );
             hwpfdoc = new HWPFDocument(fsfilesystem);
             Range range = hwpfdoc.getRange();
@@ -207,7 +185,7 @@ public class paymentController {
     
     public static void main(String[] args) throws IOException{
         Payslip payslip = PayslipDAO.getPayslip(1);
-        String numMM = paymentController.printPayslip(payslip);
-        System.out.println(numMM);
+        //String numMM = paymentController.printPayslip(payslip);
+        //System.out.println(numMM);
     }
 }

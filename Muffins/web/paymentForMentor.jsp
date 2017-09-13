@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.relationshipController"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.profileController"%>
@@ -29,7 +30,7 @@
                 LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
                 int year = today.getYear();
-                
+                //maybe set reminder to ask them to generate before end of the month
             %>
             
             <h1><center>Choose the mentor to generate payment voucher for Month: <%=month%> Year: <%=year%></center></h1>
@@ -69,12 +70,22 @@
 
                     <%
 
-                        User displayedUser = profileController.displayUserDetails(mentor.getEmail());
-                        int companyID = displayedUser.getCompanyid();
-                        Company company = companyController.getCompany(companyID);
+                        //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
+                        //int companyID = displayedUser.getCompanyid();
+                        //Company company = companyController.getCompany(companyID);
                         String company_name = "";
-                        if (company != null) {
-                            company_name = company.getName();
+                        ArrayList<Relationship> rlsInMonthYear = relationshipController.getAssignedRelationshipsOfMonthYear(month, year);
+                        ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentor(rlsInMonthYear, mentor.getEmail());
+                        String company_ids = "";
+                        if(rls!=null&&rls.size()!=0){
+                            for(Relationship r: rls){
+                                int companyID = r.getCompanyID();
+                                company_ids+= companyID+",";
+                                Company company = companyController.getCompany(companyID);
+                                if (company != null) {
+                                company_name = company.getName();
+                          
+                        
                     %>
                     <p style="text-align:centre"><%= company_name%></p>
                     <%
@@ -111,16 +122,18 @@
                                 <input type ="hidden" name ="month" value ="<%=month%>">
                                 <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
-                                <input type ="hidden" name ="company_id" value ="<%=companyID%>"> I THINK NEED PASS ARRAY OVER??
+                                <input type ="hidden" name ="company_id" value ="<%=company_ids%>"> 
                                 <input type ="submit" class='btn btn-success btn-xs'>Generate All Payment Vouchers>
                             </div>
                     
                 <%
+                      }
+                        }
                         imgData = null;
                     }
                 %>
 
-                </form>
+                    </form>
 
 
                 <div class="col-lg-4 col-lg-offset-4">
@@ -130,6 +143,6 @@
             </div>
                 </div>
                 </div>
-        </div>
+        
     </body>
 </html>

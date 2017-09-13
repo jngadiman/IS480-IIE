@@ -9,6 +9,8 @@ import DAO.MeetingDAO;
 import DAO.MeetingMinutesDAO;
 import DAO.TaskDAO;
 import DAO.UserDAO;
+import MODELS.Company;
+import MODELS.Meeting;
 import MODELS.MeetingMinutes;
 import MODELS.User;
 import java.util.ArrayList;
@@ -115,6 +117,34 @@ public class minutesController {
     public static int getNextId(){
         int id = MeetingMinutesDAO.getLastID();
         return id;
+    }
+    
+    public static ArrayList<MeetingMinutes> getMeetingMinutesByMonthNYear(int month, int year, int company, String mentor_email){
+        ArrayList<MeetingMinutes> mm = new ArrayList<MeetingMinutes>();
+        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(month, year, company);
+        for(int m: meetings){
+            ArrayList<MeetingMinutes> temp = MeetingMinutesDAO.getMeetingMinutesOfMentorByMeetingIDs(m, mentor_email);
+            for(MeetingMinutes mins: temp){
+                mm.add(mins);
+            }
+        }
+        return mm;
+    }
+    
+    public static int getNumMeetingMinutesPerMentorNCompany(String mentor_email, int company_id){
+        int numMM = 0;
+        
+        ArrayList<Integer> meetingMinutesIDs = MeetingMinutesDAO.getMeetingMinutesIDsOfMentor(mentor_email);
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        
+        for(Integer i: meetingMinutesIDs){
+            Meeting m = meetingController.getMeetingByMeetingID(i);
+            Company c = m.getMenteeCompany();
+            if(c.getId() == company_id){
+                numMM++;
+            }
+        }
+        return numMM;
     }
     
     public static void main(String[] args){

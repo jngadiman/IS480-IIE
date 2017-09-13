@@ -6,6 +6,7 @@
 package SERVLETS;
 
 import CONTROLLER.assignmentController;
+import CONTROLLER.relationshipController;
 import MODELS.Relationship;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,9 +41,9 @@ public class adminAssignmentServlet extends HttpServlet {
         String status = request.getParameter("requestStatus");
         ArrayList<Relationship> requests = new ArrayList<Relationship>();
         if(status.equals("all")){
-            requests = assignmentController.getAllRelationship();
+            requests = relationshipController.getAllRelationship();
         }else{
-            requests = assignmentController.getAllRelationshipByStatus(status);
+            requests = relationshipController.getAllRelationshipByStatus(status);
         }
         session.setAttribute("requestStatus", status);
         session.setAttribute("requests", requests);

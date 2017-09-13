@@ -11,6 +11,8 @@ import CONTROLLER.paymentController;
 import MODELS.MeetingMinutes;
 import MODELS.Mentor;
 import MODELS.Payslip;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.*;
@@ -28,7 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "mentorPaymentServlet", urlPatterns = {"/mentorPaymentServlet"})
 public class mentorPaymentServlet extends HttpServlet {
+private File voucher_template;
 
+@Override
+public void init() throws ServletException {
+    voucher_template = new File("./iie documents/Mentor Payment Voucher Template.doc");
+}
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +52,11 @@ public class mentorPaymentServlet extends HttpServlet {
         String mentor_email = request.getParameter("mentor_email");
         String monthStr = request.getParameter("month");
         String yearStr = request.getParameter("year");
-        String [] companies = request.getParameterValues("company_id");
+        String companyids = request.getParameter("company_id");
+        String [] companies = null;
+        if(companyids!=null){
+            companies = companyids.split(",");
+        }
         Mentor mentor = mentorController.getMentor(mentor_email);
         
         int month = 0;
@@ -62,11 +73,22 @@ public class mentorPaymentServlet extends HttpServlet {
         
         if(companies!=null && companies.length!=0){
             for(String c: companies){
-                int id = Integer.parseInt(c);
+                if(c!=""){
+                    int id = Integer.parseInt(c);
                 
-                //generate and print one payslip
-                Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
-                paymentController.printPayslip(payslip);
+                    //generate and print one payslip
+                    Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
+                    //String path = "./iie documents/Mentor Payment Voucher Template.doc";
+                    
+                    //FileInputStream file = FileInputStream (getServletContext().getRealPath());
+                     
+//                    if (f!=null){
+//                        file = new FileInputStream(f);
+//                    }
+//                    
+                    paymentController.printPayslip(payslip, voucher_template);
+                }
+                
             }
         }
         
