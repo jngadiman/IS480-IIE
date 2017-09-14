@@ -3,6 +3,14 @@
     Created on : Aug 15, 2017, 12:37:06 PM
     Author     : JJAY
 --%>
+
+
+<%@page import="java.util.Date"%>
+<%@page import="CONTROLLER.companyController"%>
+<%@page import="CONTROLLER.mentorController"%>
+<%@page import="MODELS.Mentor"%>
+<%@page import="DAO.MenteeDAO"%>
+<%@page import="MODELS.Company"%>
 <%@page import="MODELS.Task"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.taskController"%>
@@ -22,20 +30,19 @@
 
         <div class="container">
             <h1 class="well">Meeting Minutes & Ratings</h1>
-            
-            <%
-                User currentUser = (User)session.getAttribute("user");
+
+            <%                User currentUser = (User) session.getAttribute("user");
                 int meeting_id = 1;
                 Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
                 int currentStageForCompany = currentMeeting.getMenteeCompany().getCurrentStage();
-                
-            
+
+
             %>
 
             <div class="col-lg-12 well">
-              <!-- meeting id to be retrieved from previous page
-                <input type ="hidden" name ="meeting_id">-->
-               
+                <!-- meeting id to be retrieved from previous page
+                  <input type ="hidden" name ="meeting_id">-->
+
                 <div class="row">
                     <form method ="post" action ="addMeetingMinutesServlet">
                         <div class="col-sm-12">
@@ -44,39 +51,63 @@
                                 <!-- FOR NOW -->
                                 <input value = "<%=meeting_id%>" name ="meeting_id">
                                 <div class="col-sm-6 form-group">
-                                    <label>Mentor Email</label> 
-                                    <!--                                    to insert mentor name from database-->
-                                    
-                                    <input id="mentor" name="mentor" type="text" placeholder="Enter Company Name Here.." class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <label>Stage <%=currentStageForCompany%> </label>
-                                </div>
 
-                                <!--                                    to insert current stage for company
-                                <input id="stage" name="stage" type="text" placeholder="Enter Company Name Here.." class="form-control">-->
+                                    <%String type = user.getUser_type(); %>
+                                    <% if (type.equals("regular_mentee") || type.equals("light_mentee")) {
+                                            Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
+                                            String mentor_name = "";
+                                            if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
+                                                Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
+                                                mentor_name = myMentor.getName();
+                                    %>
+                                    <p><strong>Mentor Name: </strong><%=mentor_name%><p>
+                                        <%
+                                                } else {
+                                                    out.println("");
+                                                }
+                                            } else {
+                                                out.println("");
+                                            }
+                                        %>
+                                    <p><strong>Mentee Name: </strong><%=currentUser.getName()%></p>
+                                    <%
+                                        Date startTime = currentMeeting.getStartTime();
+                                        Date endTime = currentMeeting.getEndTime();
+
+                                    %>
+                                    <p><strong>Meeting Start Time: </strong><%=currentMeeting.getStartTime()%></p>
+                                    <p><strong>Meeting End Time: </strong><%=currentMeeting.getEndTime()%></p>
+                                    <p><strong>Company Current Stage: </strong><%=currentStageForCompany%></p>
+
+                                </div>
                             </div>
+                            <!--                                    to insert current stage for company
+                            <input id="stage" name="stage" type="text" placeholder="Enter Company Name Here.." class="form-control">-->
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label>Title</label>
-                                    <input class="form-control" type ="text" name ="title" placeholder="Enter Title"> <br/>
+                                    <input class="col-sm-6 form-control" type ="text" name ="title"> getMeetingMinutes<br/>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <label>Tasks Completed</label><br/>
+                                <div class="col-sm-6 ">
+                                    <label>Tasks Completed</label><br>
+
                                     <%
                                         ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageForCompany, currentMeeting.getMenteeCompany().getId());
-                                        for(Task t: tasks){
-                                            if(!t.isIsCompleted()){
-                                           %>
-                                                <input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"> <%=t.getName()%><br>
-                                        <%  }
-                                        }
+
+                                        for (Task t : tasks) {
+                                            if (!t.isIsCompleted()){
                                     %>
-                                    
+                                    <p><input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"></p>
+                                        <%
+                                            } else {
+                                                }
+}
+
+                                        %>
+
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group">
@@ -141,4 +172,4 @@
         </div>
     </body>
 </html>
-
+<%@include file="browserCloseEvent.jsp" %>
