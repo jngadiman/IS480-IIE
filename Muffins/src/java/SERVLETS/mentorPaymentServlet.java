@@ -5,8 +5,19 @@
  */
 package SERVLETS;
 
+import CONTROLLER.mentorController;
+import CONTROLLER.minutesController;
+import CONTROLLER.paymentController;
+import MODELS.MeetingMinutes;
+import MODELS.Mentor;
+import MODELS.Payslip;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "mentorPaymentServlet", urlPatterns = {"/mentorPaymentServlet"})
 public class mentorPaymentServlet extends HttpServlet {
+private File voucher_template;
 
+@Override
+public void init() throws ServletException {
+    voucher_template = new File("./iie documents/Mentor Payment Voucher Template.doc");
+}
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,18 +48,52 @@ public class mentorPaymentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet mentorPaymentServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet mentorPaymentServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String mentor_email = request.getParameter("mentor_email");
+        String monthStr = request.getParameter("month");
+        String yearStr = request.getParameter("year");
+        String companyids = request.getParameter("company_id");
+        String [] companies = null;
+        if(companyids!=null){
+            companies = companyids.split(",");
         }
+        Mentor mentor = mentorController.getMentor(mentor_email);
+        
+        int month = 0;
+        if(monthStr!=null){
+            month = Integer.parseInt(monthStr);
+        }
+        int year = 0;
+        if(yearStr!=null){
+            year = Integer.parseInt(yearStr);
+        }
+        
+        ArrayList<MeetingMinutes> mins = new ArrayList<MeetingMinutes>();
+        
+        
+        if(companies!=null && companies.length!=0){
+            for(String c: companies){
+                if(c!=""){
+                    int id = Integer.parseInt(c);
+                
+                    //generate and print one payslip
+                    Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
+                    //String path = "./iie documents/Mentor Payment Voucher Template.doc";
+                    
+                    //FileInputStream file = FileInputStream (getServletContext().getRealPath());
+                     
+//                    if (f!=null){
+//                        file = new FileInputStream(f);
+//                    }
+//                    
+                    paymentController.printPayslip(payslip, voucher_template);
+                }
+                
+            }
+        }
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

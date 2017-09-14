@@ -4,6 +4,8 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.relationshipController"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.profileController"%>
 <%@page import="MODELS.Company"%>
@@ -24,7 +26,14 @@
     <body>
 
         <div class="container">
-            <h1><center>Choose the mentor to generate payment voucher</center></h1>
+            <%
+                LocalDate today = LocalDate.now();
+                int month = today.getMonthValue();
+                int year = today.getYear();
+                //maybe set reminder to ask them to generate before end of the month
+            %>
+            
+            <h1><center>Choose the mentor to generate payment voucher for Month: <%=month%> Year: <%=year%></center></h1>
 
             <div class="col-lg-10 col-lg-offset-1">
                 <%                    byte[] imgData;
@@ -61,12 +70,22 @@
 
                     <%
 
-                        User displayedUser = profileController.displayUserDetails(mentor.getEmail());
-                        int companyID = displayedUser.getCompanyid();
-                        Company company = companyController.getCompany(companyID);
+                        //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
+                        //int companyID = displayedUser.getCompanyid();
+                        //Company company = companyController.getCompany(companyID);
                         String company_name = "";
-                        if (company != null) {
-                            company_name = company.getName();
+                        ArrayList<Relationship> rlsInMonthYear = relationshipController.getAssignedRelationshipsOfMonthYear(month, year);
+                        ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentor(rlsInMonthYear, mentor.getEmail());
+                        String company_ids = "";
+                        if(rls!=null&&rls.size()!=0){
+                            for(Relationship r: rls){
+                                int companyID = r.getCompanyID();
+                                company_ids+= companyID+",";
+                                Company company = companyController.getCompany(companyID);
+                                if (company != null) {
+                                company_name = company.getName();
+                          
+                        
                     %>
                     <p style="text-align:centre"><%= company_name%></p>
                     <%
@@ -74,9 +93,9 @@
                     %>
 
                     <div class="col-lg-12">
-<<<<<<< HEAD
+
                         <form action ="mentorPaymentServlet" method ="post">
-=======
+
                         <ul class="nav nav-pills ">
                             <div class='row'>
                                 <div class='col-lg-4'>
@@ -96,41 +115,34 @@
                         </ul> 
 
                     </div>
->>>>>>> ca11a44131d9cc6ec9f3ef78ccc5e16faf2d6c1a
 
-                            <ul class="nav nav-pills ">
-                                   
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company A <span class="badge">1</span></a></li></button>	
-                                    
-                                    
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company B <span class="badge">2</span></a></li></button>	
-                                    
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company C <span class="badge">3</span></a></li></button>	
-                                    
-                                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>CompanyD <span class="badge">4</span></a></li></button>	
-                                    
-                                        
-                            </ul> 
+
+                            
                             <div class="col-lg-6 col-lg-offset-3">
+                                <input type ="hidden" name ="month" value ="<%=month%>">
+                                <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
+                                <input type ="hidden" name ="company_id" value ="<%=company_ids%>"> 
                                 <input type ="submit" class='btn btn-success btn-xs'>Generate All Payment Vouchers>
                             </div>
                     
                 <%
+                      }
+                        }
                         imgData = null;
                     }
                 %>
-<<<<<<< HEAD
-                </form>
 
-=======
+                    </form>
+
+
                 <div class="col-lg-4 col-lg-offset-4">
                     <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
                 </div>
->>>>>>> ca11a44131d9cc6ec9f3ef78ccc5e16faf2d6c1a
+
             </div>
                 </div>
                 </div>
-        </div>
+        
     </body>
 </html>
