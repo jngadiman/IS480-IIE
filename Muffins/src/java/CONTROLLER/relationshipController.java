@@ -5,7 +5,9 @@
  */
 package CONTROLLER;
 
+import DAO.MentorDAO;
 import DAO.RelationshipDAO;
+import MODELS.Mentor;
 import MODELS.Relationship;
 import java.util.ArrayList;
 
@@ -79,5 +81,21 @@ public class relationshipController {
         }
         
         return rls;
+    }
+    
+    public static Mentor getCurrentMentorOfCompany(int company_id){
+        Mentor m = null;
+        
+        String mentorEmail = RelationshipDAO.getCurrentMentorOfCompany(company_id);
+        if(mentorEmail != null && !mentorEmail.isEmpty()){
+            m = MentorDAO.getMentorByEmail(mentorEmail);
+        }
+        
+        return m;
+    }
+    
+    public static void main(String[] args){
+        Mentor m = relationshipController.getCurrentMentorOfCompany(7);
+        System.out.println(m);
     }
 }

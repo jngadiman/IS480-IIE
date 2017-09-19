@@ -60,8 +60,16 @@
                                     if (industry != null) {
                                         //industry still cannot edit properly%>
                                 <p><strong>Industry</strong> : <%=industry.getIndustryName()%></p>
-                                <%}%>
-                                <p><strong>Company Current Mentor</strong> : HELP IDK HOW TO GET MENTOR
+                                <%  }
+                                        Mentor m = relationshipController.getCurrentMentorOfCompany(company.getId());
+                                        String mentorName = "";
+                                        if(m != null){
+                                            mentorName = m.getName();
+                                        }else{
+                                            mentorName = "No Mentor Currently";
+                                        }
+                                %>
+                                <p><strong>Company Current Mentor</strong> : <%= mentorName%>
                                     <%
                                         ArrayList<String> all_founders = UserDAO.getUserEmailsOfCompany(companyID);
                                         String first_founder_email = all_founders.get(0);

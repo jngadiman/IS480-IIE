@@ -632,18 +632,47 @@ public class RelationshipDAO {
        return mentorEmails;
     }
     
+    public static String getCurrentMentorOfCompany(int company_id){
+        String mentorEmail = "";
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT `mentor_email` FROM `relationship` WHERE `company_id` = ? and `status` = 'assigned'");
+            stmt.setInt(1, company_id);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                mentorEmail = result.getString("mentor_email");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+
+        }
+        
+        return mentorEmail;
+    }
+    
     public static void main(String[] args){
         //Relationship r = new Relationship(RelationshipDAO.getNextRequestID(), 3, "hello@hotmail.com", "incubator", null, "requesting");
 //        ArrayList<String> mentorEmails = RelationshipDAO.getUniqueMentorsByCompany(3);
 //        for(String email: mentorEmails){
 //            System.out.println(email);
 //        }
-          ArrayList<Relationship> relationships = RelationshipDAO.getAllRelationshipsByStatus("assigned");
-          for(Relationship r: relationships){
-              System.out.println(r.getRelationshipID());
-              System.out.println(r.getCompanyID());
-              System.out.println(r.getStatus());
-          }
+//          ArrayList<Relationship> relationships = RelationshipDAO.getAllRelationshipsByStatus("assigned");
+//          for(Relationship r: relationships){
+//              System.out.println(r.getRelationshipID());
+//              System.out.println(r.getCompanyID());
+//              System.out.println(r.getStatus());
+//          }
+            String mentorEmail = RelationshipDAO.getCurrentMentorOfCompany(3);
+            System.out.println("mentor email: " + mentorEmail);
     }
 }
 
