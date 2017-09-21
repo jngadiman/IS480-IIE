@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Personal Profile</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
     </head>
     <body>
         <%          user = (User) session.getAttribute("user");
@@ -29,14 +29,13 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <h2 class="col-lg-10 well col-sm-offset-1">Personal Profile</h2>
-                    <div class="col-lg-10 well col-sm-offset-1">
+                <div class="col-sm-9 col-sm-offset-2">
+                    <h2 class="col-lg-9 well col-sm-offset-2">Personal Profile</h2>
+                    <div class="col-lg-9 well col-sm-offset-2">
                         <div class ="row">
 
-                            <div class="col-sm-12 form-group">
+                            <div class="col-sm-9 form-group">
                                 <%  // display the image
-                                    byte[] imgData = user.getProfile_pic();
                                     if (imgData == null) {
                                 %>
                                 <img src="img/user.png" width="200px" alt=""/>

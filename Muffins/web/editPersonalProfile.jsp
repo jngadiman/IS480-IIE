@@ -26,7 +26,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Personal Profile</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
         <script type="text/javascript">
             var degree = document.getElementById('degree');
             var opts = degree.options.length;
@@ -58,17 +58,17 @@
             degrees.add("Social Sciences");
         %>
         <div class="container">
-            <h1 class="col-lg-8 well col-lg-offset-2">Edit Personal Profile</h1>
                 <%
                     String status = (String) request.getAttribute("updateStatus");
                     if (status != null && !status.isEmpty()) {
                         out.println("<div align='center'>" + status + "</div>");
                     }
                 %>
-            <div class="col-lg-8 well col-lg-offset-2">
+                <div class="col-sm-9 col-sm-offset-2">
+                    <h2 class="col-lg-9 well col-sm-offset-2">Edit Personal Profile</h2>
+                    <div class="col-lg-9 well col-sm-offset-2">
                 <form action="editProfileServlet" method="post" enctype="multipart/form-data">
                             <%  // display the image
-                                byte[] imgData = user.getProfile_pic();
                                 if (imgData == null) {
                             %>
                             <img src="img/user.png" width="200px" alt=""/>
