@@ -57,7 +57,10 @@
                             <span class="text-muted"><%=companyStage%></span>
                         </div>
                         <div class="col-xs-6 col-sm-3 ">
-                            <img src="img/clipboard.png" width="100" height="100" alt=""/>
+                            <%
+                             Company userComp = companyController.getCompany(user.getCompanyid());
+                            %>
+                            <p><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"></a></p>
                             <h4>Current Task </h4>
                             <span class="text-muted">Prototype</span>
                         </div>

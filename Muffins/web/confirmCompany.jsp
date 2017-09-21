@@ -36,7 +36,6 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Company Logo</th>
                             <th>Company Name</th>
                             <th>Requirements</th>
                             <th>Differentiation of Product</th>
@@ -64,7 +63,6 @@
 
                         %>
                             
-                            <td><%=company.getCompanyLogo()%></td>
                             <td><%=company.getName()%></td>
                             <td><%=company.getBizFile()%></td>
                             <td><%= company.getProductDiff()%></td>
@@ -171,7 +169,6 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Company Logo</th>
                             <th>Company Name</th>
                             <th>Requirements</th>
                             <th>Differentiation of Product</th>
@@ -196,7 +193,6 @@
 
                     <tbody>
                         <tr>
-                            <td><%=company.getCompanyLogo()%></td>
                             <td><%=company.getName()%></td>
                             <td><%=company.getBizFile()%></td>
                             <td><%= company.getProductDiff()%></td>
