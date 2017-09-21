@@ -63,21 +63,22 @@
             stages.add(4);
 
         %>
-        <section style="background:#efefe9;">
             <div class="container">
                 <div class="row">
-                    <div class="board">
                         <%                            ArrayList<String> errorList = (ArrayList<String>) request.getAttribute("errorMessage");
                             if (errorList != null && errorList.size() > 0) {
                                 for (String s : errorList) {
-                                    out.println("<h4>" + s + "</h4>");
+                                    out.println("<h4 class='alert col-sm-7 col-sm-offset-3'>");
+                    out.println("<button type='button' data-dismiss='alert'>&times;</button>");
+                    out.println(s);
+                    out.println("</h4>");
                                 }
                             }
                         %>
                         <form class="form-horizontal" method="post" action="editTaskServlet" name="editTask" onsubmit="return validateForm()">
                             <fieldset>
-                                <div class="col-sm-8 col-sm-offset-2">
-                                    <h2>Edit Task</h2>
+                                 <h2 class='page-header col-sm-7 col-sm-offset-3'>Edit Task</h2>
+                    <div class="col-sm-7 well col-sm-offset-3">
                                     <%
                                         Task task = (Task) request.getAttribute("taskToBeDisplayed");
                                         String name = task.getName();

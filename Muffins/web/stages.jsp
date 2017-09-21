@@ -157,7 +157,7 @@
                                 <div class="text-center">
                                     <i class="img-intro icon-checkmark-circle"></i>
                                 </div>
-                                <h3 class="head text-center">Stage 4<span style="color:#f48260;">♥</span></h3>
+                                <h3 class="head text-center">Stage 4</h3>
                                 <p class="narrow text-center">
                                     <b>Business Plan/Financial Modelling stage</b> ​<br/>
                                     Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.

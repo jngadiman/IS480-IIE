@@ -4,6 +4,8 @@
     Author     : Jennefer Ngadiman
 --%>
 
+<%@page import="MODELS.Company"%>
+<%@page import="CONTROLLER.companyController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="CONTROLLER.relationshipController"%>
 <%@page import="MODELS.Relationship"%>
@@ -65,8 +67,10 @@
                         <li><a href="home.jsp">Homepage</a></li>
                             <%
                                 if (user.getUser_type().equals("regular_mentee")) {
+                                    Company userComp = companyController.getCompany(user.getCompanyid());
                             %>
                         <li><a href="stages.jsp">Progress</a></li>
+                        <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">View Current Tasks</a></li>
                             <%
                                 }
                             %>

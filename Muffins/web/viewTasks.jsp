@@ -25,13 +25,12 @@
         <div class="container">
 
             <div class ="col-lg-8 col-lg-offset-3">
-                <%                    
-                    int stage = 0;
+                <%                    int stage = 0;
                     String stageStr = request.getParameter("id");
-                    if(stageStr!=null&&!stageStr.equals("")){
-                       stage = Integer.parseInt(stageStr);
+                    if (stageStr != null && !stageStr.equals("")) {
+                        stage = Integer.parseInt(stageStr);
                     }
-                    
+
 
                 %>
                 <h1 class='page-header'>Task List Stage <%=stage%></h1>
@@ -50,36 +49,31 @@
                 <table class="table table-hover table-striped table-bordered ">
                     <thead>
                         <tr>
-                            <th>Task Index</th>
                             <th>Task Name</th>
                             <th>Deadline</th>
-                            <th>Status</th>
-                            <th>Click to change task status</th>
-                            <th>Edit Task</th>
-                            <th>Delete Task</th>
-                            <th>Meeting Minutes</th>
+                            <th>Status*</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+<!--                            <th>Meeting Minutes</th>-->
                         </tr>
                     </thead>
                     <tbody>
                         <%
                                         for (Task t : tasks) {
                                             out.println("<tr>");
-                                            out.println("<td>" + t.getTaskId() + "</td>");
                                             out.println("<td>" + t.getName() + "</td>");
                                             out.println("<td>" + new SimpleDateFormat("dd-MM-yyyy").format(t.getDeadline()) + "</td>");
                                             if (t.isIsCompleted() == true) {
-                                                out.println("<td>Completed</td>");
-                                                out.println("<td><p class='text-center'><button class='btn btn-success btn-outline-rounded disabled btn-xs'>completed</p></td>");
+                                                out.println("<td><button class='btn btn-success disabled btn-xs center-block'>completed</p></td>");
 
                                             } else {
-                                                out.println("<td>Incomplete</td>");
-                                                out.println("<td><p class='text-center'><a href='completeTaskServlet?taskID=" + t.getTaskId() + "&stageID="+stage+"' class='btn btn-warning btn-outline-rounded yellow btn-xs'>incomplete</a></p></td>");
+                                                out.println("<td><a href='completeTaskServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + "' class='btn btn-warning btn-xs center-block'>incomplete</a></td>");
 
                                             }
                                             out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
-                                            out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-sccess btn-outline-rounded green'>Edit</a></td>");
-                                            out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId()+ "&stageID="+stage+ " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
-                                            out.println("<td><a href='meetingMinutesTasksServlet?taskID=" + t.getTaskId()+ "&stageID="+stage+ " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
+                                            out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-success btn-xs center-block'>Edit</a></td>");
+                                            out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + " ' class ='btn btn-xs btn-danger center-block'>Delete</a></td>");
+                                            //out.println("<td><a href='meetingMinutesTasksServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
                                             out.println("</tr>");
                                         }
                                     }
@@ -98,14 +92,17 @@
 
                     </tbody>
                 </table>
+                *click on the button to change status<br><br>
+                
+                </div>
+                      <div class ="col-lg-2 col-lg-offset-6 ">  
+                <a href="stages.jsp" class="btn btn-primary btn-xs center-block">Back to Stages</a>
+                <a href="addTask.jsp" class="btn btn-success btn-xs center-block"> Add Task</a>
+
             </div>
+                
+            
         </div>
-        <p class="text-center">
-            <a href="stages.jsp" class="btn btn-primary btn-outline-rounded green">Back</a>
-            <a href="addTask.jsp" class="btn btn-success btn-outline-rounded green"> Add Task</a>
-
-
-        </p>
     </div>
 </body>
 </html>
