@@ -17,13 +17,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Display Profile</title>
+        <title>Display Mentor Profile</title>
         <%@include file="navbar.jsp" %>
 
     </head>
     <body>
-        <%            String userEmail = request.getParameter("email");
-            User displayedUser = profileController.displayUserDetails(userEmail);
+        <%            String mentorEmail = (String) session.getAttribute("mentor_email");
+            User userMentor = profileController.displayUserDetails(mentorEmail);
+            if(userMentor!=null){
+                
 
         %>
 
@@ -35,7 +37,7 @@
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <div class="col-sm-offset-3">
                                 <%                                // display the image
-                                    byte[] imgData = displayedUser.getProfile_pic();
+                                    byte[] imgData = userMentor.getProfile_pic();
                                     if (imgData != null) {
                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
 
@@ -49,22 +51,23 @@
                                     }
                                 %>
                             </div>
-                            <h2><%= displayedUser.getName()%></h2>
+                            <h2><%= userMentor.getName()%></h2>
 
 
-                            <p><strong>Email Address</strong> : <%= displayedUser.getEmail()%></p>
+                            <p><strong>Email Address</strong> : <%= userMentor.getEmail()%></p>
 
 
-                            <p><strong>NRIC</strong> : <%= displayedUser.getNric()%></p>
+                           
+                            <p><strong>CONTACT NUMBER</strong> : <%= userMentor.getContactNumber()%></p>
 
-                            <p><strong>Type : </strong><%=displayedUser.getUser_type()%></p>
+                            <p><strong>Type : </strong><%=userMentor.getUser_type()%></p>
                             
                             
                             
-                            <%String type = displayedUser.getUser_type();
+                            <%String type = userMentor.getUser_type();
                             
                              if (type.equals("regular_mentee") || type.equals("light_mentee")) {
-                                    Mentee mentee = MenteeDAO.getMenteeByEmail(userEmail);
+                                    Mentee mentee = MenteeDAO.getMenteeByEmail(mentorEmail);
                                     String mentor_name = "";
                                     if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
                                         Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
@@ -91,7 +94,7 @@
                             <br><a href="viewAllMentees.jsp" class="btn-sm btn-success">Back to Mentees</a>
 
                             <%} else if (type.equals("mentor")) {
-                                Mentor mentor = MentorDAO.getMentorByEmail(userEmail);
+                                Mentor mentor = MentorDAO.getMentorByEmail(mentorEmail);
                                 String company_name = "";
                                 if (mentor.getCompanyid() != 0) {
                                     Company c = companyController.getCompany(mentor.getCompanyid());
@@ -107,7 +110,9 @@
                             <br>
                             <a href="viewAllMentors.jsp" class="btn-sm btn-success">Back to Mentors</a>
 
-                            <% }%>
+                            <% }
+                            
+}%>
                         </div>             
 
                     </div>

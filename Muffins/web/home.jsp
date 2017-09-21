@@ -51,7 +51,7 @@
 
                     <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3">
-                            <img src="img/statistics.png" width="100"/>
+                            <a href="stages.jsp"><img src="img/statistics.png" width="100"/></a>
                             <h4>Current Stage</h4>
                             
                             <span class="text-muted"><%=companyStage%></span>
@@ -60,7 +60,8 @@
                             <%
                              Company userComp = companyController.getCompany(user.getCompanyid());
                             %>
-                            <p><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"></a></p>
+                            
+                            <a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"/></a>
                             <h4>Current Task </h4>
                             <span class="text-muted">Prototype</span>
                         </div>
@@ -70,10 +71,12 @@
                             <span class="text-muted">Thursday, 14th November 2017</span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="img/educator (1).png" width="100"   alt=""/>
-                            <img src="img/educator.png" width="100"   alt=""/>
+                            <%session.setAttribute("mentor_email", mentorEmail);%>
+                            <a href="displayMentorProfile.jsp"><img src="img/educator (1).png" width="100"   alt=""/></a>
+                            <a href="displayMentorProfile.jsp"><img src="img/educator.png" width="100"   alt=""/></a>
+                            
                             <h4>Assigned Mentor</h4>
-                            <span class="text-muted"><%=mentorName%></span>
+                            <a href="displayMentorProfile.jsp"><span class="text-muted"><%=mentorName%></span></a>
                         </div>
 
                     </div>
