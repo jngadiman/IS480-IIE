@@ -131,8 +131,7 @@
                                 <p><strong>Company Position</strong> : <%= mentor.getPosition()%></p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Introduction</strong><br>
-                                    <%= mentor.getIntroduction()%></p>
+                                <p><strong>Skills</strong> : <%= mentor.getSkills()%></p>
                                     <% }%>
                             </div>                
                         </div>

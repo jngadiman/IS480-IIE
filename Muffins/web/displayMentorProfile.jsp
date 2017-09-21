@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Display Mentor Profile</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
 
     </head>
     <body>
@@ -37,9 +37,9 @@
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <div class="col-sm-offset-3">
                                 <%                                // display the image
-                                    byte[] imgData = userMentor.getProfile_pic();
-                                    if (imgData != null) {
-                                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                    byte[] imgDataMentor = userMentor.getProfile_pic();
+                                    if (imgDataMentor != null) {
+                                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataMentor));
 
                                 %>
                                 <img width="200" height="200" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
@@ -58,7 +58,7 @@
 
 
                            
-                            <p><strong>CONTACT NUMBER</strong> : <%= userMentor.getContactNumber()%></p>
+                            <p><strong>Contact Number</strong> : <%= userMentor.getContactNumber()%></p>
 
                             <p><strong>Type : </strong><%=userMentor.getUser_type()%></p>
                             
@@ -93,7 +93,7 @@
 
                             <br><a href="viewAllMentees.jsp" class="btn-sm btn-success">Back to Mentees</a>
 
-                            <%} else if (type.equals("mentor")) {
+                            <%} else if (!type.equals("admin")) {
                                 Mentor mentor = MentorDAO.getMentorByEmail(mentorEmail);
                                 String company_name = "";
                                 if (mentor.getCompanyid() != 0) {
@@ -102,11 +102,9 @@
                                 }
                             %>
 
-                            <p><strong>User Type</strong> : <%=type%></p>
                             <p><strong>Company</strong> : <%= company_name%></p>
-                            <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
-                            <p><strong>Introduction</strong><br>
-                                <%= mentor.getIntroduction()%></p>
+                            <p><strong>Company Position</strong> : <%= mentor.getPosition()%></p>
+                            <p><strong>Skill(s)</strong> : <%= mentor.getSkills()%></p>
                             <br>
                             <a href="viewAllMentors.jsp" class="btn-sm btn-success">Back to Mentors</a>
 
