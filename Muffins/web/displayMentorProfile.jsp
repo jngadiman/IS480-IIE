@@ -22,7 +22,12 @@
 
     </head>
     <body>
-        <%            String mentorEmail = (String) session.getAttribute("mentor_email");
+        <%            
+            String mentorEmail = (String) session.getAttribute("mentor_email");
+            out.println(mentorEmail);
+            if(mentorEmail != null && !mentorEmail.isEmpty()){
+                mentorEmail = (String) request.getParameter("mentorEmail");
+            }
             User userMentor = profileController.displayUserDetails(mentorEmail);
             if(userMentor!=null){
                 

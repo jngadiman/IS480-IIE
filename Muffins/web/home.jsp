@@ -71,12 +71,14 @@
                             <span class="text-muted">Thursday, 14th November 2017</span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <%session.setAttribute("mentor_email", mentorEmail);%>
-                            <a href="displayMentorProfile.jsp"><img src="img/educator (1).png" width="100"   alt=""/></a>
-                            <a href="displayMentorProfile.jsp"><img src="img/educator.png" width="100"   alt=""/></a>
+                            <%session.setAttribute("mentor_email", mentorEmail);%>                            
+                            <a href="displayMentorProfile.jsp">
+                                <img src="img/educator (1).png" width="100"   alt=""/>
+                                <img src="img/educator.png" width="100"   alt=""/>
+                            </a>
                             
                             <h4>Assigned Mentor</h4>
-                            <a href="displayMentorProfile.jsp"><span class="text-muted"><%=mentorName%></span></a>
+                            <span class="text-muted"><%=mentorName%></span>
                         </div>
 
                     </div>

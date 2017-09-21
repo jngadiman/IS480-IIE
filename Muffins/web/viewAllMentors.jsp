@@ -65,7 +65,10 @@
                         <%
                             }
                         %>
-                        <a href='displayProfile.jsp?email=<%=mentor.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>
+                        <form method="post" action="displayMentorProfile.jsp">
+                            <input type="hidden" name="mentorEmail" value="<%= mentor.getEmail()%>"/>
+                            <button type="submit" name="viewMentor" value="View Profile" class='btn btn-success btn-xs'>View Profile</button>
+                        </form>
                     </div>
                     <%
                             i++;
