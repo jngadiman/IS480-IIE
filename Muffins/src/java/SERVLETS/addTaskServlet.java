@@ -42,7 +42,7 @@ public class addTaskServlet extends HttpServlet {
         HttpSession session = request.getSession();
         int taskID = taskController.getNextTaskID();
         String taskName = request.getParameter("taskName");
-        String taskDescription = request.getParameter("taskDescription");
+        
         int stage = Integer.parseInt(request.getParameter("taskStage"));
         String deadline = request.getParameter("date");
         System.out.println(deadline +"<-- MY DEADLINE PASSED");
@@ -67,7 +67,7 @@ public class addTaskServlet extends HttpServlet {
         
 //        int companyID = currentUser.getCompanyid();
         
-        Task task = new Task(taskID, taskName, taskDescription, dateDeadline, stage, companyID, isCompleted);
+        Task task = new Task(taskID, taskName, dateDeadline, stage, companyID, isCompleted);
         String resultMsg =  taskController.addTaskToCompany(task);
         
         request.setAttribute("status", resultMsg);

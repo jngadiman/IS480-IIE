@@ -52,7 +52,6 @@
                         <tr>
                             <th>Task Index</th>
                             <th>Task Name</th>
-                            <th>Description</th>
                             <th>Deadline</th>
                             <th>Status</th>
                             <th>Click to change task status</th>
@@ -67,7 +66,6 @@
                                             out.println("<tr>");
                                             out.println("<td>" + t.getTaskId() + "</td>");
                                             out.println("<td>" + t.getName() + "</td>");
-                                            out.println("<td>" + t.getDescription() + "</td>");
                                             out.println("<td>" + new SimpleDateFormat("dd-MM-yyyy").format(t.getDeadline()) + "</td>");
                                             if (t.isIsCompleted() == true) {
                                                 out.println("<td>Completed</td>");

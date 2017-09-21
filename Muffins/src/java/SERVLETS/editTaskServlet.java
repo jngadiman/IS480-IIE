@@ -41,7 +41,6 @@ public class editTaskServlet extends HttpServlet {
             //get all the parameters needed to input inside the db
             int taskID = Integer.parseInt(request.getParameter("taskId"));
             String taskName = request.getParameter("taskName");
-            String taskDesc = request.getParameter("taskDesc");
             String deadLine = request.getParameter("deadline");
             String stage = request.getParameter("stage");
             int companyID = Integer.parseInt(request.getParameter("companyId"));
@@ -65,7 +64,7 @@ public class editTaskServlet extends HttpServlet {
             }
             
             //add in editTaskOfCompany method using the taskController
-            String status = taskController.editTaskOfCompany(taskID, taskName, taskDesc, deadline, stageInt, companyID, isCompleted);
+            String status = taskController.editTaskOfCompany(taskID, taskName, deadline, stageInt, companyID, isCompleted);
             request.setAttribute("updateStatus", status);
             
         }else if(request.getParameter("Cancel").equals("cancel")){

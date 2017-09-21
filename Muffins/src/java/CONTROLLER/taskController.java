@@ -68,12 +68,12 @@ public class taskController {
         
     }
     
-     public static String editTaskOfCompany(int taskID, String taskName, String desc, Date deadline, int stage, int companyID, boolean isCompleted){
+     public static String editTaskOfCompany(int taskID, String taskName, Date deadline, int stage, int companyID, boolean isCompleted){
        
        
         
         String returnMsg = "";
-        int result = TaskDAO.editTask(taskID, taskName, desc, deadline, stage, companyID, isCompleted);
+        int result = TaskDAO.editTask(taskID, taskName, deadline, stage, companyID, isCompleted);
         System.out.println(result);
         if(result == 0){
             returnMsg = "An error have occured, kindly try again!";
@@ -100,7 +100,7 @@ public class taskController {
     public static void main(String[] args){
         int taskID = taskController.getNextTaskID();
         Date deadline = new Date();
-        Task task = new Task(taskID, "eat, sleep, play!", "eat yummy food, sleep like a pig and play like nobody's business!", deadline, 1, 2, true);
+        Task task = new Task(taskID, "eat, sleep, play!", deadline, 1, 2, true);
         String result = taskController.addTaskToCompany(task);
         System.out.println(result);
     }

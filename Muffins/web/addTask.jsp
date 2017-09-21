@@ -71,13 +71,7 @@
                                 </select>
                             </div>	
                         </div>
-                        <div class="form-group">
-                            <label for="inputTaskDescription" class="col-lg-4 control-label" name = "taskDescription">Task Description</label>
-                            <div class="col-lg-7">
-                                <textarea class="form-control" rows="3" id="inputTaskDescription" name="taskDescription" placeholder="Enter your description here"></textarea>
-                                <span class="help-block">Go into details on what are the task's information. </span>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <!-- Date input -->
                             <label for="inputDate" class="col-lg-4 control-label">Deadline</label>

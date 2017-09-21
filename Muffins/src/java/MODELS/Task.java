@@ -14,24 +14,21 @@ import java.util.Date;
 public class Task {
     private int taskid;
     private String name;
-    private String description;
     private Date deadline;
     private int stage;
     private int companyID;
     private boolean isCompleted;
     
-    public Task(int taskid, String name, String description, Date deadline, boolean isCompleted) {
+    public Task(int taskid, String name, Date deadline, boolean isCompleted) {
         this.taskid = taskid;
         this.name = name;
-        this.description = description;
         this.deadline = deadline;
         this.isCompleted = isCompleted;
     }
     
-    public Task(int taskid, String name, String description, Date deadline, int stage, int companyID, boolean isCompleted) {
+    public Task(int taskid, String name, Date deadline, int stage, int companyID, boolean isCompleted) {
         this.taskid = taskid;
         this.name = name;
-        this.description = description;
         this.deadline = deadline;
         this.stage = stage;
         this.companyID = companyID;
@@ -54,13 +51,7 @@ public class Task {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    
 
     public Date getDeadline() {
         return deadline;

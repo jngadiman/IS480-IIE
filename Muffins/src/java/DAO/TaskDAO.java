@@ -30,7 +30,6 @@ public class TaskDAO {
         PreparedStatement stmt = null;
         ResultSet result = null;
         String taskname = "";
-        String taskdesc = "";
         String deadLine = "";
         Date deadline = new Date();
         int programstage = 0;
@@ -50,7 +49,6 @@ public class TaskDAO {
             while (result.next()) {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
-                taskdesc = result.getString("task_description");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -63,7 +61,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
                 
-                task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                task = new Task(taskid, taskname, deadline, programstage, companyID, iscompleted);
             }
             
             //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
@@ -85,7 +83,6 @@ public class TaskDAO {
         ResultSet result = null;
         int taskid = 0;
         String taskname = "";
-        String taskdesc = "";
         String deadLine = "";
         Date deadline = new Date();
         int programstage = 0;
@@ -103,7 +100,6 @@ public class TaskDAO {
             while (result.next()) {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
-                taskdesc = result.getString("task_description");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -115,7 +111,7 @@ public class TaskDAO {
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
-                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -141,7 +137,6 @@ public class TaskDAO {
         ResultSet result = null;
         int taskid = 0;
         String taskname = "";
-        String taskdesc = "";
         String deadLine = "";
         Date deadline = new Date();
         int programstage = 0;
@@ -160,7 +155,6 @@ public class TaskDAO {
             while (result.next()) {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
-                taskdesc = result.getString("task_description");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -173,7 +167,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
                 
-                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -199,7 +193,6 @@ public class TaskDAO {
         ResultSet result = null;
         int taskid = 0;
         String taskname = "";
-        String taskdesc = "";
         String deadLine = "";
         Date deadline = new Date();
         int programstage = 0;
@@ -217,7 +210,6 @@ public class TaskDAO {
             while (result.next()) {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
-                taskdesc = result.getString("task_description");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -230,7 +222,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
 
-                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -258,7 +250,6 @@ public class TaskDAO {
         ResultSet result = null;
         int taskid = 0;
         String taskname = "";
-        String taskdesc = "";
         String deadLine = "";
         Date deadline = new Date();
         int programstage = 0;
@@ -277,7 +268,6 @@ public class TaskDAO {
             while (result.next()) {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
-                taskdesc = result.getString("task_description");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -290,7 +280,7 @@ public class TaskDAO {
                 isCompleted = result.getString("is_completed");
                 iscompleted = isCompleted.equals("Y");
 
-                Task task = new Task(taskid, taskname, taskdesc, deadline, programstage, companyID, iscompleted);
+                Task task = new Task(taskid, taskname, deadline, programstage, companyID, iscompleted);
                 tasks.add(task);
             }
             
@@ -364,15 +354,14 @@ public class TaskDAO {
                 status = "N";
             }
             
-            stmt = conn.prepareStatement("INSERT INTO task (task_id, task_name, task_description, task_deadline, program_stage, company_id, is_completed)" + "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO task (task_id, task_name, task_deadline, program_stage, company_id, is_completed)" + "VALUES (?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, task.getTaskId());
             stmt.setString(2, task.getName());
-            stmt.setString(3, task.getDescription());
-            stmt.setString(4, df.format(task.getDeadline()));
+            stmt.setString(3, df.format(task.getDeadline()));
             System.out.println("DEADLINEEEE"+ df.format(task.getDeadline()));
-            stmt.setInt(5, task.getStage());
-            stmt.setInt(6, task.getCompanyID());
-            stmt.setString(7, status);
+            stmt.setInt(4, task.getStage());
+            stmt.setInt(5, task.getCompanyID());
+            stmt.setString(6, status);
             
             result = stmt.executeUpdate();
           
@@ -386,7 +375,7 @@ public class TaskDAO {
         return result;
     }
     
-    public static int editTask(int taskid, String taskName, String desc, Date deadline, int stage, int companyID, boolean isCompleted) {
+    public static int editTask(int taskid, String taskName, Date deadline, int stage, int companyID, boolean isCompleted) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -404,14 +393,13 @@ public class TaskDAO {
             }else{
                 status = "N";
             }
-            stmt = conn.prepareStatement("UPDATE task SET  task_name = ?, task_description = ?, task_deadline = ?, program_stage = ?, company_id = ?, is_completed = ? WHERE task_id = ?;");
+            stmt = conn.prepareStatement("UPDATE task SET  task_name = ?,  task_deadline = ?, program_stage = ?, company_id = ?, is_completed = ? WHERE task_id = ?;");
             stmt.setString(1, taskName);
-            stmt.setString(2, desc);
-            stmt.setString(3, df.format(deadline));
-            stmt.setInt(4, stage);
-            stmt.setInt(5, companyID);
-            stmt.setString(6, status);
-            stmt.setInt(7, taskid);
+            stmt.setString(2, df.format(deadline));
+            stmt.setInt(3, stage);
+            stmt.setInt(4, companyID);
+            stmt.setString(5, status);
+            stmt.setInt(6, taskid);
             
             result = stmt.executeUpdate();
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
