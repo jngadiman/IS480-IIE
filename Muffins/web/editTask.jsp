@@ -16,7 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Task</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
         <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>

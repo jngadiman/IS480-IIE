@@ -33,78 +33,7 @@
     <%        user = (User) session.getAttribute("user");
         int companyID = user.getCompanyid();
         Company company = CompanyDAO.getCompany(companyID);
-        /*
-         ArrayList<String> industries = new ArrayList<String>();
-         industries.add("-- select one --");
-         industries.add("Energy Equipment & Services");
-         industries.add("Oil, Gas & Consumable Fuels");
-         industries.add("Chemicals");
-         industries.add("Construction Materials");
-         industries.add("Containter & Packaging");
-         industries.add("Metals & Mining");
-         industries.add("Paper & Forest Products");
-         industries.add("Aerospace & Defense");
-         industries.add("Building Products");
-         industries.add("Construction & Engineering");
-         industries.add("Electrical Equipment");
-         industries.add("Industrial Conglomerates");
-         industries.add("Machinery");
-         industries.add("Trading Companies & Distributors");
-         industries.add("Commercial Services & Supplies");
-         industries.add("Professional Services");
-         industries.add("Air Freight & Logistics");
-         industries.add("Airlines");
-         industries.add("Marine");
-         industries.add("Road & Rail");
-         industries.add("Transportation Infrastructure");
-         industries.add("Auto Components");
-         industries.add("Automobiles");
-         industries.add("Household Durables");
-         industries.add("Leisure Products");
-         industries.add("Textiles, Apparel & Luxury Goods");
-         industries.add("Hotels, Restaurants & Leisure");
-         industries.add("Diversified Consumer Services");
-         industries.add("Media");
-         industries.add("Distributors");
-         industries.add("Internet & Direct Marketing Retail");
-         industries.add("Multiline Retail");
-         industries.add("Specialty Retail");
-         industries.add("Food & Staples Retailing");
-         industries.add("Beverages");
-         industries.add("Food Products");
-         industries.add("Tobacco");
-         industries.add("Household Products");
-         industries.add("Personal Products");
-         industries.add("Health Care Equipment & Supplies");
-         industries.add("Health Care Providers & Services");
-         industries.add("Health Care Technology");
-         industries.add("Biotechnology");
-         industries.add("Pharmaceuticals");
-         industries.add("Life Sciences Tools & Services");
-         industries.add("Banks");
-         industries.add("Thrifts & Mortgage Finance");
-         industries.add("Diversified Financial Services");
-         industries.add("Capital Markets");
-         industries.add("Mortgage Real Estate Investment Trusts (REITs)");
-         industries.add("Insurance");
-         industries.add("Internet Software & Services");
-         industries.add("IT Services");
-         industries.add("Software");
-         industries.add("Communications Equipment");
-         industries.add("Technology Hardware, Storage & Peripherals");
-         industries.add("Electronic Equipment, Instruments & Components");
-         industries.add("Semiconductors & Semiconductor Equipment");
-         industries.add("Diversified Telecommunication Services");
-         industries.add("Wireless Telecommunication Services");
-         industries.add("Electric Utilities");
-         industries.add("Gas Utilities");
-         industries.add("Multi-Utilities");
-         industries.add("Water Utilities");
-         industries.add("Independent Power and Renewable Electricity Producers");
-         industries.add("Equity Real Estate Investment Trusts (REITs)");
-         industries.add("Real Estate Management & Development");
-         */
-
+        
         ArrayList<Integer> stages = new ArrayList<Integer>();
         stages.add(1);
         stages.add(2);
@@ -115,7 +44,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-2">
-                    <h2 class="col-lg-9 well col-sm-offset-2">Edit Company Profile</h2>
+                    <h1 class="page-header col-lg-9 col-sm-offset-2">Edit Company Profile</h1>
                     <%                String status = (String) request.getAttribute("updateStatus");
                         if (status != null && !status.isEmpty()) {
                     %>

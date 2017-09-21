@@ -20,16 +20,15 @@
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
-
     </head>
     <body>
         <%
             User user = (User) session.getAttribute("user");
         %>
+        
         <div class="container-fluid">
             <div class="row">
-
-                <div class="col-sm-3 col-md-2 sidebar">
+                <div class="nav col-sm-3 col-md-2 sidebar">
                     <h3 class="nav nav-sidebar text-center"> IIE Portal</h3>
                     <div class="logo">
                         <%  // display the image
@@ -46,6 +45,17 @@
                     </div>
                     <ul class="nav nav-sidebar">
                         
+                        
+                        <%
+                        String userType = user.getUser_type();
+                        if(userType.equals("regular_mentee")){
+                            out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Incubator Mentee</a></li>");
+                        } else if(userType.equals("lightmentee")){
+                            out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Open Mentor Mentee</a></li>");
+                        } else {
+                            out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Administrator</button></li>");
+                        }
+                        %>
                         <li><a href="viewPersonalProfile.jsp" class='text-center'><%=user.getName()%></a></li>
                        
                         <%
@@ -68,7 +78,7 @@
                                 if (user != null) {
                                     if (user.getUser_type().equals("regular_mentee")) {
                             %>
-                        <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
+                        <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
                             <%
                             } else if (user.getUser_type().equals("light_mentee")) {
 
@@ -84,7 +94,7 @@
                             %>
 
                         <li><a href="adminHomepage.jsp">Homepage</a></li>
-                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"><%=pendingRequests.size()%></span>  </a></li>
+                        <li><a href="adminViewAllRequests.jsp">Pending Mentor Request <span class="badge"><%=pendingRequests.size()%></span>  </a></li>
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>

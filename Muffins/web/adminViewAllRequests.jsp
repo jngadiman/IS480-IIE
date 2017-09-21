@@ -23,15 +23,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
     </head>
     <body>
-
-        <h1>Requests</h1>
-        <div class="col-md-6  col-md-offset-3 well">
+        
+        <div class="col-md-8 col-md-offset-3">
+             <h1 class="page-header">View & Assign Mentor Requests</h1>
+        </div>
+        <div class="col-md-8 well col-md-offset-3">
             <h4>Assign Mentor to Company</h4>
             <form action="adminPendingRequestServlet" method="post">
-                <div class="col-sm-8 form-group required">
+                <div class="col-md-8 form-group required">
                     <select class="form-control" id="mentor" name="mentor" required>
                         <% ArrayList<Company> companyWoMentor = companyController.getAllCompanies();
                             for (Company company : companyWoMentor) {
@@ -44,7 +46,6 @@
                 </div>
                 <button type="submit" class="btn-sm btn-primary" name="submit">Submit</button>
         </div>
-        <div class="col-md-10  col-md-offset-1">
             <!--            <ul class="nav nav-tabs">
                             <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
                             <li class=""><a href="#openmentor" data-toggle="tab" aria-expanded="false">Open Mentor <span class="badge">5</span></a></li>
@@ -52,14 +53,13 @@
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade" id="incubation">-->
-            <div class="container-fluid">
+           
                 <%                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
                     //ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
                     String requestStatus = (String) session.getAttribute("requestStatus");
                     if (preferences != null || requestStatus.equals("all")) {
                 %>
-                <div class="row">
-                    <div class="col-md-8 well col-md-offset-2">
+                    <div class="col-md-8 well col-md-offset-3">
 
                         <ul class="nav nav-pills ">
                             <li class=""><a href="#">Pending <span class="badge"><%=preferences.size()%></span></a></li>
@@ -102,8 +102,8 @@
                             %>
                         </table>
                     </div>
-                </div>
-            </div>
+               
+          
 
         </form>
     </div>

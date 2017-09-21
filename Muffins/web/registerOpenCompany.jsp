@@ -115,7 +115,7 @@
                                     <input type="submit" class="btn btn-lg btn-info" value="Submit">	
                                 </div>
                             </div>
-                            <!--                            <div class="col-sm-6 col-sm-offset-4"><a href="registerOpenUser.jsp">Back to User Registration</a></div>-->
+                            <div class="col-sm-6 col-sm-offset-4"><a href="login.jsp">Back to Login Page</a></div>
                         </div>
                     </form> 
                 </div>

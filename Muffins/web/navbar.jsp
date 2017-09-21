@@ -57,19 +57,18 @@
                                 %>
                                 <li><a href="#">Meetings</a></li>
                                 <li><a href="calendar.jsp">Calendar</a></li>
-                                <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
-                                <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
+                                <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>]
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                                     <%
                                         if (user != null) {
                                             if (user.getUser_type().equals("regular_mentee")) {
                                     %>
-                                <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
+                                <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
                                     <%
                                             }else if(user.getUser_type().equals("light_mentee")){
                                         
                                     %>
-                                <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
+                                <li><a href="mentorAssignment.jsp">Open Mentorship Request</a></li>
                                     <%
                                             }
                                         }   
@@ -140,9 +139,9 @@
                     <%
                         }
                     %>
-                    <form class="navbar-form navbar-right">
+<!--                    <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="Search...">
-                    </form>
+                    </form>-->
                 </div>
             </div>
         </nav>

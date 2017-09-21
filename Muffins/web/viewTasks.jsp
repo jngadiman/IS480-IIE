@@ -19,12 +19,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
     </head>
     <body>
         <div class="container">
 
-            <div class ="col-lg-8 col-lg-offset-2">
+            <div class ="col-lg-8 col-lg-offset-3">
                 <%                    
                     int stage = 0;
                     String stageStr = request.getParameter("id");
@@ -34,7 +34,7 @@
                     
 
                 %>
-                <h1>Task List Stage <%=stage%></h1>
+                <h1 class='page-header'>Task List Stage <%=stage%></h1>
                 <p>The tasks for the current stage are shown below:</p>            
 
                 <%                    out.println("<tr>");
@@ -44,7 +44,7 @@
 
                         if (tasks != null) {
                             if (tasks.isEmpty()) {
-                                out.println("<h3>No tasks found</h3>");
+                                out.println("<h4>No tasks found</h4>");
                             } else {
                 %>
                 <table class="table table-hover table-striped table-bordered ">

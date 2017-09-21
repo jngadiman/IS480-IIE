@@ -65,7 +65,7 @@
                     }
                 %>
                 <div class="col-sm-9 col-sm-offset-2">
-                    <h2 class="col-lg-9 well col-sm-offset-2">Edit Personal Profile</h2>
+                    <h2 class="page-header col-lg-9 col-sm-offset-2">Edit Personal Profile</h2>
                     <div class="col-lg-9 well col-sm-offset-2">
                 <form action="editProfileServlet" method="post" enctype="multipart/form-data">
                             <%  // display the image
@@ -98,7 +98,7 @@
 
                                 <br/>
                                 <%
-                                    if (user.getUser_type().equals("mentee")) {
+                                    if (user.getUser_type().equals("regular_mentee")) {
                                         Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
 
                                         String mentor_name = "";

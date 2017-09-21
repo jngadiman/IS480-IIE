@@ -63,37 +63,59 @@
 
                             </ul></div>
 
-                       
+
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="one">
 
                                 <h3 class="head text-center">HOME<span style="color:#f48260;">♥</span></h3>
                                 <p class="narrow text-center">
                                     Welcome!<br/>
-                                     <%
-                        int stage = 0;
-                        user = (User) session.getAttribute("user");
-                            Company c = CompanyDAO.getCompany(user.getCompanyid());
-                            if (c != null) {
-                                stage = c.getCurrentStage();%>
-                                You are currently at Stage <%=stage%>
-                                <%
-                            }
-                        else {
-                            }
-                        %>
-                                    
+                                    <%                                         int stage = 0;
+                                        user = (User) session.getAttribute("user");
+                                        Company c = CompanyDAO.getCompany(user.getCompanyid());
+                                        if (c != null) {
+                                            stage = c.getCurrentStage();%>
+                                    You are currently at Stage <%=stage%>
+                                    <%
+                                        }
+                                        if (stage == 1) {
+                                    %>
+
                                 <div class="progress ">
                                     <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                        40%
+                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                        0%
                                     </div>
                                 </div>
-                                
+                                <%} else if (stage == 2) {%>
+
+                                <div class="progress ">
+                                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:25%">
+                                        25%
+                                    </div>
+                                </div>
+
+                                <%
+                                } else if (stage == 3) {%>
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                    50%
+                                </div>
+
+                                <%
+                                } else if (stage == 4) {%>
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">
+                                    75%
+                                </div>
+                                <%}
+                                %> 
+
                                 <p class="text-center">
                                     <a href="viewTasks.jsp?id=<%=stage%>" class="btn btn-success btn-outline-rounded green">View tasks at current stage<span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
-                                
+
                             </div>
                             <div class="tab-pane fade" id="two">
                                 <h3 class="head text-center">Stage 1<sup>™</sup> Profile</h3>
@@ -105,7 +127,7 @@
                                 <p class="text-center">
                                     <a href="viewTasks.jsp?id=1" class="btn btn-success btn-outline-rounded green">  Stage 1 Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
-   
+
                             </div>
                             <div class="tab-pane fade" id="three">
                                 <h3 class="head text-center">Stage 2</h3>
