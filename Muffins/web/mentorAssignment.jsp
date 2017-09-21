@@ -59,7 +59,7 @@
 
                         
                 <% String type = request.getParameter("type");%>
-            <form action="confirmAssignment.jsp" method="post">
+            
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
               Small button
             </button>
@@ -92,10 +92,12 @@
                     ArrayList<Mentor> mentors = MentorDAO.getMentors();
                     for (Mentor m : mentors) {
                 %>
-
+               
+                 
                 <div class="col-lg-6 well">
-
+                    
                     <%
+                       
                         Company c = companyController.getCompany(m.getCompanyid());
                         // display the image
                         byte[] imgData = m.getProfile_pic();
@@ -130,6 +132,7 @@
 
                         <div class="col-lg-12">
                             <div class="col-lg-4 col-lg-offset-4">
+                                 <form action="confirmAssignment.jsp" method="post">
                                 <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
                                 <%
                                     User user = (User) session.getAttribute("user");
@@ -145,14 +148,19 @@
                                 <%
                                     }
                                 %>
+                                </form>
                             </div>
                         </div>
                     </div>
+                            
                     <%
                         }
                     %>
-                    </form>
+                    
                 </div>
             </div>
+           
+          </div>
+          </div>
     </body>
 </html>
