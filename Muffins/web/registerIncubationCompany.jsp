@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col-sm-12 form-group required">
                                     <label class="control-label">Founder E-mails</label>
-                                    <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" required multiple>
+                                    <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" required>
                                 </div>
                             </div>
 

@@ -45,12 +45,19 @@ public class confirmCompanyServlet extends HttpServlet {
         String stakeholders = request.getParameter("stakeholders");
         String companyName = request.getParameter("company");
         String company_id = request.getParameter("company_id");
+        String modalCompanyID = request.getParameter("modalCompanyId");
+        System.out.println("MODAL COMPANY ID= "+modalCompanyID);
+        System.out.println("COMPANY ID= "+company_id);
         
         System.out.println("----CONFIRM COMPANY SERVLET---- ");
         
         int companyID = 0;
         if (company_id != null) {
             companyID = Integer.parseInt(company_id);
+        }
+        int modalID = 0;
+        if (modalCompanyID != null) {
+            modalID = Integer.parseInt(modalCompanyID);
         }
         ArrayList<String> status = new ArrayList<String>();
         //String errorMsg = "";
@@ -127,7 +134,7 @@ public class confirmCompanyServlet extends HttpServlet {
                 System.out.println("EVENT VENUE"+eventVenue);
                 System.out.println("EVENT TIME"+eventTime);
             
-                companyController.changeCompanyStage(5, companyID);
+                companyController.changeCompanyStage(5, modalID);
                 for(String s : founders){
                     System.out.println(s);
                 }

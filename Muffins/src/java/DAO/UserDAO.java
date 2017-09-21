@@ -619,7 +619,11 @@ public class UserDAO {
             stmt.setString(4, nric);
             
             //set joined date
-            java.sql.Date sqlDate = new java.sql.Date(joinedDate.getTime());
+            java.sql.Date sqlDate = null;
+            if(joinedDate!=null){
+                sqlDate = new java.sql.Date(joinedDate.getTime());
+            }
+            
             stmt.setDate(5, sqlDate);
             
             if(profilePic != null){

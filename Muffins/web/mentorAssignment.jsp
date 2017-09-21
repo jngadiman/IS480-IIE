@@ -59,15 +59,18 @@
 
                         
                 <% String type = request.getParameter("type");%>
-            <form action="confirmAssignment.jsp" action="post">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <form action="confirmAssignment.jsp" method="post">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
               Small button
             </button>
             <div class="dropdown-menu">
-              <li><a href="#" value="Incubation Manager Mentor">Incubation Manager</a></li>
-              <li><a href="#" value="Venture Capitalist Mentor">Venture Capitalist</a></li>
-              <li><a href="#" value="Industry Professional Mentor">Industry Professional</a></li>
-              <li><a href="#" value="Entrepreneur Mentor">Entrepreneur</a></li>
+                <ul>
+                    <li><a href="#" >Incubation Manager</a></li>
+                    <li><a href="#">Venture Capitalist</a></li>
+                    <li><a href="#" >Industry Professional</a></li>
+                    <li><a href="#" >Entrepreneur</a></li>
+                </ul>
+              
             </div>
           </div>
             <div class="col-lg-10 col-lg-offset-1 well">
@@ -134,11 +137,11 @@
                                     Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
                                     if((preferences != null && preferences.size() != 0) || mentor != null){
                                 %>
-                                        <button type="submit" class='btn btn-success btn-xs' disabled>View Profile</a>
+                                <button type="submit" class='btn btn-success btn-xs' disabled>View Profile </button>
                                 <%
                                     }else{
                                 %>
-                                        <button type="submit" class='btn btn-success btn-xs'>View Profile</a>           
+                                <button type="submit" class='btn btn-success btn-xs'>View Profile</button>          
                                 <%
                                     }
                                 %>
