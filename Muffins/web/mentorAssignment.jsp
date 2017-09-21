@@ -16,20 +16,18 @@
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="MODELS.Mentor"%>
 <%@page import="java.util.ArrayList"%>
+<%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor Assignment</title>
-        <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
-        <link href="css/form.css" rel="stylesheet" type="text/css"/>
+         <%@include file="sidenav.jsp" %>
     </head>
     <body>
         <div class="container">
-            <div class="btn-group">
+            
 <!--
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Small button
@@ -59,28 +57,34 @@
 
                         
                 <% String type = request.getParameter("type");%>
-            
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
-              Small button
+                <h1 class="col-lg-8 col-lg-offset-3 page-header">Request for Mentor</h1>
+                <div class="col-lg-8 col-lg-offset-3">
+          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
+              Filter by
             </button>
-            <div class="dropdown-menu">
-                <ul>
-                    <li><a href="#" >Incubation Manager</a></li>
-                    <li><a href="#">Venture Capitalist</a></li>
-                    <li><a href="#" >Industry Professional</a></li>
-                    <li><a href="#" >Entrepreneur</a></li>
-                </ul>
+                    <ul class="dropdown-menu">
+      <li><a href="#">Incubation Manager</a></li>
+      <li><a href="#">Venture Capitalist</a></li>
+      <li><a href="#">Industry Professional</a></li>
+      <li><a href="#">Entrepreneur</a></li>
+    </ul>
+                    
+                    <div class='pull-right'>
+                        Keywords : 
+                    <input type='text' name='queries' placeholder="Seach here">  
+                    </div>
+                    
               
-            </div>
-          </div>
-            <div class="col-lg-10 col-lg-offset-1 well">
+            
+        </div>
+            <div class="col-lg-8 col-lg-offset-3 well">
 <!--                <div class="col-lg-12 well">
                     <p><strong>Mentee Company: </strong>get Mentee's Company</p>
                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                 </div>-->
                 
-                
+<div class='row'>
                 <% 
                     if(session.getAttribute("addPreferenceStatus") != null){
                         String status = (String) session.getAttribute("addPreferenceStatus");
@@ -90,6 +94,7 @@
 
                     session.setAttribute("requestType", type);
                     ArrayList<Mentor> mentors = MentorDAO.getMentors();
+                    int i = 0;
                     for (Mentor m : mentors) {
                 %>
                
@@ -100,9 +105,9 @@
                        
                         Company c = companyController.getCompany(m.getCompanyid());
                         // display the image
-                        byte[] imgData = m.getProfile_pic();
-                        if (imgData != null) {
-                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                        byte[] imgDataM = m.getProfile_pic();
+                        if (imgDataM != null) {
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataM));
                     %>
 
                     <div class="col-lg-6 well">
@@ -135,7 +140,6 @@
                                  <form action="confirmAssignment.jsp" method="post">
                                 <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
                                 <%
-                                    User user = (User) session.getAttribute("user");
                                     ArrayList<Preference> preferences= PreferenceDAO.getPreferencesOfCompany(user.getCompanyid());
                                     Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
                                     if((preferences != null && preferences.size() != 0) || mentor != null){
@@ -152,11 +156,14 @@
                             </div>
                         </div>
                     </div>
-                            
-                    <%
+                          <% i++;
+                           if(i%2==0){
+                             out.println("</div><div class='row'>");
+                           }
+                    
                         }
                     %>
-                    
+                    </div>
                 </div>
             </div>
            

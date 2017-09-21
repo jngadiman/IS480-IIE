@@ -63,30 +63,51 @@
                                 if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
                                     Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                     mentor_name = myMentor.getName();
+                                }else{
+                                    mentor_name = "N.A";
                                 }
                                 String company_name = "";
                                 if (mentee.getCompanyid() != 0) {
                                     Company c = companyController.getCompany(mentee.getCompanyid());
                                     company_name = c.getName();
                                 }
-                        %>
+                                        
 
+                        %>
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
+                                <p><strong>Contact Number </strong> : <%=mentee.getContactNumber()%></p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
+                                <p><strong>Nationality</strong> : <%=mentee.getNationality()%></p>
                             </div>
+
                         </div>
+
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <p><strong>Company </strong> : <%= company_name%></p>
                             </div>
                             <div class="col-sm-6 form-group">
+                                <p><strong>Position in the Company</strong> : <%= mentee.getRole()%></p>
+                            </div>
+
+                        </div>
+                        <div class='row'>
+                            <div class="col-sm-6 form-group">
                                 <p><strong>Mentor </strong> : <%= mentor_name%></p>
                             </div>
+                            
                         </div>
+                            
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
+                                </div>
+                            </div>
 
                         <%} else if (type.equals("mentor")) {
                             Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
@@ -107,7 +128,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <p><strong>Current Position in the Company</strong> : <%= mentor.getPosition()%></p>
+                                <p><strong>Company Position</strong> : <%= mentor.getPosition()%></p>
                             </div>
                             <div class="col-sm-6 form-group">
                                 <p><strong>Introduction</strong><br>
