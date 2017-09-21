@@ -96,6 +96,11 @@ public class taskController {
         }
         return returnMsg;
     }
+     public static ArrayList<Task> getAllPredefinedTask(int company_id){
+        ArrayList<Task> tasks = TaskDAO.getAllPredefinedTasks(company_id);
+        
+        return tasks;
+    }
     
     public static void main(String[] args){
         int taskID = taskController.getNextTaskID();
