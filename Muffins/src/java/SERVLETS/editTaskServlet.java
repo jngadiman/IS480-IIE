@@ -36,13 +36,15 @@ public class editTaskServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            String stage = request.getParameter("stage");
+            
             if(request.getParameter("Submit").equals("submit")){
             
             //get all the parameters needed to input inside the db
             int taskID = Integer.parseInt(request.getParameter("taskId"));
             String taskName = request.getParameter("taskName");
             String deadLine = request.getParameter("deadline");
-            String stage = request.getParameter("stage");
+            
             int companyID = Integer.parseInt(request.getParameter("companyId"));
             String iscompleted = request.getParameter("isCompleted");
             
@@ -63,6 +65,10 @@ public class editTaskServlet extends HttpServlet {
                 }
             }
             
+            if(iscompleted.equals("false")){
+                isCompleted = false;
+            }
+            
             //add in editTaskOfCompany method using the taskController
             String status = taskController.editTaskOfCompany(taskID, taskName, deadline, stageInt, companyID, isCompleted);
             request.setAttribute("updateStatus", status);
@@ -71,8 +77,7 @@ public class editTaskServlet extends HttpServlet {
             //cancel button doesnt go anywhere after its being clicked
             request.setAttribute("updateStatus", "Cancel button is clicked");
         }
-        
-        RequestDispatcher rd = request.getRequestDispatcher("stages.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id=" + stage);
         rd.forward(request, response);
     }
 
