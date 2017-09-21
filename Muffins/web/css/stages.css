@@ -11,10 +11,10 @@ and open the template in the editor.
 /* written by riliwan balogun http://www.facebook.com/riliwan.rabo*/
 .board{
     width: 75%;
-margin: 60px auto;
-height: 500px;
-background: #fff;
-/*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
+    margin: 60px auto;
+    height: 600px;
+    background: #fff;
+    /*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
 }
 .board .nav-tabs {
     position: relative;
@@ -40,7 +40,7 @@ p.narrow{
     height: 2px;
     background: #ddd;
     position: absolute;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -142,42 +142,42 @@ li:after {
     content: " ";
     position: absolute;
     left: 45%;
-   opacity:0;
+    opacity:0;
     margin: 0 auto;
     bottom: 0px;
     border: 5px solid transparent;
     border-bottom-color: #ddd;
     transition:0.1s ease-in-out;
-    
+
 }
 li.active:after {
     content: " ";
     position: absolute;
-    left: 45%;
-   opacity:1;
+    left: 30%;
+    opacity: 1;
     margin: 0 auto;
     bottom: 0px;
-    border: 10px solid transparent;
+    border: 0px solid transparent;
     border-bottom-color: #ddd;
-    
+
 }
 .nav-tabs > li a{
-   width: 70px;
-   height: 70px;
-   margin: 20px auto;
-   border-radius: 100%;
-   padding: 0;
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
 }
 
-.nav-tabs > li a:hover{
+.nav-tabs > li a:round-tabs.hover{
     background: transparent;
 }
 
 .tab-content{
 }
 .tab-pane{
-   position: relative;
-padding-top: 50px;
+    position: relative;
+    padding-top: 50px;
 }
 .tab-content .head{
     font-family: 'Roboto Condensed', sans-serif;
@@ -201,34 +201,34 @@ padding-top: 50px;
 
 
 @media( max-width : 585px ){
-    
+
     .board {
-width: 90%;
-height:auto !important;
-}
+        width: 90%;
+        height:auto !important;
+    }
     span.round-tabs {
         font-size:16px;
-width: 50px;
-height: 50px;
-line-height: 50px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
     }
     .tab-content .head{
         font-size:20px;
-        }
+    }
     .nav-tabs > li a {
-width: 50px;
-height: 50px;
-line-height:50px;
-}
+        width: 50px;
+        height: 50px;
+        line-height:50px;
+    }
 
-li.active:after {
-content: " ";
-position: absolute;
-left: 35%;
-}
+    li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
 
-.btn-outline-rounded {
-    padding:12px 20px;
+    .btn-outline-rounded {
+        padding:12px 12px;
     }
 }
 

@@ -19,8 +19,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Stages</title>
-        <%@include file="navbar.jsp" %>
         <link href="css/stages.css" rel="stylesheet" type="text/css"/>
+        <%@include file="sidenav.jsp" %>
     </head>
     <body>
         <section style="background:#efefe9;">
