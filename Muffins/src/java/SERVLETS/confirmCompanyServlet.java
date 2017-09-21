@@ -9,6 +9,8 @@ import CONTROLLER.companyController;
 import CONTROLLER.loginController;
 import CONTROLLER.menteeController;
 import CONTROLLER.registrationController;
+import CONTROLLER.taskController;
+import MODELS.Task;
 import MODELS.User;
 import Utility.EmailSender;
 import java.io.IOException;
@@ -88,6 +90,14 @@ public class confirmCompanyServlet extends HttpServlet {
             
             //change stage of the company to 1
             companyController.changeCompanyStage(1, companyID);
+            
+            //add the predefined tasks here
+            ArrayList<Task> predefined_task = taskController.getAllPredefinedTask(companyID);
+            if (predefined_task!=null){
+                for(Task t : predefined_task){
+                    taskController.addTaskToCompany(t);
+                }
+            }
             
             
             //send email of the unhashed accessCode to founders
