@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor Assignment</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
 
     </head>
     <body>
@@ -31,9 +31,8 @@
 
         <div class="container">
 
-            <div class="col-sm-10 col-sm-offset-1">
-                <h2 class="col-lg-10 well col-sm-offset-1">Confirmation for Assignment</h2>
-                <div class="col-lg-10 well col-sm-offset-1">
+                <h2 class="page-header col-lg-8  col-sm-offset-3">Confirmation for Assignment</h2>
+                <div class="col-lg-8 well col-sm-offset-3">
                     <div class ="row">
                         <div class="col-sm-10 form-group required">
                         <h4>Confirm request for <b><%=displayedUser.getName()%></b> as Mentor for <b><%=c.getName()%></b>? <br/></h4>
@@ -44,7 +43,7 @@
                             <label class="control-label">State your reason for request </label>
                             <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Compulsory)" class="form-control" required>
                             <input type="hidden" value="<%= displayedUser.getEmail()%>" name="mentorEmail">
-                            <input type="submit" class="btn btn-xs btn-info" value="Submit">       
+                            <br><input type="submit" class="btn btn-xs btn-info " value="Submit">       
                         </div>
 
 
@@ -52,13 +51,13 @@
                         
                                                     <div class="col-sm-12 form-group">
                         <%  // display the image
-                            byte[] imgData = displayedUser.getProfile_pic();
-                            if (imgData == null) {
+                            byte[] imgDataUser = displayedUser.getProfile_pic();
+                            if (imgDataUser == null) {
                         %>
                         <img src="img/user.png" width="200px" alt=""/>
                         <%
                         } else {
-                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataUser));
                         %>
                         <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                         <%}%>

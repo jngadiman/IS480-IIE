@@ -85,10 +85,14 @@
                             <input type="file" name="profilePhoto">
 
                             <h2><%= user.getName()%></h2>
-                            <p><strong>Email Address</strong> : <%= user.getEmail()%></p>
+                            <div class='row'>
+                            <div class="col-sm-6 form-group">
+                                <label>Email Address</label>
+                                <input name="email" type="text" placeholder="Enter Email Address.." class="form-control" value="<%= user.getEmail()%>" required>
+                                
+                            </div>
+                            </div>
                             <p><strong>NRIC</strong> : <%= user.getNric()%></p>
-                            <p><strong>User Type</strong> : <%= user.getUser_type()%></p>
-                            <p><strong>Company ID</strong> : <%= user.getCompanyid()%></p>
                             <input type="hidden" name="email" value="<%= user.getEmail()%>">
                             <input type="hidden" name="password" value="<%= user.getPassword()%>">
                             <input type="hidden" name="name" value="<%= user.getName()%>">
@@ -115,15 +119,42 @@
 
                                 %>
                                 <input type="hidden" name="degreeText" value="<%= mentee.getDegree()%>">
-                                <p><strong>Mentor</strong> : <%= mentor_name%></p>
+                                <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Contact Number</label>
+                                <input name="contactNo" type="text" placeholder="Enter Contact Number.." class="form-control" value="<%=mentee.getContactNumber()%>" required>
+                                
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <p><strong>Nationality</strong> : <%=mentee.getNationality()%></p>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Company Position</label>
+                                <input name="role" type="text" placeholder="Enter Company Position.." class="form-control" value="<%= mentee.getRole()%>" required>
+                                
+                            </div>
+
+                        </div>
+                        <div class='row'>
+                            
+                            <div class="col-sm-6 form-group">
                                 <p><strong>Company </strong> : <%= company_name%></p>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <p><strong>Mentor </strong> : <%= mentor_name%></p>
+                            </div>
+                            
+                        </div>
                                 <div class="row">
                                     <div class="col-sm-6 form-group">
                                         <label>Year of Graduation</label>
                                         <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= mentee.getYear_of_grad()%>" required>
                                     </div>
-                                </div>
-                                <div class="row">
+                                
                                     <div class="col-sm-6 form-group required">
                                         <label  class="control-label">Degree</label>
                                         <select class="form-control" name="degree" required>

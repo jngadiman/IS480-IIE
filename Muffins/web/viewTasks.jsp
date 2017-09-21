@@ -95,11 +95,11 @@
                 *click on the button to change status<br><br>
                 
                 </div>
-                      <div class ="col-lg-2 col-lg-offset-6 ">  
-                <a href="stages.jsp" class="btn btn-primary btn-xs center-block">Back to Stages</a>
-                <a href="addTask.jsp" class="btn btn-success btn-xs center-block"> Add Task</a>
+                      <p class="text-center">
+                <a href="stages.jsp" class="btn btn-primary btn-xs ">Back to Stages</a>
+                <a href="addTask.jsp" class="btn btn-success btn-xs "> Add Task</a>
 
-            </div>
+            </p>
                 
             
         </div>
