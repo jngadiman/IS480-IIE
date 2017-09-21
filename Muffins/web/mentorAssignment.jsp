@@ -117,8 +117,8 @@
 
                         <div class="col-lg-12">
                             <h5><strong>Areas of Expertise: </strong></h5>
-                            <h5>Static, should change when database is updated
-                                <br> Data Engineering, Data Management, Data Mining</h5>
+                            <h5>
+                                <br> <%=m.getSkills()%></h5>
                         </div>
 
 

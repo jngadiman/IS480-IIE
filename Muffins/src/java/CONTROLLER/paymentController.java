@@ -88,7 +88,7 @@ public class paymentController {
         return payslip;
     }
     
-    public static String printPayslip(Payslip payslip, File file)throws FileNotFoundException, IOException {
+    public static String printPayslip(Payslip payslip)throws FileNotFoundException, IOException {
         
         String result = "";
         int voucher_no = payslip.getVoucherNumber();
@@ -142,8 +142,8 @@ public class paymentController {
         POIFSFileSystem fsfilesystem = null;
         HWPFDocument hwpfdoc = null;
         //Business Mentorship Payment –  (name of mentee company) for period dd mm yyyy to dd mm yyyy
-
-        InputStream resourceAsStream =  new FileInputStream(file);
+        
+        InputStream resourceAsStream = new FileInputStream("C:/Users/JJAY/Desktop/SMU/FYP/IS480/Muffins/iiedocuments/MentorPaymentVoucherTemplate.doc");
         //new BufferedInputStream(resourceAsStream);
         
         try {
@@ -167,7 +167,7 @@ public class paymentController {
             SimpleDateFormat todayFomatter = new  SimpleDateFormat("yyyyMMdd");
             String today = todayFomatter.format(new Date());
             
-            FileOutputStream fos = new FileOutputStream(new File("./iie documents/Payment Vouchers/VN"+today+voucher_no+".doc"));
+            FileOutputStream fos = new FileOutputStream("./iie documents/Payment Vouchers/VN"+today+voucher_no+".doc");
             hwpfdoc.write(fos);
             fos.flush();
             fos.close();

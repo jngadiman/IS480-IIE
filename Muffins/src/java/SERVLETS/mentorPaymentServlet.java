@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,12 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "mentorPaymentServlet", urlPatterns = {"/mentorPaymentServlet"})
 public class mentorPaymentServlet extends HttpServlet {
-private File voucher_template;
 
-@Override
-public void init() throws ServletException {
-    voucher_template = new File("./iie documents/Mentor Payment Voucher Template.doc");
-}
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -86,7 +82,7 @@ public void init() throws ServletException {
 //                        file = new FileInputStream(f);
 //                    }
 //                    
-                    paymentController.printPayslip(payslip, voucher_template);
+                    paymentController.printPayslip(payslip);
                 }
                 
             }
