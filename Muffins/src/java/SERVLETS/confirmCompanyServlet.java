@@ -66,9 +66,11 @@ public class confirmCompanyServlet extends HttpServlet {
         if(stakeholders!= null){
             founders = stakeholders.split(","); //store all founders email
         }
-        
-        for(String s : founders){
-            System.out.println(s);
+        System.out.println("stakeholders: " + stakeholders);
+        if(founders != null){
+            for(String s : founders){
+                System.out.println("inside for loop" + s);
+            }
         }
         
         if(activated!=null &&!activated.equals("")){
@@ -109,11 +111,7 @@ public class confirmCompanyServlet extends HttpServlet {
             request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
            
         }else if(declined!=null &&!declined.equals("")){
-            System.out.println("USER IS DELETED");
-            
-            //delete the company from company table
-            companyController.deleteCompany(companyID);
-            
+            System.out.println("COMPANY IS DELETED");
             //send email of the decline message to founders
             if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "I regret to inform you that, "+companyName+ " have not been accepted into IIE Incubation. ",founders, "IIE Portal Enrollment Results")){
                 System.out.println("email has been sent successfully");
@@ -122,6 +120,10 @@ public class confirmCompanyServlet extends HttpServlet {
             }
             
             status.add("Company is declined, an email will be sent to the founders.");
+            //delete the company from company table
+            companyController.deleteCompany(companyID);
+            
+            
             request.setAttribute("status", status);
             request.getRequestDispatcher("confirmCompany.jsp").forward(request, response);
             
@@ -129,6 +131,7 @@ public class confirmCompanyServlet extends HttpServlet {
                 String eventName = request.getParameter("eventName");
                 String eventVenue = request.getParameter("eventVenue");
                 String eventTime = request.getParameter("eventTime");
+                System.out.println("company id: " + company_id);
                 
                 System.out.println("EVENT NAME"+eventName);
                 System.out.println("EVENT VENUE"+eventVenue);
