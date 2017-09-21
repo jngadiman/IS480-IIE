@@ -4,6 +4,9 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.relationshipController"%>
+<%@page import="MODELS.Preference"%>
+<%@page import="DAO.PreferenceDAO"%>
 <%@page import="DAO.MentorDAO"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.profileController"%>
@@ -54,9 +57,9 @@
                                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                                 </div>-->
 
-
+                        
                 <% String type = request.getParameter("type");%>
-
+            <form action="confirmAssignment.jsp" action="post">
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Small button
             </button>
@@ -125,13 +128,27 @@
                         <div class="col-lg-12">
                             <div class="col-lg-4 col-lg-offset-4">
                                 <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
-                                <a href='confirmAssignment.jsp?email=<%=m.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>           
+                                <%
+                                    User user = (User) session.getAttribute("user");
+                                    ArrayList<Preference> preferences= PreferenceDAO.getPreferencesOfCompany(user.getCompanyid());
+                                    Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
+                                    if((preferences != null && preferences.size() != 0) || mentor != null){
+                                %>
+                                        <button type="submit" class='btn btn-success btn-xs' disabled>View Profile</a>
+                                <%
+                                    }else{
+                                %>
+                                        <button type="submit" class='btn btn-success btn-xs'>View Profile</a>           
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </div>
                     <%
                         }
                     %>
+                    </form>
                 </div>
             </div>
     </body>

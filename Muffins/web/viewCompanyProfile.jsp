@@ -26,7 +26,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Company Profile</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
         <%@include file="protect.jsp" %>
     </head>
     <%            user = (User) session.getAttribute("user");
@@ -36,20 +36,23 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <h2 class="col-lg-10 well col-sm-offset-1">Company Profile</h2>
-                    <div class="col-lg-10 well col-sm-offset-1">
+                <div class="col-sm-9 col-sm-offset-2">
+                    <h2 class="col-lg-9 well col-sm-offset-2">Company Profile</h2>
+                    <div class="col-lg-9 well col-sm-offset-2">
                         <div class="row">
                             <div class="col-sm-6 form-group">
 
                                  <%  // display the image
-                                     byte[] imgData = company.getCompanyLogo();
-                                     if (imgData != null) {
-                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                     byte[] imgDataComp = company.getCompanyLogo();
+                                     if (imgDataComp != null) {
+                                         String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataComp));
                                  %>
                                  <img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" />
                                     <%
-                                        }
+                                        }else{
+                                         %>
+                                         <img width="200" src="img/factory.png"  alt="images Here" /><%
+                                     }
                                     %>
 
                                 <p><font size="+3"><%= company.getName()%></font></p>
@@ -60,8 +63,16 @@
                                     if (industry != null) {
                                         //industry still cannot edit properly%>
                                 <p><strong>Industry</strong> : <%=industry.getIndustryName()%></p>
-                                <%}%>
-                                <p><strong>Company Current Mentor</strong> : HELP IDK HOW TO GET MENTOR
+                                <%  }
+                                        Mentor m = relationshipController.getCurrentMentorOfCompany(company.getId());
+                                        String mentorName = "";
+                                        if(m != null){
+                                            mentorName = m.getName();
+                                        }else{
+                                            mentorName = "Currently No Mentor";
+                                        }
+                                %>
+                                <p><strong>Company Current Mentor</strong> : <%= mentorName%>
                                     <%
                                         ArrayList<String> all_founders = UserDAO.getUserEmailsOfCompany(companyID);
                                         String first_founder_email = all_founders.get(0);

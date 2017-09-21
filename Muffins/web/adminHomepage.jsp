@@ -15,27 +15,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Homepage</title> 
-        <%@include file="navbar.jsp" %>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <%@include file="sidenav.jsp" %>
     </head>
     <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <%
-                            //print all requesting requests
-                            //ArrayList<Company> noMentorCompanies = assignmentController.getNoMentorCompanies();
-                        %>
-                        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <li><a href="adminViewAllRequests.jsp">Pending Request <span class="badge"></span>  </a> </li>
-                        <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
-                        <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
-                        <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
-                        <li><a href="confirmCompany.jsp">Pending Company</a></li>
-                        
-                    </ul>
-                </div>
+                
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Dashboard</h1>
 

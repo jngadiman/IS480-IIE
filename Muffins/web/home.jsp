@@ -15,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Homepage</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -45,47 +45,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <%
-                            if (user.getUser_type().equals("regular_mentee")) {
-                        %>
-                        <li><a href="stages.jsp">Progress</a></li>
-                        <%
-                            }
-                        %>
-                        <li><a href="#">Meetings</a></li>
-                        <li><a href="#">Calendar</a></li>
-                        <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
-                        <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
-                        <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
-                        <%
-                            if(user != null){
-                                if(user.getUser_type().equals("regular_mentee")){
-                        %>
-                                <li><a href="requestForMentor.jsp?type=incubator">Request For Mentor</a></li>
-                        <%
-                                }else{
-                        %>
-                                <li><a href="requestForMentor.jsp?type=open">Open Mentorship Request</a></li>
-                        <%      }
-                            }
-                        %>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item</a></li>
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                        <li><a href="">More navigation</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                    </ul>
-                </div>
+                
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Dashboard</h1>
 

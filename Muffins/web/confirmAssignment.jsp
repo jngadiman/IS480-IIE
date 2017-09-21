@@ -24,7 +24,7 @@
     </head>
     <body>
         <%            
-            String userEmail = request.getParameter("email");
+            String userEmail = request.getParameter("mentorEmail");
             User displayedUser = profileController.displayUserDetails(userEmail);
             Company c = companyController.getCompany(user.getCompanyid());
         %>

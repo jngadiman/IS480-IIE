@@ -26,6 +26,7 @@
         <%@include file="navbar.jsp" %>
     </head>
     <body>
+
         <h1>Requests</h1>
         <div class="col-md-6  col-md-offset-3 well">
             <h4>Assign Mentor to Company</h4>
@@ -100,91 +101,97 @@
                                 }
                             %>
                         </table>
-                        <!-- Modal -->
-                        <div id="approve" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Approve Mentor Assignment</h4>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Start Date</label>
-                                            <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">End Date</label>
-                                            <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" name="approve" class="btn btn-xs btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal -->
-                        <div id="edit" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Edit Mentor Assignment</h4>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Start Date</label>
-                                            <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">End Date</label>
-                                            <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Mentor</label>
-                                            <select class="form-control" id="mentor" name="mentor" required>
-                                                <%
-                                                    ArrayList<Mentor> mentors = mentorController.getMentors();
-
-                                                    for (Mentor mentor : mentors) {
-                                                %>
-                                                <option value="<%= mentor.getEmail()%>"><%= mentor.getName()%></option>
-                                                <%
-                                                    }
-                                                %>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Reason for Request</label>
-                                            <textarea rows="3" class="form-control" name="need" placeholder="Enter Reason Here.." required></textarea>
-                                        </div> 
-                                    </div>
-                                        
-                                        <div class="modal-footer">
-                                            <button type="submit" name="edit" class="btn btn-xs btn-default">Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                        <%
-                            }
-                        %>
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
+    <!-- Modal -->
+    <div id="approve" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Approve Mentor Assignment</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col-sm-6 form-group required">
+                        <label class="control-label">Start Date</label>
+                        <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <label class="control-label">End Date</label>
+                        <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="approve" class="btn btn-xs btn-default">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="edit" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Mentor Assignment</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col-sm-6 form-group required">
+                        <label class="control-label">Start Date</label>
+                        <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <label class="control-label">End Date</label>
+                        <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <label class="control-label">Mentor</label>
+                        <select class="form-control" id="mentor" name="mentor" required>
+                            <%
+                                ArrayList<Mentor> mentors = mentorController.getMentors();
+
+                                for (Mentor mentor : mentors) {
+                            %>
+                            <option value="<%= mentor.getEmail()%>"><%= mentor.getName()%></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <label class="control-label">Reason for Request</label>
+                        <textarea rows="3" class="form-control" name="need" placeholder="Enter Reason Here.." required></textarea>
+                    </div> 
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" name="edit" class="btn btn-xs btn-default">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <%
+        }
+    %>
+
+
+
     <!--                </div>-->
     <!--                <div class="tab-pane fade active in" id="openmentor">
                         <div class="container-fluid">

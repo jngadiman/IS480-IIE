@@ -9,7 +9,7 @@
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="navbar.jsp" %>
+<%@include file="sidenav.jsp" %>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
