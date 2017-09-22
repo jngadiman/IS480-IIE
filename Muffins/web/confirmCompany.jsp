@@ -56,7 +56,7 @@
                                     if (x == (stakeholders.length - 1)) {
                                         founders += s;
                                     } else {
-                                        founders = s + ",";
+                                        founders += s + ",";
                                     }
 
                                 }
@@ -184,7 +184,7 @@
                                 if (x == (stakeholders.length - 1)) {
                                     founders += s;
                                 } else {
-                                    founders = s + ",";
+                                    founders += s + ",";
                                 }
 
                             }

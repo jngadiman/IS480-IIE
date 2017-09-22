@@ -49,13 +49,19 @@ public class TaskDAO {
             while (result.next()) {
                 taskid = Integer.parseInt(result.getString("task_id"));
                 taskname = result.getString("task_name");
+              
+                
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
+                if(deadLine!=null){
+                    try {
                     deadline = dateformat.parse(deadLine);
-                }catch(ParseException e){
-                    e.printStackTrace();
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
                 }
+                
+                
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -102,11 +108,13 @@ public class TaskDAO {
                 taskname = result.getString("task_name");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
+                if(deadLine!=null){
+                    try {
                     deadline = dateformat.parse(deadLine);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }  
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                }
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -157,11 +165,13 @@ public class TaskDAO {
                 taskname = result.getString("task_name");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
+                if(deadLine!=null){
+                    try {
                     deadline = dateformat.parse(deadLine);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }  
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                }
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -212,11 +222,13 @@ public class TaskDAO {
                 taskname = result.getString("task_name");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
+                if(deadLine!=null){
+                    try {
                     deadline = dateformat.parse(deadLine);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }  
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                }
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -270,11 +282,13 @@ public class TaskDAO {
                 taskname = result.getString("task_name");
                 deadLine = result.getString("task_deadline");
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
+                if(deadLine!=null){
+                    try {
                     deadline = dateformat.parse(deadLine);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }  
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                } 
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");

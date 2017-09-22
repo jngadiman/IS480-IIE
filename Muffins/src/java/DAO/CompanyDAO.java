@@ -378,7 +378,7 @@ public class CompanyDAO {
             if (x == (company_founders.length - 1) ){
                 stakeholders+=s;
             }else{
-                stakeholders = s+",";
+                stakeholders += s+",";
             }
             
         }
@@ -448,7 +448,7 @@ public class CompanyDAO {
             if (x == (company_founders.length - 1) ){
                 stakeholders+=s;
             }else{
-                stakeholders = s+",";
+                stakeholders += s+",";
             }
             
         }

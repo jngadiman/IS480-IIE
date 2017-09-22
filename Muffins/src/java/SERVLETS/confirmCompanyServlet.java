@@ -101,7 +101,7 @@ public class confirmCompanyServlet extends HttpServlet {
             
             
             //send email of the unhashed accessCode to founders
-            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been accepted into IIE Incubation. \n Kindly click on this link to register below with the access code provided: \n Access Code: "+accessCode+" \n Registeration Link: http://localhost:8084/Muffins/registerIncubationUser.jsp?id="+companyID, founders,"IIE Portal Enrollment Results")){
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, "+companyName+ " have been accepted into IIE Incubation. \n Kindly click on this link to register below with the access code provided: \n Access Code: "+accessCode+" \n Registeration Link: http://54.179.181.136/Muffins/registerIncubationUser.jsp?id="+companyID, founders,"IIE Portal Enrollment Results")){
                 System.out.println("email has been sent successfully");
             }else{
                 System.out.println("email could not be sent");
