@@ -64,7 +64,7 @@
                             if (user.getUser_type().equals("regular_mentee") || user.getUser_type().equals("light_mentee")) {
                                 Mentee m = (Mentee) session.getAttribute("mentee");
                         %>    
-                        <li><a href="home.jsp">Homepage</a></li>
+                        <li><a href="home.jsp">Home</a></li>
                             <%
                                 if (user.getUser_type().equals("regular_mentee")) {
                                     Company userComp = companyController.getCompany(user.getCompanyid());
@@ -129,7 +129,7 @@
                         <%
                             if (user.getUser_type().equals("regular_mentee")) {
                         %>
-                    <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                    <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
                         <%
                             }
                         %>
