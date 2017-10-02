@@ -71,7 +71,6 @@
                                     <input type ="hidden" name ="stakeholders" value ="<%=founders%>">
                                     <input type ="hidden" name ="company" value ="<%=company.getName()%>">
                                     <input type ="hidden" name ="company_id" value ="<%=company.getId()%>">
-                                    <%= company.getId()%>
                                     <button type="button" class="btn btn-warning btn-xs" value="shortlist" data-toggle="modal" data-target="#shortlistModal<%=company.getId()%>" name="shortListBtn"/>Shortlist</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="shortlistModal<%= company.getId()%>" role="dialog">
@@ -81,7 +80,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Event Info</h4> <%= company.getId()%>
+                                                    <h4 class="modal-title">Event Info</h4>
 
                                                     <div class="modal-body">
                                                         <div class="col-sm-10 col-lg-offset-1">
@@ -100,7 +99,7 @@
                                                                     <label  class="control-label">Time</label>
                                                                     <select class="form-control" name="eventTime" id="eventTime">
 
-                                                                        <option value="00:00">00:00</option>
+                                                                             <option value="00:00">00:00</option>
                                                                         <option value="01:00">01:00</option>
                                                                         <option value="02:00">02:00</option>
                                                                         <option value="03:00">03:00</option>
