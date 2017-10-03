@@ -63,26 +63,29 @@ public class assignmentController {
         ArrayList<Integer> companyIDsWPref = PreferenceDAO.getAllCompanyIDsWPreference();
         ArrayList<Integer> companyIDsWMentor = RelationshipDAO.getCompanyIDsWithMentor();
         
-        for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
-            Integer company_id = allCompanyIDs.get(i);
-            for(int j = companyIDsWPref.size()-1; i >= 0; i--){
-                Integer companyID = companyIDsWPref.get(j);
-                if(company_id == companyID){
-                    allCompanyIDs.remove(company_id);
+        if(companyIDsWPref != null && companyIDsWPref.size() != 0){
+            for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
+                Integer company_id = allCompanyIDs.get(i);
+                for(int j = companyIDsWPref.size()-1; i >= 0; i--){
+                    Integer companyID = companyIDsWPref.get(j);
+                    if(company_id == companyID){
+                        allCompanyIDs.remove(company_id);
+                    }
                 }
             }
         }
         
-        for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
-            Integer company_id = allCompanyIDs.get(i);
-            for(int j = companyIDsWMentor.size()-1; i >= 0; i--){
-                Integer companyID = companyIDsWMentor.get(j);
-                if(company_id == companyID){
-                    allCompanyIDs.remove(company_id);
+        if(companyIDsWMentor != null && companyIDsWMentor.size() != 0){
+            for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
+                Integer company_id = allCompanyIDs.get(i);
+                for(int j = companyIDsWMentor.size()-1; i >= 0; i--){
+                    Integer companyID = companyIDsWMentor.get(j);
+                    if(company_id == companyID){
+                        allCompanyIDs.remove(company_id);
+                    }
                 }
             }
         }
-        
         for(Integer i : allCompanyIDs){
             Company c = CompanyDAO.getCompany(i);
             companies.add(c);
@@ -92,14 +95,19 @@ public class assignmentController {
     }
         
     public static void main(String[] args){
-        ArrayList<String> skillSet = new ArrayList<String>();
-        skillSet.add("Business Development");
-        skillSet.add("Product Management");
-        ArrayList<Mentor> mentors = assignmentController.getAllMentorsBySkills(skillSet);
-        for(Mentor m : mentors){
-             System.out.println(m.getEmail());
-             System.out.println(m.getName());
-             System.out.println(m.getSkills());
+        ArrayList<Company> companies = assignmentController.getCompaniesWNoMentorNPref();
+        for(Company c : companies){
+            System.out.println(c.getName());
         }
+        
+//        ArrayList<String> skillSet = new ArrayList<String>();
+//        skillSet.add("Business Development");
+//        skillSet.add("Product Management");
+//        ArrayList<Mentor> mentors = assignmentController.getAllMentorsBySkills(skillSet);
+//        for(Mentor m : mentors){
+//             System.out.println(m.getEmail());
+//             System.out.println(m.getName());
+//             System.out.println(m.getSkills());
+//        }
     }
 }

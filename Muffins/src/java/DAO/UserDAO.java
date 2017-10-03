@@ -148,6 +148,68 @@ public class UserDAO {
         return users;
     }
     
+    //get mentors by type
+    public static ArrayList<User> getMentorsByType(String type){
+        ArrayList<User> users = new ArrayList<User>();
+        User u = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String password = "";
+        String name = "";
+        String nric = "";
+        Date joinedDate = null;
+        Blob profile_pic = null;
+        byte[] profilePic = null;
+        String user_type = "";
+        int company_id = 0;
+        String position = "";
+        int equity_percentage = 0;
+        int contact_number = 0;
+        String nationality = "";
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from user where user_type = ? ORDER BY `name` asc ;");
+            stmt.setString(1, type);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                email = result.getString("email");
+                password = result.getString("password");
+                name = result.getString("name");
+                nric = result.getString("nric");
+                joinedDate = result.getDate("joined_date");
+                profile_pic = result.getBlob("profile_pic");
+                user_type = result.getString("user_type");
+                company_id = Integer.parseInt(result.getString("company_id"));
+                position = result.getString("position");
+                if(result.getString("equity_percentage") != null){
+                    equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
+                }else{
+                    equity_percentage = 0;
+                }
+                contact_number = Integer.parseInt(result.getString("contact_number"));
+                nationality = result.getString("nationality");
+                if(profile_pic != null){
+                    profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
+                }else{
+                    profilePic = null;
+                }
+                
+                u = new User(email, password, name, nric, joinedDate, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
+                users.add(u);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return users;
+    }
+    
     public static ArrayList<User> getAllMentees(){
         ArrayList<User> users = new ArrayList<User>();
         User u = null;
@@ -875,8 +937,7 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-       ArrayList<User> mentees = UserDAO.getAllMentors();
-       System.out.println("test");
+       ArrayList<User> mentees = UserDAO.getMentorsByType("Incubation Manager Mentor");
         for(User m: mentees){
             System.out.println(m.getEmail());
             System.out.println(m.getPassword());

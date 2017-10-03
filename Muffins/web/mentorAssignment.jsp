@@ -27,7 +27,6 @@
     </head>
     <body>
         <div class="container">
-            
 <!--
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Small button
@@ -56,19 +55,18 @@
                                 </div>-->
 
                         
-                <% String type = request.getParameter("type");%>
+                
                 <h1 class="col-lg-8 col-lg-offset-3 page-header">Request for Mentor</h1>
                 <div class="col-lg-8 col-lg-offset-3">
           <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
               Filter by
             </button>
-                    <ul class="dropdown-menu">
-      <li><a href="#">Incubation Manager</a></li>
-      <li><a href="#">Venture Capitalist</a></li>
-      <li><a href="#">Industry Professional</a></li>
-      <li><a href="#">Entrepreneur</a></li>
+    <ul class="dropdown-menu">
+      <li><a href="mentorAssignment.jsp?mentorType=IncubationManager">Incubation Manager</a></li>
+      <li><a href="mentorAssignment.jsp?mentorType=VentureCapitalist">Venture Capitalist</a></li>
+      <li><a href="mentorAssignment.jsp?mentorType=IndustryProfessional">Industry Professional</a></li>
+      <li><a href="mentorAssignment.jsp?mentorType=Entrepreneur">Entrepreneur</a></li>
     </ul>
-                    
                     <div class='pull-right'>
                     <form action="searchServlet" method="post">
                         Keywords : 
@@ -94,9 +92,20 @@
                         out.println(status);
                     }
                     
-
-                    session.setAttribute("requestType", type);
-                    ArrayList<Mentor> mentors = MentorDAO.getMentors();
+                    ArrayList<Mentor> mentors = null;
+                    
+                    if(request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()){
+                        String mentorType = request.getParameter("mentorType");
+                        session.setAttribute("mentorType", mentorType);
+                        mentors = mentorController.getMentorsByType(mentorType);
+                    }else{
+                        mentors = MentorDAO.getMentors();
+                    }
+                    
+                    if(mentors == null || mentors.size() == 0){
+                        out.println("There is no mentors in this category! Please choose another category!");
+                    }
+                    
                     int i = 0;
                     for (Mentor m : mentors) {
                 %>

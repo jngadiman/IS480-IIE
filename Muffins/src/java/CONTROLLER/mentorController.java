@@ -33,8 +33,23 @@ public class mentorController {
         return skills;
     }
     
+    public static ArrayList<Mentor> getMentorsByType(String type){
+        if(type.equals("IncubationManager")){
+            type = "Incubation Manager Mentor";
+        }else if(type.equals("VentureCapitalist")){
+            type = "Venture Capitalist Mentor";
+        }else if(type.equals("IndustryProfessional")){
+            type = "Industry Professional Mentor";
+        }else if(type.equals("Entrepreneur")){
+            type = "Entrepreneur Mentor";
+        }
+        
+        ArrayList<Mentor> mentors = MentorDAO.getMentorsByType(type);
+        return mentors;
+    }
+    
     public static void main(String[] args){
-        ArrayList<Mentor> mentors = mentorController.getMentors();
+        ArrayList<Mentor> mentors = mentorController.getMentorsByType("IncubationManager");
         for(Mentor m: mentors){
             System.out.println(m.getEmail());
             System.out.println(m.getPassword());

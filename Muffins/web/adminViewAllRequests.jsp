@@ -4,6 +4,7 @@
     Author     : Hui Min
 --%>
 
+<%@page import="CONTROLLER.assignmentController"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.HashMap"%>
@@ -35,7 +36,7 @@
             <form action="adminPendingRequestServlet" method="post">
                 <div class="col-md-8 form-group required">
                     <select class="form-control" id="mentor" name="mentor" required>
-                        <% ArrayList<Company> companyWoMentor = companyController.getAllCompanies();
+                        <% ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
                             for (Company company : companyWoMentor) {
                         %>
                         <option value="<%= company.getId()%>"><%= company.getName()%></option>
