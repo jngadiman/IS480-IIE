@@ -521,8 +521,9 @@ public class RelationshipDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select company_id from Relationship where status = ?;");
+            stmt = conn.prepareStatement("select company_id from Relationship where status = ? OR status = ?;");
             stmt.setString(1, "assigned");
+            stmt.setString(2, "requesting");
             result = stmt.executeQuery();
 
             while (result.next()) {
@@ -671,8 +672,10 @@ public class RelationshipDAO {
 //              System.out.println(r.getCompanyID());
 //              System.out.println(r.getStatus());
 //          }
-            String mentorEmail = RelationshipDAO.getCurrentMentorOfCompany(3);
-            System.out.println("mentor email: " + mentorEmail);
+            ArrayList<Integer> companyIDs = RelationshipDAO.getCompanyIDsWithMentor();
+            for(Integer i : companyIDs){
+                System.out.println(i);
+            }
     }
 }
 

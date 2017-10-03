@@ -66,7 +66,7 @@ public class assignmentController {
         if(companyIDsWPref != null && companyIDsWPref.size() != 0){
             for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
                 Integer company_id = allCompanyIDs.get(i);
-                for(int j = companyIDsWPref.size()-1; i >= 0; i--){
+                for(int j = 0; j < companyIDsWPref.size(); j++){
                     Integer companyID = companyIDsWPref.get(j);
                     if(company_id == companyID){
                         allCompanyIDs.remove(company_id);
@@ -78,7 +78,7 @@ public class assignmentController {
         if(companyIDsWMentor != null && companyIDsWMentor.size() != 0){
             for(int i = allCompanyIDs.size()- 1; i >= 0; i--){
                 Integer company_id = allCompanyIDs.get(i);
-                for(int j = companyIDsWMentor.size()-1; i >= 0; i--){
+                for(int j = 0; j < companyIDsWMentor.size(); j++){
                     Integer companyID = companyIDsWMentor.get(j);
                     if(company_id == companyID){
                         allCompanyIDs.remove(company_id);
