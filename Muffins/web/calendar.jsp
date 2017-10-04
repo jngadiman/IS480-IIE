@@ -24,6 +24,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script type='text/javascript' src='fullcalendar/gcal.js'></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Calendar</title>
         <%@include file="navbar.jsp" %>
@@ -98,7 +99,15 @@
 //                    console.log(calendars.map(cal => cal.summary));
 //                });
 //            });
-//          listCalendars();
+                $(document).ready(function() {
+                    $('#calendar').fullCalendar({
+                        
+                        events: {
+                            googleCalendarId: CLIENT_ID
+                        }
+                    });
+                });
+          listCalendars();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -137,6 +146,8 @@
        * the authorized user's calendar. If no events are found an
        * appropriate message is printed.
        */
+      var occupiedStartDates = new Array();
+      var occupiedEndDates = new Array();
       function listUpcomingEvents() {
         gapi.client.calendar.events.list({
           'calendarId': 'primary',
@@ -154,23 +165,48 @@
             for (i = 0; i < events.length; i++) {
               var event = events[i];
               var when = event.start.dateTime;
+              var end = event.end.dateTime;
               //document.write("TO SEE THE START DATETIME"+when);
               if (!when) {
                 when = event.start.date;
               }
+              occupiedStartDates.push(when);
               appendPre(event.summary + ' (' + when + ')')
+              occupiedEndDates.push(end);
             }
           } else {
             appendPre('No upcoming events found.');
           }
         });
       }
-      function listCalendars(){
+//      function listCalendars(){
+//        var request = gapi.client.calendar.calendarList.list();
+//        //document.write("REQUEST+ "+request);
+//        request.execute(function(resp){
+//                var calendars = resp.items;
+//                console.log(calendars);
+//        }
+//        );
+//      }
+      
+//      function loadCalendarApi() {
+//        gapi.client.load('calendar', 'v3', listUpcomingEvents);
+//      }
+      
+      function listCalendars() {
         var request = gapi.client.calendar.calendarList.list();
-        //document.write("REQUEST+ "+request);
-        request.execute(function(resp){
-                var calendars = resp.items;
-                console.log(calendars);
+        request.execute(function(resp) {
+          var cals = resp.items;
+          appendPre('Your calendars:');
+          if (cals.length > 0) {
+            for (i = 0; i < cals.length; i++) {
+              var calendar = cals[i];
+              
+              appendPre(calendar.summary + ' (' + calendar.id + ')')
+            }
+          } else {
+            appendPre('No calendars found.');
+          }
         });
       }
       
@@ -292,8 +328,7 @@
                   <option value="<%=im%>" selected="selected"><%=new SimpleDateFormat("MMMM").format(new Date(2008,im,01))%></option>
                   <%
                   }
-                  else
-                  {
+                  else{
                     %>
                   <option value="<%=im%>"><%=new SimpleDateFormat("MMMM").format(new Date(2008,im,01))%></option>
                   <%
@@ -362,5 +397,16 @@
               <%
                    
               %>
+              
+              <button id="add-event" style="display: none;">Add Meeting</button>
+              <script type='text/javascript'>
+
+                
+
+                </script>
+                
+                
+                
+                
         </body>
         </html> 
