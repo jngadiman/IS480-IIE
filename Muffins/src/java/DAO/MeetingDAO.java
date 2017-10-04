@@ -38,10 +38,10 @@ public class MeetingDAO {
         Date startTime = null;
         Date endTime = null;
         String stringAttendees = "";
-        String menteeCompanyID = "";
-        String [] attendees = null;
+        int menteeCompanyID = 0;
+       
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:ss");
-        boolean status = false;
+        String status = "";
         
         try {
             conn = ConnectionManager.getConnection();
@@ -62,17 +62,12 @@ public class MeetingDAO {
                     e.printStackTrace();
                 }
                 stringAttendees = result.getString("attendees");
-                attendees = stringAttendees.split(",");
-                String statusString = result.getString("status");
-                if(statusString.toUpperCase().equals("approved")){
-                    status = true;
-                }else{
-                    status = false;
-                }
                 
-                menteeCompanyID = result.getString("mentee_company_id");
-                Company menteeCompany = CompanyDAO.getCompany(Integer.parseInt(menteeCompanyID));
-                meeting = new Meeting(meetingID, meetingName, meetingType, startTime, endTime, attendees, status, menteeCompany);
+                status = result.getString("status");
+                
+                menteeCompanyID = result.getInt("mentee_company_id");
+               
+                meeting = new Meeting(meetingID, meetingName, meetingType, startTime, endTime, stringAttendees, status, menteeCompanyID);
             }
 
         } catch (SQLException ex) {
@@ -148,7 +143,7 @@ public class MeetingDAO {
         ResultSet result = null;
         int meetingID = 0;
         ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:ss");
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         boolean status = false;
         
         try {
@@ -166,18 +161,171 @@ public class MeetingDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }
         return meetingIDs;
     }
     
+    public static ArrayList<Integer> getMeetingIDsOfAttendees(String email) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where attendees like '%"+email+"%' ;");
+            //stmt.setString(1,email);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+                
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+    }
+    
+    //get meeting ids by the status
+    public static ArrayList<Integer> getMeetingIDsByStatus(String status) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where status = ?;");
+            stmt.setString(1,status);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+                
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+    }
+    
+    //get meeting ids by the type of meeting
+    public static ArrayList<Integer> getMeetingIDsByType(String type) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where meeting_type = ?;");
+            stmt.setString(1,type);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+                
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+    }
+    
+    public static String addMeeting(Meeting meeting) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int result = 0;
+        ResultSet count = null;
+        String resultStr="";
+        
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("INSERT INTO meeting VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            stmt.setInt(1,meeting.getMeetingID());
+            stmt.setString(2,meeting.getMeetingName());
+            stmt.setString(3,meeting.getMeetingType());
+            if(meeting.getStartTime()!=null){
+                stmt.setString(4, df.format(meeting.getStartTime()));
+            }else{
+                stmt.setString(4, null);
+            }
+            
+            if(meeting.getEndTime()!=null){
+                stmt.setString(5, df.format(meeting.getEndTime()));
+            }else{
+                stmt.setString(5, null);
+            }
+            
+            stmt.setString(6,meeting.getAttendees());
+            
+            stmt.setString(7,meeting.getStatus());
+            stmt.setInt(8,meeting.getMenteeCompany());
+            
+            result = stmt.executeUpdate();
+            
+            if(result==1){
+                resultStr = "Success";
+            }else{
+                resultStr = "Failed";
+            }
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+        return resultStr;
+    }
+    
     public static void main(String[] args){
+       // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
         ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
+        //ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfAttendees("example@gmail.com");
         for(int id:meetings){
             System.out.println("MEETING ID = "+id);
         }
+        
+        //MeetingDAO.addMeeting(m);
     }
     
 }

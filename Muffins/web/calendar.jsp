@@ -14,6 +14,10 @@
 <%@page import="DAO.UserDAO"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="MODELS.User"%>
+<%@page import="com.google.api.client.http.HttpTransport"%>
+<%@page import="com.google.api.client.json.jackson2.JacksonFactory"%>
+<%@page import="com.google.api.client.json.JsonFactory"%>
+
 <%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -43,7 +47,7 @@
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+      var SCOPES = "https://www.googleapis.com/auth/calendar";
 
       var authorizeButton = document.getElementById('authorize-button');
       var signoutButton = document.getElementById('signout-button');
@@ -84,6 +88,17 @@
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           listUpcomingEvents();
+          
+//          gapi.client.load('calendar','v3', initClient => {
+//                gapi.client.calendar.calendarList.list({
+//                    maxResults: 250,
+//                    minAccessRole: 'writer',
+//                }).execute(calendarListResponse => {
+//                    let calendars = calendarListResponse.items;
+//                    console.log(calendars.map(cal => cal.summary));
+//                });
+//            });
+//          listCalendars();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -115,6 +130,7 @@
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
       }
+      
 
       /**
        * Print the summary and start datetime/date of the next ten events in
@@ -127,16 +143,18 @@
           'timeMin': (new Date()).toISOString(),
           'showDeleted': false,
           'singleEvents': true,
-          'maxResults': 10,
+          'maxResults': 100,
           'orderBy': 'startTime'
         }).then(function(response) {
           var events = response.result.items;
+          event = events;
           appendPre('Upcoming events:');
 
           if (events.length > 0) {
             for (i = 0; i < events.length; i++) {
               var event = events[i];
               var when = event.start.dateTime;
+              //document.write("TO SEE THE START DATETIME"+when);
               if (!when) {
                 when = event.start.date;
               }
@@ -147,7 +165,15 @@
           }
         });
       }
-
+      function listCalendars(){
+        var request = gapi.client.calendar.calendarList.list();
+        //document.write("REQUEST+ "+request);
+        request.execute(function(resp){
+                var calendars = resp.items;
+                console.log(calendars);
+        });
+      }
+      
     </script>
 
     <script async defer src="https://apis.google.com/js/api.js"
@@ -333,5 +359,8 @@
         </table>
         </form>
               <p class="text-center"><a href="addMeeting.jsp" class="btn btn-success btn-xs">Add Meeting</a></p>
+              <%
+                   
+              %>
         </body>
         </html> 

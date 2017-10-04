@@ -4,6 +4,7 @@
     Author     : jiatung.lim
 --%>
 
+<%@page import="DAO.CompanyDAO"%>
 <%@page import="java.util.Date"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.mentorController"%>
@@ -31,9 +32,13 @@
             <h1 class="well">Meeting Minutes & Ratings</h1>
 
             <%                User currentUser = (User) session.getAttribute("user");
-                int meeting_id = 1;
+                int meeting_id = 3;
                 Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
-                int currentStageForCompany = currentMeeting.getMenteeCompany().getCurrentStage();
+                int menteeCompany = currentMeeting.getMenteeCompany();
+                Company comp = CompanyDAO.getCompany(menteeCompany);
+                int currentStageOfCompany = comp.getCurrentStage();
+                
+                
 
 
             %>
@@ -76,7 +81,7 @@
                                     %>
                                     <p><strong>Meeting Start Time: </strong><%=currentMeeting.getStartTime()%></p>
                                     <p><strong>Meeting End Time: </strong><%=currentMeeting.getEndTime()%></p>
-                                    <p><strong>Company Current Stage: </strong><%=currentStageForCompany%></p>
+                                    <p><strong>Company Current Stage: </strong><%=currentStageOfCompany%></p>
 
                                 </div>
                             </div>
@@ -90,15 +95,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 ">
-                                    <label>Tasks Completed</label><br>
+                                    <label>Tasks Completed (Please tick beside the tasks)</label><br>
 
                                     <%
-                                        ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageForCompany, currentMeeting.getMenteeCompany().getId());
+                                        ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageOfCompany, menteeCompany);
 
                                         for (Task t : tasks) {
                                             if (!t.isIsCompleted()){
                                     %>
-                                    <p><input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"></p>
+                                    <p><%=t.getName()%> <input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"></p>
                                         <%
                                             } else {
                                                 }

@@ -139,8 +139,9 @@ public class minutesController {
         
         for(Integer i: meetingMinutesIDs){
             Meeting m = meetingController.getMeetingByMeetingID(i);
-            Company c = m.getMenteeCompany();
-            if(c.getId() == company_id){
+            
+            int c = m.getMenteeCompany();
+            if(c == company_id){
                 numMM++;
             }
         }

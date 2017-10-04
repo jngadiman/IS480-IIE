@@ -17,9 +17,9 @@ public class Meeting {
     private String meetingType;
     private Date startTime;
     private Date endTime;
-    private String [] attendees;
-    private boolean status;
-    private Company menteeCompany;
+    private String attendees;
+    private String status;
+    private int menteeCompany;
     
     
 //    public Meeting(int meetingID, String meetingName, String meetingType, String date, Date startTime, Date endTime) {
@@ -32,7 +32,7 @@ public class Meeting {
 //        
 //    }
     
-    public Meeting(int meetingID, String meetingName, String meetingType, Date startTime, Date endTime, String [] attendees, boolean status, Company menteeCompany) {
+    public Meeting(int meetingID, String meetingName, String meetingType, Date startTime, Date endTime, String attendees, String status, int menteeCompany) {
         this.meetingID = meetingID;
         this.meetingName = meetingName;
         this.meetingType = meetingType;
@@ -83,27 +83,27 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public String [] getAttendees() {
+    public String getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(String [] attendees) {
+    public void setAttendees(String attendees) {
         this.attendees = attendees;
     }
     
-    public boolean getStatus(){
+    public String getStatus(){
         return status;
     }
     
-    public void setStatus(boolean status){
+    public void setStatus(String status){
         this.status = status;
     }
     
-    public Company getMenteeCompany(){
+    public int getMenteeCompany(){
         return menteeCompany;
     }
     
-    public void setMenteeCompany(Company menteeCompany){
+    public void setMenteeCompany(int menteeCompany){
         this.menteeCompany = menteeCompany;
     }
 
