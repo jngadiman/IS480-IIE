@@ -17,7 +17,7 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 
 <script src="css/fullcalendar.min.js"></script>
-
+<script type='text/javascript' src='css/gcal.js'></script>
 <button id="authorize-button" style="display: none;">Authorize</button>
     <button id="signout-button" style="display: none;">Sign Out</button>
 
@@ -26,6 +26,9 @@
             
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '886878581294-gvgjasgb61ncsjc9622nrqon6sug4tan.apps.googleusercontent.com';
+      
+      // Google Calendar API key from Developer Console
+      var API_KEY = 'AIzaSyD7E4RajRYzD2P9V97jQGvWYtgonmNK2no';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -101,37 +104,12 @@
 <script>
       
           $(document).ready(function() {
-	
-		$('#calendar').fullCalendar({
-
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,listYear'
-			},
-
-			displayEventTime: true, // show the time column in list view
-
-			// THIS KEY WON'T WORK IN PRODUCTION!!!
-			// To make your own Google API key, follow the directions here:
-			// http://fullcalendar.io/docs/google_calendar/
-			googleCalendarApiKey: CLIENT_ID,
-		
-			// US Holidays
-			events: 'en.usa#holiday@group.v.calendar.google.com',
-			
-			eventClick: function(event) {
-				// opens events in a popup window
-				window.open(event.url, 'gcalevent', 'width=700,height=600');
-				return false;
-			},
-			
-			loading: function(bool) {
-				$('#loading').toggle(bool);
-			}
-			
-		});
-		
+                $('#calendar').fullCalendar({
+                    googleCalendarApiKey: API_KEY,
+                    events: {
+                        googleCalendarId: 'huimin.sim.2015@smu.edu.sg'
+                    }
+                });
 	});
     
 </script>
