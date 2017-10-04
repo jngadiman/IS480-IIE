@@ -15,6 +15,7 @@
         
             <select class="form-control" name="nationality" required>
                 <option value="">-- select one --</option>
+                <option value="singaporean">Singaporean</option>
                 <option value="afghan">Afghan</option>
                 <option value="albanian">Albanian</option>
                 <option value="algerian">Algerian</option>
@@ -172,7 +173,6 @@
                 <option value="serbian">Serbian</option>
                 <option value="seychellois">Seychellois</option>
                 <option value="sierra leonean">Sierra Leonean</option>
-                <option value="singaporean">Singaporean</option>
                 <option value="slovakian">Slovakian</option>
                 <option value="slovenian">Slovenian</option>
                 <option value="solomon islander">Solomon Islander</option>

@@ -102,7 +102,7 @@
                             
                             <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <p><strong>Degree</strong> : <%= mentee.getDegree()%></p>
+                                    <p><strong>Primary Degree</strong> : <%= mentee.getDegree()%></p>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>

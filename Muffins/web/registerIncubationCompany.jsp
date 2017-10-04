@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="col-sm-12 form-group required">
                                     <label class="control-label">Company Description</label>
-                                    <textarea class="form-control" rows="3" id="description" name="description" placeholder="Enter Company Description Here.." required></textarea>
+                                    <textarea class="form-control" rows="3" id="description" name="description" placeholder="Enter Company Description Here.. " required></textarea>
                                 </div>
 
                             </div>
@@ -75,13 +75,13 @@
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Incubation Pitch Deck Slides</label>
                                     </br>
-                                    Select file to upload:
+                                    Select file to upload: (Max 20 slides, .pptx template <a href="">here</a>)
                                     <input class="form-control" type="file" name="application_form" id=application_form" required>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Acra File</label>
                                     </br>
-                                    Select file to upload:
+                                    Select file to upload: If company is registered, please upload the ACRA file
                                     <input class="form-control" type="file" name="acra_file" id="acra_file">
                                 </div>
                             </div>

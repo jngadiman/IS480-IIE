@@ -77,6 +77,7 @@
                         <li><a href="#">Meetings</a></li>
                         <li><a href="calendar.jsp">Calendar</a></li>
                         <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
+                        <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                             <%
                                 if (user != null) {

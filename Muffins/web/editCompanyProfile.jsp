@@ -216,22 +216,17 @@
                                 <textarea class="form-control" rows="3" id="deployment_of_funds" name="deployment_of_funds" placeholder="Enter Deployment Of Funds Here.." required><%= company.getDeployOfFunds()%></textarea>
                             </div>
                         </div>
-                        <%
-                            String type = user.getUser_type();
-
-                            if (type.equals("light_mentee")) {
-                        %>
+                       
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label>Update Business Slides </label>
+                                <label class="control-label">Incubation Pitch Deck Slides : 
+                                    </label> <%=company.getBizFile()%>
+                                    
+                                <label class="control-label">Update Slides </label>
                                 <input type="file" name="biz_slides"/>
                             </div>
                             
                         </div>
-                            <%
-                                }
-                            %>
-
 
 
                         <button type="submit" class="btn btn-lg btn-info">Submit</button>					

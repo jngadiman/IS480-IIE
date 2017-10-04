@@ -179,7 +179,7 @@
 
                             <div class="row">
                                 <div class="col-sm-6 form-group ">
-                                    <label  class="control-label">Course</label>
+                                    <label  class="control-label">Primary Degree</label>
                                     <select class="form-control" name="course" id="course">
                                         <%
                                             for (String d : degrees) {
