@@ -19,24 +19,49 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Generate Payment Voucher for Mentors</title>
-        <%@include file="navbar.jsp" %>
+        <title>Generate Payment Voucher for Mentor</title>
+        <%@include file="sidenav.jsp" %>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
 
         <div class="container">
-            <%
-                LocalDate today = LocalDate.now();
+            <%                LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
                 int year = today.getYear();
+                String m = "";
+                if (month == 1) {
+                    m = "January";
+                } else if (month == 2) {
+                    m = "February";
+                } else if (month == 3) {
+                    m = "March";
+                } else if (month == 4) {
+                    m = "April";
+                } else if (month == 5) {
+                    m = "May";
+                } else if (month == 6) {
+                    m = "June";
+                } else if (month == 7) {
+                    m = "July";
+                } else if (month == 8) {
+                    m = "August";
+                } else if (month == 9) {
+                    m = "September";
+                } else if (month == 10) {
+                    m = "October";
+                } else if (month == 11) {
+                    m = "November";
+                } else if (month == 12) {
+                    m = "December";
+                }
                 //maybe set reminder to ask them to generate before end of the month
-            %>
-            
-            <h1><center>Choose the mentor to generate payment voucher for Month: <%=month%> Year: <%=year%></center></h1>
+%>
+
+<h3><div class="col-lg-10 col-lg-offset-1">Choose the mentor to generate payment voucher for: <strong><%=m%> <%=year%></strong></div></h3>
 
             <div class="col-lg-10 col-lg-offset-1">
-                <%                    byte[] imgData;
+                <%                    byte[] mentorPhoto;
                     ArrayList<Mentor> allMentors = mentorController.getMentors();
                     for (Mentor mentor : allMentors) {
                 %>
@@ -64,85 +89,54 @@
                     %>
                     <div class="col-lg-6">
                         <h4 style="text-align:centre"><strong><%=mentor.getName()%></strong></h4>
-                    </div>
-
-
-
-                    <%
-
-                        //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
-                        //int companyID = displayedUser.getCompanyid();
-                        //Company company = companyController.getCompany(companyID);
-                        String company_name = "";
-                        ArrayList<Relationship> rlsInMonthYear = relationshipController.getAssignedRelationshipsOfMonthYear(month, year);
-                        ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentor(rlsInMonthYear, mentor.getEmail());
-                        String company_ids = "";
-                        if(rls!=null&&rls.size()!=0){
-                            for(Relationship r: rls){
-                                int companyID = r.getCompanyID();
-                                company_ids+= companyID+",";
-                                Company company = companyController.getCompany(companyID);
-                                if (company != null) {
-                                company_name = company.getName();
-                          
-                        
-                    %>
-                    <p style="text-align:centre"><%= company_name%></p>
-                    <%
-                        }
-                    %>
-
-                    <div class="col-lg-12">
+                        <h4 style="text-align:centre"><strong>Companies:</strong></h4>
+                        <%
+                            //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
+                            //int companyID = displayedUser.getCompanyid();
+                            //Company company = companyController.getCompany(companyID);
+                            String company_name = "";
+                            ArrayList<Relationship> rlsInMonthYear = relationshipController.getAssignedRelationshipsOfMonthYear(month, year);
+                            ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentor(rlsInMonthYear, mentor.getEmail());
+                            String company_ids = "";
+                            if (rls != null && rls.size() != 0) {
+                                for (Relationship r : rls) {
+                                    int companyID = r.getCompanyID();
+                                    company_ids += companyID + ",";
+                                    Company company = companyController.getCompany(companyID);
+                                    if (company != null) {
+                                        company_name = company.getName();
+                        %>
 
                         <form action ="mentorPaymentServlet" method ="post">
-
-                        <ul class="nav nav-pills ">
-                            <div class='row'>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company A <span class="badge">1</span></a></li></button>	
-                                </div>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company B <span class="badge">2</span></a></li></button>	
-                                </div>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company C <span class="badge">3</span></a></li></button>	
-                                </div>
-                                <div class='col-lg-4'>
-                                    <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'>Company D <span class="badge">4</span></a></li></button>	
-                                </div>
-                            </div>
-
-                        </ul> 
-
-                    </div>
-
-
-                            
-                            <div class="col-lg-6 col-lg-offset-3">
+                            <ul class="nav nav-pills ">
                                 <input type ="hidden" name ="month" value ="<%=month%>">
                                 <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
                                 <input type ="hidden" name ="company_id" value ="<%=company_ids%>"> 
-                                <input type ="submit" class='btn btn-success btn-xs'>Generate All Payment Vouchers>
-                            </div>
-                    
-                <%
-                      }
+                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge">1</span></a></li></button>
+                            </ul> 
+                        </form>
+
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
+
+                    <%
                         }
-                        imgData = null;
+                    %>
+                </div>
+                <%
+                        mentorPhoto = null;
                     }
                 %>
-
-                    </form>
-
 
                 <div class="col-lg-4 col-lg-offset-4">
                     <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
                 </div>
 
             </div>
-                </div>
-                </div>
-        
+
     </body>
 </html>
