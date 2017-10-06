@@ -107,7 +107,7 @@
 //                        }
 //                    });
 //                });
-          //listCalendars();
+          listCalendars();
           toggleCalendarID();
         } else {
           authorizeButton.style.display = 'block';
@@ -221,23 +221,31 @@
       
       
     </script>
+    <form action ="test.jsp" method ="post">
+        <select id="myDropdown" name ="calendarID" class="dropdown-content">
+            
     
-    <select id="myDropdown" class="dropdown-content">
-            </select>
+    
             <script>
                 function toggleCalendarID(){
+                   var select = document.getElementById("myDropdown"); 
+                   select.innerHTML = "";
                    var request = gapi.client.calendar.calendarList.list();
                    request.execute(function(resp) {
                    var cals = resp.items;
                    var string = "";
                    for(i = 0; i < cals.length; i++){
                      var calendarID = cals[i].id;
-                     document.getElementById("myDropdown").innerHTML = "<option>" + calendarID + "</option>";
+                     var calendarName = cals[i].summary;
+                     select.innerHTML += "<option value = ' " + calendarID + "'>"+calendarName+" </option>";
                    }
                     });
                 }
             </script>
-
+            
+            </select>
+            <button type ="submit">Select Calendar </button>
+        </form>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
