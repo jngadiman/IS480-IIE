@@ -82,7 +82,7 @@ public class preferenceController {
         
         return companies;
     }
-            
+    
     public static void main(String[] args){
         ArrayList<Preference> preferences = preferenceController.getPreferencesOfCompany(2);
         for(Preference p: preferences){
