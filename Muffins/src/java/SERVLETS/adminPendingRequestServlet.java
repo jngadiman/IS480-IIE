@@ -7,7 +7,9 @@ package SERVLETS;
 
 import CONTROLLER.menteeController;
 import CONTROLLER.assignmentController;
+import CONTROLLER.companyController;
 import CONTROLLER.preferenceController;
+import MODELS.Company;
 import MODELS.Preference;
 import MODELS.Relationship;
 import Utility.EmailSender;
@@ -105,6 +107,8 @@ public class adminPendingRequestServlet extends HttpServlet {
             String mentor_email = request.getParameter("mentor_email");
             
             Preference p = preferenceController.getPreference(company_id, mentor_email);
+            String deleteStatus = preferenceController.deletePreference(company_id, mentor_email);
+            request.setAttribute("status", deleteStatus);
             
         }else if(request.getParameter("edit") != null){
             //change mentor and start date and end date
@@ -137,9 +141,15 @@ public class adminPendingRequestServlet extends HttpServlet {
                 }
             }
             
+            String need = request.getParameter("need");
+            
             //store in the mentor preference object
-            Preference pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
+            Preference pref = new Preference(company_id, mentor_email, start_date, end_date, need, p.getDate_sent());
             status = preferenceController.editPreference(pref);
+        }else if(request.getParameter("setMentorBtn") != null){
+            int companyID = Integer.parseInt(request.getParameter("companyWNoMentor"));
+            Company c = companyController.getCompany(companyID);
+            //pass it to the page that needs gets all the details of the assignment that eir has done
         }
         
         response.sendRedirect("adminViewAllRequests.jsp");

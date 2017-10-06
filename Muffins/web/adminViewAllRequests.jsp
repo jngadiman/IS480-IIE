@@ -33,9 +33,15 @@
         </div>
         <div class="col-md-8 well col-md-offset-3">
             <h4>Assign Mentor to Company</h4>
+            <%
+                if(request.getAttribute("status") != null){
+                    String status = (String) request.getAttribute("status");
+                    out.println(status);
+                }
+            %>
             <form action="adminPendingRequestServlet" method="post">
                 <div class="col-md-8 form-group required">
-                    <select class="form-control" id="mentor" name="mentor" required>
+                    <select class="form-control" id="mentor" name="companyWNoMentor" required>
                         <% ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
                             for (Company company : companyWoMentor) {
                         %>
@@ -45,7 +51,8 @@
                         %>
                     </select>
                 </div>
-                <button type="submit" class="btn-sm btn-primary" name="submit">Submit</button>
+                <button type="submit" class="btn-sm btn-primary" name="setMentorBtn">Submit</button>
+            
         </div>
             <!--            <ul class="nav nav-tabs">
                             <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>
@@ -90,9 +97,9 @@
                                 <tr>
                                     <td><%=c.getName()%></td>
                                     <td><%= m.getName()%></td>
-                                    <td><button type="button" class="btn-xs btn-success" data-toggle="modal" data-target="#approve">Approve</a></td>
-                                    <td><button type="button" class="btn-xs btn-primary" data-toggle="modal" data-target="#edit">Edit</a></td>
-                                    <td><button type="button" class="bt-xs btn-danger" name="rejectBtn">Reject</a></td>
+                                    <td><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#approve">Approve</a></td>
+                                    <td><button type="submit" class="btn-xs btn-primary" data-toggle="modal" data-target="#edit">Edit</a></td>
+                                    <td><button type="submit" class="bt-xs btn-danger" name="rejectBtn">Reject</a></td>
                                     <td><input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/></td>
                                     <td><input type="hidden" name="mentor_email" value="<%= p.getMentor_email()%>"/></td>
                                 </tr>
@@ -106,7 +113,7 @@
                
           
 
-        </form>
+        
     </div>
     <!-- Modal -->
     <div id="approve" class="modal fade" role="dialog">
@@ -186,11 +193,11 @@
         </div>
     </div>
 
-
+    </form>
     <%
         }
     %>
-
+    
 
 
     <!--                </div>-->
