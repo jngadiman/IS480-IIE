@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.paymentController"%>
 <%@page import="CONTROLLER.relationshipController"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="CONTROLLER.companyController"%>
@@ -105,6 +106,7 @@
                                     Company company = companyController.getCompany(companyID);
                                     if (company != null) {
                                         company_name = company.getName();
+                                        int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
                         %>
 
                         <form action ="mentorPaymentServlet" method ="post">
@@ -113,7 +115,7 @@
                                 <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
                                 <input type ="hidden" name ="company_id" value ="<%=company_ids%>"> 
-                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge">1</span></a></li></button>
+                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></a></li></button>
                             </ul> 
                         </form>
 
