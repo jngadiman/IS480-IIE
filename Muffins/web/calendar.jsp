@@ -99,15 +99,16 @@
 //                    console.log(calendars.map(cal => cal.summary));
 //                });
 //            });
-                $(document).ready(function() {
-                    $('#calendar').fullCalendar({
-                        
-                        events: {
-                            googleCalendarId: CLIENT_ID
-                        }
-                    });
-                });
-          listCalendars();
+//                $(document).ready(function() {
+//                    $('#calendar').fullCalendar({
+//                        
+//                        events: {
+//                            googleCalendarId: CLIENT_ID
+//                        }
+//                    });
+//                });
+          //listCalendars();
+          toggleCalendarID();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -179,6 +180,12 @@
           }
         });
       }
+//      function printDates(){
+//          for (i = 0; i < occupiedStartDates.length; i++) {
+//          appendPre(occupiedStartDates[i]+', ');
+//            }
+//      }
+//      
 //      function listCalendars(){
 //        var request = gapi.client.calendar.calendarList.list();
 //        //document.write("REQUEST+ "+request);
@@ -210,13 +217,32 @@
         });
       }
       
+      
+      
+      
     </script>
+    
+    <select id="myDropdown" class="dropdown-content">
+            </select>
+            <script>
+                function toggleCalendarID(){
+                   var request = gapi.client.calendar.calendarList.list();
+                   request.execute(function(resp) {
+                   var cals = resp.items;
+                   var string = "";
+                   for(i = 0; i < cals.length; i++){
+                     var calendarID = cals[i].id;
+                     document.getElementById("myDropdown").innerHTML = "<option>" + calendarID + "</option>";
+                   }
+                    });
+                }
+            </script>
 
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-        
+      
     
     //NOT GOOGLE CALENDAR
         <%@ page  language="java" import="java.util.*,java.text.*"%>
