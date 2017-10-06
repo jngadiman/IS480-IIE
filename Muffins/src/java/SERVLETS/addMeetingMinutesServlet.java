@@ -79,15 +79,19 @@ public class addMeetingMinutesServlet extends HttpServlet {
 //                    lightMentee = true;
 //                }
                 //mentor = MentorDAO.getMentorByEmail(current.getMentor_email());
+                mentor = current.getMentor_email();
             }
             //STILL NEED TO CHANGE DEPENDING ON HOW THE addMeetingMinutes.jsp WILL LOOK LIKE!!!!
             ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();
             
+            int minutesID = minutesController.getNextId();
+            
             for (String task : tasksCompleted) {
+                
                 int taskID = Integer.parseInt(task);
-                taskIDs.add(taskID);
+                meetingMinutes.add(new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail()));
             }
-
+            
             int status = minutesController.setMeetingMinutes(meetingMinutes);
 
             if (status == 0) {

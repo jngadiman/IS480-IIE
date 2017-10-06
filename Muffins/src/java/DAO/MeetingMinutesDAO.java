@@ -51,7 +51,7 @@ public class MeetingMinutesDAO {
             
             status = stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MeetingMinutesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }
@@ -505,20 +505,20 @@ public class MeetingMinutesDAO {
 
     public static void main(String[] args){
         //MeetingMinutes mm = new MeetingMinutes(3, "Meeting #3", 3, "mentor3@hotmail.com", 4, "done", "b.wee.2008@smu.edu.sg");
-//        ArrayList<MeetingMinutes> meetingMinutes = MeetingMinutesDAO.getMeetingMinutesByTaskNCompany(2, 3);
-//
-//        for(MeetingMinutes mm : meetingMinutes){
-//            System.out.println(mm.getMinutesID()); 
-//            System.out.println(mm.getTitle());
-//            System.out.println(mm.getMeeting_id()); 
-//            System.out.println(mm.getMentor_email()); 
-//            System.out.println(mm.getTask_id()); 
-//            System.out.println(mm.getComments());
-//            System.out.println(mm.getSubmitted_user()); 
-//        }
+        ArrayList<MeetingMinutes> meetingMinutes = MeetingMinutesDAO.getMeetingMinutes(1);
 
-            int id = MeetingMinutesDAO.getLastID();
-            System.out.println(id);
+        for(MeetingMinutes mm : meetingMinutes){
+            System.out.println(mm.getMinutesID()); 
+            System.out.println(mm.getTitle());
+            System.out.println(mm.getMeeting_id()); 
+            System.out.println(mm.getMentor_email()); 
+            System.out.println(mm.getTask_id()); 
+            System.out.println(mm.getComments());
+            System.out.println(mm.getSubmitted_user()); 
+        }
+
+//            int id = MeetingMinutesDAO.getLastID();
+//            System.out.println(id);
         //Date deadline = new Date();
 //        for(String task:minutesID){
 //           System.out.println(task); 

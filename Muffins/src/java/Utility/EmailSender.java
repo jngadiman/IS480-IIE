@@ -2,13 +2,20 @@ package Utility;
 
 
 import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Address;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,6 +41,17 @@ public class EmailSender {
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage mimeMessage = new MimeMessage(session);
         try{
+            // Create a multipar message
+//            Multipart multipart = new MimeMultipart();
+//             // Set attachment
+//            BodyPart messageBodyPart = new MimeBodyPart();
+//            
+//            DataSource source = new FileDataSource(attachment);
+//            messageBodyPart.setDataHandler(new DataHandler(source));
+//            messageBodyPart.setFileName("Mentor Payment");
+//            multipart.addBodyPart(messageBodyPart);
+            
+
             mimeMessage.setFrom(new InternetAddress(from));
             
             InternetAddress[] toAddress = new InternetAddress[to.length];
@@ -49,13 +67,10 @@ public class EmailSender {
             }
            
             System.out.println("SIZE OF ALL RECEIPIENTS: "+mimeMessage.getAllRecipients().length);
-//            Address[] all = mimeMessage.getAllRecipients();
-//            for(Address a: all){
-//                
-//            }
-            
+
             mimeMessage.setSubject(subject);
             mimeMessage.setText(message);
+            //mimeMessage.setContent(multipart);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, password);
             transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
@@ -73,6 +88,6 @@ public class EmailSender {
         String notSplit = "jiatung1218@gmail.com,jiatung.lim.2014@sis.smu.edu.sg";
         String [] split = notSplit.split(",");
         String [] to = {"jiatung1218@gmail.com","jiatung.lim.2014@sis.smu.edu.sg"};
-        EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "message for testing ", to, "testing2017");
+        //EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "message for testing ", to, "testing2017","./iiedocuments/MentorPaymentVoucherTemplate.doc");
     }
 }

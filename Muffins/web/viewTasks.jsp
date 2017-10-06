@@ -11,6 +11,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
+<%@include file="protect.jsp" %>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,7 +52,7 @@
                         <tr>
                             <th>Task Name</th>
                             <th>Deadline</th>
-                            <th>Status*</th>
+                            <th>Status</th>
                             <th>Edit</th>
                             <th>Delete</th>
 <!--                            <th>Meeting Minutes</th>-->
@@ -64,10 +65,12 @@
                                             out.println("<td>" + t.getName() + "</td>");
                                             out.println("<td>" + new SimpleDateFormat("dd-MM-yyyy").format(t.getDeadline()) + "</td>");
                                             if (t.isIsCompleted() == true) {
-                                                out.println("<td><button class='btn btn-success disabled btn-xs center-block'>completed</p></td>");
+                                                out.println("<td>Completed</td>");
+                                                //out.println("<td><button class='btn btn-success disabled btn-xs center-block'>completed</p></td>");
 
                                             } else {
-                                                out.println("<td><a href='completeTaskServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + "' class='btn btn-warning btn-xs center-block'>incomplete</a></td>");
+                                                out.println("<td>Incomplete</td>");
+                                                //out.println("<td><a href='completeTaskServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + "' class='btn btn-warning btn-xs center-block'>incomplete</a></td>");
 
                                             }
                                             out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
