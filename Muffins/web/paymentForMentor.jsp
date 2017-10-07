@@ -28,87 +28,89 @@
     </head>
     <body>
 
-        <%            LocalDate today = LocalDate.now();
-            int month = today.getMonthValue();
-            int year = today.getYear();
 
-            LocalDate endMonth = YearMonth.of(year, month).atEndOfMonth(); //2015-12-31
-
-            Date endDate = java.sql.Date.valueOf(endMonth);
-            ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
-            if (overdue != null && overdue.size() != 0) {%>
-            <h3><font color = "red"><div class="col-lg-10 col-lg-offset-1">OVERDUE PAYMENTS</div></font></h3>
-            
-        <%for (Relationship r : overdue) {
-                if (r.getEnd_date().after(endDate) || r.getEnd_date().equals(endDate)) {
-                    String mentorEmail = r.getMentorEmail();
-                    Mentor mentor = mentorController.getMentor(mentorEmail);
-
-
-        %>
-
-        <div class="col-lg-6 well">
-            <%                        // display the image
-                imgData = mentor.getProfile_pic();
-                if (imgData != null) {
-                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                    out.print(imgData);
-            %>
-            <div class="col-lg-6">
-                <img width="150" height="150" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-            </div>
-
-            <%
-            } else {
-            %>
-            <div class="col-lg-6">
-                <img src="img/user.png" width="150" height="150" alt=""/>
-            </div>
-
-            <%
-                }
-            %>
-            <div class="col-lg-6">
-                <h4 style="text-align:centre"><strong><%=mentor.getName()%></strong></h4>
-                <h4 style="text-align:centre"><strong>Companies:</strong></h4>
-                <%
-
-                    int companyID = r.getCompanyID();
-                    String company_name = "";
-                    Company company = companyController.getCompany(companyID);
-                    if (company != null) {
-                        company_name = company.getName();
-                        int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
-                %>
-
-                <form action ="mentorPaymentServlet" method ="post">
-                    <ul class="nav nav-pills ">
-                        <input type ="hidden" name ="month" value ="<%=month%>">
-                        <input type ="hidden" name ="year" value ="<%=year%>">
-                        <input type ="hidden" name ="mentor_email" value ="<%=mentorEmail%>">
-                        <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
-                        <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></li></button>
-                    </ul> 
-                </form>
-
-                <%
-                    }
-
-                %>
-            </div>
-
-            <%            %>
-        </div>
-
-
-        <%}
-
-                }
-            }
-
-        %>
 
         <div class="container">
+            <%            LocalDate today = LocalDate.now();
+                int month = today.getMonthValue();
+                int year = today.getYear();
+
+                LocalDate endMonth = YearMonth.of(year, month).atEndOfMonth(); //2015-12-31
+
+                Date endDate = java.sql.Date.valueOf(endMonth);
+                ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
+                if (overdue != null && overdue.size() != 0) {%>
+            <h3><font color = "red"><div class="col-lg-10 col-lg-offset-1">OVERDUE PAYMENTS</div></font></h3>
+
+            <%for (Relationship r : overdue) {
+                    if (r.getEnd_date().after(endDate) || r.getEnd_date().equals(endDate)) {
+                        String mentorEmail = r.getMentorEmail();
+                        Mentor mentor = mentorController.getMentor(mentorEmail);
+
+
+            %>
+
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="col-lg-6 well">
+                    <%                        // display the image
+                        imgData = mentor.getProfile_pic();
+                        if (imgData != null) {
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                            out.print(imgData);
+                    %>
+                    <div class="col-lg-6">
+                        <img width="150" height="150" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                    </div>
+
+                    <%
+                    } else {
+                    %>
+                    <div class="col-lg-6">
+                        <img src="img/user.png" width="150" height="150" alt=""/>
+                    </div>
+
+                    <%
+                        }
+                    %>
+                    <div class="col-lg-6">
+                        <h4 style="text-align:centre"><strong><%=mentor.getName()%></strong></h4>
+                        <h4 style="text-align:centre"><strong>Companies:</strong></h4>
+                        <%
+
+                            int companyID = r.getCompanyID();
+                            String company_name = "";
+                            Company company = companyController.getCompany(companyID);
+                            if (company != null) {
+                                company_name = company.getName();
+                                int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
+                        %>
+
+                        <form action ="mentorPaymentServlet" method ="post">
+                            <ul class="nav nav-pills ">
+                                <input type ="hidden" name ="month" value ="<%=month%>">
+                                <input type ="hidden" name ="year" value ="<%=year%>">
+                                <input type ="hidden" name ="mentor_email" value ="<%=mentorEmail%>">
+                                <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
+                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></li></button>
+                            </ul> 
+                        </form>
+
+                        <%
+                            }
+
+                        %>
+                    </div>
+
+                    <%            %>
+                </div>
+            </div>
+
+            <%}
+
+                    }
+                }
+
+            %>
             <%            String m = "";
                 if (month == 1) {
                     m = "January";
