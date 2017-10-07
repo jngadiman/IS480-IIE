@@ -109,6 +109,7 @@
 //                });
           listCalendars();
           toggleCalendarID();
+          button();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -221,11 +222,8 @@
       
       
     </script>
-    <form action ="test.jsp" method ="post">
+    <form action ="calendarDropDownServlet" method ="post">
         <select id="myDropdown" name ="calendarID" class="dropdown-content">
-            
-    
-    
             <script>
                 function toggleCalendarID(){
                    var select = document.getElementById("myDropdown"); 
@@ -237,14 +235,29 @@
                    for(i = 0; i < cals.length; i++){
                      var calendarID = cals[i].id;
                      var calendarName = cals[i].summary;
-                     select.innerHTML += "<option value = ' " + calendarID + "'>"+calendarName+" </option>";
+                     select.innerHTML += "<option value = ' " + calendarID.toString() + "'>"+calendarName+" </option>";
                    }
                     });
                 }
             </script>
             
             </select>
-            <button type ="submit">Select Calendar </button>
+            <button id='btn' type ="submit">Select Calendar </button>
+<!--            <script>
+                $(function button() {
+                    //$('#btn').hide();
+
+                    $('#myDropdown').on('change', function() {
+                        $('#btn').show();
+                    });
+
+                    $('#btn').on('click', function() {
+                        var select_value = $('#myDropdown').val();
+                        //Put the object into storage
+                        localStorage.setItem('calendarID', select_value);
+                    });
+                });
+            </script>-->
         </form>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"

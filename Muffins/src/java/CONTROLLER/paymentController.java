@@ -29,6 +29,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.servlet.http.HttpServlet;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -89,6 +90,7 @@ public class paymentController {
     }
     
     public static String printPayslip(Payslip payslip)throws FileNotFoundException, IOException {
+
         
         String result = "";
         int voucher_no = payslip.getVoucherNumber();
@@ -143,7 +145,7 @@ public class paymentController {
         HWPFDocument hwpfdoc = null;
         //Business Mentorship Payment –  (name of mentee company) for period dd mm yyyy to dd mm yyyy
         
-        InputStream resourceAsStream = new FileInputStream("C:/Users/JJAY/Desktop/SMU/FYP/IS480/Muffins/iiedocuments/MentorPaymentVoucherTemplate.doc");
+        InputStream resourceAsStream = new FileInputStream("./iiedocuments/MentorPaymentVoucherTemplate.doc");
         //new BufferedInputStream(resourceAsStream);
         
         try {
@@ -167,7 +169,7 @@ public class paymentController {
             SimpleDateFormat todayFomatter = new  SimpleDateFormat("yyyyMMdd");
             String today = todayFomatter.format(new Date());
             
-            FileOutputStream fos = new FileOutputStream("./iie documents/Payment Vouchers/VN"+today+voucher_no+".doc");
+            FileOutputStream fos = new FileOutputStream("./iiedocuments/PaymentVouchers/VN"+today+voucher_no+".doc");
             hwpfdoc.write(fos);
             fos.flush();
             fos.close();
@@ -184,7 +186,7 @@ public class paymentController {
     
     
     public static void main(String[] args) throws IOException{
-        Payslip payslip = PayslipDAO.getPayslip(1);
+        String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5));
         //String numMM = paymentController.printPayslip(payslip);
         //System.out.println(numMM);
     }

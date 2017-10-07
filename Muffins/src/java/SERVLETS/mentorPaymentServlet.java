@@ -19,6 +19,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,6 +45,12 @@ public class mentorPaymentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String path = getServletContext().getRealPath("/");
+        path = path.substring(0, path.length() - 10) + "web\\";
+        
+        System.out.println("testing -------------------------------------------");
+        System.out.println(path);
         
         String mentor_email = request.getParameter("mentor_email");
         String monthStr = request.getParameter("month");

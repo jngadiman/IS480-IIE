@@ -19,6 +19,7 @@
 <script src="css/fullcalendar.min.js"></script>
 <script type='text/javascript' src='css/gcal.js'></script>
 
+
 <style>
 
 	body {
@@ -41,21 +42,12 @@
 	}
 
 </style>        
-<% 
-    String calID = (String) session.getAttribute("calendarID");
-    calID = calID.trim();
-%>
-<script>
-    var calID = '<%= calID %>';
-</script>
-    
+
+
 </head>
 <body>
 
-    
-    
- 
-        <div id='loading'>loading...</div>
+	<div id='loading'>loading...</div>
 
 	<div id='calendar'></div>
         
@@ -147,11 +139,10 @@
 <script>
       
         $(document).ready(function() {
-                
                 $('#calendar').fullCalendar({
                     googleCalendarApiKey: API_KEY,
                     events: {
-                        googleCalendarId: calID
+                        googleCalendarId: 'huimin.sim.2015@smu.edu.sg'
                     }
                 });
 	});
@@ -162,8 +153,7 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-
-
+    
 </body>
 </html>
 
