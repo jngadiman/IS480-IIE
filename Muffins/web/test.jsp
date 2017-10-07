@@ -102,14 +102,14 @@
 	
 
 </script>
-
+<input type ="hidden" value ="<%=request.getParameter("calendarID")%>" id ="calID">
 <script>
-      
+        var calendarID = document.getElementById("calID").toString();
           $(document).ready(function() {
                 $('#calendar').fullCalendar({
                     googleCalendarApiKey: API_KEY,
                     events: {
-                        googleCalendarId: 'huimin.sim.2015@smu.edu.sg'
+                        googleCalendarId: calendarID
                     }
                 });
 	});

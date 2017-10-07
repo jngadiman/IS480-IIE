@@ -99,15 +99,16 @@
 //                    console.log(calendars.map(cal => cal.summary));
 //                });
 //            });
-                $(document).ready(function() {
-                    $('#calendar').fullCalendar({
-                        
-                        events: {
-                            googleCalendarId: CLIENT_ID
-                        }
-                    });
-                });
+//                $(document).ready(function() {
+//                    $('#calendar').fullCalendar({
+//                        
+//                        events: {
+//                            googleCalendarId: CLIENT_ID
+//                        }
+//                    });
+//                });
           listCalendars();
+          toggleCalendarID();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -179,6 +180,12 @@
           }
         });
       }
+//      function printDates(){
+//          for (i = 0; i < occupiedStartDates.length; i++) {
+//          appendPre(occupiedStartDates[i]+', ');
+//            }
+//      }
+//      
 //      function listCalendars(){
 //        var request = gapi.client.calendar.calendarList.list();
 //        //document.write("REQUEST+ "+request);
@@ -210,13 +217,40 @@
         });
       }
       
+      
+      
+      
     </script>
-
+    <form action ="test.jsp" method ="post">
+        <select id="myDropdown" name ="calendarID" class="dropdown-content">
+            
+    
+    
+            <script>
+                function toggleCalendarID(){
+                   var select = document.getElementById("myDropdown"); 
+                   select.innerHTML = "";
+                   var request = gapi.client.calendar.calendarList.list();
+                   request.execute(function(resp) {
+                   var cals = resp.items;
+                   var string = "";
+                   for(i = 0; i < cals.length; i++){
+                     var calendarID = cals[i].id;
+                     var calendarName = cals[i].summary;
+                     select.innerHTML += "<option value = ' " + calendarID + "'>"+calendarName+" </option>";
+                   }
+                    });
+                }
+            </script>
+            
+            </select>
+            <button type ="submit">Select Calendar </button>
+        </form>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-        
+      
     
     //NOT GOOGLE CALENDAR
         <%@ page  language="java" import="java.util.*,java.text.*"%>

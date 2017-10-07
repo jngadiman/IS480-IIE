@@ -40,7 +40,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <%
                         User user = (User) session.getAttribute("user");
-                        if (user.getUser_type().equals("regular_mentee")|| user.getUser_type().equals("light_mentee")) {
+                        if (user.getUser_type().equals("regular_mentee") || user.getUser_type().equals("light_mentee")) {
                             Mentee m = (Mentee) session.getAttribute("mentee");
                     %>    
                     <ul class="nav navbar-nav navbar-right">

@@ -569,9 +569,9 @@ public class RelationshipDAO {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("SELECT * FROM relationship WHERE start_date >= ? and end_date <= ?;");
+            stmt = conn.prepareStatement("SELECT * FROM relationship WHERE end_date >= ?;");
             stmt.setString(1, df.format(startDate));
-            stmt.setString(2, df.format(endDate));
+            
             
             result = stmt.executeQuery();
             
