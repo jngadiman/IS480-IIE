@@ -158,7 +158,7 @@
                                 </div>	
 
                                 <div class="col-sm-4 form-group required">
-                                    <label class="control-label">Company Role</label>
+                                    <label class="control-label">Designation</label>
                                     <input id="role" type="text" name="role" placeholder="Enter Role Here.." class="form-control" required>
                                 </div>
 

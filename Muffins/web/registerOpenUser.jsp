@@ -140,21 +140,21 @@
                                 </div>	
 
                                 <div class="col-sm-4 form-group required">
-                                    <label class="control-label">Company Role</label>
+                                    <label class="control-label">Designation</label>
                                     <input id="role" type="text" name="role" placeholder="Enter Role Here.." class="form-control" required>
                                 </div>
-                                    
-                                     <div class="col-sm-4 form-group required">
+
+                                <div class="col-sm-4 form-group required">
                                     <label class="control-label">Equity Percentage</label>
                                     <input id="percentage" type="text" name="percentage" placeholder="Enter Equity % Here.." class="form-control" required>
                                 </div>
                             </div>
 
-<div class="row">
+                            <div class="row">
                                 <div class="col-sm-6 form-group">
-                                  <label  class="control-label">Only fill up the next part if you are SMU student</label>   
+                                    <label  class="control-label">Only fill up the next part if you are SMU student</label>   
                                 </div>
-                                
+
 
                             </div>
 
