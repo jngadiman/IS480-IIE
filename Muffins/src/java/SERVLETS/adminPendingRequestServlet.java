@@ -53,6 +53,8 @@ public class adminPendingRequestServlet extends HttpServlet {
             String mentor_email = request.getParameter("mentor_email");
             
             Preference p = preferenceController.getPreference(company_id, mentor_email);
+            System.out.println("COMPANY ID" + company_id);
+            System.out.println("Mentor Email" + mentor_email);
             
             //get values from pop up for the start and end date of the assignment period
             Date start_date = null;
@@ -66,6 +68,8 @@ public class adminPendingRequestServlet extends HttpServlet {
                     ex.printStackTrace();
                 }
             }
+            
+            System.out.println("start" + start_date);
             
             Date end_date = null;
             String endDate = request.getParameter("end_date");
@@ -103,8 +107,8 @@ public class adminPendingRequestServlet extends HttpServlet {
             
         }else if(request.getParameter("rejectBtn") != null){
             //need send email to the mentees to inform of failure
-            int company_id = Integer.parseInt(request.getParameter("company_id"));
             String mentor_email = request.getParameter("mentor_email");
+            int company_id = Integer.parseInt(request.getParameter("company_id"));
             
             Preference p = preferenceController.getPreference(company_id, mentor_email);
             String deleteStatus = preferenceController.deletePreference(company_id, mentor_email);
@@ -113,9 +117,9 @@ public class adminPendingRequestServlet extends HttpServlet {
         }else if(request.getParameter("edit") != null){
             //change mentor and start date and end date
             //get from pop up box
-            int company_id = Integer.parseInt(request.getParameter("company_id"));
-            String mentor_email = request.getParameter("mentor_email");
             
+            String mentor_email = request.getParameter("mentor_email");
+            int company_id = Integer.parseInt(request.getParameter("company_id"));
             Preference p = preferenceController.getPreference(company_id, mentor_email);
             
             //get values from pop up for the start and end date of the assignment period

@@ -22,6 +22,7 @@
         <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>
         
     </head>
     <body>
