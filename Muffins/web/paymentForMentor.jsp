@@ -57,9 +57,9 @@
                     m = "December";
                 }
                 //maybe set reminder to ask them to generate before end of the month
-%>
+            %>
 
-<h3><div class="col-lg-10 col-lg-offset-1">Choose the mentor to generate payment voucher for: <strong><%=m%> <%=year%></strong></div></h3>
+            <h3><div class="col-lg-10 col-lg-offset-1">Choose the mentor to generate payment voucher for: <strong><%=m%> <%=year%></strong></div></h3>
 
             <div class="col-lg-10 col-lg-offset-1">
                 <%                    byte[] mentorPhoto;
@@ -115,7 +115,7 @@
                                 <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
                                 <input type ="hidden" name ="company_id" value ="<%=company_ids%>"> 
-                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></a></li></button>
+                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></li></button>
                             </ul> 
                         </form>
 
@@ -126,6 +126,8 @@
                     </div>
 
                     <%
+                        } else {
+                            out.println("</div>");
                         }
                     %>
                 </div>
