@@ -1,4 +1,10 @@
 
+<%-- 
+    Document   : viewMentorProfile
+    Created on : Jul 15, 2017, 4:30:40 PM
+    Author     : Xinyao
+--%>
+
 <%@page import="CONTROLLER.industryController"%>
 <%@page import="MODELS.Industry"%>
 <%@page import="DAO.MentorDAO"%>
@@ -6,12 +12,6 @@
 <%@page import="MODELS.Mentor"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Base64"%>
-<%-- 
-    Document   : viewMentorProfile
-    Created on : Jul 15, 2017, 4:30:40 PM
-    Author     : Xinyao
---%>
-
 <%@page import="DAO.CompanyDAO"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
@@ -27,7 +27,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Company Profile</title>
         <%@include file="sidenav.jsp" %>
-        <%@include file="protect.jsp" %>
     </head>
     <%            user = (User) session.getAttribute("user");
         int companyID = user.getCompanyid();
@@ -193,7 +192,7 @@
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label class="control-label">Incubation Pitch Deck Slides : 
-                            </label> <%=company.getBizFile()%>
+                            </label> <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a>
                         </div>
                     </div>
                 </div>

@@ -35,19 +35,17 @@
     </head>
     <body>
         <div class="container">
-
-            
             <form class="form-horizontal" method="post" action="addTaskServlet">
                 <fieldset>
-<%  String msg = "";
-                if (request.getAttribute("status") != null) {
-                    msg = (String) request.getAttribute("status");
-                    out.println("<h4 class='alert col-sm-7 col-sm-offset-3'>");
-                    out.println("<button type='button' data-dismiss='alert'>&times;</button>");
-                    out.println(msg);
-                    out.println("</h4>");
-                }
-            %>
+                    <%  String msg = "";
+                        if (request.getAttribute("status") != null) {
+                            msg = (String) request.getAttribute("status");
+                            out.println("<h4 class='alert col-sm-7 col-sm-offset-3'>");
+                            out.println("<button type='button' data-dismiss='alert'>&times;</button>");
+                            out.println(msg);
+                            out.println("</h4>");
+                        }
+                    %>
                     <h2 class='page-header col-sm-7 col-sm-offset-3'>Add Task</h2>
                     <div class="col-sm-7 well col-sm-offset-3">
 
@@ -71,7 +69,7 @@
                                 </select>
                             </div>	
                         </div>
-                        
+
                         <div class="form-group">
                             <!-- Date input -->
                             <label for="inputDate" class="col-lg-4 control-label">Deadline</label>

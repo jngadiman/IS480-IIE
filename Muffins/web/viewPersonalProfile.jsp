@@ -140,7 +140,6 @@
                 </div>
             </div>
         </div>                 
-    </div>
     <div class="text-center"><a href="editPersonalProfile.jsp" class="btn-sm btn-success">Edit Profile</a></div>
 </body>
 

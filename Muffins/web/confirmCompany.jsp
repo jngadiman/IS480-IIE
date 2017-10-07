@@ -23,12 +23,9 @@
                 <h1 class="page-header">Pending Companies</h1>
                 <%            ArrayList<String> status = (ArrayList<String>) request.getAttribute("status");
                     if (status != null && status.size() != 0) {
-                        out.print(status.get(0));
-
+                        out.print("<div align='center'>"+status.get(0)+"</div>");
                     }
-
                     ArrayList<Company> pendingCompanies = companyController.getCompaniesInStage(0);
-
                     out.println("No of Pending Companies <span class='badge'>" + pendingCompanies.size() + "</span>");
                     if (pendingCompanies != null && pendingCompanies.size() != 0) {
 
@@ -37,7 +34,7 @@
                     <thead>
                         <tr>
                             <th>Company Name</th>
-                            <th>Requirements</th>
+                            <th>Pitch Slides</th>
                             <th>Differentiation of Product</th>
                             <th>Shortlist</th>
                         </tr>
@@ -64,7 +61,7 @@
                         %>
                             
                             <td><%=company.getName()%></td>
-                            <td><%=company.getBizFile()%></td>
+                            <td><a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a></td>
                             <td><%= company.getProductDiff()%></td>
                             <td>
 
@@ -169,7 +166,7 @@
                     <thead>
                         <tr>
                             <th>Company Name</th>
-                            <th>Requirements</th>
+                            <th>Pitch Slides</th>
                             <th>Differentiation of Product</th>
                             <th>Accept</th>
                             <th>Reject</th>
@@ -193,7 +190,7 @@
                     <tbody>
                         <tr>
                             <td><%=company.getName()%></td>
-                            <td><%=company.getBizFile()%></td>
+                            <td><a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a></td>
                             <td><%= company.getProductDiff()%></td>
                             <td>
                                 <form action = "confirmCompanyServlet" method="post">

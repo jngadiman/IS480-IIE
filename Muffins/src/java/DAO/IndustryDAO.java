@@ -31,7 +31,7 @@ public class IndustryDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Industry;");
+            stmt = conn.prepareStatement("SELECT * FROM Industry ORDER BY industry_name;");
             result = stmt.executeQuery();
 
             while (result.next()) {

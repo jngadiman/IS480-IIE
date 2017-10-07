@@ -28,7 +28,11 @@
             <h1 class="col-lg-10 well col-sm-offset-1">Company Registration Form</h1>
             <%                String registerStatus = (String) request.getAttribute("registerCompanyStatus");
                 if (registerStatus != null && !registerStatus.isEmpty()) {
+                    if(registerStatus.equals("Success!")){
+                        out.println("<h5 class='col-lg-10 col-sm-offset-1'>Your company application is succesful, please check your email for confirmation!</h5>");
+                    }else{
                     out.println("<h5 class='col-lg-10 col-sm-offset-1'>" + registerStatus + "</h5>");
+                    }
                 }
             %>
             <div class="col-lg-10 well col-sm-offset-1">
@@ -75,13 +79,13 @@
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Incubation Pitch Deck Slides</label>
                                     </br>
-                                    Select file to upload: (Max 20 slides, .pptx template <a href="">here</a>)
-                                    <input class="form-control" type="file" name="application_form" id=application_form" required>
+                                    Format <b>.pdf</b>, Max. 2mb, Guideline <a href="https://image.ibb.co/cFoVFb/Business_Deck_Guidelines_v2.png" target="blank">here</a>
+                                    <input class="form-control" type="file" name="pitch_deck_slides" id="pitch_deck_slides" required>
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Acra File</label>
                                     </br>
-                                    Select file to upload: If company is registered, please upload the ACRA file
+                                    If company is registered, please upload <b>.pdf</b> format
                                     <input class="form-control" type="file" name="acra_file" id="acra_file">
                                 </div>
                             </div>

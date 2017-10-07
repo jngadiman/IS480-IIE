@@ -62,9 +62,11 @@ public class registerCompanyServlet extends HttpServlet {
                 if(companyType.equals("incubator")){
                     RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
                     rd.forward(request, response);
+                    return;
                 }else{
                     RequestDispatcher rd = request.getRequestDispatcher("registerOpenCompany.jsp");
                     rd.forward(request, response);
+                    return;
                 }
                 
             }
