@@ -105,6 +105,7 @@
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                         <li><a href="confirmCompany.jsp">Pending Company</a></li>
                         <li><a href="paymentForMentor.jsp">Generate Payment Vouchers</a></li>
+                        <li><a href="mentorRegistration.jsp">Register for New Mentor</a></li>
                     
                     <%
                     } else {
