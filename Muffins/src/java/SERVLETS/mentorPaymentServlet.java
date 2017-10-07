@@ -47,7 +47,11 @@ public class mentorPaymentServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String path = getServletContext().getRealPath("/");
-        path = path.substring(0, path.length() - 10) + "web\\";
+        
+//        System.out.println("testing BEFORE-------------------------------------------");
+//        System.out.println(path);
+        
+        path = path.substring(0, path.length() - 9) + "web\\";
         
         System.out.println("testing -------------------------------------------");
         System.out.println(path);
@@ -89,7 +93,7 @@ public class mentorPaymentServlet extends HttpServlet {
 //                        file = new FileInputStream(f);
 //                    }
 //                    
-                    paymentController.printPayslip(payslip);
+                    paymentController.printPayslip(payslip, path);
                 }
                 
             }

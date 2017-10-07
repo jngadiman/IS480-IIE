@@ -539,7 +539,7 @@ public class RelationshipDAO {
         return companyIDsWMentor;
     }
 
-    public static ArrayList<Relationship> getRelationshipsInMonthYear(int month, int year) {
+    public static ArrayList<Relationship> getRelationshipsEndingInMonthYear(int month, int year) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -569,8 +569,9 @@ public class RelationshipDAO {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("SELECT * FROM relationship WHERE end_date >= ?;");
+            stmt = conn.prepareStatement("SELECT * FROM relationship WHERE end_date >= ? and end_date <= ?;");
             stmt.setString(1, df.format(startDate));
+            stmt.setString(1, df.format(endDate));
             
             
             result = stmt.executeQuery();

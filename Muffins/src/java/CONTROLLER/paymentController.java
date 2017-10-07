@@ -61,18 +61,19 @@ public class paymentController {
         //setting the start and end date of month and year
         LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
         LocalDate endMonth = YearMonth.of(year,month).atEndOfMonth(); //2015-12-31
-        Date startDate = java.sql.Date.valueOf(startMonth) ;
-        Date endDate = java.sql.Date.valueOf(endMonth) ;
+        Date startDate = java.sql.Date.valueOf(startMonth) ; //start of month
+        Date endDate = java.sql.Date.valueOf(endMonth) ; //end of month
         
         //getting the actual period payment is for
         Date start_period = null;
         Date end_period = null;
+        //ArrayList<Date
         ArrayList<Relationship> relationships = RelationshipDAO.getRelationshipsForMentorNCompany(mentor_email, company_id);
         if(relationships!=null){
             for(Relationship rls: relationships){
-                Date start = rls.getStart_date();
                 Date end = rls.getEnd_date();
-                if((start.after(startDate)||start.equals(startDate))&&(end.before(endDate)||end.equals(endDate))){
+                Date start = rls.getStart_date();
+                if(end.after(startDate)||end.equals(startDate)){
                     start_period = start;
                     end_period = end;
                 }
@@ -89,7 +90,7 @@ public class paymentController {
         return payslip;
     }
     
-    public static String printPayslip(Payslip payslip)throws FileNotFoundException, IOException {
+    public static String printPayslip(Payslip payslip, String realPath)throws FileNotFoundException, IOException {
 
         
         String result = "";
@@ -103,6 +104,8 @@ public class paymentController {
             bank_acc_str = mentor.getBankAccount();
         }
         String [] bank_details = bank_acc_str.split(";");
+        System.out.println("BANK DETAILS ARRAY IN PAYMENT CONROLLER ---- "+ bank_details);
+        
         String mail_address = "";
         String account_name = "";
         String account_no = "";
@@ -145,7 +148,7 @@ public class paymentController {
         HWPFDocument hwpfdoc = null;
         //Business Mentorship Payment –  (name of mentee company) for period dd mm yyyy to dd mm yyyy
         
-        InputStream resourceAsStream = new FileInputStream("./iiedocuments/MentorPaymentVoucherTemplate.doc");
+        InputStream resourceAsStream = new FileInputStream(realPath+ "\\iiedocuments\\MentorPaymentVoucherTemplate.doc");
         //new BufferedInputStream(resourceAsStream);
         
         try {
@@ -169,7 +172,7 @@ public class paymentController {
             SimpleDateFormat todayFomatter = new  SimpleDateFormat("yyyyMMdd");
             String today = todayFomatter.format(new Date());
             
-            FileOutputStream fos = new FileOutputStream("./iiedocuments/PaymentVouchers/VN"+today+voucher_no+".doc");
+            FileOutputStream fos = new FileOutputStream(realPath+"\\iiedocuments\\PaymentVouchers\\VN"+today+voucher_no+".doc");
             hwpfdoc.write(fos);
             fos.flush();
             fos.close();
@@ -186,7 +189,7 @@ public class paymentController {
     
     
     public static void main(String[] args) throws IOException{
-        String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5));
+        String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5), "C:\\Users\\JJAY\\Desktop\\SMU\\FYP\\IS480\\Muffins\\web\\");
         //String numMM = paymentController.printPayslip(payslip);
         //System.out.println(numMM);
     }

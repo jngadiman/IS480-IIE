@@ -63,9 +63,20 @@ public class relationshipController {
     
     public static ArrayList<Relationship> getAssignedRelationshipsOfMonthYear(int month, int year){
         ArrayList<Relationship> rls = new ArrayList<Relationship>();
-        ArrayList<Relationship> all = RelationshipDAO.getRelationshipsInMonthYear(month, year);
+        ArrayList<Relationship> all = RelationshipDAO.getRelationshipsEndingInMonthYear(month, year);
         for(Relationship r: all ){
             if(!r.getStatus().equals("requesting")){
+                rls.add(r);
+            }
+        }
+        return rls;
+    }
+    
+    public static ArrayList<Relationship> getConfirmedRelationshipsOfMonthYear(int month, int year){
+        ArrayList<Relationship> rls = new ArrayList<Relationship>();
+        ArrayList<Relationship> all = RelationshipDAO.getRelationshipsEndingInMonthYear(month, year);
+        for(Relationship r: all ){
+            if(!r.getStatus().equals("assigned")){
                 rls.add(r);
             }
         }
