@@ -80,11 +80,21 @@ public class adminPendingRequestServlet extends HttpServlet {
                     ex.printStackTrace();
                 }
             }
-            
+            System.out.println("end" + end_date);
             //store in the mentor preference object
-            Preference pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
-            status = preferenceController.editPreference(pref);
+            Preference pref = null;
+            if(p != null){
+                pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
+                System.out.println("hi");
+                status = preferenceController.editPreference(pref);
+            }else{
+                pref = new Preference(company_id, mentor_email, start_date, end_date, new String("Assigned By EIR"), new Date());
+                status = preferenceController.addPreference(pref);
+            }
+            System.out.println("need: " + pref.getNeed());
+            System.out.println(pref.getCompany_id());
             
+            System.out.println("status: " + status);
             if(status.equals("Preference has been edited!")){
                 //send email of the unhashed accessCode to founders
 //                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, have been accepted into IIE Incubation. \n Kindly click on this link to register below with the access code provided: \n Access Code: "+accessCode+" \n Registeration Link: http://localhost:8084/Muffins/registerIncubationUser.jsp?id="+companyID, founders,"IIE Portal Enrollment Results")){
@@ -119,12 +129,13 @@ public class adminPendingRequestServlet extends HttpServlet {
             //get from pop up box
             
             String mentor_email = request.getParameter("mentor_email");
+            System.out.println("mentor: " + mentor_email);
             int company_id = Integer.parseInt(request.getParameter("company_id"));
-            Preference p = preferenceController.getPreference(company_id, mentor_email);
-            
+            Preference p = preferenceController.getPreferenceByCompany(company_id);
+            System.out.println("p: " + p);
             //get values from pop up for the start and end date of the assignment period
             Date start_date = null;
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             
             String startDate = request.getParameter("start_date");
             if (startDate != null || !startDate.isEmpty()){
@@ -146,14 +157,17 @@ public class adminPendingRequestServlet extends HttpServlet {
             }
             
             String need = request.getParameter("need");
+            System.out.println(company_id);
+            System.out.println(mentor_email);
+            System.out.println(startDate);
+            System.out.println(endDate);
+            System.out.println(need);
+            System.out.println(p.getDate_sent().toString());
             
             //store in the mentor preference object
             Preference pref = new Preference(company_id, mentor_email, start_date, end_date, need, p.getDate_sent());
             status = preferenceController.editPreference(pref);
-        }else if(request.getParameter("setMentorBtn") != null){
-            int companyID = Integer.parseInt(request.getParameter("companyWNoMentor"));
-            Company c = companyController.getCompany(companyID);
-            //pass it to the page that needs gets all the details of the assignment that eir has done
+            request.setAttribute("status", status);
         }
         
         response.sendRedirect("adminViewAllRequests.jsp");

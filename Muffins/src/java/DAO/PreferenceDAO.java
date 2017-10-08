@@ -95,6 +95,78 @@ public class PreferenceDAO {
         return preferences;
     }
     
+    public static ArrayList<Preference> getUnApprovedPreferences(){
+        ArrayList<Preference> preferences = new ArrayList<Preference>();
+        Preference p = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+        String mentor_email = "";
+        String startDate = "";
+        Date start_date = new Date();
+        String endDate = "";
+        Date end_date = new Date();
+        String need = "";
+        String dateSent = "";
+        Date date_sent = new Date();
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from mentor_preference WHERE `start_date` IS NULL AND `end_date` IS NULL;");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                mentor_email = result.getString("mentor_email");
+                startDate = result.getString("start_date");
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                
+                if(startDate != null && !startDate.isEmpty()){
+                    try {
+                        start_date = dateformat.parse(startDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    start_date = null;
+                }
+                
+                endDate = result.getString("end_date");
+                if(endDate != null && !endDate.isEmpty()){
+                    try {
+                        end_date = dateformat.parse(endDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    end_date = null;
+                }
+                
+                need = result.getString("reason");
+                
+                dateSent = result.getString("date_sent");
+                if(dateSent != null && !dateSent.isEmpty()){
+                    try {
+                        date_sent = dateformat.parse(dateSent);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    date_sent = null;
+                }
+                p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
+                preferences.add(p);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return preferences;
+    }
+    
     public static Preference getPreference(int companyID, String mentorEmail){
         Preference p = null;
         Connection conn = null;
@@ -155,9 +227,80 @@ public class PreferenceDAO {
                 }else{
                     date_sent = null;
                 }
+                
+                p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return p;
+    }
+    
+    public static Preference getPreferenceByCompany(int companyID){
+        Preference p = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+        String mentor_email = "";
+        String startDate = "";
+        Date start_date = new Date();
+        String endDate = "";
+        Date end_date = new Date();
+        String need = "";
+        String dateSent = "";
+        Date date_sent = new Date();
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from mentor_preference where company_id = ?;");
+            stmt.setInt(1, companyID);
+            result = stmt.executeQuery();
             
-            p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                mentor_email = result.getString("mentor_email");
+                startDate = result.getString("start_date");
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                if(startDate != null && !startDate.isEmpty()){
+                    try {
+                        start_date = dateformat.parse(startDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    start_date = null;
+                }
+                
+                endDate = result.getString("end_date");
+                if(endDate != null && !endDate.isEmpty()){
+                    try {
+                        end_date = dateformat.parse(endDate);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    end_date = null;
+                }
+                
+                need = result.getString("reason");
+                
+                dateSent = result.getString("date_sent");
+                if(dateSent != null && !dateSent.isEmpty()){
+                    try {
+                        date_sent = dateformat.parse(dateSent);
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }else{
+                    date_sent = null;
+                }
+                
+                p = new Preference(company_id, mentor_email, start_date, end_date, need, date_sent);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PreferenceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -256,7 +399,7 @@ public class PreferenceDAO {
         PreparedStatement stmt = null;
         ResultSet set = null;
         int result = 0;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
         
         try {
             conn = ConnectionManager.getConnection();
@@ -396,21 +539,22 @@ public class PreferenceDAO {
     }
             
     public static void main(String[] args){
-//        Preference p = new Preference(7, "mentor3@hotmail.com", null, null, "Refine Revenue Model", new Date());
-//        int success = PreferenceDAO.addPreference(p);
+//        Preference p = new Preference(5, "mentor3@hotmail.com", new Date(), new Date(), "Refine Revenue Model only", new Date());
+//        int success = PreferenceDAO.editPreference(p);
 //        System.out.println(success);
-//        ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
+//        ArrayList<Preference> preferences = PreferenceDAO.getUnApprovedPreferences();
 //        for(Preference p: preferences){
-//            System.out.println(p.getCompany_id());
-//            System.out.println(p.getMentor_email());
-//            System.out.println(p.getStart_date());
-//            System.out.println(p.getEnd_date());
-//            System.out.println(p.getNeed());
-//            System.out.println(p.getDate_sent());
+            Preference p = PreferenceDAO.getPreferenceByCompany(7);
+            System.out.println(p.getCompany_id());
+            System.out.println(p.getMentor_email());
+            System.out.println(p.getStart_date());
+            System.out.println(p.getEnd_date());
+            System.out.println(p.getNeed());
+            System.out.println(p.getDate_sent());
 //        }
-        ArrayList<Integer> companyIDs = PreferenceDAO.getAllCompanyIDsWPreference();
-        for(Integer i: companyIDs){
-            System.out.println(i);
-        }
+//        ArrayList<Integer> companyIDs = PreferenceDAO.getAllCompanyIDsWPreference();
+//        for(Integer i: companyIDs){
+//            System.out.println(i);
+//        }
     }
 }

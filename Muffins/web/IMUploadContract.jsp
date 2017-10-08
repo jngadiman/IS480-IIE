@@ -54,7 +54,8 @@
                                         <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEnd_date())%></td>
                                         <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#uploadModal<%=rs.getRelationshipID()%>"/>Upload</button></td>
                                    <div class="modal fade" id="uploadModal<%=rs.getRelationshipID()%>" role="dialog">
-                                        <div class="modal-dialog">
+                                   <form action="imUploadContractServlet" method="post">
+                                       <div class="modal-dialog">
 
                                             <!-- Modal content-->
                                             <div class="modal-content">
@@ -85,7 +86,7 @@
 
                                             </div>
                                         </div>
-
+                                    </form>
                                     </div>
                                     </tr>
                                     <%

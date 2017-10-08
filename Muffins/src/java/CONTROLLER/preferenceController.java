@@ -9,6 +9,7 @@ import DAO.CompanyDAO;
 import DAO.PreferenceDAO;
 import MODELS.Company;
 import MODELS.Preference;
+import MODELS.Relationship;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,6 +37,8 @@ public class preferenceController {
         
         if(result == 1){
             status = "Preference has been edited!";
+            Relationship r = new Relationship(relationshipController.getNextRlsID(), p.getCompany_id(), p.getMentor_email(),"incubation", p.getStart_date(), p.getEnd_date(), "requesting");
+            status += relationshipController.addRelationship(r);
         }else{
             status = "Preference could not be edited!";
         }
@@ -61,6 +64,11 @@ public class preferenceController {
         return p;
     }
     
+    public static ArrayList<Preference> getUnapprovedPreferences(){
+        ArrayList<Preference> preferences = PreferenceDAO.getUnApprovedPreferences();
+        return preferences;
+    }
+    
     public static ArrayList<Preference> getAllPreferences(){
         ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
         return preferences;
@@ -83,14 +91,30 @@ public class preferenceController {
         return companies;
     }
     
+    public static Preference getPreferenceByCompany(int companyID){
+        Preference p = PreferenceDAO.getPreferenceByCompany(companyID);
+        return p;
+    }
+    
     public static void main(String[] args){
-        ArrayList<Preference> preferences = preferenceController.getPreferencesOfCompany(2);
-        for(Preference p: preferences){
-            System.out.println(p.getCompany_id());
-            System.out.println(p.getMentor_email());
-            System.out.println(p.getStart_date());
-            System.out.println(p.getEnd_date());
-            System.out.println(p.getDate_sent());
-        }
+//        Preference p = new Preference(4, "mentor2@hotmail.com", new Date(), new Date(), "Revenue Model", new Date());
+//        String status = preferenceController.editPreference(p);
+//        System.out.println(status);
+        Preference p = preferenceController.getPreferenceByCompany(7);
+        System.out.println(p.getCompany_id());
+        System.out.println(p.getMentor_email());
+        System.out.println(p.getStart_date());
+        System.out.println(p.getEnd_date());
+        System.out.println(p.getNeed());
+        System.out.println(p.getDate_sent());
+//        ArrayList<Preference> preferences = preferenceController.getUnapprovedPreferences();
+//        for(Preference p: preferences){
+//            System.out.println(p.getCompany_id());
+//            System.out.println(p.getMentor_email());
+//            System.out.println(p.getStart_date());
+//            System.out.println(p.getEnd_date());
+//            System.out.println(p.getNeed());
+//            System.out.println(p.getDate_sent());
+//        }
     }
 }
