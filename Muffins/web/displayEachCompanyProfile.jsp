@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.industryController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DAO.CompanyDAO"%>
@@ -24,7 +25,7 @@
         <%@include file="protect.jsp" %>
     </head>
     <body>
-        <%            String company_id = request.getParameter("company_id");
+        <%  String company_id = request.getParameter("company_id");
             int compID = 0;
             if (company_id != null && !company_id.equals("")) {
                 compID = Integer.parseInt(company_id);
@@ -36,8 +37,8 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
-                    <h2>Company Profile</h2>
+                <div class="col-lg-offset-4 col-lg-6">
+                    <h1 class="page-header">Company Profile</h1>
                     <div class="col-sm-10 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <%                   // display the image
@@ -53,12 +54,13 @@
                             <img src="img/user.png" width="200" height="200" alt=""/>
                             <%
                                 }
+                                
                             %>
                             <h1><%= company.getName()%></h1>
 
                             <p><strong>Description</strong> :<br> 
                                 <%= company.getDescription()%></p>
-                            <p><strong>Company Industry</strong> : <%= company.getIndustry()%></p>
+                            <p><strong>Company Industry</strong> : <%= industryController.getIndustry(company.getIndustry()).getIndustryName()%></p>
                             <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                             <p><strong>Start Date</strong> : <%=startDate%></p>
                             <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>   

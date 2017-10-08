@@ -31,6 +31,9 @@
 
 
         <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2 class="page-header col-lg-8  col-lg-offset-2">Mentor Payment(s)</h2>
             <%            LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
                 int year = today.getYear();
@@ -40,8 +43,8 @@
                 Date endDate = java.sql.Date.valueOf(endMonth);
                 ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
                 if (overdue != null && overdue.size() != 0) {%>
-            <h3><font color = "red"><div class="col-lg-10 col-lg-offset-1">OVERDUE PAYMENTS</div></font></h3>
-
+            
+                    <h3 class="page-header col-lg-8  col-lg-offset-2">Overdue Payment(s)</h3>
             <%for (Relationship r : overdue) {
                     if (r.getEnd_date().after(endDate) || r.getEnd_date().equals(endDate)) {
                         String mentorEmail = r.getMentorEmail();
@@ -50,31 +53,31 @@
 
             %>
 
-            <div class="col-lg-10 col-lg-offset-1">
-                <div class="col-lg-6 well">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12 well">
                     <%                        // display the image
                         imgData = mentor.getProfile_pic();
                         if (imgData != null) {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             out.print(imgData);
                     %>
-                    <div class="col-lg-6">
-                        <img width="150" height="150" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                    <div class="col-lg-4">
+                        <img width="100" height="100" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
                     </div>
 
                     <%
                     } else {
                     %>
-                    <div class="col-lg-6">
-                        <img src="img/user.png" width="150" height="150" alt=""/>
+                    <div class="col-lg-4">
+                        <img src="img/user.png" width="100" height="100" alt=""/>
                     </div>
 
                     <%
                         }
                     %>
-                    <div class="col-lg-6">
-                        <h4 style="text-align:centre"><strong><%=mentor.getName()%></strong></h4>
-                        <h4 style="text-align:centre"><strong>Companies:</strong></h4>
+                    <div class="col-lg-8">
+                        <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
+                        <p>List of Mentoring Companies:</p>
                         <%
 
                             int companyID = r.getCompanyID();
@@ -91,7 +94,7 @@
                                 <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentorEmail%>">
                                 <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
-                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></li></button>
+                                <button type="submit" class="btn btn-md btn-primary"><%= company_name%> <span class="badge"><%=badge%></span></button>
                             </ul> 
                         </form>
 
@@ -139,40 +142,43 @@
                 }
                 //maybe set reminder to ask them to generate before end of the month
 %>
-
-            <h3><div class="col-lg-10 col-lg-offset-1">These are the mentors with Incubator Attachment ending <strong><%=m%> <%=year%></strong></div></h3>
-
-            <div class="col-lg-10 col-lg-offset-1">
+    
+<h3 class="page-header col-lg-8  col-lg-offset-2">Mentors with Incubator Mentee Attachment ending <strong><%=m%> <%=year%></h3>
+           
+ <div class="col-lg-8 col-lg-offset-2">
+               
                 <%                    byte[] mentorPhoto;
 
                     ArrayList<Mentor> allMentors = mentorController.getMentors();
                     for (Mentor mentor : allMentors) {
                 %>
-
-                <div class="col-lg-6 well">
+ <div class="col-lg-12 well">
+                    <div class="col-lg-4">
+                
                     <%                        // display the image
                         imgData = mentor.getProfile_pic();
                         if (imgData != null) {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             out.print(imgData);
                     %>
-                    <div class="col-lg-6">
-                        <img width="150" height="150" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                    </div>
+                    
+                        <img width="100" height="100" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                    
 
                     <%
                     } else {
                     %>
-                    <div class="col-lg-6">
-                        <img src="img/user.png" width="150" height="150" alt=""/>
-                    </div>
+                    
+                        <img src="img/user.png" width="100" height="100" alt=""/>
+                    
 
                     <%
                         }
                     %>
-                    <div class="col-lg-6">
-                        <h4 style="text-align:centre"><strong><%=mentor.getName()%></strong></h4>
-                        <h4 style="text-align:centre"><strong>Companies:</strong></h4>
+                    </div>
+                    <div class="col-lg-8">
+                        <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
+                        <p>List of Mentoring Companies:</p>
                         <%
                             //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
                             //int companyID = displayedUser.getCompanyid();
@@ -200,29 +206,37 @@
                                 <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></li></button>
                             </ul> 
                         </form>
+                    </div>
+                
+ </div>
+ 
 
                         <%
                                 }
                             }
                         %>
-                    </div>
 
                     <%
                         } else {
-                            out.println("</div>");
+                            out.println("No Ending Mentoring Period!</div>");
                         }
                     %>
                 </div>
                 <%
-                        mentorPhoto = null;
                     }
                 %>
+ </div>
+               
 
                 <div class="col-lg-4 col-lg-offset-4">
                     <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
                 </div>
 
             </div>
+                
+                </div>
+            </div>
+        </div>
 
     </body>
 </html>

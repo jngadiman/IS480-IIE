@@ -44,7 +44,10 @@
                                 }
                             %>
                         <h2><%=c.getName()%></h2>
-                        <a href="displayEachCompanyProfile.jsp?company_id=<%=company_id%>" class='btn btn-success btn-xs'>View Profile</a>
+                        <form action='displayEachCompanyProfile.jsp' method='post'>
+                            <input type='hidden' name='company_id' value=<%=company_id%>>
+                            <button type='submit' class='btn btn-success btn-xs'>View Profile</button>
+                        </form>
                     </div>
                     <%      i++;
                             if (i % 3 == 0) {
