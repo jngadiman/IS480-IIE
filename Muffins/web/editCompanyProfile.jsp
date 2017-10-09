@@ -219,7 +219,7 @@
                        
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label class="control-label">Incubation Pitch Deck Slides : 
+                                <label class="control-label">Incubation Pitch Deck Slides Format <b>.pdf</b>, Max. 2mb, Guideline <a href="https://image.ibb.co/cFoVFb/Business_Deck_Guidelines_v2.png" target="blank">here</a>
                                     </label> <%=company.getBizFile()%>
                                     
                                 <label class="control-label">Update Slides </label>

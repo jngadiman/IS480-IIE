@@ -4,6 +4,8 @@
     Author     : JEN
 --%>
 
+<%@page import="MODELS.Task"%>
+<%@page import="CONTROLLER.taskController"%>
 <%@page import="MODELS.Company"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="CONTROLLER.companyController"%>
@@ -63,7 +65,18 @@
                             
                             <a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"/></a>
                             <h4>Current Task </h4>
-                            <span class="text-muted">Prototype</span>
+                            <%
+                            ArrayList<Task> taskList= taskController.displayTasksByCompany(userComp.getId());
+                            if (taskList!=null && taskList.size()!=0){
+                                out.println("<ul>");
+                                for(Task t:taskList){
+                                    out.println("<li><span class='text-muted'>"+t.getName()+"</span></li>");
+                                }
+                                 out.println("</ul>");
+                            }else{
+                                out.println("<span class='text-muted'>No task found!</span>");
+                            }
+                            %>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <img src="img/interview.png" width="100"  alt=""/>

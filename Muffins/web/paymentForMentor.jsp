@@ -184,7 +184,7 @@
                             //int companyID = displayedUser.getCompanyid();
                             //Company company = companyController.getCompany(companyID);
                             String company_name = "";
-                            ArrayList<Relationship> rlsInMonthYear = relationshipController.getAssignedRelationshipsOfMonthYear(month, year);
+                            ArrayList<Relationship> rlsInMonthYear = relationshipController.getConfirmedRelationshipsOfMonthYear(month, year);
                             ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentor(rlsInMonthYear, mentor.getEmail());
                             String company_ids = "";
                             if (rls != null && rls.size() != 0) {
