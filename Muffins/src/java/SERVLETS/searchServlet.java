@@ -10,6 +10,7 @@ import MODELS.Mentor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,10 +37,11 @@ public class searchServlet extends HttpServlet {
             throws ServletException, IOException {
         String [] queries = null;
         String querys = request.getParameter("queries");
-        ArrayList<Mentor>  mentorLists = new ArrayList<Mentor>();
+        ArrayList<Mentor> mentorLists = new ArrayList<Mentor>();
         if(querys != null && !querys.isEmpty()){
             queries = querys.split(", ");
-            //mentorLists = assignmentController.getAllMentorsBySkills(querys);
+            ArrayList<String> queryList = new ArrayList<String>(Arrays.asList(queries));
+            mentorLists = assignmentController.getAllMentorsBySkills(queryList);
         }
     }
     

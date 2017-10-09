@@ -551,7 +551,13 @@ public class UserDAO {
                 }else{
                     equity_percentage = 0;
                 }
-                contact_number = Integer.parseInt(result.getString("contact_number"));
+                
+                if(result.getString("contact_number") != null){
+                    contact_number = Integer.parseInt(result.getString("contact_number"));
+                }else{
+                    contact_number = 0;
+                }
+                
                 nationality = result.getString("nationality");
                 
                 if(profile_pic != null){
