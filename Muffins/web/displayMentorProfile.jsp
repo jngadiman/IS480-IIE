@@ -23,7 +23,7 @@
     </head>
     <body>
         <%            
-            String mentorEmail = (String) session.getAttribute("mentor_email");
+            String mentorEmail = request.getParameter("mentorEmail");
             out.println(mentorEmail);
             if(mentorEmail != null && !mentorEmail.isEmpty()){
                 mentorEmail = (String) request.getParameter("mentorEmail");
