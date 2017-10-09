@@ -29,4 +29,9 @@ public class industryController {
         
         return i;
     }
+    public static void main(String[] main){
+        Industry i = industryController.getIndustry(302020);
+        System.out.println(i.getIndustryCode());
+        System.out.println(i.getIndustryName());
+    }
 }

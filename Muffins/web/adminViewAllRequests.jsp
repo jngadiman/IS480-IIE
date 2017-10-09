@@ -63,7 +63,7 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade" id="incubation">-->
 
-        <%                    ArrayList<Preference> preferences = preferenceController.getAllPreferences();
+        <%  ArrayList<Preference> preferences = preferenceController.getUnapprovedPreferences();
             //ArrayList<Company> companies = preferenceController.getCompaniesWPreference();
             String requestStatus = (String) session.getAttribute("requestStatus");
             if (preferences != null || requestStatus.equals("all")) {
@@ -175,7 +175,7 @@
                                     </div>
                                     <div class="col-sm-6 form-group required">
                                         <label class="control-label">Mentor</label>
-                                        <select class="form-control" id="mentor" name="mentor" required>
+                                        <select class="form-control" id="mentor" name="mentor_email" required>
                                             <%
                                                 ArrayList<Mentor> mentors = mentorController.getMentors();
 
@@ -208,7 +208,6 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
                 <%
                     }
