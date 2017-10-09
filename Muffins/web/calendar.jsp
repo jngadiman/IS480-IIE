@@ -42,6 +42,9 @@
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '886878581294-gvgjasgb61ncsjc9622nrqon6sug4tan.apps.googleusercontent.com';
+      
+      // Google Calendar API key from Developer Console
+      var API_KEY = 'AIzaSyD7E4RajRYzD2P9V97jQGvWYtgonmNK2no';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -49,6 +52,7 @@
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
       var SCOPES = "https://www.googleapis.com/auth/calendar";
+      "https://www.googleapis.com/auth/calendar.readonly";
 
       var authorizeButton = document.getElementById('authorize-button');
       var signoutButton = document.getElementById('signout-button');
@@ -151,7 +155,7 @@
       var occupiedStartDates = new Array();
       var occupiedEndDates = new Array();
       function listUpcomingEvents() {
-        gapi.client.calendar.events.list({
+        gapi.client.calendar.events.list({  
           'calendarId': 'primary',
           'timeMin': (new Date()).toISOString(),
           'showDeleted': false,
@@ -197,9 +201,9 @@
 //        );
 //      }
       
-//      function loadCalendarApi() {
-//        gapi.client.load('calendar', 'v3', listUpcomingEvents);
-//      }
+      function loadCalendarApi() {
+        gapi.client.load('calendar', 'v3', listUpcomingEvents);
+      }
       
       function listCalendars() {
         var request = gapi.client.calendar.calendarList.list();
@@ -235,7 +239,7 @@
                    for(i = 0; i < cals.length; i++){
                      var calendarID = cals[i].id;
                      var calendarName = cals[i].summary;
-                     select.innerHTML += "<option value = ' " + calendarID.toString() + "'>"+calendarName+" </option>";
+                     select.innerHTML += "<option value = '" + calendarID.toString() + "'>"+calendarName+" </option>";
                    }
                     });
                 }

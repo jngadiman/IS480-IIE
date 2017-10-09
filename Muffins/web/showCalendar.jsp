@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset='utf-8' />
+<script src='js/jquery-3.2.1.min.js'></script>
+<script src='css/fullcalendar.min.js'></script>
+<script src='css/moment.min.js'></script>
+<script src='css/gcal.min.js'></script>
 <link href='css/fullcalendar.min.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-<script src='css/moment.min.js'></script>
-<script src='css/lib/jquery.min.js'></script>
-<script src='css/fullcalendar.min.js'></script>
-<script src='css/gcal.min.js'></script>
 <link rel="stylesheet" href="css/fullcalendar.css" />
 
 <script src="js/jquery-3.2.1.min.js"></script>

@@ -13,38 +13,57 @@ import java.util.*;
  */
 public class Contract {
     
-    private Mentor mentor;
-    private User admin;
+    private int rlsID;
+    private String mentor;
+    private String admin;
+    private byte[] contractFile;
     private Date signedDate;
-    
-    public Contract(Mentor mentor, User admin, Date signedDate){
+
+    public Contract(int rlsID, String mentor, String admin, byte[] contractFile, Date signedDate) {
+        this.rlsID = rlsID;
         this.mentor = mentor;
         this.admin = admin;
+        this.contractFile = contractFile;
         this.signedDate = signedDate;
     }
-    
-    public Mentor getMentor(){
+
+    public int getRlsID() {
+        return rlsID;
+    }
+
+    public void setRlsID(int rlsID) {
+        this.rlsID = rlsID;
+    }
+
+    public String getMentor() {
         return mentor;
     }
-    
-    public User getAdmin(){
-        return admin;
-    }
-    
-    public Date getDate(){
-        return signedDate;
-    }
-    
-    public void setMentor(Mentor mentor){
+
+    public void setMentor(String mentor) {
         this.mentor = mentor;
     }
-    
-    public void setAdmin(User admin){
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
         this.admin = admin;
     }
-    
-    public void setDate(Date signedDate){
+
+    public byte[] getContractFile() {
+        return contractFile;
+    }
+
+    public void setContractFile(byte[] contractFile) {
+        this.contractFile = contractFile;
+    }
+
+    public Date getSignedDate() {
+        return signedDate;
+    }
+
+    public void setSignedDate(Date signedDate) {
         this.signedDate = signedDate;
     }
-    
 }
