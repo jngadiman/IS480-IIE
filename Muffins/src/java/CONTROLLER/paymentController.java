@@ -197,8 +197,12 @@ public class paymentController {
     
     public static double getBaseAmount(){
         //get the base amount of the payslip
+        double baseAmount = 0.0;
         Payslip p = PayslipDAO.getPayslip(0);
-        return p.getAmount();
+        if(p!=null){
+            baseAmount = p.getAmount();
+        }
+        return baseAmount;
     }
     
     public static void main(String[] args) throws IOException{
