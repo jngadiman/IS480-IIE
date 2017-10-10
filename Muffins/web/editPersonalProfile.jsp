@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.menteeController"%>
 <%@page import="CONTROLLER.profileController"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="CONTROLLER.mentorController"%>
@@ -47,6 +48,10 @@
             User currentUser = (User) session.getAttribute("user");
             User user1 = profileController.getUser(user.getEmail());;
             session.setAttribute("user", user1);
+            
+            Mentee mentee1 = (Mentee) session.getAttribute("mentee");
+            Mentee mentee2 = menteeController.getMentee(mentee1.getEmail());
+            session.setAttribute("mentee", mentee2);
 
             //hardcoded, need to replace with session key later
             ArrayList<String> degrees = new ArrayList<String>();
@@ -98,8 +103,8 @@
                         <input type="hidden" name="name" value="<%= user.getName()%>">
                         <input type="hidden" name="nric" value="<%= user.getNric()%>">
                         <input type="hidden" name="user_type" value="<%= user.getUser_type()%>">
-                        <input type="hidden" name="companyID" value="<%= user.getCompanyid()%>"
-
+                        <input type="hidden" name="companyID" value="<%= user.getCompanyid()%>">
+                        <input type="hidden" name="nationality" value="<%= user.getNationality()%>">
                                <br/>
                         <%
                             if (user.getUser_type().equals("regular_mentee")) {
@@ -126,7 +131,7 @@
 
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Nationality</strong> : <%=mentee.getNationality()%></p>
+                                <p><strong>Nationality</strong> : <%=user.getNationality()%></p>
                             </div>
 
                         </div>

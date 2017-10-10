@@ -42,6 +42,7 @@ public class profileController {
         String status = "";
         int userResult = UserDAO.editUser(m);
         System.out.println("controller: " + m.getProfile_pic());
+        System.out.println("profileController editMentee: " + m.getNationality());
         int result = MenteeDAO.editMenteeDetails(m);
         if(result == 1&& userResult == 1){
             status = "Changes have been saved successfully!";

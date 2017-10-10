@@ -593,7 +593,7 @@ public class UserDAO {
             stmt.setString(2, u.getNric());
             
             Date joinedDate = u.getJoinedDate();
-            java.sql.Date sqlDate = new java.sql.Date(joinedDate.getTime());
+                java.sql.Date sqlDate = new java.sql.Date(joinedDate.getTime());
             stmt.setDate(3, sqlDate);
             
             if(u.getProfile_pic() != null){
@@ -621,6 +621,7 @@ public class UserDAO {
             stmt.setInt(8, u.getEquityPercentage());
             stmt.setInt(9, u.getContactNumber());
             stmt.setString(10, u.getNationality());
+            System.out.println("UserDAO editUser: " + u.getNationality());
             stmt.setString(11, u.getEmail());
             
             

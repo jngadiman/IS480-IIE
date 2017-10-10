@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register for New Mentor</title>
         <%@include file="sidenav.jsp" %>
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>
 
 
     </head>
@@ -58,6 +59,44 @@
                                         <%@include file="nationality.jsp" %>
 
                                     </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 form-group required">
+                                        <label class="control-label">Company Name</label>
+                                        <input id="nric" type="text" name="companyName" placeholder="Enter Company Name Here.." class="form-control" required>
+
+                                    </div>	
+                                    <div class="col-sm-6 form-group required">
+                                        <label class="control-label">Designation</label>
+                                        <input id="contact" type="text" name="designation" placeholder="Enter Your Designation Here.." class="form-control" required>
+                                    </div>	
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 well form-group required">
+                                        <label class="col-sm-12">Bank Account Details</label>
+
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Mail Address</label>
+                                            <input id="nric" type="text" name="mailAddress" placeholder="Enter Your Mail Address Here.." class="form-control" required>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Account Name</label>
+                                            <input id="contact" type="text" name="accountName" placeholder="Enter Account Name Here.." class="form-control" required>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Bank Name</label>
+                                            <input id="contact" type="text" name="bankName" placeholder="Enter Bank Name Here.." class="form-control" required>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Swift Code</label>
+                                            <input id="contact" type="text" name="swiftCode" placeholder="Enter Swift Code Here.." class="form-control" required>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Bank Address</label>
+                                            <input id="contact" type="text" name="bankAddress" placeholder="Enter Bank Address Here.." class="form-control" required>
+                                        </div>
+                                    </div>	
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group required">
