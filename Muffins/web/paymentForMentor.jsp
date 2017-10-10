@@ -34,11 +34,10 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <%  String voucher = (String) request.getAttribute("voucher_link");
                                 if (voucher != null) {
-                                    URL url = new URL(voucher);
                     %>
                     <div class="alert alert-dismissible alert-success col-lg-8 col-lg-offset-2">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Voucher successfully created!</strong> Click <a href="<%=url%>" target="blank">here</a> to download.
+                        <strong>Voucher successfully created!</strong> Click <a href="<%=voucher%>" target="blank">here</a> to download.
                     </div>
                     <%
                                 }
@@ -47,7 +46,7 @@
                     <%
                         double baseAmt = paymentController.getBaseAmount();
                         out.println("<div class='col-lg-8 col-lg-offset-2'>");
-                        out.println("Base Amount : $" + baseAmt);
+                        out.println("Base Per Session Amount : $" + baseAmt);
                         out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
                         out.println("</div>");
                         
@@ -129,6 +128,10 @@
             <%}
 
                     }
+                } else{
+                    out.println("<div class='col-lg-8 col-lg-offset-2'>");
+                    out.println("No Due Payment!");
+                    out.println("</div>");
                 }
 
             %>
