@@ -7,30 +7,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    if(session.getAttribute("user")!= null){
+    if (session.getAttribute("user") != null) {
         //out.println("You are already Logged in!");
-        if(session.getAttribute("admin")!=null){
+        if (session.getAttribute("admin") != null) {
             response.sendRedirect("adminHomepage.jsp");
-        }else if (session.getAttribute("mentor")!=null){
+        } else if (session.getAttribute("mentor") != null) {
             response.sendRedirect("mentorHomepage.jsp");
-        }else{
+        } else {
             response.sendRedirect("home.jsp");
         }
-    }else{
-        
-    
-    String loginResult = (String) request.getAttribute("loginResult");
-    if(loginResult == null){
-        loginResult = "";
-    }%>
-    <p style="text-align: center">
+    } else {
+
+        String loginResult = (String) request.getAttribute("loginResult");
+        if (loginResult == null) {
+            loginResult = "";
+        }%>
+<p style="text-align: center">
     <%--
     String status = (String) request.getAttribute("registerStatus");
     if(status != null && !status.isEmpty()){
         out.println(status);
     }
     
---%>
+    --%>
 </p>
 <html>
     <head>
@@ -44,7 +43,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <h1>IIE Portal</h1>
+                    <img src="img/iielogo.png" width="500" alt=""/>
+                    <!--<h1>IIE Portal</h1>-->
+
+
 
                     <p id="profile-name" class="profile-name-cazrd"></p>
                     <form class="form-signin" action = "loginServlet" method = "post">
@@ -52,16 +54,16 @@
                         <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
                         <input type="password" name="password" class="form-control" placeholder="Password" required>
                         <font color = 'red'><%=loginResult%></font>
-                        
+
                         <div id="remember" class="checkbox">
-                            <label>
+                            <!--<label>
                                 <input type="checkbox" name = "rememberMe" value="yes"> Remember me
                             </label>
-                        </div>
-                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                        </div>-->
+                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                     </form><!-- /form -->
                     <br/>
-                    <a href="changePassword.jsp" class="forgot-password">
+                    <a href="forgetPassword.jsp" class="forgot-password">
                         Forgot the password?
                     </a><br/>
                     No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a>
