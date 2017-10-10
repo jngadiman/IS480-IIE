@@ -60,7 +60,13 @@
                                 out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Administrator</button></li>");
                             }
                         %>
-                        <li><a href="viewPersonalProfile.jsp" class='text-center'><%=user.getName()%></a></li>
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="viewPersonalProfile.jsp">View Personal Profile</a></li>
+                                <li><a href="editPersonalProfile.jsp">Edit Personal Profile</a></li>
+                            </ul>
+                        </li>
 
                         <%
                             if (user.getUser_type().equals("regular_mentee") || user.getUser_type().equals("light_mentee")) {
@@ -70,9 +76,16 @@
                             <%
                                 if (user.getUser_type().equals("regular_mentee")) {
                                     Company userComp = companyController.getCompany(user.getCompanyid());
+                                    
                             %>
                         
-                        <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=userComp.getName()%><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
+                                <li><a href="editCompanyProfile.jsp">Edit Company Profile</a></li>
+                            </ul>
+                        </li>
                         <li><a href="stages.jsp">Progress</a></li>
                         <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">View Current Tasks</a></li>
                             <%
