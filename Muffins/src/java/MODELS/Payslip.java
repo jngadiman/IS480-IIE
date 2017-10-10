@@ -24,21 +24,23 @@ public class Payslip {
     private String costCentre; //C249 no need?
     private String gstTotalAmtPayable; //NA no need?
     private String internalOrder; //ZIE1MOECA1 no need?
-    
+    private String path; // the voucher path
     //private double baseAmount; //store base amount where voucher no = 0
 
-    public Payslip(int voucherNumber, String mentor_email, int mentee_company, Date start_period, Date end_period, double amount) {
+    public Payslip(int voucherNumber, String mentor_email, int mentee_company, Date start_period, Date end_period, double amount, String path) {
         this.voucherNumber = voucherNumber;
         this.mentor_email = mentor_email;
         this.mentee_company = mentee_company;
         this.start_period = start_period;
         this.end_period = end_period;
         this.amount = amount;
+        this.path = path;
         this.typeOfPayment = "giro";
         this.methodToDeliverCheque = "NA";
         this.costCentre ="C249";
         this.gstTotalAmtPayable = "NA";
         this.internalOrder = "ZIE1MOECA1";
+        
     }
 
     public int getVoucherNumber() {
@@ -127,6 +129,14 @@ public class Payslip {
 
     public void setInternalOrder(String internalOrder) {
         this.internalOrder = internalOrder;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
     
     

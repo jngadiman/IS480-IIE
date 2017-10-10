@@ -52,7 +52,7 @@ public class paymentController {
         }
         return count;
     }
-    
+    //generate one payslip of one company, one mentor ending month year DO LATER
     public static Payslip generatePayslip(int month, int year, String mentor_email, int company_id){
         
         //get voucher id
@@ -65,34 +65,34 @@ public class paymentController {
         Date endDate = java.sql.Date.valueOf(endMonth) ; //end of month
         
         //getting the actual period payment is for
-        Date start_period = null;
-        Date end_period = null;
+        Relationship current = null;
         //ArrayList<Date
         ArrayList<Relationship> relationships = RelationshipDAO.getRelationshipsForMentorNCompany(mentor_email, company_id);
         if(relationships!=null){
             for(Relationship rls: relationships){
-                Date end = rls.getEnd_date();
-                Date start = rls.getStart_date();
-                if(end.after(startDate)||end.equals(startDate)){
-                    start_period = start;
-                    end_period = end;
+                
+                
+                if(rls.getStatus().equals("assigned")){
+                    current = rls;
                 }
             }
         }
-        //get the number of meeting minutes count
+        //get the number of meeting minutes count within the period
         int count = paymentController.getCountOfMonthYearByMentorNCompany(month, year, company_id, mentor_email);
         //get where voucher number = 0 which stores the base amount
         double base_amount = PayslipDAO.getPayslip(0).getAmount();
         double amount = count*base_amount;
-        Payslip payslip = new Payslip(voucher_no,mentor_email,company_id, start_period, end_period, amount);
+        Payslip payslip = new Payslip(voucher_no,mentor_email,company_id, current.getStart_date(), current.getEnd_date(), amount, null);
         //add the payslip into the db
         PayslipDAO.addPayslip(payslip);
+        relationshipController.changeRelationshipStatus(current.getRelationshipID(), "over");
         return payslip;
     }
     
     public static String printPayslip(Payslip payslip, String realPath)throws FileNotFoundException, IOException {
-
         
+        String voucherPath = "";
+        ArrayList<String> returnMsg = new ArrayList<String>();
         String result = "";
         int voucher_no = payslip.getVoucherNumber();
         String mentor_email = payslip.getMentor_email();
@@ -171,12 +171,14 @@ public class paymentController {
             
             SimpleDateFormat todayFomatter = new  SimpleDateFormat("yyyyMMdd");
             String today = todayFomatter.format(new Date());
-            
-            FileOutputStream fos = new FileOutputStream(realPath+"\\iiedocuments\\PaymentVouchers\\VN"+today+voucher_no+".doc");
+            voucherPath = "\\iiedocuments\\PaymentVouchers\\VN"+today+voucher_no+".doc";
+            returnMsg.add(voucherPath);
+            FileOutputStream fos = new FileOutputStream(realPath+voucherPath);
             hwpfdoc.write(fos);
             fos.flush();
             fos.close();
             result = "Success!";
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             result = "FAILED FILE NOT FOUND!";
@@ -184,12 +186,18 @@ public class paymentController {
             e.printStackTrace();
             result = "FAILED IO EXCEPTION!";
         }
-        return result;
+        returnMsg.add(result);
+        return voucherPath;
+    }
+    
+    public static void addVoucherPath(int voucherNo, String voucherPath){
+        PayslipDAO.addVoucherPath(voucherNo, voucherPath);
+        
     }
     
     
     public static void main(String[] args) throws IOException{
-        String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5), "C:\\Users\\JJAY\\Desktop\\SMU\\FYP\\IS480\\Muffins\\web\\");
+        //String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5), "C:\\Users\\JJAY\\Desktop\\SMU\\FYP\\IS480\\Muffins\\web\\");
         //String numMM = paymentController.printPayslip(payslip);
         //System.out.println(numMM);
     }

@@ -19,8 +19,9 @@ public class MeetingMinutes {
     private int task_id;
     private String comments;
     private String submitted_user;
+    private int mentorRating;
 
-    public MeetingMinutes(int minutesID, String title, int meeting_id, String mentor_email, int task_id, String comments, String submitted_user) {
+    public MeetingMinutes(int minutesID, String title, int meeting_id, String mentor_email, int task_id, String comments, String submitted_user, int mentorRating) {
         this.minutesID = minutesID;
         this.title = title;
         this.meeting_id = meeting_id;
@@ -28,6 +29,7 @@ public class MeetingMinutes {
         this.task_id = task_id;
         this.comments = comments;
         this.submitted_user = submitted_user;
+        this.mentorRating = mentorRating;
     }
 
     public int getMinutesID() {
@@ -85,4 +87,14 @@ public class MeetingMinutes {
     public void setSubmitted_user(String submitted_user) {
         this.submitted_user = submitted_user;
     }
+
+    public int getMentorRating() {
+        return mentorRating;
+    }
+
+    public void setMentorRating(int mentorRating) {
+        this.mentorRating = mentorRating;
+    }
+    
+    
 }

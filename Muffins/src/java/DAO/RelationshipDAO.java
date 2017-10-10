@@ -550,6 +550,7 @@ public class RelationshipDAO {
         LocalDate endMonth = YearMonth.of(year,month).atEndOfMonth(); //2015-12-31
         
         Date startDate = java.sql.Date.valueOf(startMonth) ;
+        System.out.println("START DATE IN RLS DAO------ "+startDate);
         Date endDate = java.sql.Date.valueOf(endMonth) ;
         
         int rls_id = 0;
@@ -571,7 +572,7 @@ public class RelationshipDAO {
             
             stmt = conn.prepareStatement("SELECT * FROM relationship WHERE end_date >= ? and end_date <= ?;");
             stmt.setString(1, df.format(startDate));
-            stmt.setString(1, df.format(endDate));
+            stmt.setString(2, df.format(endDate));
             
             
             result = stmt.executeQuery();
@@ -594,11 +595,12 @@ public class RelationshipDAO {
                 status = result.getString("status");
                 //int relationshipID, int companyID, String mentorEmail, String type, Date start_date, Date end_date, String status) {
                 Relationship rls = new Relationship(rls_id, mentee_company, mentor_email, type, start,end, status);
+                System.out.println("RELATIONSHIP OF MENTOR ------ "+rls.getMentorEmail());
                 relationships.add(rls);
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(PayslipDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, result);
         }

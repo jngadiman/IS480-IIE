@@ -15,6 +15,7 @@ import MODELS.MeetingMinutes;
 import MODELS.User;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeMap;
 
 /**
  *
@@ -146,6 +147,27 @@ public class minutesController {
             }
         }
         return numMM;
+    }
+    public TreeMap<Integer, ArrayList<String>> sortMentorsByMentorRatingCount(ArrayList<String> mentors){
+        TreeMap<Integer, ArrayList<String>> treemap = new TreeMap<>();
+        for(String m: mentors){
+            
+            int rating = MeetingMinutesDAO.getAverageMentorRatingCount(m);
+            if (treemap.get(rating)==null){
+                treemap.put(rating, new ArrayList<String>());
+                
+            }else{
+                treemap.get(rating).add(m);
+            }
+            
+        }
+        return treemap;
+    }
+    
+    //select distinct meeting minutes of mentor, sort by rating
+    public int getAverageMentorRatingCount(String email){
+        int count = MeetingMinutesDAO.getAverageMentorRatingCount(email);
+        return count;
     }
     
     public static void main(String[] args){
