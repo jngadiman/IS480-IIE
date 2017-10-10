@@ -74,6 +74,8 @@ public class loginServlet extends HttpServlet {
                     response.sendRedirect("adminHomepage.jsp");
                 }else if(currentUser.getUser_type().equals("regular_mentee") || currentUser.getUser_type().equals("light_mentee")){
                     response.sendRedirect("home.jsp");
+                }else if(currentUser.getUser_type().equals("Incubation Manager Mentor") || currentUser.getUser_type().equals("Venture Capitalist Mentor") || currentUser.getUser_type().equals("Industry Professional Mentor") || currentUser.getUser_type().equals("Entrepreneur Mentor")){
+                    response.sendRedirect("mentorHomepage.jsp");
                 }else{
                     response.sendRedirect("index.jsp");
                 }
