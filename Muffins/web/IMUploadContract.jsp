@@ -24,8 +24,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-2">
+                    <% 
+                        if(request.getAttribute("uploadStatus") != null){
+                            String status = (String) request.getAttribute("uploadStatus");
+                            out.println(status);
+                        }
+                    %>
                     <h2 class="page-header col-lg-9  col-sm-offset-2">Contract Upload</h2>
                     <div class="col-lg-9 well col-sm-offset-2">
+                        
                         <div class ="row">
                             <%      ArrayList<Relationship> pendingRelationship = relationshipController.getAllRelationshipByStatus("requesting");
                                 out.println("No of Pending Relationship <span class='badge'>" + pendingRelationship.size() + "</span>");
@@ -54,7 +61,7 @@
                                         <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEnd_date())%></td>
                                         <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#uploadModal<%=rs.getRelationshipID()%>"/>Upload</button></td>
                                    <div class="modal fade" id="uploadModal<%=rs.getRelationshipID()%>" role="dialog">
-                                   <form action="imUploadContractServlet" method="post">
+                                   <form action="imUploadContractServlet" method="post" enctype="multipart/form-data">
                                        <div class="modal-dialog">
 
                                             <!-- Modal content-->
