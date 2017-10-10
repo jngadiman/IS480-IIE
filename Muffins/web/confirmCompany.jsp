@@ -89,7 +89,7 @@
                                                         </div>
                                                         <div class="col-sm-6 form-group">
                                                             <label class="control-label">Date</label> 
-                                                            <input id="eventName" type="text" name="date" placeholder="Enter Date yyyy-mm-dd" class="form-control" required>
+                                                            <input id="eventDate" type="text" name="date" placeholder="Enter Date yyyy-mm-dd" class="form-control" required>
                                                         </div>
                                                         <div class="col-sm-6 form-group ">
                                                             <label  class="control-label">Start Time</label>
