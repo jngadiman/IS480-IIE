@@ -70,6 +70,8 @@
                                 if (user.getUser_type().equals("regular_mentee")) {
                                     Company userComp = companyController.getCompany(user.getCompanyid());
                             %>
+                        
+                        <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                         <li><a href="stages.jsp">Progress</a></li>
                         <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">View Current Tasks</a></li>
                             <%
@@ -82,10 +84,13 @@
                                 <li><a href="viewMeetingMinutes.jsp">View Meeting Minutes</a></li>
                             </ul>
                         </li>
-                        <li><a href="calendar.jsp">Calendar</a></li>
-                        <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                         <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                            </ul>
+                        </li>
                             <%
                                 if (user != null) {
                                     if (user.getUser_type().equals("regular_mentee")) {
@@ -120,7 +125,7 @@
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
                         <li><a href="paymentForMentor.jsp">Payment Vouchers</a></li>
                         <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
-                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>
+<!--                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>-->
 
                         <%
                         } else {

@@ -43,9 +43,10 @@
         </script>
     </head>
     <body>
-        <%            User currentUser = (User) session.getAttribute("user");
-            user = profileController.displayUserDetails(currentUser.getEmail());
-            session.setAttribute("user", user);
+        <%            
+            User currentUser = (User) session.getAttribute("user");
+            User user1 = profileController.getUser(user.getEmail());;
+            session.setAttribute("user", user1);
 
             //hardcoded, need to replace with session key later
             ArrayList<String> degrees = new ArrayList<String>();
@@ -75,7 +76,7 @@
                         } else {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                         %>
-                        <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" width="200px"/>
 
                         <%}%>
                         <br/>

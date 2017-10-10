@@ -83,7 +83,7 @@
 
             <div class="col-lg-10 col-lg-offset-1 well">
                 <div class="row">
-                    <form action = "addUserServlet" method ="post" name="registerUser" onsubmit="return validateForm()">
+                        <form action = "addUserServlet" method ="post" name="registerUser" enctype="multipart/form-data" onsubmit="return validateForm()">
                         <div class="col-sm-10 col-lg-offset-1">
                             <div class="row">
                                 <input type = "hidden" name ="user_type" value ="regular_mentee">

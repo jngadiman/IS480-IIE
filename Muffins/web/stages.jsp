@@ -121,7 +121,6 @@
                                 <h3 class="head text-center">Stage 1<sup>™</sup> Profile</h3>
                                 <p class="narrow text-center">
                                     <b>Business model validation stage</b><br/>
-                                    Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
                                 </p>
 
                                 <p class="text-center">
@@ -133,7 +132,6 @@
                                 <h3 class="head text-center">Stage 2</h3>
                                 <p class="narrow text-center">
                                     <b>Innovation Development stage</b> ​<br/>
-                                    Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
                                 </p>
 
                                 <p class="text-center">
@@ -145,7 +143,6 @@
                                 <h3 class="head text-center">Stage 3</h3>
                                 <p class="narrow text-center">
                                     <b>Go-To-Market & early customer acquisition stage</b> ​<br/>
-                                    Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
                                 </p>
 
                                 <p class="text-center">
@@ -160,7 +157,6 @@
                                 <h3 class="head text-center">Stage 4</h3>
                                 <p class="narrow text-center">
                                     <b>Business Plan/Financial Modelling stage</b> ​<br/>
-                                    Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
                                 </p>
 
                                 <p class="text-center">
