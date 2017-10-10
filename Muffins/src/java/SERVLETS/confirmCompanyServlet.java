@@ -160,7 +160,7 @@ public class confirmCompanyServlet extends HttpServlet {
             }
 
             //send email to EIR and admin
-            String [] admin = {"jiatung1218@gmail.com"};
+            String [] admin = {"jiatung1218@gmail.com", "huimin.sim.2015@smu.edu.sg"};
             if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been shortlisted into IIE Incubation.", admin, "IIE Portal Notification")){
                 System.out.println("email has been sent successfully");
             }else{
