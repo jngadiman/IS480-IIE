@@ -4,6 +4,12 @@
     Author     : JJAY
 --%>
 
+<%@page import="CONTROLLER.taskController"%>
+<%@page import="MODELS.Task"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="CONTROLLER.meetingController"%>
+<%@page import="MODELS.Mentor"%>
+<%@page import="CONTROLLER.mentorController"%>
 <%@page import="CONTROLLER.minutesController"%>
 <%@page import="MODELS.MeetingMinutes"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,90 +20,84 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
     </head>
-    </head>
-    <body>
-        <h1>TO VIEW ALL THE MEETING MINUTES</h1>
-       <%
-            
-            ArrayList<ArrayList<MeetingMinutes>> minutes = minutesController.getAllMeetingMinutes();
-            
-            for(ArrayList<MeetingMinutes> mm: minutes){
-                for(MeetingMinutes each : mm){
-                    System.out.println(each.getMinutesID());
-        %>
-                    EACH = <%=each.getMinutesID()%> DELETE 
-        <%      }
-            }
-        %>
-            
-            <div class="col-md-8 well col-md-offset-2">
-            <div class="row col-md-offset-1">
-                Mentor <select name = "mentor">
-                    <option value = "1">mentor 1</option>
-                    <option value = "2">mentor 2</option>
-                    <option value = "3">mentor 3</option>
-                    <option value = "4">mentor 4</option>  
-                </select><input class="btn btn-primary btn-xs"type ="submit" value =" Choose "> 
-                
-                Student <select name = "student">
-                    <option value = "1">student 1</option>
-                    <option value = "2">student 2</option>
-                    <option value = "3">student 3</option>
-                    <option value = "4">student 4</option>  
-                </select><input class="btn btn-primary btn-xs"type ="submit" value =" Choose "> 
-            </div>
-            
-            <div class="row col-md-offset-1">
-                
-               
-                
-                    Meetings
-                    <li><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal1">Meeting 1</button></li>
-                    <li><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal2">Meeting 2</button></li>
-                    <!-- Modal -->
-                    <div id="modal1" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+</head>
+<body>
+    <div class="container">
+        <div class="col-sm-9 col-sm-offset-2">
+            <h2 class="page-header col-lg-9  col-sm-offset-2">View Meeting Minutes</h2>
+            <div class="col-lg-9 well col-sm-offset-2">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Meeting 1</h4>
-                                </div>
-                                <div class="modal-body">
-                                    GET ALL THE FIELDS FROM MEETINGS
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Validate</button>
+                <%           ArrayList<ArrayList<MeetingMinutes>> minutes = minutesController.getAllMeetingMinutes();
+
+                    for (ArrayList<MeetingMinutes> mm : minutes) {
+                        for (MeetingMinutes each : mm) {
+                            System.out.println(each.getMinutesID());
+                %>
+                <!--EACH = <%=each.getMinutesID()%> DELETE -->
+                <%      }
+                    }
+                %>
+
+                
+                    <div class="row">
+                        
+                        <%
+                        ArrayList<ArrayList<MeetingMinutes>> minutesArray = minutesController.getMeetingMinutesOfCompany(user.getCompanyid());
+                        for (ArrayList<MeetingMinutes> min : minutesArray){
+                            if(min!=null&&!min.isEmpty()){
+                                MeetingMinutes mm = min.get(0);
+//                                ArrayList<String> taskList = new ArrayList<String>();
+//                                for(MeetingMinutes m:min){
+//                                    if(m!=null&&m.getTask_id()!=0){
+//                                    taskList.add(taskController.displayTask(m.getTask_id()).getName());
+//                                    }
+//                                }
+                            String date = new SimpleDateFormat("dd-MM-yyyy").format(meetingController.getMeetingByMeetingID(mm.getMeeting_id()).getStartTime());
+                           %>
+                           <li><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=mm.getMinutesID()%>"><%=date%></button></li>
+                           <!-- Modal -->
+                        <div id="view<%=mm.getMinutesID()%>" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title"><%=date%></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Title : <%=mm.getTitle()%><br>
+                                        Mentor : <%=mentorController.getMentor(mm.getMentor_email()).getName()%><br>
+                                      Comments : <%=mm.getComments()%><br>
+<!--                                        Tasks : -->
+                                        <%
+                                       // for (String t: taskList){
+                                       //    out.println("<li>"+t+"</li>");
+                                        //}
+                                        %>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <%
+                            }else{
+                                out.println("No meeting minutes detected!");
+                            }
+                            
+                        }
+                        %>
                     
-                    <div id="modal2" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Meeting 2</h4>
-                                </div>
-                                <div class="modal-body">
-                                    GET ALL THE FIELDS FROM MEETINGS
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Validate</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                
+
+                    
+                </div>
             </div>
         </div>
-    </body>
+</body>
 </html>

@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="CONTROLLER.assignmentController"%>
 <%@page import="CONTROLLER.relationshipController"%>
 <%@page import="MODELS.Preference"%>
 <%@page import="DAO.PreferenceDAO"%>
@@ -62,6 +63,7 @@
               Filter by
             </button>
     <ul class="dropdown-menu">
+      <li><a href="mentorAssignment.jsp">All</a></li>
       <li><a href="mentorAssignment.jsp?mentorType=IncubationManager">Incubation Manager</a></li>
       <li><a href="mentorAssignment.jsp?mentorType=VentureCapitalist">Venture Capitalist</a></li>
       <li><a href="mentorAssignment.jsp?mentorType=IndustryProfessional">Industry Professional</a></li>
@@ -111,7 +113,7 @@
                 %>
                
                  
-                <div class="col-lg-6 well">
+                <div class="col-lg-6 ">
                     
                     <%
                        
@@ -142,25 +144,24 @@
 
                         <div class="col-lg-12">
                             <h5><strong>Areas of Expertise: </strong></h5>
-                            <h5>
-                                <br> <%=m.getSkills()%></h5>
+                            <h5> <%=m.getSkills()%></h5>
                         </div>
 
 
                         <div class="col-lg-12">
                             <div class="col-lg-4 col-lg-offset-4">
-                                 <form action="confirmAssignment.jsp" method="post">
+                                <form action="confirmAssignment.jsp" method="post">
                                 <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
                                 <%
                                     ArrayList<Preference> preferences= PreferenceDAO.getPreferencesOfCompany(user.getCompanyid());
                                     Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
                                     if((preferences != null && preferences.size() != 0) || mentor != null){
                                 %>
-                                <button type="submit" class='btn btn-success btn-xs' disabled>View Profile </button>
+                                <button type="submit" class='btn btn-success btn-xs' disabled>Submit Preference</button>
                                 <%
                                     }else{
                                 %>
-                                <button type="submit" class='btn btn-success btn-xs'>View Profile</button>          
+                                <button type="submit" class='btn btn-success btn-xs'>Submit Preference</button>          
                                 <%
                                     }
                                 %>
@@ -170,7 +171,7 @@
                     </div>
                           <% i++;
                            if(i%2==0){
-                             out.println("</div><div class='row'>");
+                             out.println("</div> <br><div class='row'>");
                            }
                     
                         }
@@ -180,6 +181,48 @@
             </div>
            
           </div>
+                    <h3 class="col-lg-8 col-lg-offset-3 page-header">System Recommendation</h3>
+                    <div class="col-lg-8 col-lg-offset-3 well">
+                        
+                        <!--                            
+                
+                <%
+                    ArrayList<Mentor> recMentors = assignmentController.getRecommendedMentorsByStartupIndustry(user.getCompanyid());
+                %>
+                
+
+                <table class="table table-striped col-lg-9 well">
+                    <thead>
+                        <tr>
+                            <th>Mentor Name</th>
+                            <th>Mentor Company</th>
+                            <th>Mentor Skill</th>
+                            <th>Assign</th>
+                        </tr>
+                    </thead>
+                <%
+                    for (Mentor m : recMentors) {
+
+
+                %>
+
+                <tbody>
+                    <tr>
+                        <td><%=m.getName()%></td>
+                        <td><%=companyController.getCompany(m.getCompanyid()).getName()%></td>
+                        <td><%=m.getSkills()%></td>
+                        <td><button type="button" class="btn-xs btn-success">View Profile</a></td>
+                        <td><input type="hidden" name="company_id" value="<%=user.getCompanyid()%>"/></td>
+                    </tr>
+                </tbody>
+
+                <%
+                    }
+                %>
+            </table>
+            
+                    </div>  
+                    
           </div>
     </body>
 </html>

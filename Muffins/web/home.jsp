@@ -49,7 +49,7 @@
             <div class="row">
                 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h1 class="page-header">Startup Dashboard</h1>
 
                     <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3">
@@ -64,12 +64,13 @@
                             %>
                             
                             <a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"/></a>
-                            <h4>Current Task </h4>
+                            <h4>Current Task(s)</h4>
                             <%
-                            ArrayList<Task> taskList= taskController.displayTasksByCompany(userComp.getId());
+                            ArrayList<Task> taskList= taskController.displayTasksByStageAndCompany(userComp.getCurrentStage(), userComp.getId());
                             if (taskList!=null && taskList.size()!=0){
                                 out.println("<ul>");
                                 for(Task t:taskList){
+                                    if(t.getDeadline()!=null && !t.isIsCompleted())
                                     out.println("<li><span class='text-muted'>"+t.getName()+"</span></li>");
                                 }
                                  out.println("</ul>");
@@ -84,9 +85,8 @@
                             <span class="text-muted">Thursday, 14th November 2017</span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <%session.setAttribute("mentor_email", mentorEmail);%>                            
+                            <%session.setAttribute("mentor_email", mentorEmail);%>
                             <a href="displayMentorProfile.jsp">
-                                <img src="img/educator (1).png" width="100"   alt=""/>
                                 <img src="img/educator.png" width="100"   alt=""/>
                             </a>
                             

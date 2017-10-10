@@ -63,7 +63,11 @@
                                         for (Task t : tasks) {
                                             out.println("<tr>");
                                             out.println("<td>" + t.getName() + "</td>");
+                                            if(t.getDeadline()!=null){
                                             out.println("<td>" + new SimpleDateFormat("dd-MM-yyyy").format(t.getDeadline()) + "</td>");
+                                            }else{
+                                                out.println("<td>Not set</td>");
+                                            }
                                             if (t.isIsCompleted() == true) {
                                                 out.println("<td>Completed</td>");
                                                 //out.println("<td><button class='btn btn-success disabled btn-xs center-block'>completed</p></td>");

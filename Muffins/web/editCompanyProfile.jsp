@@ -53,7 +53,6 @@
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <%=status%>
                     </div>
-                </div>
                 <%
                     }
                 %>
@@ -219,10 +218,10 @@
                        
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label class="control-label">Incubation Pitch Deck Slides Format <b>.pdf</b>, Max. 2mb, Guideline <a href="https://image.ibb.co/cFoVFb/Business_Deck_Guidelines_v2.png" target="blank">here</a>
-                                    </label> <%=company.getBizFile()%>
+                                <label class="control-label">Incubation Pitch Deck Slides 
+                                    </label> <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a>
                                     
-                                <label class="control-label">Update Slides </label>
+                            <label class="control-label">Update Slides </label> <br> Format <b>.pdf</b>, Max. 2mb, Guideline <a href="https://image.ibb.co/cFoVFb/Business_Deck_Guidelines_v2.png" target="blank">here</a>
                                 <input type="file" name="biz_slides"/>
                             </div>
                             

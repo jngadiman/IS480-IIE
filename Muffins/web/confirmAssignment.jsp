@@ -41,7 +41,7 @@
                         <form action="confirmMentorPreferenceServlet" method="post">
                         <div class="col-sm-6 form-group required">
                             <label class="control-label">State your reason for request </label>
-                            <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Compulsory)" class="form-control" required>
+                            <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Mandatory)" class="form-control" required>
                             <input type="hidden" value="<%= displayedUser.getEmail()%>" name="mentorEmail">
                             <br><input type="submit" class="btn btn-xs btn-info " value="Submit">       
                         </div>

@@ -31,7 +31,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="nav col-sm-3 col-md-2 sidebar">
-                    <h3 class="nav nav-sidebar text-center"> IIE Portal</h3>
+                    <img src="img/iielogo.png" width="200px" class="nav nav-sidebar text-center" alt=""/>
+                    
                     <div class="logo">
                         <%  // display the image
                             byte[] imgData = user.getProfile_pic();
@@ -74,7 +75,13 @@
                             <%
                                 }
                             %>
-                        <li><a href="#">Meetings</a></li>
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meeting<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
+                                <li><a href="viewMeetingMinutes.jsp">View Meeting Minutes</a></li>
+                            </ul>
+                        </li>
                         <li><a href="calendar.jsp">Calendar</a></li>
                         <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>

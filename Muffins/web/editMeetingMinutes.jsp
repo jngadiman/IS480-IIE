@@ -34,8 +34,7 @@
             <%                User currentUser = (User) session.getAttribute("user");
                 int meeting_id = 1;
                 Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
-                int currentStageForCompany = currentMeeting.getMenteeCompany().getCurrentStage();
-
+                int currentStageForCompany = companyController.getCompany(user.getCompanyid()).getCurrentStage();
 
             %>
 
