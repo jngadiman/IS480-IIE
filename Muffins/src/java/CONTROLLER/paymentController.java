@@ -57,7 +57,7 @@ public class paymentController {
         
         //get voucher id
         int voucher_no = PayslipDAO.getLastPaymentVoucherID();
-        
+        System.out.println("LAST VOUCHER NUMBER "+voucher_no);
         //setting the start and end date of month and year
         LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
         LocalDate endMonth = YearMonth.of(year,month).atEndOfMonth(); //2015-12-31
@@ -82,7 +82,7 @@ public class paymentController {
         //get where voucher number = 0 which stores the base amount
         double base_amount = PayslipDAO.getPayslip(0).getAmount();
         double amount = count*base_amount;
-        Payslip payslip = new Payslip(voucher_no,mentor_email,company_id, current.getStart_date(), current.getEnd_date(), amount, null);
+        Payslip payslip = new Payslip(voucher_no,mentor_email,company_id, current.getStart_date(), current.getEnd_date(), amount, "");
         //add the payslip into the db
         PayslipDAO.addPayslip(payslip);
         relationshipController.changeRelationshipStatus(current.getRelationshipID(), "over");
@@ -190,11 +190,16 @@ public class paymentController {
         return voucherPath;
     }
     
-    public static void addVoucherPath(int voucherNo, String voucherPath){
-        PayslipDAO.addVoucherPath(voucherNo, voucherPath);
+    public static String addVoucherPath(int voucherNo, String voucherPath){
         
+        return PayslipDAO.addVoucherPath(voucherNo, voucherPath);
     }
     
+    public static double getBaseAmount(){
+        //get the base amount of the payslip
+        Payslip p = PayslipDAO.getPayslip(0);
+        return p.getAmount();
+    }
     
     public static void main(String[] args) throws IOException{
         //String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5), "C:\\Users\\JJAY\\Desktop\\SMU\\FYP\\IS480\\Muffins\\web\\");

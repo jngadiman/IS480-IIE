@@ -81,15 +81,17 @@ public class mentorPaymentServlet extends HttpServlet {
 
             //generate and print one payslip
             Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
-
+            System.out.println("VOUCHER NUMBER = "+payslip.getVoucherNumber());
             String voucherPath = "";
             String returnMsg = "";
             String voucher_path = paymentController.printPayslip(payslip, path);
+            System.out.println("VOUCHER PATH = "+voucher_path);
 //                    if (results!=null&&results.size()!=0){
 //                        voucherPath = results.get(0);
 //                        returnMsg = results.get(1);
 //                    }
-            paymentController.addVoucherPath(payslip.getVoucherNumber(), voucherPath);
+            String result = paymentController.addVoucherPath(payslip.getVoucherNumber(), voucherPath);
+            System.out.println("MENTOR PAYMENT ADD PATH RESULT "+ result);
             status = "Payment Generated, kindly check file!";
             
         }else{

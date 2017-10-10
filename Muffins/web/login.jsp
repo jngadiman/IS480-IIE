@@ -9,7 +9,13 @@
 <%
     if(session.getAttribute("user")!= null){
         //out.println("You are already Logged in!");
-        response.sendRedirect("home.jsp");
+        if(session.getAttribute("admin")!=null){
+            response.sendRedirect("adminHomepage.jsp");
+        }else if (session.getAttribute("mentor")!=null){
+            response.sendRedirect("mentorHomepage.jsp");
+        }else{
+            response.sendRedirect("home.jsp");
+        }
     }else{
         
     

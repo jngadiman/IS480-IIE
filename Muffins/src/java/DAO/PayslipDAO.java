@@ -270,12 +270,12 @@ public class PayslipDAO {
         return payslips;
     }
     
-    public static void addVoucherPath(int voucher_id, String path){
+    public static String addVoucherPath(int voucher_id, String path){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet count = null;
         int result = 0;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String returnMsg = "";
         
         try {
             conn = ConnectionManager.getConnection();
@@ -286,14 +286,19 @@ public class PayslipDAO {
             stmt.setInt(2, voucher_id);
             
             result = stmt.executeUpdate();
-          
+            
+            if (result == 0){
+                returnMsg = "An error had occured please try again!";
+            }else{
+                returnMsg = "Success!";
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(PayslipDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, count);
         }
-       
+       return returnMsg;
     
     }
     
