@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="nav col-sm-3 col-md-2 sidebar">
                     <img src="img/iielogo.png" width="200px" class="nav nav-sidebar text-center" alt=""/>
-                    
+
                     <div class="logo">
                         <%  // display the image
                             byte[] imgData = user.getProfile_pic();
@@ -61,7 +61,7 @@
                             }
                         %>
                         <li class="dropdown">
-                           <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="viewPersonalProfile.jsp">View Personal Profile</a></li>
                                 <li><a href="editPersonalProfile.jsp">Edit Personal Profile</a></li>
@@ -77,11 +77,11 @@
                             <%
                                 if (user.getUser_type().equals("regular_mentee")) {
                                     Company userComp = companyController.getCompany(user.getCompanyid());
-                                    
+
                             %>
-                        
+
                         <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=userComp.getName()%><span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=userComp.getName()%><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                                 <li><a href="editCompanyProfile.jsp">Edit Company Profile</a></li>
@@ -92,33 +92,32 @@
                             <%
                                 }
                             %>
-                         <%
+                            <%
                                 Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
-                                if (mentor!=null) {
-                                   
+                                if (mentor != null) {
+
                             %>
                         <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meeting<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meeting<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
                                 <li><a href="viewMeetingMinutes.jsp">View Meeting Minutes</a></li>
                             </ul>
                         </li>
-                            <%
-                                }
-                            %>
+                        <%                                }
+                        %>
 
                         <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                        <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
-                        <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                                <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
+                                <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                             </ul>
                         </li>
-                            <%
-                                if (user != null) {
-                                    if (user.getUser_type().equals("regular_mentee")) {
-                            %>
+                        <%
+                            if (user != null) {
+                                if (user.getUser_type().equals("regular_mentee")) {
+                        %>
                         <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
                             <%
                             } else if (user.getUser_type().equals("light_mentee")) {
@@ -144,14 +143,15 @@
                                 <li><a href="adminShowRelationships.jsp">View Relationships</a></li>
                             </ul>
                         </li>
-                        <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                        <hr />
+                        <li><button href='#' class='btn btn-xs btn-primary'>EIR</a></li>
                         <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
+                        <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                        <hr />
+                        <li><button href='#' class='btn btn-xs btn-primary'>IM</a></li>
+                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>
+                        <li><a href="paymentForMentor.jsp">Generate Payment</a></li>
 
-<!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
-                        <li><a href="paymentForMentor.jsp">Payment Vouchers</a></li>
-                        <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
-                        <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
-<!--                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>-->
 
                         <%
                         } else {
