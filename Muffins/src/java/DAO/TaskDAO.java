@@ -59,6 +59,8 @@ public class TaskDAO {
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
+                }else{
+                    deadline = null;
                 }
                 
                 
@@ -114,7 +116,10 @@ public class TaskDAO {
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
+                }else{
+                    deadline = null;
                 }
+                
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -171,7 +176,10 @@ public class TaskDAO {
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
+                }else{
+                    deadline = null;
                 }
+                
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -228,7 +236,10 @@ public class TaskDAO {
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
+                }else{
+                    deadline = null;
                 }
+                
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
@@ -288,7 +299,10 @@ public class TaskDAO {
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
-                } 
+                }else{
+                    deadline = null;
+                }
+                
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");

@@ -6,6 +6,7 @@
 package SERVLETS;
 
 import CONTROLLER.contractController;
+import CONTROLLER.relationshipController;
 import MODELS.Contract;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,6 +60,14 @@ public class imUploadContractServlet extends HttpServlet {
         
         Contract c = new Contract(rlsID, contractFile);
         String status = contractController.editContract(c);
+        int result = relationshipController.changeRelationshipStatus(c.getRlsID(), "assigned");
+        String changeStatus = "";
+        if(result == 1){
+            changeStatus = "Relationship status has been updated!";
+        }else{
+            changeStatus = "Relationship status could not be updated!";
+        }
+        request.setAttribute("changeRlsStatus", changeStatus);
         request.setAttribute("uploadStatus", status);
         response.sendRedirect("IMUploadContract.jsp");
     }

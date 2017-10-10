@@ -6,8 +6,10 @@
 package DAO;
 
 import MODELS.Company;
+import MODELS.Contract;
 import MODELS.Relationship;
 import Utility.ConnectionManager;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -420,6 +422,13 @@ public class RelationshipDAO {
             Logger.getLogger(RelationshipDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt, count);
+        }
+        
+        byte[] file = null;
+        if(result == 1){
+            Contract c = new Contract(r.getRelationshipID(), file);
+            int result1 = ContractDAO.addContract(c);
+            return result1;
         }
         
         return result;
