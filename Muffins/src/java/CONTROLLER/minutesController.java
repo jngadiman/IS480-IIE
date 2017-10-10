@@ -120,9 +120,10 @@ public class minutesController {
         return id;
     }
     
-    public static ArrayList<MeetingMinutes> getMeetingMinutesByMonthNYear(int month, int year, int company, String mentor_email){
+    public static ArrayList<MeetingMinutes> getMeetingMinutesByPeriod(Date start, Date end, int company, String mentor_email){
         ArrayList<MeetingMinutes> mm = new ArrayList<MeetingMinutes>();
-        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(month, year, company);
+        //ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(month, year, company);
+        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByPeriod(start, end, company);
         for(int m: meetings){
             ArrayList<MeetingMinutes> temp = MeetingMinutesDAO.getMeetingMinutesOfMentorByMeetingIDs(m, mentor_email);
             for(MeetingMinutes mins: temp){

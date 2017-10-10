@@ -9,15 +9,19 @@ import CONTROLLER.menteeController;
 import CONTROLLER.assignmentController;
 import CONTROLLER.companyController;
 import CONTROLLER.preferenceController;
+import CONTROLLER.profileController;
+import CONTROLLER.relationshipController;
 import MODELS.Company;
 import MODELS.Preference;
 import MODELS.Relationship;
+import MODELS.User;
 import Utility.EmailSender;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +50,7 @@ public class adminPendingRequestServlet extends HttpServlet {
         String status = "";
         
         //get mentee details frm the relationship using the company
-        
+        //request is approved
         if(request.getParameter("approve") != null){
             
             int company_id = Integer.parseInt(request.getParameter("company_id"));
@@ -96,20 +100,33 @@ public class adminPendingRequestServlet extends HttpServlet {
             
             System.out.println("status: " + status);
             if(status.equals("Preference has been edited!")){
-                //send email of the unhashed accessCode to founders
-//                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Congratulations, have been accepted into IIE Incubation. \n Kindly click on this link to register below with the access code provided: \n Access Code: "+accessCode+" \n Registeration Link: http://localhost:8084/Muffins/registerIncubationUser.jsp?id="+companyID, founders,"IIE Portal Enrollment Results")){
-//                    System.out.println("email has been sent successfully");
-//                }else{
-//                    System.out.println("email could not be sent");
-//                }
+                //add a relationship (requesting)
+                int rlsid = relationshipController.getNextRlsID();
+                Relationship rls = new Relationship(rlsid, company_id, mentor_email, "Incubator", start_date, end_date, "requesting");
+                //send email the assignment to the mentors, mentee and the IM
+                
+                Company company = companyController.getCompany(company_id);
+                User mentor = profileController.getUser(mentor_email);
+                String founders = profileController.getFoundersEmails(company);
+                String emails = mentor_email.trim()+","+founders;
+                System.out.println("ADMIN PENDING REQUEST EMAILS SENDING TO: ---------"+emails);
+                String [] toSend = emails.split(",");
+                String stakeholders = profileController.getFoundersContactNumber(company);
+                System.out.println("STAKEHOLDERS: "+stakeholders);
+                String message = "Dear "+mentor.getName() +" and "+ company.getName()+", \n You have been paired up to each other by the EIR. We have provided the contact details below to for you to contact one another. \n\n Company Information \n Company Name : "+company.getName()+"\n Company Description : "+company.getDescription()+"\n Company Founders : "+stakeholders+"\n\n Mentor Information \n Mentor Name : "+mentor.getName()+" ( "+profileController.getUser(mentor_email).getContactNumber()+" ) ";
+                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", message, toSend,"IIE Portal Mentor Assignment")){
+                    System.out.println("email has been sent successfully");
+                }else{
+                    System.out.println("email could not be sent");
+                }
 
                 //send email to EIR and admin
-                String [] admin = {"jiatung1218@gmail.com"};
-//                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName+ " have been accepted into IIE Incubation.", admin, "IIE Portal Notification")){
-//                    System.out.println("email has been sent successfully");
-//                }else{
-//                    System.out.println("email could not be sent");
-//                }
+                String [] admin = {"jiatung1218@gmail.com","huimin.sim.2015@smu.edu.sg"};
+                if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", company.getName()+ " have been assigned to "+ mentor.getName()+"\n Kindly remember to upload the contract in the portal", admin, "IIE Portal Notification")){
+                    System.out.println("email has been sent successfully");
+                }else{
+                    System.out.println("email could not be sent");
+                }
             }
             
              
@@ -121,6 +138,7 @@ public class adminPendingRequestServlet extends HttpServlet {
             int company_id = Integer.parseInt(request.getParameter("company_id"));
             
             Preference p = preferenceController.getPreference(company_id, mentor_email);
+            
             String deleteStatus = preferenceController.deletePreference(company_id, mentor_email);
             request.setAttribute("status", deleteStatus);
             

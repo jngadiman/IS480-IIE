@@ -79,7 +79,7 @@ public class MeetingDAO {
     }
     
     public static ArrayList<Integer> getMeetingOfCompanyByMonthNYear(int month, int year, int company_id){
-        
+    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -92,6 +92,65 @@ public class MeetingDAO {
         
         String startDateStr = startMonth+" 00:00:00";
         String endDateStr = endMonth+" 23:59:59";
+       
+//        Date startDate = new Date();
+//        Date endDate = new Date();
+        
+//        try{
+//            startDate = dateformat.parse(startDateStr);
+//            endDate = dateformat.parse(endDateStr);
+//            System.out.println("STARTDATE = "+startDate);
+//            System.out.println("STARTDATE FOMATTED = "+dateformat.format(startDate));
+//        }catch(ParseException e){
+//            e.printStackTrace();
+//        }
+        Timestamp startDate = java.sql.Timestamp.valueOf(startDateStr) ;
+        Timestamp endDate = java.sql.Timestamp.valueOf(endDateStr) ;
+        System.out.println("STARTDATE = "+startDate);
+        System.out.println("ENDDATE = "+endDate);
+        System.out.println("STARTDATE FOMATTED = "+dateformat.format(startDate));
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where start_time >= ? and end_time <= ? and mentee_company_id = ?;");
+            
+            stmt.setTimestamp(1, startDate);
+            stmt.setTimestamp(2, endDate);
+            
+            stmt.setInt(3, company_id);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+                
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+        
+    }
+    
+    //public static ArrayList<Integer> getMeetingOfCompanyByMonthNYear(int month, int year, int company_id){
+    public static ArrayList<Integer> getMeetingOfCompanyByPeriod(Date start, Date end, int company_id){    
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+         
+//        LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
+//        LocalDate endMonth = YearMonth.of(year,month).atEndOfMonth(); //2015-12-31
+//        
+        
+        String startDateStr = dateformat.format(start);
+        String endDateStr = dateformat.format(end);
        
 //        Date startDate = new Date();
 //        Date endDate = new Date();
@@ -319,11 +378,11 @@ public class MeetingDAO {
     
     public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
-        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
-        //ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfAttendees("example@gmail.com");
-        for(int id:meetings){
-            System.out.println("MEETING ID = "+id);
-        }
+//        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
+//        //ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfAttendees("example@gmail.com");
+//        for(int id:meetings){
+//            System.out.println("MEETING ID = "+id);
+//        }
         
         //MeetingDAO.addMeeting(m);
     }

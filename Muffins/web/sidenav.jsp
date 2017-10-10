@@ -144,21 +144,14 @@
                                 <li><a href="adminShowRelationships.jsp">View Relationships</a></li>
                             </ul>
                         </li>
-                        
-                       
+                        <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                        <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
+
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
-                        
-                        
-                        
-                        <hr />
-                        <li><button href='#' class='btn btn-xs btn-primary'>EIR</a></li>
-         <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
-         <li><a href="confirmCompany.jsp">Pending Company</a></li>
-                        <hr />
-                        <li><button href='#' class='btn btn-xs btn-primary'>IM</a></li>
-                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>
                         <li><a href="paymentForMentor.jsp">Payment Vouchers</a></li>
                         <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
+                        <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
+<!--                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>-->
 
                         <%
                         } else {
@@ -192,6 +185,7 @@
                             <%
                                 }
                             %>    
+
                         <li><a href="logout.jsp">Logout</a></li></ul>
                 </div>
             </div>
