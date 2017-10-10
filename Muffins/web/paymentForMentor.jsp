@@ -17,6 +17,7 @@
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="MODELS.Mentor"%>
 <%@page import="java.util.ArrayList"%>
+<%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -37,16 +38,16 @@
             <%            LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
                 int year = today.getYear();
+                LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
+                Date startMonthDate = java.sql.Date.valueOf(startMonth);
 
-                LocalDate endMonth = YearMonth.of(year, month).atEndOfMonth(); //2015-12-31
-
-                Date endDate = java.sql.Date.valueOf(endMonth);
+                
                 ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
                 if (overdue != null && overdue.size() != 0) {%>
             
                     <h3 class="page-header col-lg-8  col-lg-offset-2">Overdue Payment(s)</h3>
             <%for (Relationship r : overdue) {
-                    if (r.getEnd_date().after(endDate) || r.getEnd_date().equals(endDate)) {
+                    if (r.getEnd_date().before(startMonthDate)) {
                         String mentorEmail = r.getMentorEmail();
                         Mentor mentor = mentorController.getMentor(mentorEmail);
 
@@ -176,39 +177,40 @@
                         }
                     %>
                     </div>
-                    <div class="col-lg-8">
+                    
                         <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
                         <p>List of Mentoring Companies:</p>
+                        <div class="col-lg-8">
                         <%
                             //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
                             //int companyID = displayedUser.getCompanyid();
                             //Company company = companyController.getCompany(companyID);
                             String company_name = "";
-                            ArrayList<Relationship> rlsInMonthYear = relationshipController.getConfirmedRelationshipsOfMonthYear(month, year);
-                            ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentor(rlsInMonthYear, mentor.getEmail());
+                            ArrayList<Relationship> rlsInMonthYear = relationshipController.getConfirmedRelationshipsEndingMonthYear(month, year);
+                            ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentorInArrayList(rlsInMonthYear, mentor.getEmail());
                             String company_ids = "";
                             if (rls != null && rls.size() != 0) {
                                 for (Relationship r : rls) {
                                     int companyID = r.getCompanyID();
-                                    company_ids += companyID + ",";
+//                                    company_ids += companyID + ",";
                                     Company company = companyController.getCompany(companyID);
                                     if (company != null) {
                                         company_name = company.getName();
                                         int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
                         %>
-
+<div class="col-lg-5">
                         <form action ="mentorPaymentServlet" method ="post">
                             <ul class="nav nav-pills ">
                                 <input type ="hidden" name ="month" value ="<%=month%>">
                                 <input type ="hidden" name ="year" value ="<%=year%>">
                                 <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
-                                <input type ="hidden" name ="company_id" value ="<%=company_ids%>"> 
-                                <li class=""><button type="submit" class="btn btn-xm btn-primary" style='border-radius: 12px'><%= company_name%><span class="badge"><%=badge%></span></li></button>
+                                <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
+                                <li><button type="submit" class="btn" ><%= company_name%> <span class="badge"><%=badge%></span></button></li>
                             </ul> 
                         </form>
-                    </div>
-                
- </div>
+</div>
+             
+ 
  
 
                         <%
@@ -218,13 +220,16 @@
 
                     <%
                         } else {
-                            out.println("No Ending Mentoring Period!</div>");
+                            out.println("No Ending Mentoring Period!");
                         }
+
                     %>
-                </div>
+ </div>   
+  </div> 
                 <%
                     }
                 %>
+ 
  </div>
                
 

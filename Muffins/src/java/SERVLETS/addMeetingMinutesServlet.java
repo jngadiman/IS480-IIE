@@ -48,6 +48,8 @@ public class addMeetingMinutesServlet extends HttpServlet {
         String title = request.getParameter("title");
         String[] tasksCompleted = request.getParameterValues("tasks_completed");
         String comments = request.getParameter("comments");
+        String mentorRating = request.getParameter("mentor_rating");
+        System.out.println("MENTOR RATING : "+mentorRating);
 
         ArrayList<String> errorMsg = new ArrayList<String>();
         ArrayList<Integer> taskIDs = new ArrayList<Integer>();
@@ -67,7 +69,10 @@ public class addMeetingMinutesServlet extends HttpServlet {
         if (comments == null) {
             comments = " ";
         }
-
+        int rating = 0;
+        if (mentorRating!=null){
+            rating = Integer.parseInt(mentorRating);
+        }
         if (currentUser != null) {
             if (currentUser.getUser_type().equals("mentor")) {
                 mentor = currentUser.getEmail();
@@ -89,7 +94,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
             for (String task : tasksCompleted) {
                 
                 int taskID = Integer.parseInt(task);
-                meetingMinutes.add(new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail()));
+                meetingMinutes.add(new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating));
             }
             
             int status = minutesController.setMeetingMinutes(meetingMinutes);

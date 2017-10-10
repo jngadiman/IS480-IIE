@@ -72,18 +72,19 @@ public class relationshipController {
         return rls;
     }
     
-    public static ArrayList<Relationship> getConfirmedRelationshipsOfMonthYear(int month, int year){
+    public static ArrayList<Relationship> getConfirmedRelationshipsEndingMonthYear(int month, int year){
         ArrayList<Relationship> rls = new ArrayList<Relationship>();
         ArrayList<Relationship> all = RelationshipDAO.getRelationshipsEndingInMonthYear(month, year);
         for(Relationship r: all ){
-            if(!r.getStatus().equals("assigned")){
+            if(r.getStatus().equals("assigned")){
+                System.out.println("CONFIRMED RELATIONSHIP OF THAT MONTH AND YEAR "+r.getRelationshipID());
                 rls.add(r);
             }
         }
         return rls;
     }
     
-    public static ArrayList<Relationship> getRelationshipsOfMentor(ArrayList<Relationship> relationships, String mentor_email){
+    public static ArrayList<Relationship> getRelationshipsOfMentorInArrayList(ArrayList<Relationship> relationships, String mentor_email){
         ArrayList<Relationship> rls = new ArrayList<Relationship>();
         for(Relationship r: relationships){
             if(r.getMentorEmail().equals(mentor_email)){

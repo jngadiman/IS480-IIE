@@ -43,7 +43,7 @@ public class PayslipDAO {
             conn = ConnectionManager.getConnection();
             
             
-            stmt = conn.prepareStatement("INSERT INTO payment_voucher VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO payment_voucher VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, payslip.getVoucherNumber());
             stmt.setString(2, payslip.getMentor_email());
             stmt.setInt(3, payslip.getMentee_company());
@@ -55,6 +55,7 @@ public class PayslipDAO {
             stmt.setString(9, payslip.getCostCentre());
             stmt.setString(10, payslip.getGstTotalAmtPayable());
             stmt.setString(11, payslip.getInternalOrder());
+            stmt.setString(12, payslip.getPath());
             result = stmt.executeUpdate();
           
             
@@ -84,6 +85,7 @@ public class PayslipDAO {
         String cost_centre = "";
         String gst = "";
         String order = "";
+        String voucher_path = "";
         
         Payslip payslip = null;
         
@@ -114,6 +116,7 @@ public class PayslipDAO {
 //                payment_type = result.getString("payment_type");
 //                delivery = result.getString("delivery");
                 amount = Double.parseDouble(result.getString("amount"));
+                voucher_path = result.getString("voucher_path");
 //                cost_centre = result.getString("cost_centre");
 //                gst = result.getString("gst");
 //                order = result.getString("order");
@@ -125,7 +128,7 @@ public class PayslipDAO {
 //                String eventName = "Business Mentorship Payment – ("+mentee_company_name+") for period "+startDate+" to "+endDate; 
 //                String reason = "Business Mentorship Payment – ("+mentee_company_name+") for period "+startDate+" to "+endDate; 
                 
-                payslip = new Payslip(voucher_no, mentor_email, mentee_company, start,end, amount);
+                payslip = new Payslip(voucher_no, mentor_email, mentee_company, start,end, amount, voucher_path);
             }
             
             
@@ -160,6 +163,7 @@ public class PayslipDAO {
         Date end = null;        
         
         double amount = 0;
+        String voucher_path = "";
         
         
         ArrayList<Payslip> payslips = new ArrayList<Payslip>();
@@ -189,8 +193,8 @@ public class PayslipDAO {
                     }
                 }
                 amount = Double.parseDouble(result.getString("amount"));
-
-                Payslip payslip = new Payslip(voucher_no, mentor_email, mentee_company, start,end, amount);
+                voucher_path = result.getString("voucher_path");
+                Payslip payslip = new Payslip(voucher_no, mentor_email, mentee_company, start,end, amount, voucher_path);
                 payslips.add(payslip);
             }
             
@@ -222,6 +226,7 @@ public class PayslipDAO {
         Date end = null;        
         
         double amount = 0;
+        String voucher_path = "";
         
         
         ArrayList<Payslip> payslips = new ArrayList<Payslip>();
@@ -251,8 +256,9 @@ public class PayslipDAO {
                     }
                 }
                 amount = Double.parseDouble(result.getString("amount"));
+                voucher_path = result.getString("voucher_path");
 
-                Payslip payslip = new Payslip(voucher_no, mentor_email, mentee_company, start,end, amount);
+                Payslip payslip = new Payslip(voucher_no, mentor_email, mentee_company, start,end, amount, voucher_path);
                 payslips.add(payslip);
             }
             
@@ -262,6 +268,33 @@ public class PayslipDAO {
             ConnectionManager.close(conn, stmt, result);
         }
         return payslips;
+    }
+    
+    public static void addVoucherPath(int voucher_id, String path){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        int result = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            
+            stmt = conn.prepareStatement("UPDATE payment_voucher SET voucher_path = ? WHERE voucher_no = ?;");
+            stmt.setString(1, path);
+            stmt.setInt(2, voucher_id);
+            
+            result = stmt.executeUpdate();
+          
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PayslipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+       
+    
     }
     
     public static int getLastPaymentVoucherID(){

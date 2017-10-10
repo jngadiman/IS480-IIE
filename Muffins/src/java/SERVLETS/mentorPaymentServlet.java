@@ -45,61 +45,58 @@ public class mentorPaymentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String path = getServletContext().getRealPath("/");
-        
+
 //        System.out.println("testing BEFORE-------------------------------------------");
 //        System.out.println(path);
-        
         path = path.substring(0, path.length() - 9) + "web\\";
-        
+
         System.out.println("testing -------------------------------------------");
         System.out.println(path);
-        
+        String status = "";
         String mentor_email = request.getParameter("mentor_email");
         String monthStr = request.getParameter("month");
         String yearStr = request.getParameter("year");
-        String companyids = request.getParameter("company_id");
-        String [] companies = null;
-        if(companyids!=null){
-            companies = companyids.split(",");
-        }
+        String companyid = request.getParameter("company_id");
+
         Mentor mentor = mentorController.getMentor(mentor_email);
-        
+
         int month = 0;
-        if(monthStr!=null){
+        if (monthStr != null) {
             month = Integer.parseInt(monthStr);
         }
         int year = 0;
-        if(yearStr!=null){
+        if (yearStr != null) {
             year = Integer.parseInt(yearStr);
         }
-        
+
         ArrayList<MeetingMinutes> mins = new ArrayList<MeetingMinutes>();
-        
-        
-        if(companies!=null && companies.length!=0){
-            for(String c: companies){
-                if(c!=""){
-                    int id = Integer.parseInt(c);
-                
-                    //generate and print one payslip
-                    Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
-                    //String path = "./iie documents/Mentor Payment Voucher Template.doc";
-                    
-                    //FileInputStream file = FileInputStream (getServletContext().getRealPath());
-                     
-//                    if (f!=null){
-//                        file = new FileInputStream(f);
+        //view the number of meeting minutes and the minutes for the month first
+        //then after that generate (will download)
+
+        if (companyid != null && !companyid.equals("")) {
+
+            int id = Integer.parseInt(companyid);
+
+            //generate and print one payslip
+            Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
+
+            String voucherPath = "";
+            String returnMsg = "";
+            String voucher_path = paymentController.printPayslip(payslip, path);
+//                    if (results!=null&&results.size()!=0){
+//                        voucherPath = results.get(0);
+//                        returnMsg = results.get(1);
 //                    }
-//                    
-                    paymentController.printPayslip(payslip, path);
-                }
-                
-            }
+            paymentController.addVoucherPath(payslip.getVoucherNumber(), voucherPath);
+            status = "Payment Generated, kindly check file!";
+            
+        }else{
+            status = "An error occured!";
         }
-        
-        
+        request.setAttribute("status", status);
+        request.getRequestDispatcher("paymentForMentor.jsp").forward(request, response);
         
     }
 

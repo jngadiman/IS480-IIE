@@ -139,7 +139,9 @@ $( document ).ready(function() {
       
   $('#hearts').on('starrr:change', function(e, value){
     $('#count').html(value);
+    
   });
+  ratingd  
   
  
 });
@@ -217,10 +219,7 @@ $( document ).ready(function() {
                                 <label class="control-label">Title</label>
                                 <input class="col-sm-6 form-control" type ="text" name ="title" placeholder="Enter Title"> <br/>
                             </div>
-                            <div class="col-sm-6 form-group">
-                                <label class="control-label">Comment(s)</label>
-                                <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group">
@@ -250,6 +249,10 @@ $( document ).ready(function() {
                                     %>
                                 
                             </div>
+                                    <div class="col-sm-6 form-group">
+                                <label class="control-label">Comment(s)</label>
+                                <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
+                            </div>
                         </div>
                         
                         <div class="row">
@@ -258,6 +261,16 @@ $( document ).ready(function() {
                             <div id="hearts" class="starrr"></div>
                             You gave a rating of <span id="count">0</span> star(s)
                             </div>
+                            <script>
+                                function rating(){
+                                    var select = document.getElementById("count"); 
+                                    select.innerHTML = "";
+                                    innerHTML += "<input type='hidden' value='"+select+"' name='mentor_rating'>";
+                                }
+                                
+                                
+                            </script>
+                            
                         </div>
 
                         <!--                            <div class="row">
@@ -313,7 +326,6 @@ $( document ).ready(function() {
                     </form> 
                 </div>
             </div>
-        </div>
     </body>
 </html>
 <%@include file="browserCloseEvent.jsp" %>
