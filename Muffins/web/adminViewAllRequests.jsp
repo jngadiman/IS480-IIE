@@ -27,7 +27,6 @@
         <%@include file="sidenav.jsp" %>
     </head>
     <body>
-
         <div class="col-md-8 col-md-offset-3">
             <h1 class="page-header">View & Assign Mentor Requests</h1>
         </div>
@@ -35,7 +34,7 @@
             <h4>Assign Mentor to Company</h4>
             <%                if (request.getAttribute("status") != null) {
                     String status = (String) request.getAttribute("status");
-                    out.println("<h2>"+status+"</h2>");
+                    out.println("<h2>" + status + "</h2>");
                 }
             %>
             <form name="form1" method="post" action="EIRAssignment.jsp">
@@ -93,7 +92,7 @@
                     Company c = companyController.getCompany(p.getCompany_id());
                     String mentor_email = p.getMentor_email();
                     Mentor m = mentorController.getMentor(mentor_email);
-                    
+
 
                 %>
 
@@ -115,21 +114,21 @@
 
                 </tbody>
                 <!-- Modal -->
-<form name="form3" action="adminPendingRequestServlet" method="post">
-                <div id="approve<%=c.getId()%>" class="modal fade" role="dialog">
+                <form name="form3" action="adminPendingRequestServlet" method="post">
+                    <div id="approve<%=c.getId()%>" class="modal fade" role="dialog">
 
-                    <div class="modal-dialog">
+                        <div class="modal-dialog">
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
+                            <!-- Modal content-->
+                            <div class="modal-content">
 
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Approve Mentor Assignment</h4>
-                            </div>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Approve Mentor Assignment</h4>
+                                </div>
 
-                            <div class="modal-body">
-                                
+                                <div class="modal-body">
+
                                     <div class="col-sm-6 form-group required">
                                         <label class="control-label">Start Date</label>
                                         <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
@@ -140,16 +139,16 @@
                                     </div>
                                     <input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/>
                                     <input type="hidden" name="mentor_email" value="<%= p.getMentor_email()%>"/>
-                                
-                            </div>
 
-                            <div class="modal-footer">
-                                <button type="submit" name="approve" class="btn btn-xs btn-default">Submit</button>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" name="approve" class="btn btn-xs btn-default">Submit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-</form>
+                </form>
 
                 <form name="form2" action="adminPendingRequestServlet" method="post">
                     <!-- Modal -->
@@ -193,10 +192,7 @@
                                             %>
                                         </select>
                                     </div>
-                                    <div class="col-sm-6 form-group required">
-                                        <label class="control-label">Reason for Request</label>
-                                        <textarea  class="form-control" name="need"><%=p.getNeed()%></textarea>
-                                    </div> 
+
                                     <input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/>
 
 

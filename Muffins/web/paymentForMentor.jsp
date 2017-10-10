@@ -34,226 +34,238 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
+
+                    <%  String voucher = (String) request.getAttribute("voucher_link");
+                        if (voucher != null) {
+                    %>
+                    <div class="alert alert-dismissible alert-success col-lg-8 col-lg-offset-2">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Voucher successfully created!</strong> Click <a href="<%=voucher%>" class="alert-link">here</a> to download.
+                    </div>
+                    <%
+    }%>
                     <h2 class="page-header col-lg-8  col-lg-offset-2">Mentor Payment(s)</h2>
                     <%
-                    double baseAmt = paymentController.getBaseAmount();
-                    
-                    out.println("Base Amount : $"+baseAmt);
-                    out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
-                    
-                    
+                        double baseAmt = paymentController.getBaseAmount();
+                        out.println("<div class='col-lg-8 col-lg-offset-2'>");
+                        out.println("Base Amount : $" + baseAmt);
+                        out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
+                        out.println("</div>");
+
                     %>
-            <%            LocalDate today = LocalDate.now();
-                int month = today.getMonthValue();
-                int year = today.getYear();
-                LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
-                Date startMonthDate = java.sql.Date.valueOf(startMonth);
+                    <%            LocalDate today = LocalDate.now();
+                        int month = today.getMonthValue();
+                        int year = today.getYear();
+                        LocalDate startMonth = YearMonth.of(year, month).atDay(1); //2015-12-01
+                        Date startMonthDate = java.sql.Date.valueOf(startMonth);
 
-                
-                ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
-                if (overdue != null && overdue.size() != 0) {%>
-            
-                    <h3 class="page-header col-lg-8  col-lg-offset-2">Overdue Payment(s)</h3>
-            <%for (Relationship r : overdue) {
-                    if (r.getEnd_date().before(startMonthDate)) {
-                        String mentorEmail = r.getMentorEmail();
-                        Mentor mentor = mentorController.getMentor(mentorEmail);
+                        ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
+                        if (overdue != null && overdue.size() != 0) {%>
+
+                    <h3 class="col-lg-8  col-lg-offset-2">Due Payment(s)</h3>
+                    <%for (Relationship r : overdue) {
+                            if (r.getEnd_date().before(startMonthDate)) {
+                                String mentorEmail = r.getMentorEmail();
+                                Mentor mentor = mentorController.getMentor(mentorEmail);
 
 
-            %>
-
-            <div class="col-lg-8 col-lg-offset-2">
-                <div class="col-lg-12 well">
-                    <%                        // display the image
-                        imgData = mentor.getProfile_pic();
-                        if (imgData != null) {
-                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                            out.print(imgData);
                     %>
-                    <div class="col-lg-4">
-                        <img width="100" height="100" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                    </div>
 
-                    <%
-                    } else {
-                    %>
-                    <div class="col-lg-4">
-                        <img src="img/user.png" width="100" height="100" alt=""/>
-                    </div>
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="col-lg-12 well">
+                            <%                        // display the image
+                                imgData = mentor.getProfile_pic();
+                                if (imgData != null) {
+                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                    out.print(imgData);
+                            %>
+                            <div class="col-lg-4">
+                                <img width="100" height="100" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+                            </div>
 
-                    <%
-                        }
-                    %>
-                    <div class="col-lg-8">
-                        <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
-                        <p>List of Mentoring Companies:</p>
-                        <%
+                            <%
+                            } else {
+                            %>
+                            <div class="col-lg-4">
+                                <img src="img/user.png" width="100" height="100" alt=""/>
+                            </div>
 
-                            int companyID = r.getCompanyID();
-                            String company_name = "";
-                            Company company = companyController.getCompany(companyID);
-                            if (company != null) {
-                                company_name = company.getName();
-                                int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
-                        %>
+                            <%
+                                }
+                            %>
+                            <div class="col-lg-8">
+                                <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
+                                <p>List of Mentoring Companies:</p>
+                                <%
 
-                        <form action ="mentorPaymentServlet" method ="post">
-                            <ul class="nav nav-pills ">
-                                <input type ="hidden" name ="month" value ="<%=month%>">
-                                <input type ="hidden" name ="year" value ="<%=year%>">
-                                <input type ="hidden" name ="mentor_email" value ="<%=mentorEmail%>">
-                                <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
-                                <button type="submit" class="btn btn-md btn-primary"><%= company_name%> <span class="badge"><%=badge%></span></button>
-                            </ul> 
-                        </form>
-
-                        <%
-                            }
-
-                        %>
-                    </div>
-
-                    <%            %>
-                </div>
-            </div>
-
-            <%}
-
-                    }
-                }
-
-            %>
-            <%            String m = "";
-                if (month == 1) {
-                    m = "January";
-                } else if (month == 2) {
-                    m = "February";
-                } else if (month == 3) {
-                    m = "March";
-                } else if (month == 4) {
-                    m = "April";
-                } else if (month == 5) {
-                    m = "May";
-                } else if (month == 6) {
-                    m = "June";
-                } else if (month == 7) {
-                    m = "July";
-                } else if (month == 8) {
-                    m = "August";
-                } else if (month == 9) {
-                    m = "September";
-                } else if (month == 10) {
-                    m = "October";
-                } else if (month == 11) {
-                    m = "November";
-                } else if (month == 12) {
-                    m = "December";
-                }
-                //maybe set reminder to ask them to generate before end of the month
-%>
-    
-<h3 class="page-header col-lg-8  col-lg-offset-2">Mentors with Incubator Mentee Attachment ending <strong><%=m%> <%=year%></h3>
-           
- <div class="col-lg-8 col-lg-offset-2">
-               
-                <%                    byte[] mentorPhoto;
-
-                    ArrayList<Mentor> allMentors = mentorController.getMentors();
-                    for (Mentor mentor : allMentors) {
-                %>
- <div class="col-lg-12 well">
-                    <div class="col-lg-4">
-                
-                    <%                        // display the image
-                        imgData = mentor.getProfile_pic();
-                        if (imgData != null) {
-                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                            out.print(imgData);
-                    %>
-                    
-                        <img width="100" height="100" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                    
-
-                    <%
-                    } else {
-                    %>
-                    
-                        <img src="img/user.png" width="100" height="100" alt=""/>
-                    
-
-                    <%
-                        }
-                    %>
-                    </div>
-                    
-                        <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
-                        <p>List of Mentoring Companies:</p>
-                        <div class="col-lg-8">
-                        <%
-                            //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
-                            //int companyID = displayedUser.getCompanyid();
-                            //Company company = companyController.getCompany(companyID);
-                            String company_name = "";
-                            ArrayList<Relationship> rlsInMonthYear = relationshipController.getConfirmedRelationshipsEndingMonthYear(month, year);
-                            ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentorInArrayList(rlsInMonthYear, mentor.getEmail());
-                            String company_ids = "";
-                            if (rls != null && rls.size() != 0) {
-                                for (Relationship r : rls) {
                                     int companyID = r.getCompanyID();
-//                                    company_ids += companyID + ",";
+                                    String company_name = "";
                                     Company company = companyController.getCompany(companyID);
                                     if (company != null) {
                                         company_name = company.getName();
                                         int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
-                        %>
-<div class="col-lg-5">
-                        <form action ="mentorPaymentServlet" method ="post">
-                            <ul class="nav nav-pills ">
-                                <input type ="hidden" name ="month" value ="<%=month%>">
-                                <input type ="hidden" name ="year" value ="<%=year%>">
-                                <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
-                                <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
-                                <li><button type="submit" class="btn" ><%= company_name%> <span class="badge"><%=badge%></span></button></li>
-                            </ul> 
-                        </form>
-</div>
-             
- 
- 
+                                %>
 
-                        <%
-                                }
+                                <form action ="mentorPaymentServlet" method ="post">
+                                    <ul class="nav nav-pills ">
+                                        <input type ="hidden" name ="month" value ="<%=month%>">
+                                        <input type ="hidden" name ="year" value ="<%=year%>">
+                                        <input type ="hidden" name ="mentor_email" value ="<%=mentorEmail%>">
+                                        <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
+                                        <button type="submit" class="btn btn-md btn-primary"><%= company_name%> <span class="badge"><%=badge%></span></button>
+                                    </ul> 
+                                </form>
+
+                                <%
+                                    }
+
+                                %>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+
+                    <%}
+
                             }
-                        %>
-
+                        }else{
+                            %>
+                    
+                    <div class="col-lg-8 col-lg-offset-2">
+                            No overdue payment!
+                    </div>
                     <%
-                        } else {
-                            out.println("No Ending Mentoring Period!");
                         }
 
                     %>
- </div>   
-  </div> 
-                <%
-                    }
-                %>
- 
- </div>
-               
+<!--                    
+                    <%            String m = "";
+                        if (month == 1) {
+                            m = "January";
+                        } else if (month == 2) {
+                            m = "February";
+                        } else if (month == 3) {
+                            m = "March";
+                        } else if (month == 4) {
+                            m = "April";
+                        } else if (month == 5) {
+                            m = "May";
+                        } else if (month == 6) {
+                            m = "June";
+                        } else if (month == 7) {
+                            m = "July";
+                        } else if (month == 8) {
+                            m = "August";
+                        } else if (month == 9) {
+                            m = "September";
+                        } else if (month == 10) {
+                            m = "October";
+                        } else if (month == 11) {
+                            m = "November";
+                        } else if (month == 12) {
+                            m = "December";
+                        }
+                        //maybe set reminder to ask them to generate before end of the month
+                    %>
 
-                <div class="col-lg-4 col-lg-offset-4">
-                    <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
+                    <h3 class="page-header col-lg-8  col-lg-offset-2">Mentors with Incubator Mentee Attachment ending <strong><%=m%> <%=year%></h3>
+
+                    <div class="col-lg-8 col-lg-offset-2">
+
+                        <%                    byte[] mentorPhoto;
+
+                            ArrayList<Mentor> allMentors = mentorController.getMentors();
+                            for (Mentor mentor : allMentors) {
+                        %>
+                        <div class="col-lg-12 well">
+                            <div class="col-lg-4">
+
+                                <%                        // display the image
+                                    imgData = mentor.getProfile_pic();
+                                    if (imgData != null) {
+                                        String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                        out.print(imgData);
+                                %>
+
+                                <img width="100" height="100" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
+
+
+                                <%
+                                } else {
+                                %>
+
+                                <img src="img/user.png" width="100" height="100" alt=""/>
+
+
+                                <%
+                                    }
+                                %>
+                            </div>
+
+                            <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
+                            <p>List of Mentoring Companies:</p>
+                            <div class="col-lg-8">
+                                <%
+                                    //User displayedUser = profileController.displayUserDetails(mentor.getEmail());
+                                    //int companyID = displayedUser.getCompanyid();
+                                    //Company company = companyController.getCompany(companyID);
+                                    String company_name = "";
+                                    ArrayList<Relationship> rlsInMonthYear = relationshipController.getConfirmedRelationshipsEndingMonthYear(month, year);
+                                    ArrayList<Relationship> rls = relationshipController.getRelationshipsOfMentorInArrayList(rlsInMonthYear, mentor.getEmail());
+                                    String company_ids = "";
+                                    if (rls != null && rls.size() != 0) {
+                                        for (Relationship r : rls) {
+                                            int companyID = r.getCompanyID();
+        //                                    company_ids += companyID + ",";
+                                            Company company = companyController.getCompany(companyID);
+                                            if (company != null) {
+                                                company_name = company.getName();
+                                                int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
+                                %>
+                                <div class="col-lg-5">
+                                    <form action ="mentorPaymentServlet" method ="post">
+                                        <ul class="nav nav-pills ">
+                                            <input type ="hidden" name ="month" value ="<%=month%>">
+                                            <input type ="hidden" name ="year" value ="<%=year%>">
+                                            <input type ="hidden" name ="mentor_email" value ="<%=mentor.getEmail()%>">
+                                            <input type ="hidden" name ="company_id" value ="<%=companyID%>"> 
+                                            <li><button type="submit" class="btn" ><%= company_name%> <span class="badge"><%=badge%></span></button></li>
+                                        </ul> 
+                                    </form>
+                                </div>
+
+
+
+
+                                <%
+                                        }
+                                    }
+                                %>
+
+                                <%
+                                    } else {
+                                        out.println("No Ending Mentoring Period!");
+                                    }
+
+                                %>
+                            </div>   
+                        </div> 
+                        <%                    }
+                        %>
+
+                    </div>
+
+
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
+                    </div>-->
+
                 </div>
 
-            </div>
-                
-                </div>
             </div>
         </div>
-        TESTING THE LINK
-        <%  String voucher = (String)request.getAttribute("voucher_link");
-        
-        %>
-        THE VOUCHER <%=voucher%>
-    </body>
+    </div>
+
+</body>
 </html>

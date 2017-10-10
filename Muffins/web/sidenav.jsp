@@ -144,7 +144,6 @@
                                 <li><a href="adminShowRelationships.jsp">View Relationships</a></li>
                             </ul>
                         </li>
-                        <li><a href="logout.jsp">Logout</a></li></ul>
                         
                        
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
@@ -193,7 +192,7 @@
                             <%
                                 }
                             %>    
-                        
+                        <li><a href="logout.jsp">Logout</a></li></ul>
                 </div>
             </div>
         </div>
