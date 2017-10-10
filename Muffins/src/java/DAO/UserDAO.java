@@ -598,9 +598,10 @@ public class UserDAO {
             
             if(u.getProfile_pic() != null){
                 Blob blob = new SerialBlob(u.getProfile_pic());
-            
+                System.out.println("profile pic: " + u.getProfile_pic());
                 stmt.setBlob(4, blob);
             }else{
+                System.out.println("NO Profile Pic");
                 stmt.setBlob(4, (Blob) null);
             }
             

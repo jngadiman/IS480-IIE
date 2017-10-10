@@ -13,6 +13,7 @@ import MODELS.Mentee;
 import MODELS.User;
 import java.util.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -52,6 +55,21 @@ public class addUserServlet extends HttpServlet {
         String confirmPwd = request.getParameter("confirm_password");
 
         String nric = request.getParameter("nric");
+        byte[] profilePic = null;
+        InputStream inputStream = null; // input stream of the upload file
+        Part filePart = request.getPart("profile_pic");
+        if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
+            // prints out some information for debugging
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+             
+            // obtains input stream of the upload file
+            inputStream = filePart.getInputStream();
+            profilePic = IOUtils.toByteArray(inputStream);
+        }else{
+           profilePic = null;
+        }
         String comp = request.getParameter("company");
         String role = request.getParameter("role");
         String equityPercentage = request.getParameter("percentage");
@@ -89,8 +107,8 @@ public class addUserServlet extends HttpServlet {
             rd.forward(request, response);
         
         }else {
-            User user = new User(email, password, name, nric, new Date(), null, user_type,companyID , role, equity, number, nationality);
-            Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, new Date(), null, user_type, companyID, role, equity, number, nationality);
+            User user = new User(email, password, name, nric, new Date(), profilePic, user_type,companyID , role, equity, number, nationality);
+            Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, new Date(), profilePic, user_type, companyID, role, equity, number, nationality);
 
             //edit user instead of add user because the user is added once activated
             int status = registrationController.editUser(user);

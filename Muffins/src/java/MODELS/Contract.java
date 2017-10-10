@@ -14,17 +14,11 @@ import java.util.*;
 public class Contract {
     
     private int rlsID;
-    private String mentor;
-    private String admin;
     private byte[] contractFile;
-    private Date signedDate;
 
-    public Contract(int rlsID, String mentor, String admin, byte[] contractFile, Date signedDate) {
+    public Contract(int rlsID, byte[] contractFile) {
         this.rlsID = rlsID;
-        this.mentor = mentor;
-        this.admin = admin;
         this.contractFile = contractFile;
-        this.signedDate = signedDate;
     }
 
     public int getRlsID() {
@@ -35,22 +29,6 @@ public class Contract {
         this.rlsID = rlsID;
     }
 
-    public String getMentor() {
-        return mentor;
-    }
-
-    public void setMentor(String mentor) {
-        this.mentor = mentor;
-    }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
-    }
-
     public byte[] getContractFile() {
         return contractFile;
     }
@@ -59,11 +37,4 @@ public class Contract {
         this.contractFile = contractFile;
     }
 
-    public Date getSignedDate() {
-        return signedDate;
-    }
-
-    public void setSignedDate(Date signedDate) {
-        this.signedDate = signedDate;
-    }
 }

@@ -340,12 +340,12 @@ public class MenteeDAO {
     public static int editMenteeDetails(Mentee m){
         int result = 0;
         
-        //User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
-//        int userResult = UserDAO.editUser(u);
-//        
-//        if(userResult == 0){
-//            return userResult;
-//        }
+        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
+        int userResult = UserDAO.editUser(u);
+        
+        if(userResult == 0){
+            return userResult;
+        }
         
         Connection conn = null;
         PreparedStatement stmt = null;

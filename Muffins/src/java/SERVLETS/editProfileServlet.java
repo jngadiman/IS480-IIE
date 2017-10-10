@@ -72,6 +72,9 @@ public class editProfileServlet extends HttpServlet {
         }else{
            profilePic = displayUser.getProfile_pic();
         }
+        
+        System.out.println("Edit Profile Servlet: " + profilePic);
+        
         int equity = 0;
         if(equityPercentage!=null&&!(equityPercentage.equals(""))){
            equity = Integer.parseInt(equityPercentage);
@@ -85,7 +88,7 @@ public class editProfileServlet extends HttpServlet {
 //        User user = new User(email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
 //        profileController.editUserDetails(user);
         
-        if(user_type.equals("mentee")){
+        if(user_type.equals("regular_mentee")){
             
             String degree = request.getParameter("degree");
             int yearOfGrad = Integer.parseInt(request.getParameter("yearOfGrad"));
@@ -96,11 +99,12 @@ public class editProfileServlet extends HttpServlet {
             System.out.println(mentor_email);
             
             Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
-            
+            User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             status = profileController.editMentee(mentee);
+            session.setAttribute("user", user);
             request.setAttribute("updateStatus", status);
             
-        }else if(user_type.equals("mentor")){
+        }else if(user_type.equals("Incubation Manager Mentor") || user_type.equals("Venture Capitalist Mentor") || user_type.equals("Industry Professional Mentor") || user_type.equals("Entrepreneur Mentor")){
             String position = request.getParameter("position");
             String introduction = request.getParameter("introduction");
             String bankAccount = request.getParameter("bank_account");
