@@ -50,7 +50,7 @@ public class User {
         this.nric = "";
         this.joinedDate = null;
         this.profile_pic = null;
-        this.user_type = "";
+        this.user_type = "regular_mentee";
         this.role = "";
         this.equityPercentage = 0;
         this.contactNumber = 0;

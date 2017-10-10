@@ -85,6 +85,10 @@
                                             <input id="contact" type="text" name="accountName" placeholder="Enter Account Name Here.." class="form-control" required>
                                         </div>
                                         <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Account No.</label>
+                                            <input id="contact" type="text" name="accountNo" placeholder="Enter Account Number Here.." class="form-control" required>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
                                             <label class="control-label">Bank Name</label>
                                             <input id="contact" type="text" name="bankName" placeholder="Enter Bank Name Here.." class="form-control" required>
                                         </div>

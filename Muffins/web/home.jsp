@@ -66,7 +66,6 @@
                             <a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"/></a>
                             <h4>Current Task(s)</h4>
                             <%
-                                out.println("currentStage: " + userComp.getCurrentStage() + " companyID: "+ userComp.getId());
                             ArrayList<Task> taskList= taskController.displayTasksByStageAndCompany(userComp.getCurrentStage(), userComp.getId());
                             if (taskList!=null && taskList.size()!=0){
                                 out.println("<ul>");
