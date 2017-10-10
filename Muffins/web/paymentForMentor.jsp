@@ -23,7 +23,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Generate Payment Voucher for Mentor</title>
+        <title>Due Payments</title>
         <%@include file="sidenav.jsp" %>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>

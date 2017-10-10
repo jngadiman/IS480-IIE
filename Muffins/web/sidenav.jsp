@@ -148,6 +148,7 @@
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
                         <li><a href="paymentForMentor.jsp">Payment Vouchers</a></li>
                         <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
+                        <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
 <!--                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>-->
 
                         <%
@@ -182,6 +183,8 @@
                             <%
                                 }
                             %>    
+                        
+                        <li><a href="changePassword.jsp">Change Password</a></li>
                         <li><a href="logout.jsp">Logout</a></li></ul>
                 </div>
             </div>

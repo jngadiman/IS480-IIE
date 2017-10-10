@@ -69,6 +69,7 @@
             <h1 class="col-lg-10 col-lg-offset-1 well">User Registration Form</h1>
             <%
                 ArrayList<String> degrees = new ArrayList<String>();
+                degrees.add("-- select one --");
                 degrees.add("Information Systems");
                 degrees.add("Business");
                 degrees.add("Economics");
