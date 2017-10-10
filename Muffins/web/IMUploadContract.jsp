@@ -36,9 +36,10 @@
 
                         <div class ="row">
                             <%      ArrayList<Relationship> pendingRelationship = relationshipController.getAllRelationshipByStatus("requesting");
+                                    ArrayList<Relationship> assignedRelationship = relationshipController.getAllRelationshipByStatus("assigned");
 //                                out.println("No of Pending Relationship <span class='badge'>" + pendingRelationship.size() + "</span>");
-                                if (pendingRelationship != null && pendingRelationship.size() != 0) {
-
+                                if (pendingRelationship != null && pendingRelationship.size() != 0 || assignedRelationship != null && assignedRelationship.size() != 0) {
+                                    pendingRelationship.addAll(assignedRelationship);
                             %>
                             <table class="table table-striped">
                                 <thead>
@@ -107,10 +108,10 @@
                                 <%
                                     }
                                 %>
-
-                                <%}%>
                                 </tbody>
                             </table>
+                            <%}%>
+
                         </div>
                     </div>
                 </div>
