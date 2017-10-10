@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group required">
-                                        <label  class="control-label">Introduction (current company, designation, etc.):</label>
+                                        <label  class="control-label">Introduction (past companies, past working experience, etc.):</label>
                                         <textarea rows="4" cols="50" id="introduction" maxlength="200000" type="text" name="introduction" placeholder="Enter Introduction about Yourself Here.." class="form-control" required></textarea>
                                         <!--select class="form-control" id="select" name="company" required>
                                         <%--

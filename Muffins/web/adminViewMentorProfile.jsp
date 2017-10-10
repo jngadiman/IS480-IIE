@@ -38,9 +38,10 @@
                                 <p><font size="+3">replace with user name</font></p>
                                 <p><strong>Email Address</strong> : replace with user email</p>
                                 <p><strong>NRIC</strong> : replace with user nric</p>
+                                <p><strong>Company Name</strong> : replace with mentor company name</p>
+                                <p><strong>Designation</strong> : replace with mentor designation</p>
                             </div>
                         </div>
-
 
                         <div class ="row">
                             <div class="col-sm-9 form-group">
@@ -51,12 +52,24 @@
                         <div class ="row">
                             <div class="col-sm-6 form-group">
                                 <p><strong>Skills</strong> : replace with user skill</p>
-                                <%// }%>
+                                
                             </div>   
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-10 col-lg-offset-1 well form-group required">
+                                <h4><strong>Bank Account Details</strong></h4>
+                                <p><strong>Mail Address</strong> : replace with user mail address</p>
+                                <p><strong>Account Name</strong> : replace with user account name</p>
+                                <p><strong>Bank Name</strong> : replace with user bank name</p>
+                                <p><strong>Swift Code</strong> : replace with user swift code</p>
+                                <p><strong>Bank Address</strong> : replace with user bank address</p>
+
+                            </div>	
                         </div>
                     </div>
                     <br>
-                    <a href="adminEditMentorProfile.jsp" class="btn btn-success btn-xs">Edit</a></p>	
+                    <a href="adminHomepage.jsp" class="btn btn-success btn-xs">Back to Homepage</a></p>	
                 </div>
 
             </div>
