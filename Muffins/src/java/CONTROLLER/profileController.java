@@ -14,6 +14,7 @@ import MODELS.Mentee;
 import MODELS.Mentor;
 import MODELS.User;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -87,10 +88,49 @@ public class profileController {
         return user;
     }
     
+    public static String getFoundersContactNumber(Company comp){
+        String contact = "";
+        String [] stakeholders = comp.getStakeholders();
+        
+        if(stakeholders!=null){
+            for(String email: stakeholders){
+                User temp = profileController.getUser(email);
+                if(temp!=null){
+                    int number = temp.getContactNumber();
+                    String name = temp.getName();
+                    contact+= name+ " ( "+number+") \n";
+                }
+                
+                
+                
+            }
+        }
+        return contact;
+    }
+    
+    public static String getFoundersEmails(Company comp){
+        String emails = "";
+        String [] stakeholders = comp.getStakeholders();
+        
+        for(int x = 0; x<stakeholders.length; x++ ){
+            String s = stakeholders[x].trim();
+            if (x == (stakeholders.length - 1) ){
+                emails+=s;
+            }else{
+                emails += s+",";
+            }
+            
+        }
+        return emails;
+    }
+    
     public static void main(String[] args){
 //        Mentee m = new Mentee("huimin1@hotmail.com", "abc123", "huimin1", "S7657328Y", null, "mentee", 1, "light" , "economics", 2010, "huimin@hotmail.com");
 //        String result = profileController.editMentee(m);
 //        System.out.println(result);
+          Company company = companyController.getCompany(7);
+           System.out.println("FOUNDERS CONTACT "+ profileController.getFoundersEmails(company));
+           
         
     }
     

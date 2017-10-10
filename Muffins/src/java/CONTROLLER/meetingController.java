@@ -73,6 +73,7 @@ public class meetingController {
     }
     
      //get meetings by month and year
+    //public static ArrayList<Meeting> getMeetingsByMonthNYearNCompany(int month, int year, int company){
     public static ArrayList<Meeting> getMeetingsByMonthNYearNCompany(int month, int year, int company){
         ArrayList<Meeting> meetings = new ArrayList<Meeting>();
         ArrayList<Integer> ids= MeetingDAO.getMeetingOfCompanyByMonthNYear(month, year, company);

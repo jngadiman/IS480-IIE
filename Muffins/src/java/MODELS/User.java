@@ -47,6 +47,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.companyid = companyid;
+        this.nric = "";
+        this.joinedDate = null;
+        this.profile_pic = null;
+        this.user_type = "";
+        this.role = "";
+        this.equityPercentage = 0;
+        this.contactNumber = 0;
+        this.nationality = "";
+        
     }
     
     public String getEmail(){
