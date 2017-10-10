@@ -127,7 +127,7 @@ public class registerCompanyServlet extends HttpServlet {
         
         
         //email admin and founders that the company is registered
-        String [] admin = {"jiatung1218@gmail.com"};
+        String [] admin = {"jiatung1218@gmail.com", "huimin.sim.2015@smu.edu.sg"};
         if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear founders of "+name+ ", \n Application to IIE is currently being proccessed, we will send you an email once the application is accepted! \n Thank you! ", stakeholders, "IIE Portal Application Success")){
             System.out.println("email has been sent successfully");
         }else{

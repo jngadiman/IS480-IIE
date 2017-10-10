@@ -205,6 +205,10 @@ public class paymentController {
         return baseAmount;
     }
     
+    public static String setBaseAmount(double baseAmt){
+        return PayslipDAO.updateBaseAmount(baseAmt);
+    }
+    
     public static void main(String[] args) throws IOException{
         //String payslip = paymentController.printPayslip(new Payslip(6,"mentor1@hotmail.com",5,new Date(), new Date(),23.5), "C:\\Users\\JJAY\\Desktop\\SMU\\FYP\\IS480\\Muffins\\web\\");
         //String numMM = paymentController.printPayslip(payslip);

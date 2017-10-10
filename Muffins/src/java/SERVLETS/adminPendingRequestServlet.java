@@ -99,17 +99,20 @@ public class adminPendingRequestServlet extends HttpServlet {
             System.out.println(pref.getCompany_id());
             
             System.out.println("status: " + status);
-            if(status.equals("Preference has been edited!")){
+            if(!status.equals("")){
                 //add a relationship (requesting)
-                int rlsid = relationshipController.getNextRlsID();
-                Relationship rls = new Relationship(rlsid, company_id, mentor_email, "Incubator", start_date, end_date, "requesting");
+//                int rlsid = relationshipController.getNextRlsID();
+//                Relationship rls = new Relationship(rlsid, company_id, mentor_email, "Incubator", start_date, end_date, "requesting");
+                //relationshipController.addRelationship(rls);
                 //send email the assignment to the mentors, mentee and the IM
-                
                 Company company = companyController.getCompany(company_id);
+                System.out.println("COMPANY: ---------"+company);
+                System.out.println("MENTOR EMAIL: ---------"+mentor_email.trim());
                 User mentor = profileController.getUser(mentor_email);
+                System.out.println("MENTOR: ---------"+mentor);
                 String founders = profileController.getFoundersEmails(company);
                 String emails = mentor_email.trim()+","+founders;
-                System.out.println("ADMIN PENDING REQUEST EMAILS SENDING TO: ---------"+emails);
+                System.out.println("ADMIN PENDING REQUEST EMAILS SENDING TO: ---------"+mentor_email.trim());
                 String [] toSend = emails.split(",");
                 String stakeholders = profileController.getFoundersContactNumber(company);
                 System.out.println("STAKEHOLDERS: "+stakeholders);
@@ -127,8 +130,9 @@ public class adminPendingRequestServlet extends HttpServlet {
                 }else{
                     System.out.println("email could not be sent");
                 }
+             
+               
             }
-            
              
             request.setAttribute("status", status);
             

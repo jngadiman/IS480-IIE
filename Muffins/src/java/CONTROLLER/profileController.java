@@ -129,7 +129,7 @@ public class profileController {
 //        String result = profileController.editMentee(m);
 //        System.out.println(result);
           Company company = companyController.getCompany(7);
-           System.out.println("FOUNDERS CONTACT "+ profileController.getFoundersEmails(company));
+           System.out.println("FOUNDERS CONTACT "+ profileController.getUser("jiatung.lim.2014@sis.smu.edu.sg"));
            
         
     }
