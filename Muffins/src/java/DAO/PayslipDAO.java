@@ -271,6 +271,7 @@ public class PayslipDAO {
     }
     
     public static String addVoucherPath(int voucher_id, String path){
+        System.out.println("PATH IN THE DAO (ADDVPATH) "+path);
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet count = null;

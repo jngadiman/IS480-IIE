@@ -59,7 +59,7 @@ public class mentorPaymentServlet extends HttpServlet {
         String monthStr = request.getParameter("month");
         String yearStr = request.getParameter("year");
         String companyid = request.getParameter("company_id");
-
+        String voucher_path = "";
         Mentor mentor = mentorController.getMentor(mentor_email);
 
         int month = 0;
@@ -82,18 +82,19 @@ public class mentorPaymentServlet extends HttpServlet {
             //generate and print one payslip
             Payslip payslip = paymentController.generatePayslip(month, year, mentor_email, id);
             System.out.println("VOUCHER NUMBER = "+payslip.getVoucherNumber());
-            String voucherPath = "";
+            
             String returnMsg = "";
-            String voucher_path = paymentController.printPayslip(payslip, path);
+            voucher_path = paymentController.printPayslip(payslip, path);
             System.out.println("VOUCHER PATH = "+voucher_path);
 //                    if (results!=null&&results.size()!=0){
 //                        voucherPath = results.get(0);
 //                        returnMsg = results.get(1);
 //                    }
-            String result = paymentController.addVoucherPath(payslip.getVoucherNumber(), voucherPath);
+            String result = paymentController.addVoucherPath(payslip.getVoucherNumber(), voucher_path);
             System.out.println("MENTOR PAYMENT ADD PATH RESULT "+ result);
             status = "Payment Generated, kindly check file!";
             
+            request.setAttribute("voucher_link", path+voucher_path);
         }else{
             status = "An error occured!";
         }
