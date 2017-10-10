@@ -250,6 +250,10 @@
                 </div>
             </div>
         </div>
-
+        TESTING THE LINK
+        <%  String voucher = (String)request.getAttribute("voucher_link");
+        
+        %>
+        THE VOUCHER <%=voucher%>
     </body>
 </html>
