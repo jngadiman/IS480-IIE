@@ -32,7 +32,7 @@
                     <div class="col-lg-4 well">
                         <%  // display the image
                             byte[] imgDataComp = c.getCompanyLogo();
-                            if (imgData != null) {
+                            if (imgDataComp != null) {
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataComp));
                         %>
                         <div align="center"><img width="120" height="120" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="Profile Picture" /></div>

@@ -4,6 +4,7 @@
     Author     : Jennefer Ngadiman
 --%>
 
+<%@page import="MODELS.Mentor"%>
 <%@page import="MODELS.Company"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="java.util.Base64"%>
@@ -75,6 +76,11 @@
                             <%
                                 }
                             %>
+                         <%
+                                Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
+                                if (mentor!=null) {
+                                   
+                            %>
                         <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meeting<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -82,6 +88,10 @@
                                 <li><a href="viewMeetingMinutes.jsp">View Meeting Minutes</a></li>
                             </ul>
                         </li>
+                            <%
+                                }
+                            %>
+                        
                         <li><a href="calendar.jsp">Calendar</a></li>
                         <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                         <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
