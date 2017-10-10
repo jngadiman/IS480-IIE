@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-2">
                     <h2 class="page-header col-lg-9  col-sm-offset-2">Mentor-Mentee Relationships</h2>
-                    need to show filter!!!!!!
+
                     <%      ArrayList<Relationship> pendingRelationship = relationshipController.getAllRelationshipByStatus("requesting");
                         out.println("<h3 class='page-header col-lg-9 col-sm-offset-2'>Pending Relationship(s) <span class='badge'>" + pendingRelationship.size() + "</span></h3>");
 
@@ -54,12 +54,12 @@
                                     <%
                                         }
                                     %>
-
-                                    <%}%>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <%}%>
+
                 </div>
             </div>
             <div class="row">
@@ -96,12 +96,12 @@
                                     <%
                                         }
                                     %>
-
-                                    <%}%>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <%}%>
+
                 </div>
             </div>
 
@@ -139,12 +139,12 @@
                                     <%
                                         }
                                     %>
-
-                                    <%}%>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <%}%>
+
                 </div>
             </div>
         </div>

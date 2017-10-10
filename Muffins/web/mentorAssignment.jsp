@@ -91,35 +91,53 @@
                     <%                    if (session.getAttribute("addPreferenceStatus") != null) {
                             String status = (String) session.getAttribute("addPreferenceStatus");
                     %>
-                    <div class="col-lg-10 col-lg-offset-1">
+                    <div class="alert alert-dismissible alert-success col-lg-10">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <p><%=status%></p>
                     </div>
                     <%
                         }
 
                         ArrayList<Mentor> mentors = null;
-
                         if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
                             String mentorType = request.getParameter("mentorType");
                             session.setAttribute("mentorType", mentorType);
                             mentors = mentorController.getMentorsByType(mentorType);
+                            if (mentorType.equals("Entrepreneur")) {
+                                out.print("<div class='col-lg-12'>");
+                                out.print("<h4>Entrepreneur Mentor(s)</h4>");
+                                out.print("</div>");
+                            }else if(mentorType.equals("VentureCapitalist")){
+                                out.print("<div class='col-lg-12'>");
+                                out.print("<h4>Venture Capitalist Mentor(s)</h4>");
+                                out.print("</div>");
+                            }else if(mentorType.equals("IndustryProfessional")){
+                                out.print("<div class='col-lg-12'>");
+                                out.print("<h4>Industry Professional Mentor(s)</h4>");
+                                out.print("</div>");
+                            }else{
+                                out.print("<div class='col-lg-12'>");
+                                out.print("<h4>Incubation Manager Mentor(s)</h4>");
+                                out.print("</div>");
+                            }
+                            
                         } else {
                             mentors = MentorDAO.getMentors();
                         }
 
                         if (mentors == null || mentors.size() == 0) {
-                            out.println("There is no mentors in this category! Please choose another category!");
+                            out.println("There is no mentor in this category! Please choose another category!");
                         }
 
                         int i = 0;
                         for (Mentor m : mentors) {
+
                     %>
 
 
                     <div class="col-lg-6 ">
 
-                        <%
-                            Company c = companyController.getCompany(m.getCompanyid());
+                        <%                            Company c = companyController.getCompany(m.getCompanyid());
                             // display the image
                             byte[] imgDataM = m.getProfile_pic();
                             if (imgDataM != null) {
@@ -185,7 +203,7 @@
                         <p>* Not eligible: you have existing mentor or you have already previously states your preferences</p>
                     </div>
                 </div>
-                        
+
 
             </div>
             <!--<h3 class="col-lg-8 col-lg-offset-3 page-header">System Recommendation</h3>
@@ -231,7 +249,7 @@
                 </div>  
                 
       </div>-->
-            
+
         </div>
     </div>
 </body>
