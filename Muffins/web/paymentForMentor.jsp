@@ -35,6 +35,14 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h2 class="page-header col-lg-8  col-lg-offset-2">Mentor Payment(s)</h2>
+                    <%
+                    double baseAmt = paymentController.getBaseAmount();
+                    
+                    out.println("Base Amount : $"+baseAmt);
+                    out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
+                    
+                    
+                    %>
             <%            LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
                 int year = today.getYear();

@@ -579,7 +579,7 @@ public class CompanyDAO {
         return next;
     }
     
-     public static boolean deleteCompany(int companyID){
+    public static boolean deleteCompany(int companyID){
         
         Connection conn = null;
         int numRecordsUpdated = 0;

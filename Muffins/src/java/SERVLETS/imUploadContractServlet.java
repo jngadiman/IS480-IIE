@@ -5,6 +5,8 @@
  */
 package SERVLETS;
 
+import CONTROLLER.contractController;
+import MODELS.Contract;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -49,6 +51,16 @@ public class imUploadContractServlet extends HttpServlet {
             contractFile = IOUtils.toByteArray(inputStream);
         }
         
+        int rlsID = 0;
+        String rlsIDStr = request.getParameter("relationship_id");
+        if(rlsIDStr != null && !rlsIDStr.isEmpty()){
+            rlsID = Integer.parseInt(rlsIDStr);
+        }
+        
+        Contract c = new Contract(rlsID, contractFile);
+        String status = contractController.editContract(c);
+        request.setAttribute("uploadStatus", status);
+        response.sendRedirect("IMUploadContract.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
