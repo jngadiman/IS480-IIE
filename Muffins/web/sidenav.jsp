@@ -65,6 +65,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="viewPersonalProfile.jsp">View Personal Profile</a></li>
                                 <li><a href="editPersonalProfile.jsp">Edit Personal Profile</a></li>
+                                <li><a href="changePassword.jsp">Change Password</a></li>
                             </ul>
                         </li>
 
@@ -143,13 +144,27 @@
                                 <li><a href="adminShowRelationships.jsp">View Relationships</a></li>
                             </ul>
                         </li>
-                        <li><a href="confirmCompany.jsp">Pending Company</a></li>
-                        <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
+                        <li><a href="logout.jsp">Logout</a></li></ul>
+                        
+                       
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
+                        
+                        
+                        
+                        <hr />
+                        <li><button href='#' class='btn btn-xs btn-primary'>EIR</a></li>
+         <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
+         <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                        <hr />
+                        <li><button href='#' class='btn btn-xs btn-primary'>IM</a></li>
+                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>
                         <li><a href="paymentForMentor.jsp">Payment Vouchers</a></li>
                         <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
+<<<<<<< HEAD
                         <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
 <!--                        <li><a href="IMUploadContract.jsp">IM Upload Contract</a></li>-->
+=======
+>>>>>>> 6a350241d18d48b64032e5d875fcbd6451c8c76d
 
                         <%
                         } else {
@@ -184,8 +199,11 @@
                                 }
                             %>    
                         
+<<<<<<< HEAD
                         <li><a href="changePassword.jsp">Change Password</a></li>
                         <li><a href="logout.jsp">Logout</a></li></ul>
+=======
+>>>>>>> 6a350241d18d48b64032e5d875fcbd6451c8c76d
                 </div>
             </div>
         </div>
