@@ -93,7 +93,7 @@
                     %>
                     <div class="alert alert-dismissible alert-success col-lg-10">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <p><%=status%></p>
+                        <h3 style="color:red;"><strong><%=status%></strong></h3>
                     </div>
                     <%
                         }
