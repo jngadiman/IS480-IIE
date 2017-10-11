@@ -23,7 +23,7 @@
                 <h1 class="page-header">Pending Companies</h1>
                 <%            ArrayList<String> status = (ArrayList<String>) request.getAttribute("status");
                     if (status != null && status.size() != 0) {
-                        out.print("<div align='center'>" + status.get(0) + "</div>");
+                        out.print("<div align='center'>" + status.get(0) + "</div><br><br>");
                     }
                     ArrayList<Company> pendingCompanies = companyController.getCompaniesInStage(0);
                     out.println("No of Pending Companies <span class='badge'>" + pendingCompanies.size() + "</span>");
@@ -183,7 +183,7 @@
                 <h1 class="page-header">Shortlisted Companies</h1>
                 <%
                     if (status != null && status.size() != 0) {
-                        out.print(status.get(0));
+                        //out.print(status.get(0));
 
                     }
 
