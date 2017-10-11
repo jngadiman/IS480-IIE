@@ -99,7 +99,7 @@
 
                     </tbody>
                 </table>
-                *click on the button to change status<br><br>
+                
                 
                 </div>
                       <p class="text-center">

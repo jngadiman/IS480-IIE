@@ -48,6 +48,11 @@ public class mentorController {
         return mentors;
     }
     
+    public static String addMentor(Mentor m){
+        String status = MentorDAO.addMentor(m);
+        return status;
+    }
+    
     public static void main(String[] args){
         ArrayList<Mentor> mentors = mentorController.getMentorsByType("IncubationManager");
         for(Mentor m: mentors){

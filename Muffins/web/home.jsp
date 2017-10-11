@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-xs-6 col-sm-3 ">
                             <%
-                             Company userComp = companyController.getCompany(user.getCompanyid());
+                             Company userComp = companyController.getCompany(m.getCompanyid());
                             %>
                             
                             <a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"/></a>

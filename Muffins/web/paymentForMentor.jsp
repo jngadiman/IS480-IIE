@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.net.URL"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.time.YearMonth"%>
 <%@page import="CONTROLLER.paymentController"%>
@@ -28,37 +29,43 @@
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-
-
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
+                    <%  String voucher = (String) request.getAttribute("voucher_link");
+                                if (voucher != null) {
+                    %>
+                    <div class="alert alert-dismissible alert-success col-lg-8 col-lg-offset-2">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Voucher successfully created!</strong> Click <a href="<%=voucher%>" target="blank">here</a> to download.
+                    </div>
+                    <%
+                                }
+                    %>
                     <h2 class="page-header col-lg-8  col-lg-offset-2">Mentor Payment(s)</h2>
                     <%
-                    double baseAmt = paymentController.getBaseAmount();
-                    
-                    out.println("Base Amount : $"+baseAmt);
-                    out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
-                    
-                    
-                    %>
-            <%            LocalDate today = LocalDate.now();
+                        double baseAmt = paymentController.getBaseAmount();
+                        out.println("<div class='col-lg-8 col-lg-offset-2'>");
+                        out.println("Base Per Session Amount : $" + baseAmt);
+                        out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
+                        out.println("</div>");
+                        
+                        LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
                 int year = today.getYear();
-                LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
-                Date startMonthDate = java.sql.Date.valueOf(startMonth);
+                //LocalDate startMonth = YearMonth.of(year,month).atDay(1); //2015-12-01
+                Date todayDate = java.sql.Date.valueOf(today);
 
                 
                 ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
                 if (overdue != null && overdue.size() != 0) {%>
             
-                    <h3 class="page-header col-lg-8  col-lg-offset-2">Overdue Payment(s)</h3>
+                    <h3 class="page-header col-lg-8 col-lg-offset-2">Due Payment(s)</h3>
             <%for (Relationship r : overdue) {
-                    if (r.getEnd_date().before(startMonthDate)) {
+                    if (r.getEnd_date().before(todayDate)) {
                         String mentorEmail = r.getMentorEmail();
                         Mentor mentor = mentorController.getMentor(mentorEmail);
-
+                        
 
             %>
 
@@ -94,7 +101,8 @@
                             Company company = companyController.getCompany(companyID);
                             if (company != null) {
                                 company_name = company.getName();
-                                int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
+                                
+                                int badge = paymentController.getCountMeetingMinutesByMentorNCompany(r.getStart_date(), r.getEnd_date(), companyID, mentorEmail);
                         %>
 
                         <form action ="mentorPaymentServlet" method ="post">
@@ -120,6 +128,10 @@
             <%}
 
                     }
+                } else{
+                    out.println("<div class='col-lg-8 col-lg-offset-2'>");
+                    out.println("No Due Payment!");
+                    out.println("</div>");
                 }
 
             %>
@@ -152,7 +164,7 @@
                 //maybe set reminder to ask them to generate before end of the month
 %>
     
-<h3 class="page-header col-lg-8  col-lg-offset-2">Mentors with Incubator Mentee Attachment ending <strong><%=m%> <%=year%></h3>
+ <!---<h3 class="page-header col-lg-8  col-lg-offset-2">Mentors with Incubator Mentee Attachment ending <strong><%=m%> <%=year%></h3>
            
  <div class="col-lg-8 col-lg-offset-2">
                
@@ -204,7 +216,8 @@
                                     Company company = companyController.getCompany(companyID);
                                     if (company != null) {
                                         company_name = company.getName();
-                                        int badge = paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
+                                        int badge = 0;
+                                                //paymentController.getCountOfMonthYearByMentorNCompany(month, year, companyID, mentor.getEmail());
                         %>
 <div class="col-lg-5">
                         <form action ="mentorPaymentServlet" method ="post">
@@ -245,15 +258,10 @@
                     <a href='' class='btn btn-success btn-md' style='border-radius: 12px'><center>Generate All Payment Vouchers</center></a>
                 </div>
 
-            </div>
+            </div>-->
                 
                 </div>
             </div>
-        </div>
-        TESTING THE LINK
-        <%  String voucher = (String)request.getAttribute("voucher_link");
-        
-        %>
-        THE VOUCHER <%=voucher%>
+        </div> 
     </body>
 </html>

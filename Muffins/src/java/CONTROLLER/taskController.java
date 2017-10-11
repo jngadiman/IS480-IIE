@@ -103,11 +103,10 @@ public class taskController {
     }
     
     public static void main(String[] args){
-        int taskID = taskController.getNextTaskID();
-        Date deadline = new Date();
-        Task task = new Task(taskID, "eat, sleep, play!", deadline, 1, 2, true);
-        String result = taskController.addTaskToCompany(task);
-        System.out.println(result);
+        ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(1, 15);
+        for(Task t: tasks){
+            System.out.println(t.getName());
+        }
     }
         
 }

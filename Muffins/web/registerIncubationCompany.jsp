@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Company Registration</title>
+        <title>Startup Company Registration Form</title>
         <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
@@ -25,11 +25,11 @@
 
         %>
         <div class="container">
-            <h1 class="col-lg-10 well col-sm-offset-1">Company Registration Form</h1>
+            <h1 class="col-lg-10 well col-sm-offset-1">Startup Company Registration Form</h1>
             <%                String registerStatus = (String) request.getAttribute("registerCompanyStatus");
                 if (registerStatus != null && !registerStatus.isEmpty()) {
                     if(registerStatus.equals("Success!")){
-                        out.println("<h5 class='col-lg-10 col-sm-offset-1'>Your company application is succesful, please check your email for confirmation!</h5>");
+                        out.println("<h5 class='col-lg-10 col-sm-offset-1'>Your company application is successful, please check your email for confirmation!</h5>");
                     }else{
                     out.println("<h5 class='col-lg-10 col-sm-offset-1'>" + registerStatus + "</h5>");
                     }

@@ -46,11 +46,12 @@ public class mentorPaymentServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String path = getServletContext().getRealPath("/");
+        //String path = getServletContext().getRealPath("/");
 
 //        System.out.println("testing BEFORE-------------------------------------------");
 //        System.out.println(path);
-        path = path.substring(0, path.length() - 9) + "web\\";
+        //path = path.substring(0, path.length() - 9) + "web";
+        String path = "http://52.221.210.214//Muffins//web";
 
         System.out.println("testing -------------------------------------------");
         System.out.println(path);

@@ -303,6 +303,39 @@ public class PayslipDAO {
     
     }
     
+    public static String updateBaseAmount(double baseAmount){
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
+        int result = 0;
+        String returnMsg = "";
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+            
+            stmt = conn.prepareStatement("UPDATE payment_voucher SET amount = ? WHERE voucher_no = ?;");
+            stmt.setDouble(1, baseAmount);
+            stmt.setInt(2, 0);
+            
+            result = stmt.executeUpdate();
+            
+            if (result == 0){
+                returnMsg = "An error had occured please try again!";
+            }else{
+                returnMsg = "Success!";
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PayslipDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+       return returnMsg;
+    
+    }
+    
     public static int getLastPaymentVoucherID(){
         Connection conn = null;
         PreparedStatement stmt = null;

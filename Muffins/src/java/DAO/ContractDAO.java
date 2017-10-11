@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import CONTROLLER.contractController;
 import Utility.ConnectionManager;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -140,5 +141,11 @@ public class ContractDAO {
             ConnectionManager.close(conn, stmt);
         }
         return result;
+    }
+    
+    public static void main(String[] args){
+        Contract c = contractController.getContract(4);
+        System.out.println(c.getRlsID());
+        System.out.println(c.getContractFile());
     }
 }

@@ -43,9 +43,9 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 public class paymentController {
     
     
-    public static int getCountOfMonthYearByMentorNCompany(int month, int year, int company, String mentor_email){
+    public static int getCountMeetingMinutesByMentorNCompany(Date startDate, Date endDate, int company, String mentor_email){
         
-        ArrayList<MeetingMinutes> mins = minutesController.getMeetingMinutesByMonthNYear(month, year, company, mentor_email);
+        ArrayList<MeetingMinutes> mins = minutesController.getMeetingMinutesByPeriod(startDate, endDate, company, mentor_email);
         int count = 0;
         for(MeetingMinutes m: mins){
             count++;
@@ -78,7 +78,7 @@ public class paymentController {
             }
         }
         //get the number of meeting minutes count within the period
-        int count = paymentController.getCountOfMonthYearByMentorNCompany(month, year, company_id, mentor_email);
+        int count = paymentController.getCountMeetingMinutesByMentorNCompany(current.getStart_date(), current.getEnd_date(), company_id, mentor_email);
         //get where voucher number = 0 which stores the base amount
         double base_amount = PayslipDAO.getPayslip(0).getAmount();
         double amount = count*base_amount;
@@ -203,6 +203,10 @@ public class paymentController {
             baseAmount = p.getAmount();
         }
         return baseAmount;
+    }
+    
+    public static String setBaseAmount(double baseAmt){
+        return PayslipDAO.updateBaseAmount(baseAmt);
     }
     
     public static void main(String[] args) throws IOException{

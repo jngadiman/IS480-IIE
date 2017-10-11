@@ -77,6 +77,9 @@ public class addUserServlet extends HttpServlet {
         String nationality = request.getParameter("nationality");
         String user_type = request.getParameter("user_type");
         String course = request.getParameter("course");
+        if(course.equals("-- select one --")){
+            course = "";
+        }
         String yrOfGrad = request.getParameter("yrOfGrad");
         String errorMsg = "";
 

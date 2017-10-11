@@ -5,26 +5,21 @@
  */
 package SERVLETS;
 
-import CONTROLLER.contractController;
-import CONTROLLER.relationshipController;
-import MODELS.Contract;
+import CONTROLLER.paymentController;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import org.apache.commons.io.IOUtils;
 
 /**
  *
- * @author Hui Min
+ * @author JJAY
  */
-@WebServlet(name = "imUploadContractServlet", urlPatterns = {"/imUploadContractServlet"})
-public class imUploadContractServlet extends HttpServlet {
+@WebServlet(name = "adminBaseAmountServlet", urlPatterns = {"/adminBaseAmountServlet"})
+public class adminBaseAmountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,38 +33,14 @@ public class imUploadContractServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        byte[] contractFile = null;
-        InputStream inputStream = null; // input stream of the upload file
-        Part filePart = request.getPart("contract");
-        if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
-            // prints out some information for debugging
-            System.out.println(filePart.getName());
-            System.out.println(filePart.getSize());
-            System.out.println(filePart.getContentType());
-             
-            // obtains input stream of the upload file
-            inputStream = filePart.getInputStream();
-            contractFile = IOUtils.toByteArray(inputStream);
+        String base = request.getParameter("baseAmt");
+        String successMsg = "";
+        if(base!=null){
+            double baseAmt = Double.parseDouble(base);
+            successMsg = paymentController.setBaseAmount(baseAmt);
         }
-        
-        int rlsID = 0;
-        String rlsIDStr = request.getParameter("relationship_id");
-        if(rlsIDStr != null && !rlsIDStr.isEmpty()){
-            rlsID = Integer.parseInt(rlsIDStr);
-        }
-        
-        Contract c = new Contract(rlsID, contractFile);
-        String status = contractController.editContract(c);
-        int result = relationshipController.changeRelationshipStatus(c.getRlsID(), "assigned");
-        String changeStatus = "";
-        if(result == 1){
-            changeStatus = "Relationship status has been updated!";
-        }else{
-            changeStatus = "Relationship status could not be updated!";
-        }
-        request.setAttribute("changeRlsStatus", changeStatus);
-        request.setAttribute("uploadStatus", status);
-        response.sendRedirect("IMUploadContract.jsp");
+        request.setAttribute("successMsg", successMsg);
+        request.getRequestDispatcher("paymentForMentor.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
