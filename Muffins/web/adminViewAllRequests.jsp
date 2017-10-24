@@ -49,7 +49,7 @@
                         %>
                     </select>
                 </div>
-                <button type="submit" class="btn-sm btn-primary" name="setMentorBtn">Submit</button>
+                <button type="submit" class="btn-sm btn-primary" name="setMentorBtn">Assign</button>
             </form>
 
         </div>
