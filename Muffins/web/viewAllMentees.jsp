@@ -51,7 +51,10 @@
                             int companyID = displayedUser.getCompanyid();
                             Company company = companyController.getCompany(companyID);%><br>
                         <span class="label label-primary"><%=company.getName()%></span><br><br>
-                        <a href='displayProfile.jsp?email=<%=mentee.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>  
+                        <form action='displayEachMenteeProfile.jsp' method='post'>
+                            <input type='hidden' name='mentee_email' value=<%=mentee.getEmail()%>>
+                            <button type='submit' class='btn btn-success btn-xs'>View Profile</button>
+                        </form>
                     </div>
                     <div class="col-lg-1"></div>
                     <%
