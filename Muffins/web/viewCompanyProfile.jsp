@@ -36,25 +36,43 @@
                 <h1 class="page-header col-lg-9 col-lg-offset-2">View Company Profile</h1>
                 <div class="col-lg-9 well col-lg-offset-2">
                     <div class="row">
-                        <div class="col-sm-6 form-group">
+                        <div class="col-sm-12 form-group">
 
                             <%  // display the image
                                 byte[] imgDataComp = company.getCompanyLogo();
                                 if (imgDataComp != null) {
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataComp));
                             %>
-                            <img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  alt="images Here" />
+                            <img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  class="img-responsive center-block" alt="images Here" />
                             <%
                             } else {
                             %>
-                            <img width="200" src="img/factory.png"  alt="images Here" /><%
+                            <img width="200" src="img/factory.png"  class="img-responsive center-block" alt="images Here" /><%
                                 }
+                                
+                                 out.println("<h3 class='text-center'>"+company.getName()+"</h3>");
                             %>
 
-                            <p><font size="+3"><%= company.getName()%></font></p>
+                            
                                 <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                             <label class="control-label">Start Date</label> : <%=startDate%>
-                            <p><strong>Company Current Stage</strong> : <%= company.getCurrentStage()%></p>
+                            <%
+                                String stageName = "";
+                                int stageNo = company.getCurrentStage();
+                                if(stageNo==1){
+                                    stageName = "1. Business model validation stage";
+                                }else if(stageNo==2){
+                                    stageName = "2. Innovation Development stage";
+                                }else if(stageNo==3){
+                                    stageName = "3. Go-To-Market & early customer acquisition stage";
+                                }else if(stageNo==4){
+                                    stageName = "4. Business Plan/Financial Modelling stage";
+                                }else{
+                                
+                            }
+                                
+                            %>
+                            <p><strong>Company Current Stage</strong> : <%=stageName%> </p>
                             <%Industry industry = industryController.getIndustry(company.getIndustry());
                                 if (industry != null) {
                                     //industry still cannot edit properly%>
@@ -168,22 +186,46 @@
                     <div class="row">
                         <div class="col-sm-6 form-group required">
                             <p><strong>Product Differentiation</strong> :<br> 
-                                <%= company.getProductDiff()%></p>
+                                <%
+                                if(company.getProductDiff()==null){
+                                    out.println("To be populated");
+                                }else{
+                                    out.println(company.getProductDiff());
+                                }
+                                %>
                         </div>	
                         <div class="col-sm-6 form-group required">
-                            <p><strong>Revenue Model</strong> :<br> 
-                                <%= company.getRevenueModel()%></p>
+                            <strong>Revenue Model</strong> :<br> 
+                            <%
+                                if(company.getRevenueModel()==null){
+                                    out.println("To be populated");
+                                }else{
+                                    out.println(company.getRevenueModel());
+                                }
+                                %>
                         </div>	
                     </div>
 
                     <div class="row">
                         <div class="col-sm-6 form-group required">
-                            <p><strong>Traction</strong> :<br> 
-                                <%= company.getTraction()%></p>
+                            <strong>Traction</strong> :<br> 
+                                <%
+                                if(company.getTraction()==null){
+                                    out.println("To be populated");
+                                }else{
+                                    out.println(company.getTraction());
+                                }
+                                %>
                         </div>	
                         <div class="col-sm-6 form-group required">
-                            <p><strong>Deployment of Funds</strong> :<br> 
-                                <%= company.getDeployOfFunds()%></p>
+                            <strong>Deployment of Funds</strong> :<br> 
+                               <%
+                                if(company.getDeployOfFunds()==null){
+                                    out.println("To be populated");
+                                }else{
+                                    out.println(company.getDeployOfFunds());
+                                }
+                                %>
                         </div>	
                     </div>
 

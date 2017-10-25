@@ -103,7 +103,7 @@
                 
                 </div>
                       <p class="text-center">
-                <a href="stages.jsp" class="btn btn-primary btn-xs ">Back to Stages</a>
+                <a href="stages.jsp" class="btn btn-primary btn-xs ">Go to Stages</a>
                 <a href="addTask.jsp" class="btn btn-success btn-xs "> Add Task</a>
 
             </p>

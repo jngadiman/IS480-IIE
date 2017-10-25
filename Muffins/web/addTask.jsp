@@ -62,10 +62,10 @@
                             <label for="inputTaskStage" class="col-lg-4 control-label">Stage</label>
                             <div class="col-lg-7">
                                 <select class="form-control" id="select" name="taskStage">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
+                                    <option value="1">1. Business model validation stage</option>
+                                    <option value="2">2. Innovation Development stage</option>
+                                    <option value="3">3. Go-To-Market & early customer acquisition stage</option>
+                                    <option value="4">4. Business Plan/Financial Modelling stage</option>
                                 </select>
                             </div>	
                         </div>
@@ -74,14 +74,14 @@
                             <!-- Date input -->
                             <label for="inputDate" class="col-lg-4 control-label">Deadline</label>
                             <div class="col-lg-7">
-                                <input class="form-control"  name="date" placeholder="yyyy-MM-dd" type="text"/>
+                                <input class="form-control"  name="date" placeholder="DD/MM/YYYY" type="text"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-8 col-lg-offset-4">
 
                                 <button type="reset" class="btn btn-default">Reset</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Add Task</button>
 
                             </div>
 

@@ -40,7 +40,7 @@
 
                     <div class="col-sm-10 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                            <div class="col-sm-offset-3">
+                            <div class="col-sm-offset-2">
                                 <%                                // display the image
                                     byte[] imgDataMentor = userMentor.getProfile_pic();
                                     if (imgDataMentor != null) {
@@ -56,7 +56,7 @@
                                     }
                                 %>
                             </div>
-                            <h2><%= userMentor.getName()%></h2>
+                            <h3 class="text-center"><%= userMentor.getName()%></h3>
 
 
                             <p><strong>Email Address</strong> : <%= userMentor.getEmail()%></p>

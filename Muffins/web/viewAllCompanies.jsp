@@ -29,7 +29,7 @@
                             int company_id = c.getId();
 
                     %>
-                    <div class="col-lg-4 well">
+                    <div class="col-lg-3 well">
                         <%  // display the image
                             byte[] imgDataComp = c.getCompanyLogo();
                             if (imgDataComp != null) {
@@ -43,12 +43,13 @@
                             <%
                                 }
                             %>
-                        <h2><%=c.getName()%></h2>
+                        <h4><%=c.getName()%></h4>
                         <form action='displayEachCompanyProfile.jsp' method='post'>
                             <input type='hidden' name='company_id' value=<%=company_id%>>
                             <button type='submit' class='btn btn-success btn-xs'>View Profile</button>
                         </form>
                     </div>
+                            <div class="col-lg-1"></div>
                     <%      i++;
                             if (i % 3 == 0) {
                                 out.println("</div><div class='row'>");

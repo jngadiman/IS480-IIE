@@ -33,7 +33,7 @@
 
                     %>
 
-                    <div class="col-lg-4 well fixed">
+                    <div class="col-lg-3 well fixed">
                         <%  // display the image
                             if (imgData != null) {
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
@@ -46,13 +46,14 @@
                             <%
                                 }
                             %>
-                        <h3><%=mentee.getName()%></h3>
+                        <h4><%=mentee.getName()%></h4>
                         <% User displayedUser = profileController.displayUserDetails(mentee.getEmail());
                             int companyID = displayedUser.getCompanyid();
                             Company company = companyController.getCompany(companyID);%><br>
                         <span class="label label-primary"><%=company.getName()%></span><br><br>
                         <a href='displayProfile.jsp?email=<%=mentee.getEmail()%>' class='btn btn-success btn-xs'>View Profile</a>  
                     </div>
+                    <div class="col-lg-1"></div>
                     <%
                             i++;
                             if (i % 3 == 0) {

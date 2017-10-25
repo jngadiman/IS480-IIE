@@ -35,7 +35,7 @@
 
                     %>
 
-                    <div class="col-lg-4 well">
+                    <div class="col-lg-3 well">
                         <%                        // display the image
                             imgData = mentor.getProfile_pic();
                             if (imgData != null) {
@@ -51,7 +51,7 @@
                             }
                         %>
 
-                        <h2><%=mentor.getName()%></h2>
+                        <h4><%=mentor.getName()%></h4>
                         <%
 
                             User displayedUser = profileController.displayUserDetails(mentor.getEmail());
@@ -70,6 +70,8 @@
                             <button type="submit" name="viewMentor" value="View Profile" class='btn btn-success btn-xs'>View Profile</button>
                         </form>
                     </div>
+                            
+                            <div class="col-lg-1"></div>
                     <%
                             i++;
                             if (i % 3 == 0) {

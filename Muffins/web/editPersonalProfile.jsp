@@ -76,28 +76,36 @@
                         <%  // display the image
                             if (imgData == null) {
                         %>
-                        <img src="img/user.png" width="200px" alt=""/>
+                        <img src="img/user.png" class="img-responsive center-block" width="200px" alt=""/>
                         <%
                         } else {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                         %>
-                        <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" width="200px"/>
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" class="img-responsive center-block" alt="Profile Picture" width="200px"/>
 
                         <%}%>
+                        
+                        <h3 class='text-center'><%= user.getName()%></h3>
                         <br/>
                         <br/>
-                        Select image to upload:
+                        Change profile picture:
                         <input type="file" name="profilePhoto">
+                         <br/>
 
-                        <h2><%= user.getName()%></h2>
                         <div class='row'>
                             <div class="col-sm-6 form-group">
                                 <label>Email Address</label>
                                 <input name="email" type="text" placeholder="Enter Email Address.." class="form-control" value="<%= user.getEmail()%>" required>
-
+                                
+                            </div>
+                                
+                                <div class="col-sm-6 form-group">
+                                <label>NRIC</label>
+                                <input name="email" type="text" placeholder="Enter NIRC.." class="form-control" value="<%= user.getNric()%>" required>
+                                
                             </div>
                         </div>
-                        <p><strong>NRIC</strong> : <%= user.getNric()%></p>
+                      
                         <input type="hidden" name="email" value="<%= user.getEmail()%>">
                         <input type="hidden" name="password" value="<%= user.getPassword()%>">
                         <input type="hidden" name="name" value="<%= user.getName()%>">
@@ -131,8 +139,8 @@
 
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Nationality</strong> : <%=user.getNationality()%></p>
-                            </div>
+                                <p><strong>Nationality</strong> : <%@include file="nationality.jsp" %>
+                                </p></div>
 
                         </div>
 
@@ -199,7 +207,7 @@
                         <%
                             }
                         %>
-                        <button type="submit" class="btn btn-lg btn-info">Submit</button>
+                        <button type="submit" class="btn btn-md btn-success center-block">Save</button>
 
                     </form> 
 

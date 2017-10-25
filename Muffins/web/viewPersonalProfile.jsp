@@ -34,22 +34,26 @@
                     <div class="col-lg-9 well col-sm-offset-2">
                         <div class ="row">
 
-                            <div class="col-sm-9 form-group">
+                            <div class="col-sm-12 form-group">
                                 <%  // display the image
                                     if (imgData == null) {
                                 %>
-                                <img src="img/user.png" width="200px" alt=""/>
+                                <img src="img/user.png" class="img-responsive center-block" width="200px" alt=""/>
                                 <%
                                 } else {
                                     String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                 %>
-                                <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" width="200px"/>
+                                <img src="data:image/gif;base64,<%= imgDataBase64%>" class="img-responsive center-block" alt="Profile Picture" width="200px"/>
                                 <%}%>
                             </div>
                         </div>
                         <div class ="row">
+                            <div class="col-sm-12 form-group">
+                                <h3 class='text-center'><%= user.getName()%></h3>
+                            </div>
+                        </div>
+                        <div class ="row">
                             <div class="col-sm-6 form-group">
-                                <p><font size="+3"><%= user.getName()%></font></p>
                                 <p><strong>Email Address</strong> : <%= user.getEmail()%></p>
                                 <p><strong>NRIC</strong> : <%= user.getNric()%></p>
                             </div>
@@ -63,7 +67,7 @@
                                 if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
                                     Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                     mentor_name = myMentor.getName();
-                                }else{
+                                } else {
                                     mentor_name = "N.A";
                                 }
                                 String company_name = "";
@@ -71,7 +75,7 @@
                                     Company c = companyController.getCompany(mentee.getCompanyid());
                                     company_name = c.getName();
                                 }
-                                        
+
 
                         %>
                         <div class="row">
@@ -97,17 +101,17 @@
                             <div class="col-sm-6 form-group">
                                 <p><strong>Mentor </strong> : <%= mentor_name%></p>
                             </div>
-                            
+
                         </div>
-                            
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
-                                    <p><strong>Primary Degree</strong> : <%= mentee.getDegree()%></p>
-                                </div>
-                                <div class="col-sm-6 form-group">
-                                    <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
-                                </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <p><strong>Primary Degree</strong> : <%= mentee.getDegree()%></p>
                             </div>
+                            <div class="col-sm-6 form-group">
+                                <p><strong>Year of Graduation</strong> : <%= mentee.getYear_of_grad()%></p>
+                            </div>
+                        </div>
 
                         <%} else if (type.equals("mentor")) {
                             Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
@@ -132,7 +136,7 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <p><strong>Skills</strong> : <%= mentor.getSkills()%></p>
-                                    <% }%>
+                                <% }%>
                             </div>                
                         </div>
                     </div>             
@@ -140,7 +144,7 @@
                 </div>
             </div>
         </div>                 
-    <div class="text-center"><a href="editPersonalProfile.jsp" class="btn-sm btn-success">Edit Profile</a></div>
-</body>
+        <div class="text-center"><a href="editPersonalProfile.jsp" class="btn-sm btn-success">Edit Profile</a></div>
+    </body>
 
 </html>
