@@ -102,17 +102,8 @@
                         <div class="row">
                             <div class="col-sm-6 form-group required">
                                 <!-- NEED TO SHOW THE CURRENT STAGE FROM DB-->
-                                <label class="control-label">Current Stage</label> 
-                                <select class="form-control" name="stage" required>
-                                    <option selected value = <%= company.getCurrentStage()%> ><%= company.getCurrentStage()%></option>
-                                    <% for (Integer s : stages) {
-                                            if (company.getCurrentStage() != s) {%>
-                                    <option value='<%=s%>'><%=s%></option>
-                                    <%      }
-                                        }
-                                    %>
-
-                                </select>
+                                <label class="control-label">Current Stage</label><br>
+                                <input name="current-stage" type="text" class="form-control" value="<%= company.getCurrentStage()%>" disabled >
 
                             </div>
                         

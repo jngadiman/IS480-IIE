@@ -96,12 +96,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=userComp.getName()%><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewCompanyProfile.jsp">View Start-up Profile</a></li>
-                                <li><a href="editCompanyProfile.jsp">Edit Start-up Profile</a></li>
+                                <li><a href="viewCompanyProfile.jsp">My Company Profile</a></li>
+                                <li><a href="editCompanyProfile.jsp">Edit My Company Profile</a></li>
                             </ul>
                         </li>
                         <li><a href="stages.jsp">Progress</a></li>
-                        <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">View Current Tasks</a></li>
+                        <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">Current Stage & Tasks</a></li>
                             <%
                                 }
                             %>

@@ -34,8 +34,8 @@
 
 
                 %>
-                <h1 class='page-header'>Task List Stage <%=stage%></h1>
-                <p>The tasks for the current stage are shown below:</p>            
+                <h1 class='page-header'>You Are Now at Stage <%=stage%></h1>
+                <h2 class="page-header">The tasks for the current stage are shown below:</h2>            
 
                 <%                    out.println("<tr>");
 
@@ -99,12 +99,13 @@
 
                     </tbody>
                 </table>
+                         <p class="text-center">
+                <a href="stages.jsp" class="btn btn-primary btn-xs ">Go to Stages</a>
+                <a href="addTask.jsp" class="btn btn-success btn-xs "> Add Task</a>
                 
                 
                 </div>
-                      <p class="text-center">
-                <a href="stages.jsp" class="btn btn-primary btn-xs ">Go to Stages</a>
-                <a href="addTask.jsp" class="btn btn-success btn-xs "> Add Task</a>
+                     
 
             </p>
                 
