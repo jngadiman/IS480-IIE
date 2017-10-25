@@ -56,11 +56,11 @@
                 <%
                     }
                 %>
-
+               
                 <form action="editCompanyServlet" method="post" enctype="multipart/form-data">
                     <div class="col-sm-9 well col-sm-offset-2">
                         <div class="row">
-                            <div>
+                            
                                 <input type="hidden" name="companyID" value="<%= company.getId()%>">
                                 <br/>
                                 <div class="col-sm-12 form-group required">
@@ -80,13 +80,12 @@
                                         out.println("<h3 class='text-center'>"+company.getName()+"</h3>");
                                     %>
                                     <br/>
-                                    
+                                     <div class="col-sm-6 form-group required">
                                     Change company logo:
                                     <input type="file" name="companyLogo">
-                                    
-                                </div>
+                                     </div>
                             </div>
-                        </div>
+                        
 
                         <div class="row">
                             <div class="col-sm-6 form-group required">
