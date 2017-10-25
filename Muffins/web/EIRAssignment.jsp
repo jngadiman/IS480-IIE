@@ -23,9 +23,10 @@
         <%@include file="sidenav.jsp" %>
     </head>
     <body>
-        <%            Integer companyId = Integer.parseInt(request.getParameter("companyWNoMentor"));
+        <%            
+            String compID = request.getParameter("companyWNoMentor");
+            int companyId = Integer.parseInt(compID);
             Company c = companyController.getCompany(companyId);
-
         %>
 
         <div class="col-lg-9 col-lg-offset-2">

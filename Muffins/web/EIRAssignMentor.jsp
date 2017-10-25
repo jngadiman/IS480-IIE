@@ -23,7 +23,6 @@
                     out.println("<h2>" + status + "</h2>");
                 }
             %>
-            <form name="form1" method="post" action="EIRAssignment.jsp">
                 <% int i = 0;
                     ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
                     for (Company company : companyWoMentor) {
@@ -43,14 +42,17 @@
                             }
                         %>
                     <h2><center><%=company.getName()%></center></h2>
+                    <form method="post" action="EIRAssignment.jsp">
                     <div class="col-md-4 col-md-offset-4">
+                        <input type="hidden" name="companyWNoMentor" value="<%= company.getId()%>"/>
                         <button type="submit" class="btn-sm btn-primary" name="setMentorBtn">Assign</button>
                     </div>
+                    </form>
                 </div>
                 <%
                     }
                 %>
-            </form>
+            
         </div>
     </body>
 </html>
