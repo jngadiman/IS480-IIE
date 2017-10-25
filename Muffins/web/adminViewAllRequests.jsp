@@ -28,31 +28,9 @@
     </head>
     <body>
         <div class="col-md-8 col-md-offset-3">
-            <h1 class="page-header">View & Assign Mentor Requests</h1>
+            <h1 class="page-header">Pending Mentor Requests</h1>
         </div>
-        <div class="col-md-8 well col-md-offset-3">
-            <h4>Assign Mentor to Company</h4>
-            <%                if (request.getAttribute("status") != null) {
-                    String status = (String) request.getAttribute("status");
-                    out.println("<h2>" + status + "</h2>");
-                }
-            %>
-            <form name="form1" method="post" action="EIRAssignment.jsp">
-                <div class="col-md-8 form-group" required>
-                    <select class="form-control" id="mentor" name="companyWNoMentor" required>
-                        <% ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
-                            for (Company company : companyWoMentor) {
-                        %>
-                        <option value="<%= company.getId()%>"><%= company.getName()%></option>
-                        <%
-                            }
-                        %>
-                    </select>
-                </div>
-                <button type="submit" class="btn-sm btn-primary" name="setMentorBtn">Assign</button>
-            </form>
-
-        </div>
+        
 
         <!--            <ul class="nav nav-tabs">
                         <li class="active"><a href="#incubation" data-toggle="tab" aria-expanded="true">Incubation <span class="badge">10</span></a></li>

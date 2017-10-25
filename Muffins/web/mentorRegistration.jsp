@@ -19,12 +19,13 @@
     <body>
         <div class="container">
             <div class="col-lg-10 col-lg-offset-1">
-                <h1 class="page-header col-lg-10 col-lg-offset-1">Mentor Registration Form</h1>
-                <div class="col-lg-10 well col-lg-offset-1">
+                <h1 class="page-header col-lg-12">Mentor Registration Form</h1>
+                <div class="col-lg-12 well">
                     <div class="row">
 
                         <form action = "addUserServlet" method ="post" name="registerUser" onsubmit="return validateForm()">
-                            <div class="col-sm-10 col-lg-offset-1">
+                            <div class="col-sm-12">
+                                <h3 class="page-header"><strong>Personal Information</strong></h3>
                                 <div class="row">
                                     <input type = "hidden" name ="user_type" value ="mentor">
                                     <div class="col-sm-6 form-group required">
@@ -60,6 +61,10 @@
 
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <h3 class="page-header"><strong>Career Information</strong></h3>
 
                                 <div class="row">
                                     <div class="col-sm-6 form-group required">
@@ -71,40 +76,13 @@
                                         <label class="control-label">Designation</label>
                                         <input id="contact" type="text" name="designation" placeholder="Enter Your Designation Here.." class="form-control" required>
                                     </div>	
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 well form-group required">
-                                        <label class="col-sm-12">Bank Account Details</label>
+                                    <div class = "col-lg-12 form-group required">
+                                        <label><strong>Skills:</strong></label>
+                                        <textarea rows="4" cols="50" id="skills" maxlength="200000" type="text" name="skills" placeholder="Enter Your Skills here, Break Each Skill with ', ' in between (E.g., 'Software Engineering, Project Management')" class="form-control" required></textarea>
 
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Mail Address</label>
-                                            <input id="nric" type="text" name="mailAddress" placeholder="Enter Your Mail Address Here.." class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Account Name</label>
-                                            <input id="contact" type="text" name="accountName" placeholder="Enter Account Name Here.." class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Account No.</label>
-                                            <input id="contact" type="text" name="accountNo" placeholder="Enter Account Number Here.." class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Bank Name</label>
-                                            <input id="contact" type="text" name="bankName" placeholder="Enter Bank Name Here.." class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Swift Code</label>
-                                            <input id="contact" type="text" name="swiftCode" placeholder="Enter Swift Code Here.." class="form-control" required>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Bank Address</label>
-                                            <input id="contact" type="text" name="bankAddress" placeholder="Enter Bank Address Here.." class="form-control" required>
-                                        </div>
-                                    </div>	
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 form-group required">
-                                        <label  class="control-label">Introduction (past companies, past working experience, etc.):</label>
+                                    </div>
+                                    <div class="col-lg-12 form-group required">
+                                        <label><strong>Introduction (past companies, past working experience, etc.):</strong></label>
                                         <textarea rows="4" cols="50" id="introduction" maxlength="200000" type="text" name="introduction" placeholder="Enter Introduction about Yourself Here.." class="form-control" required></textarea>
                                         <!--select class="form-control" id="select" name="company" required>
                                         <%--
@@ -115,25 +93,51 @@
                                         --%>
                                     </select>-->
                                     </div>
-                                    <div class = "col-lg-12">
-                                        <h4><strong>Skills:</strong></h4>
-                                        <textarea rows="4" cols="50" id="skills" maxlength="200000" type="text" name="skills" placeholder="Enter Your Skills here, Break Each Skill with ', ' in between (E.g., 'Software Engineering, Project Management')" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 form-group required">
+                                <h3 class="page-header"><strong>Bank Account Information</strong></h3>
 
-                                    </div>
-
-                                    <div class="col-sm-12 form-group required">
-                                        <label class="control-label">Required Fields</label>
-                                    </div>	
-
-                                </div>   
-
-
-                                <a href="adminViewMentorProfile.jsp" class="btn btn-success btn-xs">Create Now!</a></p>	
-                        </form> 
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Mail Address</label>
+                                    <input id="nric" type="text" name="mailAddress" placeholder="Enter Your Mail Address Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Account Name</label>
+                                    <input id="contact" type="text" name="accountName" placeholder="Enter Account Name Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Account No.</label>
+                                    <input id="contact" type="text" name="accountNo" placeholder="Enter Account Number Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Bank Name</label>
+                                    <input id="contact" type="text" name="bankName" placeholder="Enter Bank Name Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Swift Code</label>
+                                    <input id="contact" type="text" name="swiftCode" placeholder="Enter Swift Code Here.." class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Bank Address</label>
+                                    <input id="contact" type="text" name="bankAddress" placeholder="Enter Bank Address Here.." class="form-control" required>
+                                </div>
+                            </div>	
                     </div>
+
+                    <div class="col-sm-12 form-group required">
+                        <label class="control-label">Required Fields</label>
+                    </div>	
                 </div>
+                <a href="adminViewMentorProfile.jsp" class="btn btn-success btn-xs">Create Now!</a></p>	
             </div>
-        </div>
-    </div>
+
+
+
+        </div>   
+
+
+
+    </form> 
 
 </body>

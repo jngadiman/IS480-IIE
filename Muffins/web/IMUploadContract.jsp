@@ -53,11 +53,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%                            for (Relationship rs : pendingRelationship) {
+                                    <%                            
+                                        byte[] contract = null;
+                                        for (Relationship rs : pendingRelationship) {
                                             String mentorName = mentorController.getMentor(rs.getMentorEmail()).getName();
                                             String companyName = companyController.getCompany(rs.getCompanyID()).getName();
-                                            byte[] contract = contractController.getContract(rs.getRelationshipID()).getContractFile();
-
+                                            try{
+                                            contract = contractController.getContract(rs.getRelationshipID()).getContractFile();
+                                            } catch (Exception E){
+                                                //do nothing
+                                            }
                                     %>
                                     <tr>
                                         <td><%=companyName%></td>

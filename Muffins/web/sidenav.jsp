@@ -58,8 +58,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewPersonalProfile.jsp">View Personal Profile</a></li>
-                                <li><a href="editPersonalProfile.jsp">Edit Personal Profile</a></li>
+                                <li><a href="viewPersonalProfile.jsp">My Profile</a></li>
+                                <li><a href="editPersonalProfile.jsp">Edit My Profile</a></li>
                                 <li><a href="changePassword.jsp">Change Password</a></li>
                             </ul>
                         </li>
@@ -70,8 +70,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewPersonalProfile.jsp">View Personal Profile</a></li>
-                                <li><a href="editPersonalProfile.jsp">Edit Personal Profile</a></li>
+                                <li><a href="viewPersonalProfile.jsp">My Profile</a></li>
+                                <li><a href="editPersonalProfile.jsp">Edit My Profile</a></li>
                                 <li><a href="changePassword.jsp">Change Password</a></li>
                             </ul>
                         </li>
@@ -96,12 +96,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=userComp.getName()%><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
-                                <li><a href="editCompanyProfile.jsp">Edit Company Profile</a></li>
+                                <li><a href="viewCompanyProfile.jsp">View Start-up Profile</a></li>
+                                <li><a href="editCompanyProfile.jsp">Edit Start-up Profile</a></li>
                             </ul>
                         </li>
-                        <li><a href="stages.jsp">Company Progress</a></li>
-                        <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">Schedule</a></li>
+                        <li><a href="stages.jsp">Progress</a></li>
+                        <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">View Current Tasks</a></li>
                             <%
                                 }
                             %>
@@ -123,7 +123,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewAllCompanies.jsp">Companies</a></li>
+                                <li><a href="viewAllCompanies.jsp">Start-up Companies</a></li>
                                 <li><a href="viewAllMentors.jsp">Mentors</a></li>
                             </ul>
                         </li>
@@ -150,13 +150,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewAllCompanies.jsp">Companies</a></li>
-                                <li><a href="viewAllMentees.jsp">Start-ups(Users)</a></li>
+                                <li><a href="viewAllCompanies.jsp">Start-up Companies</a></li>
+                                <li><a href="viewAllMentees.jsp">Start-up Owners</a></li>
                                 <li><a href="viewAllMentors.jsp">Mentors</a></li>
-                                <li><a href="adminShowRelationships.jsp">View Relationships</a></li>
+                                <li><a href="adminShowRelationships.jsp">Relationships</a></li>
                             </ul>
                         </li>
-                        <li><a href="changePassword.jsp">Change Password</a></li>
                         <li><a href="logout.jsp">Logout</a></li></ul>
 
 
@@ -167,13 +166,13 @@
                     <hr />
                     <li><button href='#' class='btn btn-xs btn-primary'>EIR</a></li>
                     <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
-                    <li><a href="confirmCompany.jsp">Pending Company</a></li>
+                    <li><a href="EIRAssignMentor.jsp">Assign Mentor</a></li>
+                    <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
                     <hr />
                     <li><button href='#' class='btn btn-xs btn-primary'>IM</a></li>
-                    <li><a href="IMUploadContract.jsp">Upload Contract</a></li>
-                    <li><a href="paymentForMentor.jsp">Payment Vouchers</a></li>
-                    <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
                     <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
+                    <li><a href="paymentForMentor.jsp">Mentor Payment</a></li>
+                    <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
                     <hr />
 
 
@@ -188,17 +187,17 @@
                             }
                         %>
                     <li><a href="#">Meetings</a></li>
-                    <li><a href="calendar.jsp">Calendar</a></li>
-                    <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
-                    <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
+                    <li><a href="calendar.jsp">Schedule</a></li>
+                    <li><a href="viewCompanyProfile.jsp">View Start-up Profile</a></li>
+                    <li><a href="viewAllCompanies.jsp">Start-ups</a></li>
                         <%
                             if (user.getUser_type().equals("admin")) {
                         %>
-                    <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
+                    <li><a href="viewAllMentees.jsp">Start-ups</a></li>
                         <%
                             }
                         %>
-                    <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
+                    <li><a href="viewAllMentors.jsp">Mentors</a></li>
                         <%
                             if (user.getUser_type().equals("regular_mentee")) {
                         %>
@@ -209,7 +208,7 @@
                         <%
                             }
                         %>    
-                   
+                    <li><a href="changePassword.jsp">Change Password</a></li>
                     <li><a href="logout.jsp">Logout</a></li></ul>
                 </div>
             </div>

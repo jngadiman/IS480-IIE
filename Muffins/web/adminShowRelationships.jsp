@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-2">
                     <%      ArrayList<Relationship> overRelationship = relationshipController.getAllRelationshipByStatus("over");
-                        out.println("<h3 class='page-header col-lg-9 col-sm-offset-2'>Over Relationship(s) <span class='badge'>" + overRelationship.size() + "</span></h3>");
+                        out.println("<h3 class='page-header col-lg-9 col-sm-offset-2'>Past Relationship(s) <span class='badge'>" + overRelationship.size() + "</span></h3>");
 
                         if (overRelationship != null && overRelationship.size() != 0) {
 
