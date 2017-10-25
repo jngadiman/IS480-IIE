@@ -46,7 +46,7 @@
     calID = calID.trim();
 %>
 <script>
-    var calID = '<%= calID %>';
+    var calID = 'huimin.sim.2015@smu.edu.sg';
 </script>
     
 </head>
@@ -193,6 +193,7 @@
 
 <script async defer src="https://apis.google.com/js/api.js"
       onload="loadCalendar();handleClientLoad();"
+      onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 
@@ -234,7 +235,7 @@
 </script>
 <script type='text/javascript'>
 
-$(function() {
+//$(function() {
 
 //function modalbox(start,end) {
 //    ID = "popup";

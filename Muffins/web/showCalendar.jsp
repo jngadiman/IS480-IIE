@@ -141,9 +141,22 @@
         $(document).ready(function() {
                 $('#calendar').fullCalendar({
                     googleCalendarApiKey: API_KEY,
-                    events: {
-                        googleCalendarId: 'huimin.sim.2015@smu.edu.sg'
-                    }
+                    selectable: true,
+                    selectHelper: true,
+                    // here is the part :
+                    
+                    editable: true,
+                    events: [
+                        {
+                            googleCalendarId: 'huimin.sim.2015@smu.edu.sg'
+                        },
+                        {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            start: '2017-10-28'
+                        }
+
+                    ]
                 });
 	});
     

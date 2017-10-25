@@ -148,7 +148,7 @@ public class paymentController {
         HWPFDocument hwpfdoc = null;
         //Business Mentorship Payment –  (name of mentee company) for period dd mm yyyy to dd mm yyyy
         
-        InputStream resourceAsStream = new FileInputStream(realPath+ "\\iiedocuments\\MentorPaymentVoucherTemplate.doc");
+        InputStream resourceAsStream = new FileInputStream(realPath+ "/iiedocuments/MentorPaymentVoucherTemplate.doc");
         //new BufferedInputStream(resourceAsStream);
         
         try {
@@ -171,7 +171,7 @@ public class paymentController {
             
             SimpleDateFormat todayFomatter = new  SimpleDateFormat("yyyyMMdd");
             String today = todayFomatter.format(new Date());
-            voucherPath = "\\iiedocuments\\PaymentVouchers\\VN"+today+voucher_no+".doc";
+            voucherPath = "/iiedocuments/PaymentVouchers/VN"+today+voucher_no+".doc";
             returnMsg.add(voucherPath);
             FileOutputStream fos = new FileOutputStream(realPath+voucherPath);
             hwpfdoc.write(fos);
