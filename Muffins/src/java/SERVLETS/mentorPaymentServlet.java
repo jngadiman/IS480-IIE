@@ -94,7 +94,7 @@ public class mentorPaymentServlet extends HttpServlet {
             String result = paymentController.addVoucherPath(payslip.getVoucherNumber(), voucher_path);
             System.out.println("MENTOR PAYMENT ADD PATH RESULT "+ result);
             status = "Payment Generated, kindly check file!";
-            
+            System.out.println("VOUCHER LINK IN SERVLET--------------- "+path+voucher_path);
             request.setAttribute("voucher_link", path+voucher_path);
         }else{
             status = "An error occured!";

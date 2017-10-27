@@ -33,11 +33,19 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <%  String voucher = (String) request.getAttribute("voucher_link");
+                        System.out.println("VOUCHER LINK IN JSP PAGE -------------------------- "+voucher);
                                 if (voucher != null) {
                     %>
                     <div class="alert alert-dismissible alert-success col-lg-8 col-lg-offset-2">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <strong>Voucher successfully created!</strong> Click <a href="<%=voucher%>" target="blank">here</a> to download.
+                        
+                        <strong>Voucher successfully created!</strong> Click 
+                        <form method="get" action="downloadDocuments">
+                            <input type ="hidden" value ="<%=voucher%>" name ="file">
+                            <button type="submit" class="btn btn-md btn-primary">here</button>
+                         </form>
+                        to download.
                     </div>
                     <%
                                 }
