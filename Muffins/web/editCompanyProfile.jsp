@@ -43,13 +43,13 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-sm-9 col-sm-offset-2">
-                    <h1 class="page-header col-lg-9 col-sm-offset-2">Edit Company Profile</h1>
+                <div class="col-sm-8 col-sm-offset-3">
+                    <h1 class="page-header">Edit Company Profile</h1>
                     <%                String status = (String) request.getAttribute("updateStatus");
                         if (status != null && !status.isEmpty()) {
                     %>
 
-                    <div class="alert alert-dismissible alert-success col-lg-5">
+                    <div class="alert alert-dismissible alert-success">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <%=status%>
                     </div>
@@ -58,7 +58,7 @@
                 %>
                
                 <form action="editCompanyServlet" method="post" enctype="multipart/form-data">
-                    <div class="col-sm-9 well col-sm-offset-2">
+                    <div class="col-sm-12 well">
                         <div class="row">
                             
                                 <input type="hidden" name="companyID" value="<%= company.getId()%>">

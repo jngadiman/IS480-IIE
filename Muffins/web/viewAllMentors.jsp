@@ -23,18 +23,30 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>All Mentors</title>
     </head>
+    <script>
+        $(document).ready(function () {
+            var heights = $(".well").map(function () {
+                return $(this).height();
+            }).get(),
+                    maxHeight = Math.max.apply(null, heights);
+
+            $(".well").height(maxHeight);
+        });
+
+    </script>
     <body>
 
         <div class="container">
             <div class="col-lg-8 col-lg-offset-3">
                 <h1 class="page-header">View All Mentors</h1>
-                <div class ='row'>
+                <div class="row">
                     <%  int i = 0;
                         ArrayList<Mentor> allMentors = mentorController.getMentors();
                         for (Mentor mentor : allMentors) {
 
                     %>
-
+                    
+                    <div class="col-lg-1"></div>
                     <div class="col-lg-3 well">
                         <%                        // display the image
                             imgData = mentor.getProfile_pic();
@@ -67,11 +79,9 @@
                         %>
                         <form method="post" action="displayMentorProfile.jsp">
                             <input type="hidden" name="mentorEmail" value="<%= mentor.getEmail()%>"/>
-                            <button type="submit" name="viewMentor" value="View Profile" class='btn btn-success btn-xs'>View Profile</button>
+                            <button type="submit" name="viewMentor" value="View Profile" class='pull-right btn btn-success btn-xs'>View Profile</button>
                         </form>
                     </div>
-                            
-                            <div class="col-lg-1"></div>
                     <%
                             i++;
                             if (i % 3 == 0) {
@@ -79,7 +89,7 @@
                             }
                         }
                     %>
-                </div>
+                
             </div>
         </div>
 

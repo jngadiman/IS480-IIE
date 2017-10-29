@@ -50,7 +50,7 @@ and open the template in the editor.
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
+    background-color: #d9eaf4;
     border-right: 1px solid #eee;
   }
 }
@@ -69,9 +69,18 @@ and open the template in the editor.
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #428bca;
+  background-color: #d9eaf4;
 }
 
+ul.nav.nav-sidebar>li > a:focus,
+ul.nav.nav-sidebar>li > a:hover{
+    background-color: #fff;
+}
+
+.nav.sidebar> li > a:focus,
+.nav.sidebar> li > a:hover{
+    background-color: #fff;
+}
 
 
 
@@ -92,7 +101,15 @@ and open the template in the editor.
   margin-top: 0;
 }
 
+.page-header {
+  padding-bottom: 9.5px;
+  margin: 42px 0 21px;
+  border-bottom: 1px solid #e6e6e6;
+}
 
+h1.page-header {
+ color : #151C55;
+}
 /*
  * Placeholder dashboard ideas
  */

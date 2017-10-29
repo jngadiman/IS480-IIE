@@ -34,8 +34,8 @@
 
 
                 %>
-                <h1 class='page-header'>You Are Now at Stage <%=stage%></h1>
-                <h2 class="page-header">The tasks for the current stage are shown below:</h2>            
+                <h1 class='page-header'>Current Stage : <%=stage%></h1>
+                <h3>The tasks for the current stage are shown below:</h3>            
 
                 <%                    out.println("<tr>");
 
