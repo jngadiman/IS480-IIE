@@ -4,6 +4,7 @@
     Author     : JJAY
 --%>
 
+<%@page import="MODELS.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -36,10 +37,29 @@
             </script>
     </head>
     <body>
+        <%
+        User checkLogin = (User) session.getAttribute("user");
+        if (checkLogin!=null){
+            %>
+        <%@include file="sidenav.jsp" %>
+        <%
+        }
+        %>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <h1>Change Password</h1>
+                    <h1 class="page-header">Change Password</h1>
+                    <%                String status = (String) request.getAttribute("loginResult");
+                        if (status != null && !status.isEmpty()) {
+                    %>
+
+                    <div class="alert alert-dismissible alert-success col-md-4">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <%=status%>
+                    </div>
+                <%
+                    }
+                %>
                     <form class="form-signin" method ="POST" action ="changePasswordServlet" name = "changePassword" onsubmit="return validateForm()" >
                         Email <input type ="text" name ="email" class="form-control" required> <br>
                         Current Password <input type ="password" name ="currentPassword" class="form-control" required> <br>

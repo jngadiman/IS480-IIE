@@ -30,8 +30,9 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+            
+                <div class="col-lg-8 col-lg-offset-3">
+                    <div class="row">
                     <%  String voucher = (String) request.getAttribute("voucher_link");
                                 if (voucher != null) {
                     %>
@@ -42,13 +43,13 @@
                     <%
                                 }
                     %>
-                    <h2 class="page-header col-lg-8  col-lg-offset-2">Mentor Payment(s)</h2>
+                    <h1 class="page-header">Mentor Payment(s)</h1>
                     <%
                         double baseAmt = paymentController.getBaseAmount();
-                        out.println("<div class='col-lg-8 col-lg-offset-2'>");
+                       
                         out.println("Base Per Session Amount : $" + baseAmt);
                         out.println("<a href='adminBaseAmount.jsp'>Edit Base Amount</a>");
-                        out.println("</div>");
+                       
                         
                         LocalDate today = LocalDate.now();
                 int month = today.getMonthValue();
@@ -59,8 +60,8 @@
                 
                 ArrayList<Relationship> overdue = relationshipController.getAllRelationshipByStatus("assigned");
                 if (overdue != null && overdue.size() != 0) {%>
-            
-                    <h3 class="page-header col-lg-8 col-lg-offset-2">Due Payment(s)</h3>
+                <br>
+                    <h4>Due Payment(s)</h4>
             <%for (Relationship r : overdue) {
                     if (r.getEnd_date().before(todayDate)) {
                         String mentorEmail = r.getMentorEmail();
@@ -68,9 +69,9 @@
                         
 
             %>
-
-            <div class="col-lg-8 col-lg-offset-2">
-                <div class="col-lg-12 well">
+                    </div>
+                <div class="row">
+                <div class="col-lg-7 well">
                     <%                        // display the image
                         imgData = mentor.getProfile_pic();
                         if (imgData != null) {

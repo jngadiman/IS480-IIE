@@ -57,8 +57,9 @@
 
 
 
-            <h1 class="col-lg-8 col-lg-offset-3 page-header">Request for Mentor</h1>
+           
             <div class="col-lg-8 col-lg-offset-3">
+                 <h1 class="page-header">Request for Mentor</h1>
                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
                     Filter by
                 </button>
@@ -178,7 +179,7 @@
                                                 Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
                                                 if ((preferences != null && preferences.size() != 0) || mentor != null) {
                                             %>
-                                            <button type="submit" color="red" class='btn btn-danger btn-xs' disabled>Not Eligible</button>
+                                            <button type="submit" class='btn btn-danger btn-xs' disabled>Not Eligible</button>
                                             <%
                                             } else {
                                                 status = true;
