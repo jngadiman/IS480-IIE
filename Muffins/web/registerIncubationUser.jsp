@@ -21,6 +21,7 @@
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
         <link href="css/form.css" rel="stylesheet" type="text/css"/>
+        <link href="css/registerationForm.css" rel="stylesheet" type="text/css"/>
         <script>
             function validateForm() {
 //                var email = document.forms["registerUser"]["email"].value;

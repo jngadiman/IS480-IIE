@@ -6,18 +6,21 @@
 
 <%@page import="DAO.CompanyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="protect.jsp" %>
+<%@include file="sidenav.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register for New Mentor</title>
-        <%@include file="sidenav.jsp" %>
-        <link href="css/form.css" rel="stylesheet" type="text/css"/>
+        <link href="css/registerationForm.css" rel="stylesheet" type="text/css"/>
+        <script src="js/registerCompany.js" type="text/javascript"></script>
 
 
     </head>
     <body>
-        <div class="container">
+
+       <div class="container">
             <div class="col-lg-10 col-lg-offset-1">
                 <h1 class="page-header col-lg-12">Mentor Registration Form</h1>
                 <div class="col-lg-12 well">
@@ -131,13 +134,9 @@
                 </div>
                 <a href="adminViewMentorProfile.jsp" class="btn btn-success btn-xs">Create Now!</a></p>	
             </div>
-
-
-
-        </div>   
-
-
-
+        </div>
     </form> 
 
-</body>
+    </body>
+</div>
+</html>
