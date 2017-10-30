@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register for New Mentor</title>
         <link href="css/registerationForm.css" rel="stylesheet" type="text/css"/>
-        <script src="js/registerCompany.js" type="text/javascript"></script>
+        <link href="css/form.css" rel="stylesheet" type="text/css"/>
 
 
     </head>
