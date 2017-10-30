@@ -148,37 +148,28 @@
 
                         <li><a href="adminHomepage.jsp">Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="viewAllCompanies.jsp">Start-ups</a></li>
-                                <li><a href="viewAllMentors.jsp">Mentors</a></li>
-                                <li><a href="adminShowRelationships.jsp">Relationships</a></li>
-                            </ul>
-                        </li></ul>
-
-
+                        <li><a href="viewAllCompanies.jsp">Start-ups</a></li>
+                        <li><a href="viewAllMentors.jsp">Mentors</a></li>
+                        <li><a href="adminShowRelationships.jsp">Relationships</a></li>
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
-
-
+                        
                     <%
                         if (user.getUser_type().equals("admin_eir")) {
 
                     %>
                     <hr />
-                    <li><button href='#' class='btn btn-xs btn-primary'>EIR</a></li>
                     <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
                     <li><a href="EIRAssignMentor.jsp">Assign Mentor</a></li>
                     <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
-                        <%                            }else if (user.getUser_type().equals("admin_im")){
+                        <% } else if (user.getUser_type().equals("admin_im")) {
                         %>
                     <hr />
-                    <li><button href='#' class='btn btn-xs btn-primary'>IM</a></li>
                     <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
                     <li><a href="paymentForMentor.jsp">Mentor Payment</a></li>
                     <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
-                    <%
-                        }
-                    %>
+                        <%
+                            }
+                        %>
                     <hr />
 
 

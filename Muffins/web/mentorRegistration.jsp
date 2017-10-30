@@ -19,16 +19,10 @@
 
     </head>
     <body>
-<<<<<<< HEAD
 
-       <div class="container">
-            <div class="col-lg-10 col-lg-offset-1">
-                <h1 class="page-header col-lg-12">Mentor Registration Form</h1>
-=======
         <div class="container">
-            <div class="col-lg-10 col-lg-offset-2">
+            <div class="col-lg-10 col-lg-offset-4">
                 <h1 class="page-header">Mentor Registration Form</h1>
->>>>>>> 48fc2bfeecc20020d8e33db2001980f918c3bd32
                 <div class="col-lg-12 well">
                     <div class="row">
 
