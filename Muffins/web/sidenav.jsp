@@ -53,7 +53,7 @@
                         <%
                             String userType = user.getUser_type();
                             if (userType.equals("regular_mentee")) {
-                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Incubator Founders</a></li>");
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Incubator Founder</a></li>");
                         %>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>

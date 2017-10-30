@@ -22,10 +22,8 @@
         <div class="container-fluid">
             <div class="row">
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Administrator Dashboard</h1>
-                    
-                    <img src="smu.jpg" alt="" width="100%">
+                    <img src="img/smu sob.jpg" alt="" width="100%"/>
+                    <h1 class="page-header">Enterprise in Residence Dashboard</h1>
 
                     <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3 placeholder">
