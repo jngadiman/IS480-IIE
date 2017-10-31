@@ -24,7 +24,7 @@
     </head>
     <body>
         <section style="background:#efefe9;">
-            <div class="container">
+            <div class="container col-lg-offset-1">
                 <div class="row">
                     <div class="board">
                         <div class="board-inner">

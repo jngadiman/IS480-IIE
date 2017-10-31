@@ -70,9 +70,9 @@
                 out.println("<div align='center'>" + status + "</div>");
             }
         %>
-        <div class="col-sm-9 col-sm-offset-2">
-            <h2 class="page-header col-lg-9 col-sm-offset-2">Edit Personal Profile</h2>
-            <div class="col-lg-9 well col-sm-offset-2">
+        <div class="col-sm-8 col-sm-offset-3">
+            <h2 class="page-header">Edit Personal Profile</h2>
+            <div class="col-lg-12 well">
                 <form action="editProfileServlet" method="post" enctype="multipart/form-data">
                     <%  // display the image
                         if (imgData == null) {

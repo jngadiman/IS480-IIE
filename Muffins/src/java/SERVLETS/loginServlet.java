@@ -72,7 +72,9 @@ public class loginServlet extends HttpServlet {
                 }
                 
                 session.setAttribute("user", currentUser);
-                if(currentUser.getUser_type().equals("admin")){
+                if(currentUser.getUser_type().equals("admin_eir")){
+                    response.sendRedirect("EIRHomepage.jsp");
+                }else if(currentUser.getUser_type().equals("admin_im")){
                     response.sendRedirect("adminHomepage.jsp");
                 }else if(currentUser.getUser_type().equals("regular_mentee") || currentUser.getUser_type().equals("light_mentee")){
                     response.sendRedirect("home.jsp");

@@ -32,9 +32,9 @@
     %>
     <body>
         <div class="container">
-            <div class="col-lg-9 col-lg-offset-2">
-                <h1 class="page-header col-lg-9 col-lg-offset-2">View Company Profile</h1>
-                <div class="col-lg-9 well col-lg-offset-2">
+            <div class="col-lg-8 col-lg-offset-3">
+                <h1 class="page-header">View Company Profile</h1>
+                <div class="col-lg-12 well">
                     <div class="row">
                         <div class="col-sm-12 form-group">
 
@@ -49,28 +49,28 @@
                             %>
                             <img width="200" src="img/factory.png"  class="img-responsive center-block" alt="images Here" /><%
                                 }
-                                
-                                 out.println("<h3 class='text-center'>"+company.getName()+"</h3>");
+
+                                out.println("<h3 class='text-center'>" + company.getName() + "</h3>");
                             %>
 
-                            
-                                <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
+
+                            <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                             <label class="control-label">Start Date</label> : <%=startDate%>
                             <%
                                 String stageName = "";
                                 int stageNo = company.getCurrentStage();
-                                if(stageNo==1){
+                                if (stageNo == 1) {
                                     stageName = "1. Business model validation stage";
-                                }else if(stageNo==2){
+                                } else if (stageNo == 2) {
                                     stageName = "2. Innovation Development stage";
-                                }else if(stageNo==3){
+                                } else if (stageNo == 3) {
                                     stageName = "3. Go-To-Market & early customer acquisition stage";
-                                }else if(stageNo==4){
+                                } else if (stageNo == 4) {
                                     stageName = "4. Business Plan/Financial Modelling stage";
-                                }else{
-                                
-                            }
-                                
+                                } else {
+
+                                }
+
                             %>
                             <p><strong>Company Current Stage</strong> : <%=stageName%> </p>
                             <%Industry industry = industryController.getIndustry(company.getIndustry());
@@ -157,9 +157,15 @@
                                             if (u != null) {
                                                 String email = u.getEmail();
                                                 String userName = u.getName();
-                                                out.println("<a href='displayProfile.jsp?email=" + email + "'>" + userName + "</a>");
+                                                if (userName != null) {
+                                                    out.println("<a href='displayEachMenteeProfile.jsp?mentee_email=" + email + "'>" + userName + "</a>");
+                                                } else {
+                                                    out.println("<a href='displayEachMenteeProfile.jsp?mentee_email=" + email + "'>" + email + "</a>");
+                                                }
+
                                                 if (i != stakeholders.length - 1) {
                                                     out.print(", ");
+
                                                 }
                                             } else {
                                                 out.print(stakeholders[i]);
@@ -187,45 +193,45 @@
                         <div class="col-sm-6 form-group required">
                             <p><strong>Product Differentiation</strong> :<br> 
                                 <%
-                                if(company.getProductDiff()==null){
-                                    out.println("To be populated");
-                                }else{
-                                    out.println(company.getProductDiff());
-                                }
+                                    if (company.getProductDiff() == null) {
+                                        out.println("To be populated");
+                                    } else {
+                                        out.println(company.getProductDiff());
+                                    }
                                 %>
                         </div>	
                         <div class="col-sm-6 form-group required">
                             <strong>Revenue Model</strong> :<br> 
                             <%
-                                if(company.getRevenueModel()==null){
+                                if (company.getRevenueModel() == null) {
                                     out.println("To be populated");
-                                }else{
+                                } else {
                                     out.println(company.getRevenueModel());
                                 }
-                                %>
+                            %>
                         </div>	
                     </div>
 
                     <div class="row">
                         <div class="col-sm-6 form-group required">
                             <strong>Traction</strong> :<br> 
-                                <%
-                                if(company.getTraction()==null){
+                            <%
+                                if (company.getTraction() == null) {
                                     out.println("To be populated");
-                                }else{
+                                } else {
                                     out.println(company.getTraction());
                                 }
-                                %>
+                            %>
                         </div>	
                         <div class="col-sm-6 form-group required">
                             <strong>Deployment of Funds</strong> :<br> 
-                               <%
-                                if(company.getDeployOfFunds()==null){
+                            <%
+                                if (company.getDeployOfFunds() == null) {
                                     out.println("To be populated");
-                                }else{
+                                } else {
                                     out.println(company.getDeployOfFunds());
                                 }
-                                %>
+                            %>
                         </div>	
                     </div>
 
@@ -235,9 +241,11 @@
                             </label> <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a>
                         </div>
                     </div>
+                        
+                    <a href="editCompanyProfile.jsp" class="btn btn-success btn-xs text-center">Edit Company Profile</a>
                 </div>
             </div>
-            <p class="text-center"><a href="editCompanyProfile.jsp" class="btn btn-success btn-xs">Edit Company Profile</a></p>
+          
 
         </div>
         <!--
