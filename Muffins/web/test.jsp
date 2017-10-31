@@ -193,7 +193,6 @@
 
 <script async defer src="https://apis.google.com/js/api.js"
       onload="loadCalendar();handleClientLoad();"
-      onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 
@@ -202,17 +201,19 @@
         function loadCalendar() {
 //                var gEventArray = listUpcomingEvents();
 //                alert(gEventArray);
+                alert("'" + calID + "'");
                 $('#calendar').fullCalendar({
-                    selectable: true,
-                    selectHelper: true,
-                    // here is the part :
-                    onClick: function(start, end) {
-                            modalbox(start.format(),end.format());
-                    },
-                    editable: true,
+//                    selectable: true,
+//                    selectHelper: true,
+//                    // here is the part :
+//                    onClick: function(start, end) {
+//                            modalbox(start.format(),end.format());
+//                    },
+//                    editable: true,
                     googleCalendarApiKey: API_KEY,
+                    
                     events: {  
-                        googleCalendarId: calID
+                        googleCalendarId: "'" + calID + "'"
                     }
                     //IMPT
                     //need print out all the values of the event into json
@@ -231,13 +232,52 @@
                     
                 });
 	}
-    
+        
+        
 </script>
 <script type='text/javascript'>
 
 //$(function() {
 
 //function modalbox(start,end) {
+var event = {
+  'summary': 'Google I/O 2015',
+  'location': '800 Howard St., San Francisco, CA 94103',
+  'description': 'A chance to hear more about Google\'s developer products.',
+  'start': {
+    'dateTime': '2017-10-27T09:00:00-07:00',
+    'timeZone': 'America/Los_Angeles'
+  },
+  'end': {
+    'dateTime': '2017-10-28T17:00:00-07:00',
+    'timeZone': 'America/Los_Angeles'
+  },
+  'recurrence': [
+    'RRULE:FREQ=DAILY;COUNT=2'
+  ],
+  'attendees': [
+    {'email': 'lpage@example.com'},
+    {'email': 'sbrin@example.com'}
+  ],
+  'reminders': {
+    'useDefault': false,
+    'overrides': [
+      {'method': 'email', 'minutes': 24 * 60},
+      {'method': 'popup', 'minutes': 10}
+    ]
+  }
+};
+
+var request = gapi.client.calendar.events.insert({
+  'calendarId': 'primary',
+  'resource': event
+});
+
+function addEvent(){
+    request.execute(function(event) {
+    appendPre('Event created: ' + event.htmlLink);
+    });    
+}
 //    ID = "popup";
 //    // Title
 //    var pop_content = '<h2>New event:</h2>
@@ -273,10 +313,12 @@
 //
 //    });
     </script>
-
+<button id="addEvent-button" onClick="addEvent()">Add Event</button>
 <div id="popup" class="popup_block"></div>
+
 <button id="authorize-button" style="display: none;">Authorize</button>
-    <button id="signout-button" style="display: none;">Sign Out</button>
+<button id="signout-button" style="display: none;">Sign Out</button>
+    
 </body>
 </html>
 
