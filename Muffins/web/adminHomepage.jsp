@@ -22,6 +22,7 @@
             <div class="row">
                 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <img src="img/smu.jpg" alt="" width="100%"/>
                     <h1 class="page-header">Incubation Manager Dashboard</h1>
 
                     <div class="row placeholders">

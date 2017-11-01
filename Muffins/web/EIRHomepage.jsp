@@ -21,8 +21,8 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-
-                    <img src="img/smu sob.jpg" alt="" width="100%"/>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <img src="img/smu.jpg" alt="" width="70%"/>
                     <h1 class="page-header">Enterprise in Residence Dashboard</h1>
 
                     <div class="row placeholders">

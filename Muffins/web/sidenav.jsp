@@ -65,7 +65,7 @@
                         </li>
                         <%
                         } else if (userType.equals("light_mentee")) {
-                            out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Open Mentor Founder</a></li>");
+                            out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Start-up Founder</a></li>");
                         %>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="false"><%=user.getName()%><span class="caret"></span></a>
@@ -77,7 +77,7 @@
                         </li>
                         <%
                             } else {
-                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Administrator</button></li>");
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Enterprise in Residence</button></li>");
                             }
                         %>
 
