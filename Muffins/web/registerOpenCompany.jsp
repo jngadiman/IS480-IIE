@@ -17,6 +17,7 @@
         <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
+        
         <link href="css/form.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -24,14 +25,14 @@
             ArrayList<Industry> industries = industryController.getIndustries();
         %>
         <div class="container">
-            <h1 class="col-lg-10 well col-sm-offset-1">Company Registration Form</h1>
+            <h1 class="col-lg-10  col-sm-offset-2 page-header">Company Registration Form</h1>            
             <%
                 String registerStatus = (String) request.getAttribute("registerCompanyStatus");
                 if (registerStatus != null && !registerStatus.isEmpty()) {
                     out.println("<h5 class='col-lg-10 col-sm-offset-1'>" + registerStatus + "</h5>");
                 }
             %>
-            <div class="col-lg-10 well col-sm-offset-1">
+            <div class="col-lg-10 well col-sm-offset-2">
                 <div class="row">
                     <form action="registerCompanyServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-10 col-sm-offset-1">
@@ -120,5 +121,8 @@
                 </div>
             </div>
         </div>
+                                    
+                                    
+                                    
     </body>
 </html>

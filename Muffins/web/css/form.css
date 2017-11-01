@@ -12,3 +12,16 @@ and open the template in the editor.
    content:"*";
    color:red;
 }
+body {
+  background: #FFFFFF;
+  color: #fff;
+  font-size: 1.5em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", sans-serif;
+  font-weight: 100;
+  text-align: left;
+}
+.container {
+  background: #FFFFFF;
+  color: #6A79A6;
+  display: inline-block;
+}

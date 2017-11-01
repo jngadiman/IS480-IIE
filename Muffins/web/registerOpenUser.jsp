@@ -65,7 +65,7 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="col-lg-10 col-lg-offset-1 well">User Registration Form</h1>
+            <h1 class="col-lg-10 col-lg-offset-2 page-header">User Registration Form</h1>
             <%
                 ArrayList<String> degrees = new ArrayList<String>();
                 degrees.add("-- select one --");
@@ -81,7 +81,7 @@
                 }
             %>
 
-            <div class="col-lg-10 col-lg-offset-1 well">
+            <div class="col-lg-10 col-lg-offset-2 well">
                 <div class="row">
                     <form action = "addUserServlet" method ="post" name="registerUser" onsubmit="return validateForm()">
                         <div class="col-sm-10 col-lg-offset-1">
@@ -127,9 +127,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 form-group required">
-                                    <label class="control-label">Company</label> not found sign up <a href="registerOpenCompany.jsp">here</a>
-
+                                <div class="col-sm-5 form-group required">
+                                    <label class="control-label">Company</label> Sign your company up <a href="registerOpenCompany.jsp">here</a>
                                     <select class="form-control" id="select" name="company" required>
                                         <%
                                             ArrayList<Company> companies = loginController.getAllCompanies();
@@ -138,7 +137,7 @@
                                             }
                                         %>
                                     </select>
-                                </div>	
+                                </div>
 
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Designation</label>

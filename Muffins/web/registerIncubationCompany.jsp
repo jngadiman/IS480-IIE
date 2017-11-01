@@ -25,7 +25,7 @@
 
         %>
         <div class="container">
-            <h1 class="col-lg-10 well col-sm-offset-1">Startup Company Registration Form</h1>
+            <h1 class="col-lg-10  col-sm-offset-2 page-header">Startup Company Registration Form</h1>
             <%                String registerStatus = (String) request.getAttribute("registerCompanyStatus");
                 if (registerStatus != null && !registerStatus.isEmpty()) {
                     if(registerStatus.equals("Success!")){
@@ -35,7 +35,7 @@
                     }
                 }
             %>
-            <div class="col-lg-10 well col-sm-offset-1">
+            <div class="col-lg-10 well col-sm-offset-2">
                 <div class="row">
                     <form action="registerCompanyServlet" method="post" enctype="multipart/form-data">
                         <div class="col-sm-10 col-sm-offset-1">

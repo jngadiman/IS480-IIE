@@ -14,33 +14,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title> 
-        <%@include file="sidenav.jsp" %>
+        <%@include file="sidenav.jsp" %>        
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="container-fluid">
             <div class="row">
-                
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Administrator Dashboard</h1>
+                    <img src="img/smu.jpg" alt="" width="70%"/>
+                    <h1 class="page-header">Enterprise in Residence Dashboard</h1>
 
                     <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>1</h1>
                             Business model validation stage<br/><br/>
-                            <%
-                             ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
+                            <%                                ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
                             %>
-                           <button href="#1" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies1.size()%></button>
+                            <button href="#1" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies1.size()%></button>
                             <div id="1" class="collapse">
-                                
+
                                 <%
-                                   
-                                    if(companies1 != null && companies1.size() != 0){
-                                        for(Company c: companies1){
+
+                                    if (companies1 != null && companies1.size() != 0) {
+                                        for (Company c : companies1) {
                                             out.println("<li>" + c.getName() + "</li>");
                                         }
-                                    }else{
-                                        
+                                    } else {
+
                                     }
                                 %>
                             </div>
@@ -49,15 +50,15 @@
                             <h1>2</h1>
                             Innovation Development stage<br/><br/>
                             <%
-                             ArrayList<Company> companies2 = companyController.getCompaniesInStage(2);
+                                ArrayList<Company> companies2 = companyController.getCompaniesInStage(2);
                             %>
                             <button href="#2" class="btn btn-primary btn-xs" data-toggle="collapse"><%=companies2.size()%></button>
                             <div id="2" class="collapse">
-                              
+
                                 <%
-                                   
-                                    if(companies2 != null && companies2.size() != 0){
-                                        for(Company c: companies2){
+
+                                    if (companies2 != null && companies2.size() != 0) {
+                                        for (Company c : companies2) {
                                             out.println("<li>" + c.getName() + "</li>");
                                         }
                                     }
@@ -68,15 +69,15 @@
                             <h1>3</h1>
                             Go-To-Market & early customer acquisition stage<br/>
                             <%
-                            ArrayList<Company> companies3 = companyController.getCompaniesInStage(3);
+                                ArrayList<Company> companies3 = companyController.getCompaniesInStage(3);
                             %>
                             <button href="#3" class="btn btn-success btn-xs" data-toggle="collapse"><%=companies3.size()%></button>
                             <div id="3" class="collapse">
-                              
+
                                 <%
-                                    
-                                    if(companies3 != null && companies3.size() != 0){
-                                        for(Company c: companies3){
+
+                                    if (companies3 != null && companies3.size() != 0) {
+                                        for (Company c : companies3) {
                                             out.println("<li>" + c.getName() + "</li>");
                                         }
                                     }
@@ -87,22 +88,22 @@
                             <h1>4</h1>
                             Business Plan/Financial Modelling stage<br/>
                             <%
-                            ArrayList<Company> companies4 = companyController.getCompaniesInStage(4);
-                                    
+                                ArrayList<Company> companies4 = companyController.getCompaniesInStage(4);
+
                             %>
                             <button href="#4" class="btn btn-warning btn-xs" data-toggle="collapse"><%=companies4.size()%></button>
                             <div id="4" class="collapse">
-                              
+
                                 <%
-                                    if(companies4 != null && companies4.size() != 0){
-                                        for(Company c: companies4){
+                                    if (companies4 != null && companies4.size() != 0) {
+                                        for (Company c : companies4) {
                                             out.println("<li>" + c.getName() + "</li>");
                                         }
                                     }
                                 %>
                             </div>
                         </div>
-                       
+
 
                     </div>
                     <!--

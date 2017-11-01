@@ -48,12 +48,26 @@
                             </div>
                         </div>
                         <div class ="row">
+
+                            <%
+                                if (user.getUser_type().equals("admin_im") || user.getUser_type().equals("admin_eir")) {
+                            %>
                             <div class="col-sm-6 form-group">
                                 <p><strong>Email Address</strong> : <%= currentMentee.getEmail()%></p>
                             </div>
                             <div class="col-sm-6 form-group">
                                 <p><strong>NRIC</strong> : <%= currentMentee.getNric()%></p>
                             </div>
+                            <%
+                                }else{
+                                    %>
+                            <div class="col-sm-12 form-group">
+                                <p><strong>Email Address</strong> : <%= currentMentee.getEmail()%></p>
+                            </div>
+                            <%
+                                }
+                            %>
+
                         </div>
                         <%
                             Mentee mentee = MenteeDAO.getMenteeByEmail(currentMentee.getEmail());
@@ -85,7 +99,7 @@
                                 <p><strong>Company </strong> : <%= company_name%></p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Position in the Company</strong> : <%= currentMentee.getRole()%></p>
+                                <p><strong>Role in Company</strong> : <%= currentMentee.getRole()%></p>
                             </div>
 
                         </div>
