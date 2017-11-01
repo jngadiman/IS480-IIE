@@ -52,7 +52,7 @@
                 <div id='calendar'></div>
                 <div class="col-lg-10 col-lg-offset-1">
                     <button id="authorize-button" class="btn btn-lg btn-info">Authorize</button>
-                    <!--<button id="signout-button" style="display: none;">Sign Out</button> -->
+                    <button id="signout-button" style="display: none;">Sign Out</button>
 
 
 
