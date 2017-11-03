@@ -34,7 +34,7 @@ public class MeetingDAO {
         ResultSet result = null;
         Meeting meeting = null;
         String meetingName = "";
-        String meetingType = "";
+        String location = "";
         Date startTime = null;
         Date endTime = null;
         String stringAttendees = "";
@@ -53,7 +53,7 @@ public class MeetingDAO {
             while (result.next()) {
                 meetingID = Integer.parseInt(result.getString("meeting_id"));
                 meetingName = result.getString("meeting_name");
-                meetingType = result.getString("meeting_type");
+                location = result.getString("location");
                 
                 try {
                     startTime = dateformat.parse(result.getString("start_time"));
@@ -67,7 +67,7 @@ public class MeetingDAO {
                 
                 menteeCompanyID = result.getInt("mentee_company_id");
                
-                meeting = new Meeting(meetingID, meetingName, meetingType, startTime, endTime, stringAttendees, status, menteeCompanyID);
+                meeting = new Meeting(meetingID, meetingName, location, startTime, endTime, stringAttendees, status, menteeCompanyID);
             }
 
         } catch (SQLException ex) {
@@ -293,37 +293,37 @@ public class MeetingDAO {
     }
     
     //get meeting ids by the type of meeting
-    public static ArrayList<Integer> getMeetingIDsByType(String type) {
-   
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        int meetingID = 0;
-        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        
-        
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select meeting_id from meeting where meeting_type = ?;");
-            stmt.setString(1,type);
-            
-            result = stmt.executeQuery();
-
-            while (result.next()) {
-                meetingID = Integer.parseInt(result.getString("meeting_id"));
-                meetingIDs.add(meetingID);
-                
-               
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionManager.close(conn, stmt, result);
-        }
-        return meetingIDs;
-    }
+//    public static ArrayList<Integer> getMeetingIDsByType(String type) {
+//   
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//        int meetingID = 0;
+//        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+//        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//        
+//        
+//        try {
+//            conn = ConnectionManager.getConnection();
+//            stmt = conn.prepareStatement("select meeting_id from meeting where meeting_type = ?;");
+//            stmt.setString(1,type);
+//            
+//            result = stmt.executeQuery();
+//
+//            while (result.next()) {
+//                meetingID = Integer.parseInt(result.getString("meeting_id"));
+//                meetingIDs.add(meetingID);
+//                
+//               
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            ConnectionManager.close(conn, stmt, result);
+//        }
+//        return meetingIDs;
+//    }
     
     public static String addMeeting(Meeting meeting) {
    
@@ -341,7 +341,7 @@ public class MeetingDAO {
             stmt = conn.prepareStatement("INSERT INTO meeting VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setInt(1,meeting.getMeetingID());
             stmt.setString(2,meeting.getMeetingName());
-            stmt.setString(3,meeting.getMeetingType());
+            stmt.setString(3,meeting.getLocation());
             if(meeting.getStartTime()!=null){
                 stmt.setString(4, df.format(meeting.getStartTime()));
             }else{
@@ -375,6 +375,30 @@ public class MeetingDAO {
         }
         return resultStr;
     }
+    
+    public static int getLastID(){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meeting_id = 0;
+        int next = 0;
+        
+        try{
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from meeting order by meeting_id desc;");
+            result = stmt.executeQuery();
+            result.next();
+            meeting_id = result.getInt("meeting_id");
+            next = meeting_id+1;
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return next;
+    }
+    
     
     public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);

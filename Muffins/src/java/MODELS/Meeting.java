@@ -14,7 +14,8 @@ import java.util.*;
 public class Meeting {
     private int meetingID;
     private String meetingName;
-    private String meetingType;
+    //private String meetingType;
+    private String location;
     private Date startTime;
     private Date endTime;
     private String attendees;
@@ -32,17 +33,29 @@ public class Meeting {
 //        
 //    }
     
-    public Meeting(int meetingID, String meetingName, String meetingType, Date startTime, Date endTime, String attendees, String status, int menteeCompany) {
+//    public Meeting(int meetingID, String meetingName, String meetingType, Date startTime, Date endTime, String attendees, String status, int menteeCompany) {
+//        this.meetingID = meetingID;
+//        this.meetingName = meetingName;
+//        this.meetingType = meetingType;
+//        this.startTime = startTime;
+//        this.endTime = endTime;
+//        this.attendees = attendees;
+//        this.status = status;
+//        this.menteeCompany = menteeCompany;
+//    }
+    
+    
+    public Meeting(int meetingID, String meetingName, String location, Date startTime, Date endTime, String attendees, String status, int menteeCompany) {
         this.meetingID = meetingID;
         this.meetingName = meetingName;
-        this.meetingType = meetingType;
+        this.location = location;
         this.startTime = startTime;
         this.endTime = endTime;
         this.attendees = attendees;
         this.status = status;
         this.menteeCompany = menteeCompany;
     }
-    
+
     public int getMeetingID() {
         return meetingID;
     }
@@ -59,12 +72,12 @@ public class Meeting {
         this.meetingName = meetingName;
     }
 
-    public String getMeetingType() {
-        return meetingType;
+    public String getLocation() {
+        return location;
     }
 
-    public void setMeetingType(String meetingType) {
-        this.meetingType = meetingType;
+    public void setLocation(String location) {
+        this.location = location;
     }
     
     public Date getStartTime() {

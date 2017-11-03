@@ -296,7 +296,9 @@
                                 // handle the response from our api call
                                 request.execute(function (resp) {
                                     if (resp.status == 'confirmed') {
+                                        
                                         document.getElementById('event-response').innerHTML = "Event created successfully. View it <a href='" + resp.htmlLink + "'>online here</a>.";
+                                        
                                     } else {
                                         document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";
                                     }
@@ -318,7 +320,7 @@
                     </script>
                     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
                     <div id="event-response"></div>
-                    <button type="submit" class="btn btn-lg btn-info" data-toggle="modal" data-target="#addEvents">Approve</button>
+                    <button type="submit" class="btn btn-lg btn-info" data-toggle="modal" data-target="#addEvents">Book a Meeting</button>
                 </div>
                 <div id="addEvents" class="modal fade" role="dialog">
 
@@ -331,8 +333,9 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Book A Timing With EIR</h4>
                             </div>
-
+                            <form role="form" method="POST" action="meetingServlet">
                             <div class="modal-body">
+                                
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Meeting Name</label>
                                     <input class="form-control" id="meetingName" name="meetingName" type="text" placeholder="Enter Meeting Name" class="form-control" required>
@@ -361,11 +364,14 @@
                                         <option value="cancelled">cancelled</option>
                                     </select>
                                 </div>
+                                    
+                                
                             </div>
 
                             <div class="modal-footer">
                                 <button type="submit" value="Book Timeslot" class="btn btn-xs btn-default" onclick="bookMeeting()">Submit</button>
                             </div>
+                                </form>
                         </div>
                     </div>
                 </div>

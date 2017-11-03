@@ -60,17 +60,34 @@ public class meetingController {
         return meetings;
     }
     
-     //get meetings by the type of meeting
-    public static ArrayList<Meeting> getMeetingsByType(String type){
+    //get meetings with no minutes
+    public static ArrayList<Meeting> getMeetingsWithoutMinutes(String email){
         ArrayList<Meeting> meetings = new ArrayList<Meeting>();
-        ArrayList<Integer> ids= MeetingDAO.getMeetingIDsByType(type);
+        ArrayList<Integer> ids= MeetingDAO.getMeetingIDsOfAttendees(email);
+        
         if (ids!=null){
             for(int id: ids){
-                meetings.add(MeetingDAO.getMeeting(id));
+                Meeting m = MeetingDAO.getMeeting(id);
+                if(m.getStatus().equals("completed")){
+                    meetings.add(m);
+                }
+                
             }
         }
         return meetings;
     }
+    
+     //get meetings by the type of meeting
+//    public static ArrayList<Meeting> getMeetingsByType(String type){
+//        ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+//        ArrayList<Integer> ids= MeetingDAO.getMeetingIDsByType(type);
+//        if (ids!=null){
+//            for(int id: ids){
+//                meetings.add(MeetingDAO.getMeeting(id));
+//            }
+//        }
+//        return meetings;
+//    }
     
      //get meetings by month and year
     //public static ArrayList<Meeting> getMeetingsByMonthNYearNCompany(int month, int year, int company){
@@ -83,6 +100,10 @@ public class meetingController {
             }
         }
         return meetings;
+    }
+    
+    public static int getLastID(){
+        return MeetingDAO.getLastID();
     }
     
     
