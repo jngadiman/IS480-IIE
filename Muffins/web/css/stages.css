@@ -198,8 +198,6 @@ li.active:after {
     color: #ffffff;
 }
 
-
-
 @media( max-width : 585px ){
 
     .board {

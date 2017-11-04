@@ -48,9 +48,29 @@
                         <%}%>
                     </div>
                     <ul class="nav nav-sidebar">
-
-
                         <%
+                            String userType = user.getUser_type();
+                            if (userType.equals("regular_mentee") || userType.equals("light_mentee")) {
+                                String position = user.getRole();
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block' style='min-width:100px; width: auto;'>"+position+"</a></li>");
+                        %>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="true"><%=user.getName()%><span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="viewPersonalProfile.jsp">My Profile</a></li>
+                                        <li><a href="editPersonalProfile.jsp">Edit My Profile</a></li>
+                                        <li><a href="changePassword.jsp">Change Password</a></li>
+                                    </ul>
+                                </li>
+                        <%
+                            } else if (userType.equals("admin_eir")) {
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Entrepreneur in Residence</button></li>");
+                            } else if (userType.equals("admin_im")) {
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Incubation Manager</button></li>");
+                            }
+                        %>
+
+                        <%-- <%
                             String userType = user.getUser_type();
                             if (userType.equals("regular_mentee")) {
                                 out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Incubator Founder</a></li>");
@@ -77,9 +97,9 @@
                         </li>
                         <%
                             } else {
-                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Enterprise in Residence</button></li>");
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Entrepreneur in Residence</button></li>");
                             }
-                        %>
+                        %> --%>
 
 
                         <%
@@ -100,8 +120,8 @@
                                 <li><a href="editCompanyProfile.jsp">Edit My Company Profile</a></li>
                             </ul>
                         </li>
-                        <li><a href="stages.jsp">Progress</a></li>
-                        <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">Current Stage & Tasks</a></li>
+                        <li><a href="stages.jsp">Company Progress</a></li>
+                        <!-- <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">Current Stage & Tasks</a></li>
                             <%
                                 }
                             %>
@@ -119,14 +139,16 @@
                         </li>
                         <%                                }
                         %>
-
-                        <li class="dropdown">
+                        -->
+                        <li><a href="viewAllCompanies.jsp">Start-up Companies</a></li>
+                        <li><a href="viewAllMentors.jsp">Mentors</a></li>
+                        <!-- <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View All<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="viewAllCompanies.jsp">Start-up Companies</a></li>
                                 <li><a href="viewAllMentors.jsp">Mentors</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <%
                             if (user != null) {
                                 if (user.getUser_type().equals("regular_mentee")) {
@@ -170,10 +192,7 @@
                         <%
                             }
                         %>
-                    <hr />
-
-
-
+                    <hr/>
                     <%
                     } else {
                     %>
@@ -205,8 +224,7 @@
                         %>
                         <%
                             }
-                        %>    
-                    <li><a href="changePassword.jsp">Change Password</a></li>
+                        %> 
                     <li><a href="logout.jsp">Logout</a></li></ul>
                 </div>
             </div></div>

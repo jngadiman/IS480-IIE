@@ -171,11 +171,13 @@ public class CompanyDAO {
                 industry = result.getInt("industry");
                 start_date = result.getString("start_date");  
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                try {
+                if (start_date != null) {
+                    try {
                     date = dateformat.parse(start_date);
-                }catch(ParseException e){
-                    e.printStackTrace();
-                }  
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    } 
+                }
                 if(result.getString("current_stage") != null){
                     currentstage = Integer.parseInt(result.getString("current_stage"));
                 }else{

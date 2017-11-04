@@ -4,6 +4,8 @@
     Author     : JEN
 --%>
 
+<%@page import="DAO.ProgramStageDAO"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="MODELS.User"%>
 <%@page import="CONTROLLER.taskController"%>
 <%@page import="DAO.TaskDAO"%>
@@ -115,8 +117,34 @@
                                 <p class="text-center">
                                     <a href="viewTasks.jsp?id=<%=stage%>" class="btn btn-success btn-outline-rounded green">View tasks at current stage<span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                 </p>
-
                             </div>
+                                <%                            
+                                HashMap<Integer, String> numbers = new HashMap<>();
+                                numbers.put(1, "one");
+                                numbers.put(2, "two");
+                                numbers.put(3, "three");
+                                numbers.put(4, "four");
+                                numbers.put(5, "five");
+                                int numStages = 4;
+                                for (int i = 1; i <= numStages; i++) {
+                                    ArrayList<Company> companies = new ArrayList<Company>();
+                                    companies = companyController.getCompaniesInStage(i);
+                                    String stageName = ProgramStageDAO.getStage(i);
+                                    String id = numbers.get(i+1);
+                            %>
+                                    <div class="tab-pane fade" id="<%=id%>">
+                                        <h3 class="head text-center">Stage <%=i%></h3>
+                                        <p class="narrow text-center">
+                                            <b><%=stageName%></b><br/>
+                                        </p>
+                                        <p class="text-center">
+                                            <a href="viewTasks.jsp?id=1" class="btn btn-success btn-outline-rounded green">  Stage <%=i%> Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                        </p>
+                                    </div>
+                            <%
+                                }
+                            %>
+                            <!--  
                             <div class="tab-pane fade" id="two">
                                 <h3 class="head text-center">Stage 1<sup>™</sup> Profile</h3>
                                 <p class="narrow text-center">
@@ -164,7 +192,7 @@
                                 </p>
 
 
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>

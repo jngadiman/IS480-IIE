@@ -4,9 +4,11 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.util.HashMap"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="CONTROLLER.companyController"%>
+<%@page import="DAO.ProgramStageDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
@@ -23,13 +25,48 @@
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <img src="img/smu.jpg" alt="" width="70%"/>
-                    <h1 class="page-header">Enterprise in Residence Dashboard</h1>
+                    <h1 class="page-header" style="font-family: serif; font-style: italic">Institute of Innovation & Entrepreneurship</h1>
 
                     <div class="row placeholders">
+                        <%                            
+                            int numStages = 4;
+                            for (int i = 1; i <= numStages; i++) {
+                                ArrayList<Company> companies = new ArrayList<Company>();
+                                companies = companyController.getCompaniesInStage(i);
+                                String stageName = ProgramStageDAO.getStage(i);
+                        %>
+                                <div class="col-xs-6 col-sm-3 placeholder">
+                                    <h1 style="font-style: italic;"><%=i%></h1>
+                                    <%=stageName%><br/><br/>
+                                    <button href="#<%=i%>" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies.size()%></button>
+                                    <div id="<%=i%>" class="collapse">
+
+                                        <%
+                                            out.println("<br>");
+                                            if (companies != null && companies.size() != 0) {
+                                                for (Company c : companies) {
+                                                    //out.println("<ul>" + c.getName() + "</ul>");
+                                                    out.println(c.getName());
+                                                    out.println("<br>");
+                                                }
+                                            } else {
+
+                                            }
+                                        %>
+                                    </div>
+                                </div>
+                        <%
+                            }
+                        %>
+                    </div>
+
+
+                    <!-- <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>1</h1>
                             Business model validation stage<br/><br/>
-                            <%                                ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
+                            <%
+                                ArrayList<Company> companies1 = companyController.getCompaniesInStage(1);
                             %>
                             <button href="#1" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies1.size()%></button>
                             <div id="1" class="collapse">
@@ -46,25 +83,7 @@
                                 %>
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <h1>2</h1>
-                            Innovation Development stage<br/><br/>
-                            <%
-                                ArrayList<Company> companies2 = companyController.getCompaniesInStage(2);
-                            %>
-                            <button href="#2" class="btn btn-primary btn-xs" data-toggle="collapse"><%=companies2.size()%></button>
-                            <div id="2" class="collapse">
-
-                                <%
-
-                                    if (companies2 != null && companies2.size() != 0) {
-                                        for (Company c : companies2) {
-                                            out.println("<li>" + c.getName() + "</li>");
-                                        }
-                                    }
-                                %>
-                            </div>
-                        </div>
+                        
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <h1>3</h1>
                             Go-To-Market & early customer acquisition stage<br/>
@@ -105,7 +124,7 @@
                         </div>
 
 
-                    </div>
+                    </div> -->
                     <!--
                                         <h2 class="sub-header">Section title</h2>
                                         <div class="table-responsive">

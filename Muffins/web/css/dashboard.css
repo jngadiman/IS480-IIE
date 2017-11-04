@@ -52,7 +52,12 @@ and open the template in the editor.
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #d9eaf4;
     border-right: 1px solid #eee;
+    -ms-overflow-style: none; /* hiding scrollbar in ie */
+    overflow: -moz-scrollbars-none; /* hiding scrollbar in firefox */
   }
+  ::-webkit-scrollbar { /* hiding scrollbar in chrome and safari */
+        display: none; 
+    }
 }
 
 /* Sidebar navigation */
