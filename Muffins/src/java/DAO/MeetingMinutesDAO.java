@@ -21,6 +21,8 @@ import java.util.logging.Logger;
  * @author jiatung.lim
  */
 public class MeetingMinutesDAO {
+
+    
     //add MeetingMinute by row
     public static int addMeetingMinutesRow(MeetingMinutes minutes) {
    
@@ -203,6 +205,52 @@ public class MeetingMinutesDAO {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement("select * from meeting_minutes where minutes_id = ?;");
             stmt.setInt(1,meetingMinutesID);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                minutesID = result.getInt("minutes_id");
+                title = result.getString("title");
+                meetingID = result.getInt("meeting_id");
+                mentorEmail = result.getString("mentor");
+                taskID = result.getInt("task_id");
+                comments = result.getString("comment");
+                submitted_user = result.getString("submitted_user");
+                rating = result.getInt("mentor_rating");
+                mm = new MeetingMinutes(minutesID, title, meetingID, mentorEmail, taskID, comments, submitted_user, rating);
+                meetingMinutes.add(mm);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingMinutesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingMinutes;
+    } 
+    
+     //get the whole set of MeetingMinutes rows based on MeetingMinutesID
+    public static ArrayList<MeetingMinutes> getMeetingMinutesByMeeting(int meetingID){
+        ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<MeetingMinutes>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        
+        MeetingMinutes mm = null;
+        int minutesID = 0;
+        String title = "";
+        
+        String mentorEmail = "";
+        int taskID = 0;
+        String comments = "";
+        String submitted_user = "";
+        int rating = 0;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from meeting_minutes where meeting_id = ?;");
+            stmt.setInt(1,meetingID);
             
             result = stmt.executeQuery();
 

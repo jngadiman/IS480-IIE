@@ -39,10 +39,10 @@ public class completeTaskServlet extends HttpServlet {
         String stageID = request.getParameter("stageID");
         int task_id = Integer.parseInt(taskID);
         
-        String result = taskController.completeTask(task_id);
-        //session.setAttribute("completeTaskStatus", result);
-        RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID+"&completeTaskStatus="+result);
-        rd.forward(request,response);
+//        String result = taskController.completeTask(task_id);
+//        //session.setAttribute("completeTaskStatus", result);
+//        RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID+"&completeTaskStatus="+result);
+//        rd.forward(request,response);
        
     }
 

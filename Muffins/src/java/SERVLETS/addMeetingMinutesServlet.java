@@ -7,6 +7,7 @@ package SERVLETS;
 
 import CONTROLLER.meetingController;
 import CONTROLLER.minutesController;
+import CONTROLLER.taskController;
 import DAO.*;
 import MODELS.*;
 import java.io.IOException;
@@ -55,11 +56,14 @@ public class addMeetingMinutesServlet extends HttpServlet {
         ArrayList<Integer> taskIDs = new ArrayList<Integer>();
         String mentor = "";
         boolean lightMentee = false;
-
+        
+        int meetingID = 0;
         if (meeting == null || meeting.equals("")) {
             errorMsg.add("Please Select for a Meeting");
+        }else{
+            meetingID = Integer.parseInt(meeting);
         }
-        int meetingID = Integer.parseInt(meeting);
+          
         if (title == null || title.equals("")) {
             errorMsg.add("Please Key in a Title");
         }
@@ -70,32 +74,33 @@ public class addMeetingMinutesServlet extends HttpServlet {
             comments = " ";
         }
         int rating = 0;
-        if (mentorRating!=null){
+        if (mentorRating!=null||!mentorRating.equals("")){
             rating = Integer.parseInt(mentorRating);
         }
         if (currentUser != null) {
             if (currentUser.getUser_type().equals("mentor")) {
                 mentor = currentUser.getEmail();
             } else {
-                // if need to check, leave mentor as null?
-                //mentor = null;
+               
                 Mentee current = MenteeDAO.getMenteeByEmail(currentUser.getEmail());
-//                if(current.getUser_type().equals("light")){
-//                    lightMentee = true;
-//                }
-                //mentor = MentorDAO.getMentorByEmail(current.getMentor_email());
+
                 mentor = current.getMentor_email();
             }
-            //STILL NEED TO CHANGE DEPENDING ON HOW THE addMeetingMinutes.jsp WILL LOOK LIKE!!!!
+            
             ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();
             
             int minutesID = minutesController.getNextId();
-            
+            Meeting meet = meetingController.getMeetingByMeetingID(meetingID);
             for (String task : tasksCompleted) {
                 
                 int taskID = Integer.parseInt(task);
-                meetingMinutes.add(new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating));
+                taskController.completeTask(taskID, meet.getMenteeCompany());
+                MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating);
+                System.out.println("MEETING MINUTES OBJECT ------ "+m);
+                meetingMinutes.add(m);
             }
+            
+            meetingController.changeStatusOfMeeting("minuted", meetingID);
             
             int status = minutesController.setMeetingMinutes(meetingMinutes);
 
@@ -106,13 +111,11 @@ public class addMeetingMinutesServlet extends HttpServlet {
 
         }
 
-        if (errorMsg != null || errorMsg.size() != 0) {
-            request.setAttribute("status", errorMsg);
+        if (errorMsg.size() != 0) {
+            request.setAttribute("status", "An error occured, Please try again!");
             request.getRequestDispatcher("addMeetingMinutes.jsp").forward(request, response);
-        } else if (lightMentee) {
-            request.setAttribute("status", "Minutes is added!");
-            request.getRequestDispatcher("rateMentor.jsp").forward(request, response);
         } else {
+            
             request.setAttribute("status", "Minutes is added!");
             request.getRequestDispatcher("addMeetingMinutes.jsp").forward(request, response);
         }

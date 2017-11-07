@@ -33,14 +33,9 @@ public class taskController {
         return tasks;
     }
     
-    public static Task displayTask(int taskID){
-        Task task = null;
-        
-        if(taskID == 0){
-            return task;
-        }
-        task = TaskDAO.getTask(taskID);
-        return task;
+    public static Task displayTask(int taskID, int companyID){
+       return TaskDAO.getTask(taskID, companyID);
+       
     }
     
     public static int getNextTaskID(){
@@ -48,9 +43,9 @@ public class taskController {
         return taskID;
     }
     
-    public static boolean deleteTask(int taskID){
+    public static boolean deleteTask(int taskID, int company){
         
-        boolean taskDeleted = TaskDAO.deleteTaskByID(taskID);
+        boolean taskDeleted = TaskDAO.deleteTaskByID(taskID, company);
        
         return taskDeleted;
     }
@@ -85,9 +80,9 @@ public class taskController {
         
     }
      
-    public static String completeTask(int task_id){
+    public static String completeTask(int task_id, int company){
         String returnMsg = "";
-        int result = TaskDAO.completeTaskByID(task_id);
+        int result = TaskDAO.completeTask(task_id, company);
         System.out.println(result);
         if(result == 0){
             returnMsg = "An error have occured, kindly try again!";

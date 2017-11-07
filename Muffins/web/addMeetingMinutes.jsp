@@ -24,157 +24,105 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
         <%@include file="sidenav.jsp" %>
     </head>
     <body>
-        <script>
-            var __slice = [].slice;
+        <style>
 
-            (function ($, window) {
-                var Starrr;
+            div.stars {
+                width: 270px;
+                display: inline-block;
+            }
 
-                Starrr = (function () {
-                    Starrr.prototype.defaults = {
-                        rating: void 0,
-                        numStars: 5,
-                        change: function (e, value) {
-                        }
-                    };
+            input.star { display: none; }
 
-                    function Starrr($el, options) {
-                        var i, _, _ref,
-                                _this = this;
+            label.star {
+                float: right;
+                padding: 10px;
+                font-size: 36px;
+                color: #444;
+                transition: all .2s;
+            }
 
-                        this.options = $.extend({}, this.defaults, options);
-                        this.$el = $el;
-                        _ref = this.defaults;
-                        for (i in _ref) {
-                            _ = _ref[i];
-                            if (this.$el.data(i) != null) {
-                                this.options[i] = this.$el.data(i);
-                            }
-                        }
-                        this.createStars();
-                        this.syncRating();
-                        this.$el.on('mouseover.starrr', 'span', function (e) {
-                            return _this.syncRating(_this.$el.find('span').index(e.currentTarget) + 1);
-                        });
-                        this.$el.on('mouseout.starrr', function () {
-                            return _this.syncRating();
-                        });
-                        this.$el.on('click.starrr', 'span', function (e) {
-                            return _this.setRating(_this.$el.find('span').index(e.currentTarget) + 1);
-                        });
-                        this.$el.on('starrr:change', this.options.change);
-                    }
+            input.star:checked ~ label.star:before {
+                content: '\f005';
+                color: #FD4;
+                transition: all .25s;
+            }
 
-                    Starrr.prototype.createStars = function () {
-                        var _i, _ref, _results;
+            input.star-5:checked ~ label.star:before {
+                color: #FE7;
+                text-shadow: 0 0 20px #952;
+            }
 
-                        _results = [];
-                        for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
-                            _results.push(this.$el.append("<span class='glyphicon glyphicon-star-empty'></span>"));
-                        }
-                        return _results;
-                    };
+            input.star-1:checked ~ label.star:before { color: #F62; }
 
-                    Starrr.prototype.setRating = function (rating) {
-                        if (this.options.rating === rating) {
-                            rating = void 0;
-                        }
-                        this.options.rating = rating;
-                        this.syncRating();
-                        return this.$el.trigger('starrr:change', rating);
-                    };
+            label.star:hover { transform: rotate(-15deg) scale(1.3); }
 
-                    Starrr.prototype.syncRating = function (rating) {
-                        var i, _i, _j, _ref;
+            label.star:before {
+                content: '\f006';
+                font-family: FontAwesome;
+            }
 
-                        rating || (rating = this.options.rating);
-                        if (rating) {
-                            for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-                                this.$el.find('span').eq(i).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
-                            }
-                        }
-                        if (rating && rating < 5) {
-                            for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
-                                this.$el.find('span').eq(i).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
-                            }
-                        }
-                        if (!rating) {
-                            return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
-                        }
-                    };
-
-                    return Starrr;
-
-                })();
-                return $.fn.extend({
-                    starrr: function () {
-                        var args, option;
-
-                        option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-                        return this.each(function () {
-                            var data;
-
-                            data = $(this).data('star-rating');
-                            if (!data) {
-                                $(this).data('star-rating', (data = new Starrr($(this), option)));
-                            }
-                            if (typeof option === 'string') {
-                                return data[option].apply(data, args);
-                            }
-                        });
-                    }
-                });
-            })(window.jQuery, window);
-
-
-            $(function () {
-                return $(".starrr").starrr();
-            });
-            
-            
-$( document ).ready(function() {
-      
-  $('#hearts').on('starrr:change', function(e, value){
-    $('#count').html(value);
-    
-  });
-  ratingd  
-  
- 
-});
-        </script>
+        </style>
 
         <div class="container">
             <div class="col-sm-9 col-sm-offset-2">
                 <h2 class="page-header col-lg-9  col-sm-offset-2">Add Meeting Minutes</h2>
                 <div class="col-lg-9 well col-sm-offset-2">
+                    <%                        String status = (String) request.getAttribute("status");
+                        if (status != null) {%>
+                        <font color="red"> <%=status%> </font>
+                    <%}
 
-                    <%                User currentUser = (User) session.getAttribute("user");
-                        int meeting_id = 3;
-                        Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
-                        int menteeCompany = currentMeeting.getMenteeCompany();
-                        Company comp = CompanyDAO.getCompany(menteeCompany);
-                        int currentStageOfCompany = comp.getCurrentStage();
+                        String id = request.getParameter("id");
+                        if (id == null) {
 
 
                     %>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose the Meeting Title
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
 
+                            <%                User currentUser = (User) session.getAttribute("user");
+                                //System.out.println("CURRENT USER IN ADDMEETINGJSP -----"+ currentUser.getName());
+                                ArrayList<Meeting> meetingWithoutMinutes = meetingController.getMeetingsWithoutMinutes(currentUser.getEmail());
+                                if (meetingWithoutMinutes != null && meetingWithoutMinutes.size() != 0) {
+                                    for (Meeting m : meetingWithoutMinutes) {
+                            %>
+                            <li><a href="addMeetingMinutes.jsp?id=<%=m.getMeetingID()%>"><%=m.getMeetingName()%> (<%=m.getStartTime()%>)</a></li>
+                                <%
+                                        }
+                                    }
+
+                                %>
+
+                        </ul>
+                    </div>
+                    <%} else {%>
 
                     <!-- meeting id to be retrieved from previous page
                       <input type ="hidden" name ="meeting_id">-->
 
                     <form method ="post" action ="addMeetingMinutesServlet">
+                        <%
 
+                            int meeting_id = Integer.parseInt(id);
+                            Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
+                            int menteeCompany = currentMeeting.getMenteeCompany();
+                            Company comp = CompanyDAO.getCompany(menteeCompany);
+                            int currentStageOfCompany = comp.getCurrentStage();
+
+                            String type = user.getUser_type();%>
 
                         <div class="row">
                             <!-- FOR NOW -->
                             <input type="hidden" value = "<%=meeting_id%>" name ="meeting_id">
                             <div class="col-sm-12 form-group">
 
-                                <%String type = user.getUser_type(); %>
+
                                 <% if (type.equals("regular_mentee") || type.equals("light_mentee")) {
                                         Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                                         String mentor_name = "";
@@ -183,11 +131,11 @@ $( document ).ready(function() {
                                             mentor_name = myMentor.getName();
                                 %>
                                 <div class="row">
-                            <div class="col-sm-6 form-group">
-                                 <b>Mentor Name: </b><%=mentor_name%>
-                            </div>
-                                
-                               
+                                    <div class="col-sm-6 form-group">
+                                        <b>Mentor Name: </b><%=mentor_name%>
+                                    </div>
+
+
                                     <%
                                             } else {
                                                 out.println("");
@@ -196,10 +144,10 @@ $( document ).ready(function() {
                                             out.println("");
                                         }
                                     %>
-                                
+
                                     <div class="col-lg-6 form-group">
-                                        <strong>Mentee Name: </strong><%=currentUser.getName()%>
-                            </div>
+                                        <strong>Mentee Name: </strong><%=user.getName()%>
+                                    </div>
                                 </div>
                                 <%
                                     Date startTime = currentMeeting.getStartTime();
@@ -219,17 +167,17 @@ $( document ).ready(function() {
                                 <label class="control-label">Title</label>
                                 <input class="col-sm-6 form-control" type ="text" name ="title" placeholder="Enter Title"> <br/>
                             </div>
-                            
+
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                               
+
                                 <label class="control-label">Tasks Completed (Please tick beside the tasks)</label><br>
 
                                 <%
                                     int uncompleteTask = 0;
                                     ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageOfCompany, menteeCompany);
-                                    if (tasks==null ||tasks.size() == 0 ) {
+                                    if (tasks == null || tasks.size() == 0) {
                                         out.println("No task assigned!");
                                     } else {
                                         for (Task t : tasks) {
@@ -237,40 +185,42 @@ $( document ).ready(function() {
                                 %>
                                 <p><%=t.getName()%> <input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"></p>
                                     <%
-                                    uncompleteTask++;
+                                                    uncompleteTask++;
                                                 }
-                                            
+
                                             }
-                                        if(uncompleteTask==0){
-                                             out.println("No uncomplete task!");
-                                        }
+                                            if (uncompleteTask == 0) {
+                                                out.println("No uncomplete task!");
+                                            }
                                         }
 
                                     %>
-                                
+
                             </div>
-                                    <div class="col-sm-6 form-group">
+                            <div class="col-sm-6 form-group">
                                 <label class="control-label">Comment(s)</label>
                                 <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
                             </div>
                         </div>
-                        
+
                         <div class="row">
-                            <div class="col-sm-6 form-group">
-                            <label class="control-label">Mentor Rating</label>
-                            <div id="hearts" class="starrr"></div>
-                            You gave a rating of <span id="count">0</span> star(s)
+                            <label class="control-label">Mentor Rating</label><br>
+                            <div class="stars">
+
+                                <input class="star star-5" id="star-5" type="radio" name="mentor_rating" value = "5"/>
+                                <label class="star star-5" for="star-5"></label>
+                                <input class="star star-4" id="star-4" type="radio" name="mentor_rating" value = "4"/>
+                                <label class="star star-4" for="star-4"></label>
+                                <input class="star star-3" id="star-3" type="radio" name="mentor_rating" value = "3"/>
+                                <label class="star star-3" for="star-3"></label>
+                                <input class="star star-2" id="star-2" type="radio" name="mentor_rating" value = "2"/>
+                                <label class="star star-2" for="star-2"></label>
+                                <input class="star star-1" id="star-1" type="radio" name="mentor_rating" value = "1"/>
+                                <label class="star star-1" for="star-1"></label>
+
                             </div>
-                            <script>
-                                function rating(){
-                                    var select = document.getElementById("count"); 
-                                    select.innerHTML = "";
-                                    innerHTML += "<input type='hidden' value='"+select+"' name='mentor_rating'>";
-                                }
-                                
-                                
-                            </script>
-                            
+
+
                         </div>
 
                         <!--                            <div class="row">
@@ -320,12 +270,14 @@ $( document ).ready(function() {
                                                         </div>
                                                     </div>-->
 
-
-                        <input type="submit" class="btn btn-lg btn-info" value="Submit">					
-                        </div>
+                        <button type="submit" value="Submit" class="btn btn-xs btn-default" >Submit</button>
+                        <!---input type="submit" class="btn btn-lg btn-info" onclick ="rating()" value="Submit">-->
                     </form> 
+                    <%}%>
                 </div>
+
             </div>
+        </div>
     </body>
 </html>
 <%@include file="browserCloseEvent.jsp" %>

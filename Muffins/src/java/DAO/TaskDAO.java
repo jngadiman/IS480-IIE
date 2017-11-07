@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
  */
 public class TaskDAO {
     
-    public static Task getTask(int taskid){
+    public static Task getTask(int taskid, int companyID){
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -33,7 +33,7 @@ public class TaskDAO {
         String deadLine = "";
         Date deadline = new Date();
         int programstage = 0;
-        int companyID = 0;
+        
         String isCompleted = "";
         boolean iscompleted = true;
         Task task = null;
@@ -41,8 +41,9 @@ public class TaskDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from task where task_id = ?;"); 
+            stmt = conn.prepareStatement("select * from task where task_id = ? and company_id =?;"); 
             stmt.setInt(1,taskid);
+            stmt.setInt(2,companyID);
             
             result = stmt.executeQuery();
 
@@ -67,9 +68,16 @@ public class TaskDAO {
                 programstage = Integer.parseInt(result.getString("program_stage"));
                 companyID = Integer.parseInt(result.getString("company_id"));
                 isCompleted = result.getString("is_completed");
-                iscompleted = isCompleted.equals("Y");
+                
+                
+                if(isCompleted.equals("Y")){
+                    iscompleted = true;
+                }else{
+                    iscompleted = false;
+                }
                 
                 task = new Task(taskid, taskname, deadline, programstage, companyID, iscompleted);
+                System.out.println("TASK OBJECT IN DAO "+task);
             }
             
             //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
@@ -324,7 +332,7 @@ public class TaskDAO {
         return tasks;
     }
     
-    public static boolean deleteTaskByID(int taskID){
+    public static boolean deleteTaskByID(int taskID, int company){
         
         if (taskID == 0) {
             return false;
@@ -339,8 +347,9 @@ public class TaskDAO {
             conn = ConnectionManager.getConnection();
 
             //check the number of bids made by the student
-            stmt0 = conn.prepareStatement("DELETE FROM task WHERE task_id = ?");
+            stmt0 = conn.prepareStatement("DELETE FROM task WHERE task_id = ? AND company_id = ?");
             stmt0.setInt(1, taskID);
+            stmt0.setInt(2, company);
 
             numRecordsUpdated = stmt0.executeUpdate();
 
@@ -468,7 +477,7 @@ public class TaskDAO {
         return next;
     }
     
-    public static int completeTaskByID(int task_id) {
+    public static int completeTask(int task_id, int company) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -482,9 +491,10 @@ public class TaskDAO {
             
            
            
-            stmt = conn.prepareStatement("UPDATE task SET  is_completed = ? WHERE task_id = ?;");
+            stmt = conn.prepareStatement("UPDATE task SET  is_completed = ? WHERE task_id = ? AND company_id = ?;");
             stmt.setString(1, "Y");
             stmt.setInt(2, task_id);
+            stmt.setInt(3, company);
             
             
             result = stmt.executeUpdate();
@@ -498,7 +508,7 @@ public class TaskDAO {
         return result;
     }
     
-    public static int updateDeadlineForTask(int task_id, Date deadline){
+    public static int updateDeadlineForTask(int task_id, int company, Date deadline){
         int result = 0;
         
         Connection conn = null;
@@ -512,9 +522,10 @@ public class TaskDAO {
             conn = ConnectionManager.getConnection();
             
             String status = "";
-            stmt = conn.prepareStatement("UPDATE task SET  task_deadline = ? WHERE task_id = ?;");
+            stmt = conn.prepareStatement("UPDATE task SET  task_deadline = ? WHERE task_id = ? AND company_id = ?;");
             stmt.setString(1, df.format(deadline));
             stmt.setInt(2, task_id);
+            stmt.setInt(3, company);
             
             result = stmt.executeUpdate();
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
@@ -568,7 +579,7 @@ public class TaskDAO {
     }
             
     public static void main(String[] args){
-        int result= TaskDAO.updateDeadlineForTask(101, new Date());
+        int result= TaskDAO.updateDeadlineForTask(101, 7, new Date());
         System.out.println(result);
     }
 

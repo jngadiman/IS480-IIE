@@ -36,7 +36,8 @@ public class displayTaskServlet extends HttpServlet {
             throws ServletException, IOException {
         
         int task_ID = Integer.parseInt(request.getParameter("taskID"));
-        Task returnTask = taskController.displayTask(task_ID);
+        int company = Integer.parseInt(request.getParameter("companyId"));
+        Task returnTask = taskController.displayTask(task_ID, company);
         request.setAttribute("taskToBeDisplayed", returnTask);
         RequestDispatcher rd = request.getRequestDispatcher("editTask.jsp");
         rd.forward(request, response);

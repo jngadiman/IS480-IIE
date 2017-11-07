@@ -68,7 +68,7 @@ public class meetingController {
         if (ids!=null){
             for(int id: ids){
                 Meeting m = MeetingDAO.getMeeting(id);
-                if(m.getStatus().equals("completed")){
+                if(m.getStatus().equals("confirmed")){
                     meetings.add(m);
                 }
                 
@@ -106,5 +106,8 @@ public class meetingController {
         return MeetingDAO.getLastID();
     }
     
+    public static int changeStatusOfMeeting(String status, int meetingID) {
+        return MeetingDAO.changeStatusOfMeeting(status, meetingID);
+    }
     
 }

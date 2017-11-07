@@ -35,10 +35,12 @@ public class deleteTaskServlet extends HttpServlet {
             throws ServletException, IOException {
         String task_id = request.getParameter("taskID");
         String stageID = request.getParameter("stageID");
+        String c = request.getParameter("company");
+        int company = 0;
         int taskID = 0;
         String errorMsg = "";
         
-        if (task_id==null||task_id.equals("")){
+        if (task_id==null||task_id.equals("")||c==null||c.equals("")){
        
             errorMsg = "No task is selected to delete";
             request.setAttribute("errorMsgForDelete", errorMsg);
@@ -46,7 +48,8 @@ public class deleteTaskServlet extends HttpServlet {
             rd.forward(request, response);
         }
         taskID = Integer.parseInt(task_id);
-        boolean result = taskController.deleteTask(taskID);
+        company = Integer.parseInt(c);
+        boolean result = taskController.deleteTask(taskID, company);
         if(result){
             String successMsg = "Task ID: " + taskID + " has been deleted successfully.";
             request.setAttribute("successMsgForDelete", successMsg);

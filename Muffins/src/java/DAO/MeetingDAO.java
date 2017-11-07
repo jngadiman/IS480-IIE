@@ -399,6 +399,36 @@ public class MeetingDAO {
         return next;
     }
     
+    public static int changeStatusOfMeeting(String status, int meetingID) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        int result = 0;
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+           
+           
+            stmt = conn.prepareStatement("UPDATE meeting SET  status = ? WHERE meeting_id = ?;");
+            stmt.setString(1, status);
+            stmt.setInt(2, meetingID);
+            
+            
+            result = stmt.executeUpdate();
+            
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
     
     public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);

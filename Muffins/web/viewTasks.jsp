@@ -79,7 +79,7 @@
                                             }
                                             out.println("<input type='hidden' id=" + t.getTaskId() + "/>");
                                             out.println("<td><a href='displayTaskServlet?taskID=" + t.getTaskId() + " 'class ='btn btn-success btn-xs center-block'>Edit</a></td>");
-                                            out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + " ' class ='btn btn-xs btn-danger center-block'>Delete</a></td>");
+                                            out.println("<td><a href='deleteTaskServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + "&company=" + user.getCompanyid() +" ' class ='btn btn-xs btn-danger center-block'>Delete</a></td>");
                                             //out.println("<td><a href='meetingMinutesTasksServlet?taskID=" + t.getTaskId() + "&stageID=" + stage + " ' class ='btn btn-sccess btn-outline-rounded green'>Delete</a></td>");
                                             out.println("</tr>");
                                         }

@@ -91,8 +91,8 @@ public class minutesController {
     }
     
     //update the deadline of the task given the Task ID and the new deadline in the Task table
-    public static String updateDeadline(int taskID, Date deadline){
-        int result = TaskDAO.updateDeadlineForTask(taskID, deadline);
+    public static String updateDeadline(int taskID, Date deadline, int company){
+        int result = TaskDAO.updateDeadlineForTask(taskID, company, deadline);
         String status = "";
         
         if(result == 1){
@@ -169,6 +169,10 @@ public class minutesController {
     public int getAverageMentorRatingCount(String email){
         int count = MeetingMinutesDAO.getAverageMentorRatingCount(email);
         return count;
+    }
+    
+    public static ArrayList<MeetingMinutes> getMeetingMinutesByMeeting(int meetingID){
+        return MeetingMinutesDAO.getMeetingMinutesByMeeting(meetingID);
     }
     
     public static void main(String[] args){
