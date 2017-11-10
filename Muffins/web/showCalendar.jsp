@@ -52,12 +52,10 @@
                 <div id='calendar'></div>
                 <div class="col-lg-10 col-lg-offset-1">
                     <button id="authorize-button" class="btn btn-lg btn-info">Authorize</button>
+                    
                     <button id="signout-button" style="display: none;">Sign Out</button>
 
-
-
-
-                    <pre id="content"></pre>
+                    <!--<pre id="content"></pre> -->
                     <script type="text/javascript">
                         var now = new Date();
                         var today = now.toISOString();

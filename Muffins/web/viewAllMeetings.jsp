@@ -30,22 +30,19 @@
             <div class="col-sm-9 col-sm-offset-2">
                 <h2 class="page-header col-lg-9  col-sm-offset-2">View Meetings </h2>
                 <div class="col-lg-9 well col-sm-offset-2">
-
-                    <%                    if (user.getUser_type().contains("mentor")) {
-
-                        }
+                    <%  user = (User) session.getAttribute("user");
 
                         String currentUser = user.getEmail();
-                        ArrayList<Meeting> userMeetings = meetingController.getMeetingsOfAttendees(currentUser);
-
-                        for (Meeting m : userMeetings) {
-
+                        ArrayList<Meeting> userMeetings = new ArrayList<Meeting>();
+                        userMeetings = meetingController.getMeetingsOfAttendees(currentUser);
+                        if (userMeetings != null) {
+                            for (Meeting m : userMeetings) {
                     %>
                     Meeting Name: <!--EACH = <%= m.getMeetingName()%> DELETE -->
-                    Meeting Time Date and all: <!--EACH = <%= m.getMeetingName()%> DELETE -->
+                    Meeting Date & Time: <!--EACH = <%= m.getMeetingName()%> DELETE -->
                     <%
                         int meetingID = m.getMeetingID();
-                        //only prints when the meeting is ended
+                        //only prints when the meeting has ended
                         if (m.getStatus().equals("confirmed")) {
                     %>
                     <form action ="testing.jsp" method = "post">
@@ -76,7 +73,7 @@
                                     <div class="modal-body">
                                         <%                    
 
-                                            Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
+                                          Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
                                             Date startdate = meeting.getStartTime();
                                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                                             String date = df.format(startdate);
@@ -90,7 +87,7 @@
 
                                                 //to get the fixed values 
                                                 MeetingMinutes first = minutes.get(0);
-                                                
+
 
                                         %>
                                         Title : <%=first.getTitle()%><br>
@@ -101,13 +98,14 @@
                                             // to get the completed tasks
                                             for (MeetingMinutes temp : minutes) {
 
-                                                Task current = taskController.displayTask(temp.getTask_id(),company);
+                                                Task current = taskController.displayTask(temp.getTask_id(), company);
                                                 if (current != null) {
 
 
                                         %>
                                         <%= current.getName()%>
                                         <%
+                                                    }
                                                 }
                                             }
                                         %>
@@ -125,14 +123,12 @@
                         %>
 
                     </div>  
-                    <%
-                        }
+                    <%                        }
                     %>
 
                     <%
-                           
-
-                        }
+                            }
+                        
                     %>
 
 

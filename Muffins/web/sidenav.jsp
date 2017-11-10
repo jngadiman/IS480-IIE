@@ -52,16 +52,16 @@
                             String userType = user.getUser_type();
                             if (userType.equals("regular_mentee") || userType.equals("light_mentee")) {
                                 String position = user.getRole();
-                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block' style='min-width:100px; width: auto;'>"+position+"</a></li>");
+                                out.println("<li><button href='#' class='btn btn-xs btn-primary center-block' style='min-width:100px; width: auto;'>" + position + "</a></li>");
                         %>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="true"><%=user.getName()%><span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="viewPersonalProfile.jsp">My Profile</a></li>
-                                        <li><a href="editPersonalProfile.jsp">Edit My Profile</a></li>
-                                        <li><a href="changePassword.jsp">Change Password</a></li>
-                                    </ul>
-                                </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-expanded="true"><%=user.getName()%><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="viewPersonalProfile.jsp">My Profile</a></li>
+                                <li><a href="editPersonalProfile.jsp">Edit My Profile</a></li>
+                                <li><a href="changePassword.jsp">Change Password</a></li>
+                            </ul>
+                        </li>
                         <%
                             } else if (userType.equals("admin_eir")) {
                                 out.println("<li><button href='#' class='btn btn-xs btn-primary center-block'>Entrepreneur in Residence</button></li>");
@@ -122,21 +122,21 @@
                         </li>
                         <li><a href="stages.jsp">Company Progress</a></li>
                         <!-- <li><a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>">Current Stage & Tasks</a></li>
-                            <%
-                                }
-                            %>
-                            <%
-                                Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
-                                if (mentor != null) {
+                        <%
+                            }
+                        %>
+                        <%
+                            Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
+                            if (mentor != null) {
 
-                            %>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meeting<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
-                                <li><a href="viewMeetingMinutes.jsp">View Meeting Minutes</a></li>
-                            </ul>
-                        </li>
+                        %>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meeting<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
+                            <li><a href="viewMeetingMinutes.jsp">View Meeting Minutes</a></li>
+                        </ul>
+                    </li>
                         <%                                }
                         %>
                         -->
@@ -153,6 +153,9 @@
                             if (user != null) {
                                 if (user.getUser_type().equals("regular_mentee")) {
                         %>
+                        <li><a href="showCalendar.jsp">Book a Meeting with Mentor</a></li>
+                        <li><a href="viewAllMeetings.jsp">My Meetings</a></li>
+                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
                         <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
                             <%
                             } else if (user.getUser_type().equals("light_mentee")) {
@@ -174,58 +177,64 @@
                         <li><a href="viewAllMentors.jsp">Mentors</a></li>
                         <li><a href="adminShowRelationships.jsp">Relationships</a></li>
 <!--                        <span class="badge"><%=pendingRequests.size()%></span>-->
-                        
-                    <%
-                        if (user.getUser_type().equals("admin_eir")) {
 
-                    %>
-                    <hr />
-                    <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
-                    <li><a href="EIRAssignMentor.jsp">Assign Mentor</a></li>
-                    <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
-                        <% } else if (user.getUser_type().equals("admin_im")) {
-                        %>
-                    <hr />
-                    <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
-                    <li><a href="paymentForMentor.jsp">Mentor Payment</a></li>
-                    <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
                         <%
-                            }
+                            if (user.getUser_type().equals("admin_eir")) {
+
                         %>
-                    <hr/>
-                    <%
-                    } else {
-                    %>
-                    <%
-                        if (user.getUser_type().equals("regular_mentee")) {
-                    %>
-                    <li><a href="stages.jsp">Progress</a></li>
+                        <hr />
+                        <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
+                        <li><a href="EIRAssignMentor.jsp">Assign Mentor</a></li>
+                        <li><a href="showCalendar.jsp">Book a Meeting</a></li>
+                        <li><a href="viewAllMeetings.jsp">My Meetings</a></li>
+                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
+                        <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
+                            <% } else if (user.getUser_type().equals("admin_im")) {
+                            %>
+                        <hr />
+                        <li><a href="showCalendar.jsp">Book a Meeting with Mentor</a></li>
+                        <li><a href="viewAllMeetings.jsp">My Meetings</a></li>
+                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
+                        <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
+                        <li><a href="paymentForMentor.jsp">Mentor Payment</a></li>
+                        <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>
+                            <%
+                                }
+                            %>
+                        <hr/>
                         <%
-                            }
+                        } else {
                         %>
-                    <li><a href="#">Meetings</a></li>
-                    <li><a href="calendar.jsp">Schedule</a></li>
-                    <li><a href="viewCompanyProfile.jsp">View Start-up Profile</a></li>
-                    <li><a href="viewAllCompanies.jsp">Start-ups</a></li>
-                        <%
-                            if (user.getUser_type().equals("admin")) {
-                        %>
-                    <li><a href="viewAllMentees.jsp">Start-ups</a></li>
-                        <%
-                            }
-                        %>
-                    <li><a href="viewAllMentors.jsp">Mentors</a></li>
                         <%
                             if (user.getUser_type().equals("regular_mentee")) {
                         %>
-                    <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
-                        <%
-                            }
-                        %>
-                        <%
-                            }
-                        %> 
-                    <li><a href="logout.jsp">Logout</a></li></ul>
+                        <li><a href="stages.jsp">Progress</a></li>
+                            <%
+                                }
+                            %>
+                        <li><a href="#">Meetings</a></li>
+                        <li><a href="calendar.jsp">Schedule</a></li>
+                        <li><a href="viewCompanyProfile.jsp">View Start-up Profile</a></li>
+                        <li><a href="viewAllCompanies.jsp">Start-ups</a></li>
+                            <%
+                                if (user.getUser_type().equals("admin")) {
+                            %>
+                        <li><a href="viewAllMentees.jsp">Start-ups</a></li>
+                            <%
+                                }
+                            %>
+                        <li><a href="viewAllMentors.jsp">Mentors</a></li>
+                            <%
+                                if (user.getUser_type().equals("regular_mentee")) {
+                            %>
+                        <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
+                            <%
+                                }
+                            %>
+                            <%
+                                }
+                            %> 
+                        <li><a href="logout.jsp">Logout</a></li></ul>
                 </div>
             </div></div>
     </body>
