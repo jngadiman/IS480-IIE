@@ -631,11 +631,18 @@ INSERT INTO `user` (`email`, `password`, `name`, `nric`, `joined_date`, `profile
 ('yvonne.tan.2011@smu.edu.sg', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Yvonne Tan', 'S9542431G', NULL, NULL, 'regular_mentee', 2, 'Founder', NULL, 96257246, 'Singaporean');
 
 -- DATA FOR TESTING (MEETING)
-INSERT INTO `meeting` (`meeting_id`, `meeting_name`, `meeting_type`, `start_time`, `end_time`, `attendees`, `status`, `mentee_company_id`) VALUES
-(1, 'Meeting #1', 'Incubation', '2017-08-31 19:35:43', '2017-08-31 20:55:23', 'yvonne.tan.2011@smu.edu.sg,mentor3@hotmail.com', 'accepted', 2),
-(2, 'Meeting #2', 'Incubation', '2017-09-04 00:00:00', '2017-09-05 00:00:00', 'mentor3@hotmail.com, b2utylovesb2st@hotmail.com', 'accepted', 10),
-(3, 'Meeting #3', 'Incubation', '2017-09-05 00:00:00', '2017-09-06 00:00:00', 'mentor3@hotmail.com, b.wee.2008@smu.edu.sg', 'accepted', 3),
-(4, 'Meeting #4', 'Incubator', '2017-09-07 00:00:00', '2017-09-07 00:00:50', 'mentor1@hotmail.com,	\r\nshm_zen@hotmail.com', 'over', 12);
+INSERT INTO `meeting` (`meeting_id`, `meeting_name`, `location`, `start_time`, `end_time`, `attendees`, `status`, `mentee_company_id`) VALUES
+
+(1, 'Meeting #1', 'NTU', '2017-08-31 19:35:43', '2017-08-31 20:55:23', 'jiatung.lim.2014@smu.edu.sg,mentor1@hotmail.com', 'confirmed', 7),
+
+(2, 'Meeting #2', 'SIM', '2017-09-04 00:00:00', '2017-09-05 00:00:00', 'jiatung.lim.2014@smu.edu.sg,mentor1@hotmail.com', 'confirmed', 7),
+
+(3, 'Meeing #3', 'NUS', '2017-09-05 00:00:00', '2017-09-06 00:00:00', 'jiatung.lim.2014@smu.edu.sg, yanmin.tay.2015@smu.edu.sg, mentor1@hotmail.com', 'confirmed', 7),
+
+(4, 'Meeting #4', 'SMU', '2017-09-07 00:00:00', '2017-09-07 00:00:50', 'jiatung.lim.2014@smu.edu.sg, yanmin.tay.2015@smu.edu.sg, mentor1@hotmail.com', 'confirmed', 7),
+
+(5, 'Meeting #5', 'SMU', '2017-10-04 05:34:38', '2017-10-04 05:34:38', 'jiatung.lim.2014@smu.edu.sg, yanmin.tay.2015@smu.edu.sg, mentor1@hotmail.com', 'confirmed', 7);
+
 
 -- DATA FOR TESTING (TASK)
 INSERT INTO `task` (`task_id`, `task_name`, `task_deadline`, `program_stage`, `company_id`, `is_completed`) VALUES

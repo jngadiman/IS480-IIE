@@ -33,22 +33,27 @@
                     <%  user = (User) session.getAttribute("user");
 
                         String currentUser = user.getEmail();
+                        System.out.println("CURRENT USER IN THIS JSP " + currentUser);
                         ArrayList<Meeting> userMeetings = new ArrayList<Meeting>();
                         userMeetings = meetingController.getMeetingsOfAttendees(currentUser);
                         if (userMeetings != null) {
                             for (Meeting m : userMeetings) {
+                                System.out.println("MEETING OBJECT IN VIEW ALL MEETING JSP ----- " + m);
+                                System.out.println("MEETING NAME IN USERMEETINGS -----" + m.getMeetingName());
                     %>
-                    Meeting Name: <!--EACH = <%= m.getMeetingName()%> DELETE -->
-                    Meeting Date & Time: <!--EACH = <%= m.getMeetingName()%> DELETE -->
+                                Meeting Name: <!--EACH = <%=m.getMeetingName()%> DELETE --></br>
+                                Meeting Date & Time: <!--EACH = <%=m.getMeetingName()%> DELETE --></br>
                     <%
                         int meetingID = m.getMeetingID();
                         //only prints when the meeting has ended
+                        System.out.println("MEETING STATUS IN VIEW ALL MEETING JSP ----- " + m.getStatus());
                         if (m.getStatus().equals("confirmed")) {
                     %>
-                    <form action ="testing.jsp" method = "post">
+                                  
+                    <!---<form action ="testing.jsp" method = "post">
                         <input type ="hidden" value ="<%=meetingID%>" name ="meetingID">
                         <button type="submit" value="View Meeting Minutes" class="btn btn-xs btn-default" >View Meeting Minutes </button>
-                    </form>
+                    </form>-->
 
                     <li><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">View meeting Mins 2</button></li>
 
@@ -73,7 +78,7 @@
                                     <div class="modal-body">
                                         <%                    
 
-                                          Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
+                                            Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
                                             Date startdate = meeting.getStartTime();
                                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                                             String date = df.format(startdate);
@@ -117,18 +122,19 @@
                                 </div>
                             </div>
                         </div>
-                        <%
-                            }
-
-                        %>
-
                     </div>  
+                    <%
+                        }
+
+                    %>
+
+
                     <%                        }
                     %>
 
                     <%
-                            }
-                        
+                        }
+
                     %>
 
 
