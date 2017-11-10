@@ -38,8 +38,8 @@
                         if (userMeetings != null) {
                             for (Meeting m : userMeetings) {
                     %>
-                    Meeting Name: <!--EACH = <%= m.getMeetingName()%> DELETE -->
-                    Meeting Date & Time: <!--EACH = <%= m.getMeetingName()%> DELETE -->
+                    Meeting Name:  <%= m.getMeetingName()%> 
+                    Meeting Date & Time: <%= m.getMeetingName()%> 
                     <%
                         int meetingID = m.getMeetingID();
                         //only prints when the meeting has ended
