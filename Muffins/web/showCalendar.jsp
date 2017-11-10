@@ -252,6 +252,9 @@
 
                             var endDate = new Date(end);
                             var endDateStr = endDate.toISOString();
+                            
+                            var visibility = "public";
+                            var transparency = "opaque";
 
                             submitOK = "true";
 
@@ -278,6 +281,8 @@
                                 },
                                 "location": location,
                                 "status": status,
+                                "transparency": transparency,
+                                "visibility": visibility,
                                 "attendees": [
                                     //attendeesStr
                                     {
@@ -290,9 +295,10 @@
                                 var request = gapi.client.calendar.events.insert(
                                         {
                                             'calendarId': 'incogiieportal@gmail.com', // calendar ID  
-                                            "resource": resource  // pass event details with api call
+                                            "resource": resource,  // pass event details with api call
+                                            "sendNotifications": true
                                         });
-                                request.sendNotifications = true;
+                                //request.sendNotifications = true;
                                 // handle the response from our api call
                                 request.execute(function (resp) {
                                     if (resp.status == 'confirmed') {
