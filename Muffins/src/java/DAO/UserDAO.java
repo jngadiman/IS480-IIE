@@ -511,7 +511,7 @@ public class UserDAO {
     }
     
     public static User getUserByEmail(String parseEmail){
-        System.out.println("USER IN DAO = "+parseEmail);
+        System.out.println("USER IN DAO = "+ parseEmail);
         User u = null;
         Connection conn = null;
         PreparedStatement stmt = null;

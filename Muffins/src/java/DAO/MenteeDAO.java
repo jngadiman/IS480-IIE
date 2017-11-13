@@ -316,14 +316,18 @@ public class MenteeDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Mentee where email = ?;");
+            stmt = conn.prepareStatement("SELECT * from Mentee where email = ?;");
             stmt.setString(1, email);
             result = stmt.executeQuery();
             
             while (result.next()) {
                 email = result.getString("email");
                 degree = result.getString("degree");
-                yearOfGrad = Integer.parseInt(result.getString("year_of_grad"));
+                /* String yearOfGradStr = result.getString("year_of_grad");
+                if (yearOfGradStr != null)  {
+                    Integer.parseInt(result.getString("year_of_grad"));
+                }*/
+                yearOfGrad = result.getInt("year_of_grad");
                 mentor_email = result.getString("mentor_email");
             }
             
@@ -346,7 +350,7 @@ public class MenteeDAO {
         if(userResult == 0){
             return userResult;
         }
-        
+
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet set = null;
@@ -354,19 +358,20 @@ public class MenteeDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("UPDATE Mentee SET degree = ?, year_of_grad = ? WHERE email = ?;");
+            stmt = conn.prepareStatement("UPDATE mentee SET degree = ?, year_of_grad = ? WHERE email = ?;");
             stmt.setString(1, m.getDegree());
             stmt.setInt(2, m.getYear_of_grad());
             stmt.setString(3, m.getEmail());
             
             result = stmt.executeUpdate();
+            System.out.println("MenteeDAO editMenteeDetails: " + result);
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
           
         } catch (SQLException ex) {
             Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionManager.close(conn, stmt);
-        }
+        }        
         return result;
     }
     
@@ -467,9 +472,47 @@ public class MenteeDAO {
             if (records != 1){
             return false;
         }
-        return true;
-            
+        return true;  
+    }
+    
+    public static ArrayList<Mentee> getMenteeByMentor(String mentorEmail) {
+        ArrayList<Mentee> mentees = new ArrayList<Mentee>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        String email = "";
+        String degree = "";
+        int yearOfGrad = 0;
+        String mentor_email = "";
+        Mentee mentee = null;
         
+        ArrayList<User> allMentees = UserDAO.getAllMentees();
+        for(User u: allMentees){
+            email = u.getEmail();
+            try {
+                conn = ConnectionManager.getConnection();
+                stmt = conn.prepareStatement("SELECT * FROM `mentee` WHERE `mentor_email` = ?;");
+                stmt.setString(1, mentorEmail);
+                result = stmt.executeQuery();
+                
+                while (result.next()) {
+                    email = result.getString("email");
+                    degree = result.getString("degree");
+                    yearOfGrad = Integer.parseInt(result.getString("year_of_grad"));
+                    mentor_email = result.getString("mentor_email");
+                }
+                
+                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            } catch (SQLException ex) {
+                Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ConnectionManager.close(conn, stmt, result);
+            }
+            mentees.add(mentee);
+            degree = "";
+            yearOfGrad = 0;
+        }
+        return mentees;
     }
     
     public static void main(String[] args){
