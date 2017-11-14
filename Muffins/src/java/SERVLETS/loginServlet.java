@@ -60,10 +60,10 @@ public class loginServlet extends HttpServlet {
                 System.out.println("USER IS VALIDATED" );
                 String userType = currentUser.getUser_type();
                 if(userType!=null){
-                    if(userType.equals("regular_mentee") || userType.equals("light_mentee")){
+                    if(userType.contains("mentee")){
                     Mentee m = menteeController.getMentee(email);
                     session.setAttribute("mentee",m);
-                    }else if(userType.equals("Incubation Manager Mentor") || userType.equals("Entrepreneur Mentor") || userType.equals("Venture Capitalist Mentor") || userType.equals("Industry Professional Mentor")){
+                    }else if(userType.contains("mentor")){
                         Mentor m = mentorController.getMentor(email);
                         session.setAttribute("mentor",m);
                     }else{
@@ -72,13 +72,11 @@ public class loginServlet extends HttpServlet {
                 }
                 
                 session.setAttribute("user", currentUser);
-                if(currentUser.getUser_type().equals("admin_eir")){
-                    response.sendRedirect("EIRHomepage.jsp");
-                }else if(currentUser.getUser_type().equals("admin_im")){
-                    response.sendRedirect("adminHomepage.jsp");
-                }else if(currentUser.getUser_type().equals("regular_mentee") || currentUser.getUser_type().equals("light_mentee")){
+                if(currentUser.getUser_type().contains("admin")){
+                    response.sendRedirect("adminHome.jsp");
+                }else if(currentUser.getUser_type().contains("mentee")){
                     response.sendRedirect("home.jsp");
-                }else if(currentUser.getUser_type().equals("Incubation Manager Mentor") || currentUser.getUser_type().equals("Venture Capitalist Mentor") || currentUser.getUser_type().equals("Industry Professional Mentor") || currentUser.getUser_type().equals("Entrepreneur Mentor")){
+                }else if(currentUser.getUser_type().contains("mentor")){
                     response.sendRedirect("mentorHomepage.jsp");
                 }else{
                     response.sendRedirect("index.jsp");

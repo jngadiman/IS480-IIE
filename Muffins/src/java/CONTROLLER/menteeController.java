@@ -29,15 +29,11 @@ public class menteeController {
     
     public static ArrayList<Mentee> getRegularMentees(){
         ArrayList<Mentee> regularMentees = MenteeDAO.getRegularMentees();
-       
-        
         return regularMentees;
     }
     
     public static ArrayList<Mentee> getAllMentees(){
         ArrayList<Mentee> allMentees = new ArrayList<>();
-        
-        
         allMentees = MenteeDAO.getMentees();
         return allMentees;
     }
@@ -59,6 +55,12 @@ public class menteeController {
             return true;
         }
         return false;
+    }
+    
+    public static ArrayList<Mentee> getMenteeByMentor(String mentorEmail) {
+        ArrayList<Mentee> mentees = new ArrayList<Mentee>();
+        mentees = MenteeDAO.getMenteeByMentor(mentorEmail);
+        return mentees;
     }
     
     public static void main(String[] args){

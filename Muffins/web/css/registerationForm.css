@@ -121,7 +121,7 @@ body {
         #viewpswd {
           position: absolute;
           opacity: 0;
-          //                    z-index:-100;
+          /* z-index:-100; */
         }
         #show-pwd {
           margin: -2.75em 0em;

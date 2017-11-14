@@ -17,14 +17,15 @@
 
         <%
             User nationUser = (User) session.getAttribute("user");
+
             if (nationUser != null) {
                 if (nationUser.getNationality() != null && !nationUser.getNationality().isEmpty()) {
-                    String nationality = nationUser.getNationality();
+                    String userNationality = nationUser.getNationality();
         %>
         <select class="form-control" name="nationality" required>
             <option selected value = <%=nationUser.getNationality()%> ><%=nationUser.getNationality()%></option>
             <%
-                if (!nationality.equals("Singaporean")) {
+                if (!userNationality.equals("Singaporean")) {
                     out.println("<option value='Singaporean'>Singaporean</option>");
                 }
 

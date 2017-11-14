@@ -42,10 +42,12 @@ public class profileController {
     public static String editMentee(Mentee m){
         String status = "";
         int userResult = UserDAO.editUser(m);
-        System.out.println("controller: " + m.getProfile_pic());
-        System.out.println("profileController editMentee: " + m.getNationality());
+        System.out.println("profileController editMentee: " + m.getProfile_pic());
+        System.out.println("profileController editMentee: " + m.getDegree());
+        System.out.println("profileController editMentee: " + m.getYear_of_grad());
+        System.out.println("profileController editMentee: " + m.getNationality()); 
         int result = MenteeDAO.editMenteeDetails(m);
-        if(result == 1&& userResult == 1){
+        if(result == 1 && userResult == 1){
             status = "Changes have been saved successfully!";
         }else{
             status = "Changes could not be saved!";
@@ -86,6 +88,22 @@ public class profileController {
     public static User getUser(String email){
         User user = UserDAO.getUserByEmail(email);
         return user;
+    }
+    
+    public static String getUserType(User user) {
+        String userType = "";
+        String userTypeDB = user.getUser_type();
+        HashMap<String, String> allUserTypes = new HashMap<String, String>();
+        allUserTypes.put("admin_im", "IIE Incubation Manager");
+        allUserTypes.put("admin_eir", "Entrepreneur In Residence");
+        allUserTypes.put("regular_mentee", "Regular Incubator User");
+        allUserTypes.put("light_mentee", "Light Incubator User");
+        allUserTypes.put("mentor_entre", "Entrepreneur");
+        allUserTypes.put("mentor_ip", "Industry Professional");
+        allUserTypes.put("mentor_vc", "Venture Capitalist");
+        allUserTypes.put("mentor_im", "Incubation Manager");
+        userType = allUserTypes.get(userTypeDB);
+        return userType;
     }
     
     public static String getFoundersContactNumber(Company comp){

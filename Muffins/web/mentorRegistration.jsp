@@ -131,7 +131,7 @@
                         <label class="control-label">Required Fields</label>
                     </div>	
 
-                    <button href="adminViewMentorProfile.jsp" class="btn btn-success btn-xs center-block text-center">Create</button>	
+                    <button href="adminViewMentorProfile.jsp" class="btn btn-success btn-s center-block text-center">Create</button>	
                 </div>
 
             </div>
