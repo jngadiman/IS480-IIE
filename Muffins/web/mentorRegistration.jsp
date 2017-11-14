@@ -21,11 +21,10 @@
     <body>
 
         <div class="container">
-            <div class="col-lg-10 col-lg-offset-4">
+            <div class="col-lg-10 col-lg-offset-3">
                 <h1 class="page-header">Mentor Registration Form</h1>
                 <div class="col-lg-12 well">
                     <div class="row">
-
                         <form action = "addUserServlet" method ="post" name="registerUser" onsubmit="return validateForm()">
                             <div class="col-sm-12">
                                 <h3 class="page-header"><strong>Personal Information</strong></h3>

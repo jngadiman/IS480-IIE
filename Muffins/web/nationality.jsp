@@ -17,8 +17,10 @@
 
         <%
             User nationUser = (User) session.getAttribute("user");
-            if (nationUser.getNationality() != null) {
-                String userNationality = nationUser.getNationality();
+
+            if (nationUser != null) {
+                if (nationUser.getNationality() != null && !nationUser.getNationality().isEmpty()) {
+                    String userNationality = nationUser.getNationality();
         %>
         <select class="form-control" name="nationality" required>
             <option selected value = <%=nationUser.getNationality()%> ><%=nationUser.getNationality()%></option>
@@ -422,6 +424,7 @@
         </select>
 
         <%
+                }
             }
 
         %>

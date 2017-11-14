@@ -46,13 +46,14 @@
     </head>
     <body>
         <div class="container">
-            <div class="col-lg-12">
+            <div class="col-lg-10 col-lg-offset-2">
                 <div id='loading'>loading...</div>
 
                 <div id='calendar'></div>
                 <div class="col-lg-10 col-lg-offset-1">
-                    <button id="authorize-button" class="btn btn-lg btn-info">Authorize</button>
-                    
+                    <br>
+                    <button id="authorize-button" class="btn btn-xs btn-info center-block">Authorize</button>
+                    <br>
                     <button id="signout-button" style="display: none;">Sign Out</button>
 
                     <!--<pre id="content"></pre> -->
@@ -334,7 +335,7 @@
                     </script>
                     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
                     <div id="event-response"></div>
-                    <button type="submit" class="btn btn-lg btn-info" data-toggle="modal" data-target="#addEvents">Book a Meeting</button>
+                    <button type="submit" class="btn btn-xs btn-info center-block" data-toggle="modal" data-target="#addEvents">Book a Meeting</button>
                 </div>
                 <div id="addEvents" class="modal fade" role="dialog">
 

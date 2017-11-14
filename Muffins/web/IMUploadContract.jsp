@@ -116,7 +116,9 @@
                                 %>
                                 </tbody>
                             </table>
-                            <%}%>
+                            <%}else{
+                                    out.println("No relationship found!");
+                                }%>
 
                         </div>
                     </div>

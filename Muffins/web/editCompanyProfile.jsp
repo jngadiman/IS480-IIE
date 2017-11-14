@@ -93,10 +93,6 @@
                                 <input name="companyName" type="text" placeholder="Enter Company Name Here.." class="form-control" value="<%= company.getName()%>" required>
                             </div>
                         
-                            <div class="col-sm-6 form-group required"> <!-- Date input -->
-                                <label class="control-label">Start Date</label><br>
-                                <input name="startDate" placeholder="MM/DD/YYYY" type="text" class="form-control" value="<%= new SimpleDateFormat("dd/MM/yyyy").format(company.getStartDate())%>" required>
-                            </div>
                         </div>
                         <!-- check if the current logged in user is a mentor or mentee. if mentee and regular mentee -> show stage -->
                         <div class="row">

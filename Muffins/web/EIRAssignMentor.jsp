@@ -30,14 +30,19 @@
         <div class="col-lg-8 col-lg-offset-3">
             <h1 class="page-header">Assign Mentor to Company</h1>
             <div class="row">
-            <%                if (request.getAttribute("status") != null) {
-                    String status = (String) request.getAttribute("status");
-                    out.println("<h2>" + status + "</h2>");
-                }
-            %>
+                <%                if (request.getAttribute("status") != null) {
+                        String status = (String) request.getAttribute("status");
+                        out.println("<h2>" + status + "</h2>");
+                    }
+                %>
                 <% int i = 0;
                     ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
-                    for (Company company : companyWoMentor) {
+                    if (companyWoMentor != null && !companyWoMentor.isEmpty()) {
+                        for (Company company : companyWoMentor) {
+                            int company_id = company.getId();
+                            if(company_id==0){
+                                continue;
+                            }
                 %>
                 <div class="col-lg-3 well fixed">
                     <%  // display the image
@@ -55,22 +60,25 @@
                         %>
                     <h4><%=company.getName()%></h4>
                     <form method="post" action="EIRAssignment.jsp">
-                    
+
                         <input type="hidden" name="companyWNoMentor" value="<%= company.getId()%>"/>
                         <button type="submit" class="pull-right btn-xs btn-primary" name="setMentorBtn">Assign</button>
-                    
+
                     </form>
                 </div>
-                        
-                    <div class="col-lg-1"></div>
+
+                <div class="col-lg-1"></div>
                 <%
                             i++;
                             if (i % 3 == 0) {
                                 out.println("</div><div class='row'>");
                             }
+                        }
+                    } else {
+                        out.println("Currently no company to assign mentor!");
                     }
                 %>
-            
-        </div>
+
+            </div>
     </body>
 </html>

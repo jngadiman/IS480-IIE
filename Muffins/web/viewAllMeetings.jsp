@@ -31,7 +31,6 @@
                 <h2 class="page-header col-lg-9  col-sm-offset-2">View Meetings </h2>
                 <div class="col-lg-9 well col-sm-offset-2">
                     <%  user = (User) session.getAttribute("user");
-
                         String currentUser = user.getEmail();
                         System.out.println("CURRENT USER IN THIS JSP " + currentUser);
                         ArrayList<Meeting> userMeetings = new ArrayList<Meeting>();
@@ -57,15 +56,7 @@
                     </form>-->
 
                     <li><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">View meeting Mins 2</button></li>
-
-
-
-
-
                     <div class="row">
-
-
-
                         <!-- Modal -->
                         <div id="view<%=meetingID%>" class="modal fade" role="dialog">
                             <div class="modal-dialog">
