@@ -218,6 +218,14 @@
                                     left: 'prev,next today myCustomButton',
                                     center: 'title',
                                     right: 'month,agendaWeek,agendaDay'
+                                },
+                                eventClick: function(resource, element) {  
+                                    event.title = "CLICKED!";
+                                    if (resource.url) {
+                                        return false;
+                                    }
+                                    $('#calendar').fullCalendar('updateEvent', event);
+                                    alert("Event: " + resource.summary);
                                 }
                             });
                         });
@@ -315,6 +323,8 @@
                                     console.log(resp);
                                 });
                             });
+                            
+                            window.location.reload(true);
                         }
                     </script>
                     <script async defer src="https://apis.google.com/js/api.js"
@@ -338,6 +348,60 @@
                                 <h4 class="modal-title">Book A Timing With EIR</h4>
                             </div>
                             <form role="form" method="POST" action="meetingServlet">
+                            <div class="modal-body">
+                                
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Meeting Name</label>
+                                    <input class="form-control" id="meetingName" name="meetingName" type="text" placeholder="Enter Meeting Name" class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Location</label>
+                                    <input class="form-control" id="location" name="location" type="text" placeholder="Enter The Meeting Location" class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Start Date</label>
+                                    <input class="form-control" id="start_date" name="start_date" type="datetime-local" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">End Date</label>
+                                    <input class="form-control" id="end_date" name= "end_date" type="datetime-local" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Attendees</label>
+                                    <input class="form-control" id="attendees" name="attendees" type="text" placeholder="Enter The Emails of the Attendees" class="form-control" required>
+                                </div>
+                                <div class="col-sm-6 form-group required">
+                                    <label class="control-label">Status</label>
+                                    <select class="form-control" id="status" name="status" class="form-control" required>
+                                        <option value="confirmed">confirmed</option>
+                                        <option value="tentative">tentative</option>
+                                        <option value="cancelled">cancelled</option>
+                                    </select>
+                                </div>
+                                    
+                                
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" value="Book Timeslot" class="btn btn-xs btn-default" onclick="bookMeeting()">Submit</button>
+                            </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="editEvents" class="modal fade" role="dialog">
+
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Meeting Details With EIR</h4>
+                            </div>
+                            <form role="form" method="POST" action="editMeetingDetailsServlet">
                             <div class="modal-body">
                                 
                                 <div class="col-sm-6 form-group required">
