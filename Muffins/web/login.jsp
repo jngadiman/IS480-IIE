@@ -39,11 +39,37 @@
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
     </head>
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        .bg { 
+            /* The image used */
+            background-image: url("img/smuhome.jpg");
+
+            /* Full height */
+            height: 100%; 
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            opacity: 0.75;
+            filter: alpha(opacity=75); 
+        }
+
+        .top-buffer { margin-top: 120px;}
+
+
+
+    </style>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid bg">
             <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <img src="img/iielogo.png" width="500" alt=""/>
+                <div class="col-md-4 col-md-offset-4 top-buffer">
+                    <img src="img/iielogoop50.png" width="385" alt=""/>
                     <!--<h1>IIE Portal</h1>-->
 
 
@@ -63,14 +89,19 @@
                             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                     </form><!-- /form -->
                     <br/>
-                    <a href="forgetPassword.jsp" class="forgot-password">
-                        Forgot the password?
-                    </a><br/>
-                    No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a>
+                    <div style="background-color:rgba(255, 255, 255, 0.85)">
+                        <div>
+                            <a href="forgetPassword.jsp" class="forgot-password">
+                            "Forgot the password?</span>
+                            </a><br/>
+                            No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </body>
+</body>
 </html>
 <%}%>

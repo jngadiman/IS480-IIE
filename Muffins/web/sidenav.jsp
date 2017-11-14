@@ -44,7 +44,7 @@
                         } else {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                         %>
-                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="70px" class="img-responsive center-block" alt="Profile Picture" />
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="70px" class="img-responsive img-circle center-block" alt="Profile Picture" />
                         <%}%>
                     </div>
                     <ul class="nav nav-sidebar">
@@ -169,9 +169,14 @@
                             } else if (user.getUser_type().equals("admin_eir") || user.getUser_type().equals("admin_im")) {
 
                                 ArrayList<Relationship> pendingRequests = relationshipController.getAllRelationshipByStatus("requesting");
-                            %>
-
-                        <li><a href="adminHomepage.jsp">Home</a></li>
+                           if(user.getUser_type().equals("admin_eir")){
+                               out.println("<li><a href='EIRHomepage.jsp'>Home</a></li>");
+                           }else{
+                               out.println("<li><a href='adminHomepage.jsp'>Home</a></li>");
+                           }
+                                %>
+                       
+                        
                         <li class="dropdown">
                         <li><a href="viewAllCompanies.jsp">Start-ups</a></li>
                         <li><a href="viewAllMentors.jsp">Mentors</a></li>
@@ -186,15 +191,15 @@
                         <li><a href="adminViewAllRequests.jsp">Pending Mentor Request  </a></li>
                         <li><a href="EIRAssignMentor.jsp">Assign Mentor</a></li>
                         <li><a href="showCalendar.jsp">Book a Meeting</a></li>
-                        <li><a href="viewAllMeetings.jsp">My Meetings</a></li>
-                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
+<!--                        <li><a href="viewAllMeetings.jsp">My Meetings</a></li>-->
+<!--                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>-->
                         <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
                             <% } else if (user.getUser_type().equals("admin_im")) {
                             %>
                         <hr />
                         <li><a href="showCalendar.jsp">Book a Meeting with Mentor</a></li>
-                        <li><a href="viewAllMeetings.jsp">My Meetings</a></li>
-                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
+<!--                                                <li><a href="viewAllMeetings.jsp">My Meetings</a></li>-->
+<!--                        <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>-->
                         <li><a href="IMUploadContract.jsp">Upload Contracts</a></li>
                         <li><a href="paymentForMentor.jsp">Mentor Payment</a></li>
                         <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>

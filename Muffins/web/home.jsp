@@ -49,12 +49,13 @@
             <div class="row">
                
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                     <img src="img/smu.jpg" alt="" width="70%"/>
-                    <h1 class="page-header" style="font-family: serif; font-style: italic">Institute of Innovation & Entrepreneurship</h1>
+                     <img src="img/smutrial.jpg" alt="" width="100%" class="rounded"/>
+                     <h1 class="page-header">Institute of Innovation & Entrepreneurship</h1>
+<!--                    <h1 class="page-header" style="font-family: serif; font-style: italic">Institute of Innovation & Entrepreneurship</h1>-->
 
                     <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3">
-                            <a href="stages.jsp"><img src="img/statistics.png" width="100"/></a>
+                            <span class="glyphicon glyphicon-signal" style="font-size: 80px"></span>
                             <h4>Current Stage</h4>
                             
                             <span class="text-muted"><%=companyStage%></span>
@@ -64,7 +65,7 @@
                              Company userComp = companyController.getCompany(m.getCompanyid());
                             %>
                             
-                            <a href="viewTasks.jsp?id=<%=userComp.getCurrentStage()%>"><img src="img/clipboard.png" width="100" height="100"/></a>
+                           <span class="glyphicon glyphicon-list" style="font-size: 80px"></span>
                             <h4>Current Task(s)</h4>
                             <%
                             ArrayList<Task> taskList= taskController.displayTasksByStageAndCompany(userComp.getCurrentStage(), userComp.getId());
@@ -81,18 +82,24 @@
                             %>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="img/interview.png" width="100"  alt=""/>
+                            <span class="glyphicon glyphicon-calendar" style="font-size: 80px"></span>
                             <h4>Next Scheduled Meeting</h4>
                             <span class="text-muted">Thursday, 14th November 2017</span>
                         </div>
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <%session.setAttribute("mentor_email", mentorEmail);%>
-                            <a href="displayMentorProfile.jsp">
-                                <img src="img/educator.png" width="100"   alt=""/>
-                            </a>
+                            
+                            <span class="glyphicon glyphicon-apple" style="font-size: 80px"></span>
+                            
                             
                             <h4>Assigned Mentor</h4>
+                            <%if (mentorName == null || mentorName.isEmpty()){
+                                %>
+                            <span class="text-muted">Currently No Mentor</span>
+                            <%
+                            } else{%>
                             <span class="text-muted"><%=mentorName%></span>
+                            <%}%>
                         </div>
 
                     </div>
