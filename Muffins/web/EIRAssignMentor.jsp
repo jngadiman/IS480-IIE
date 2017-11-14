@@ -39,6 +39,10 @@
                     ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
                     if (companyWoMentor != null && !companyWoMentor.isEmpty()) {
                         for (Company company : companyWoMentor) {
+                            int company_id = company.getId();
+                            if(company_id==0){
+                                continue;
+                            }
                 %>
                 <div class="col-lg-3 well fixed">
                     <%  // display the image
