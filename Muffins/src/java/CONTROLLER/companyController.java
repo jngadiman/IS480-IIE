@@ -54,7 +54,7 @@ public class companyController {
     
     public static Company getCompany(int companyID){
         Company c = CompanyDAO.getCompany(companyID);
-        
+        System.out.println("companyController: " + c);
         return c;
     }
     

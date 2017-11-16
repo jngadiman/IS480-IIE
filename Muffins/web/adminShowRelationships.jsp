@@ -20,13 +20,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-2">
-                    <h2 class="page-header col-lg-9  col-sm-offset-2">Mentor-Mentee Relationships</h2>
+                    <h2 class="page-header col-lg-9  col-sm-offset-2">Mentor-Start-up Relationships</h2>
 
                     <%      ArrayList<Relationship> pendingRelationship = relationshipController.getAllRelationshipByStatus("requesting");
                         out.println("<h3 class='page-header col-lg-9 col-sm-offset-2'>Pending Relationship(s) <span class='badge'>" + pendingRelationship.size() + "</span></h3>");
-
                         if (pendingRelationship != null && pendingRelationship.size() != 0) {
-
                     %>
                     <div class="col-lg-9 well col-sm-offset-2">
                         <div class ="row">
@@ -42,8 +40,11 @@
                                 </thead>
                                 <tbody>
                                     <%                            for (Relationship rs : pendingRelationship) {
+                                            System.out.println("adminShowAllRS: " + rs.getRelationshipID());
                                             String mentorName = mentorController.getMentor(rs.getMentorEmail()).getName();
+                                            System.out.println("adminShowAllRS: " + mentorName);
                                             String companyName = companyController.getCompany(rs.getCompanyID()).getName();
+                                            System.out.println("adminShowAllRS: " + companyName);
                                     %>
                                     <tr>
                                         <td><%=companyName%></td>

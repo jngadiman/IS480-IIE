@@ -42,6 +42,7 @@
                 <div class="row">
                     <%  int i = 0;
                         ArrayList<Mentor> allMentors = mentorController.getMentors();
+                        System.out.println("viewAllMentors JSP: " + allMentors);
                         for (Mentor mentor : allMentors) {
 
                     %>

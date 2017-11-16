@@ -24,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jiatung.lim
  */
-@WebServlet(name = "addMeetingMinutesServlet", urlPatterns = {"/addMeetingMinutesServlet"})
-public class addMeetingMinutesServlet extends HttpServlet {
+@WebServlet(name = "editMeetingMinutesServlet", urlPatterns = {"/editMeetingMinutesServlet"})
+public class editMeetingMinutesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,7 +55,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
         ArrayList<String> errorMsg = new ArrayList<String>();
         ArrayList<Integer> taskIDs = new ArrayList<Integer>();
         String mentor = "";
-        boolean lightMentee = false;
+        
         
         int meetingID = 0;
         if (meeting == null || meeting.equals("")) {
@@ -95,7 +95,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
                 for (String task : tasksCompleted) {
 
                     int taskID = Integer.parseInt(task);
-                    taskController.completeTask(taskID, meet.getMenteeCompany());
+                    
                     MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating);
                     System.out.println("MEETING MINUTES OBJECT ------ "+m);
                     meetingMinutes.add(m);
@@ -104,9 +104,8 @@ public class addMeetingMinutesServlet extends HttpServlet {
                 MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating);
             }
             
-            meetingController.changeStatusOfMeeting("minuted", meetingID);
             
-            int status = minutesController.setMeetingMinutes(meetingMinutes);
+            int status = minutesController.editMeetingMinutes(meetingMinutes);
 
             if (status == 0) {
                 errorMsg.add("An error occured, Please try again");
@@ -117,11 +116,11 @@ public class addMeetingMinutesServlet extends HttpServlet {
 
         if (errorMsg.size() != 0) {
             request.setAttribute("status", "An error occured, Please try again!");
-            request.getRequestDispatcher("addMeetingMinutes.jsp").forward(request, response);
+            request.getRequestDispatcher("editMeetingMinutes.jsp").forward(request, response);
         } else {
             
-            request.setAttribute("status", "Minutes is added!");
-            request.getRequestDispatcher("addMeetingMinutes.jsp").forward(request, response);
+            request.setAttribute("status", "Minutes is updated!");
+            request.getRequestDispatcher("editMeetingMinutes.jsp").forward(request, response);
         }
 
     }

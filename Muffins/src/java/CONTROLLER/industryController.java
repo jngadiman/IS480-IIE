@@ -26,6 +26,7 @@ public class industryController {
         Industry i = null;
         
         i = IndustryDAO.getIndustry(industry_code);
+        System.out.println("industryController: " + i);
         
         return i;
     }

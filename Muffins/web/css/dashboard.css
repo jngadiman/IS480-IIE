@@ -62,16 +62,13 @@ and open the template in the editor.
     ::-webkit-scrollbar { /* hiding scrollbar in chrome and safari */
         display: none; 
     }
-    a {
+    .sidebar a {
         color: #fff;
     }
-    a:hover,a:focus {
+    .sidebar a:hover,a:focus {
         color: #003b5b;
         font-weight: bold;
         background-color: #ffffff;
-    }
-    active {
-        color: pink;
     }
 }
 

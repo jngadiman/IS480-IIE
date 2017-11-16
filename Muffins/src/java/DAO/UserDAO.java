@@ -110,9 +110,13 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
+<<<<<<< HEAD
+            stmt = conn.prepareStatement("select * from user where user_type = 'mentor_entre' or user_type = 'mentor_im' or user_type = 'mentor_vc' or user_type='mentor_ip' ORDER BY `name` asc ;");
+=======
             stmt = conn.prepareStatement("select * from user where user_type = 'mentor_entre' or user_type = 'mentor_im' or user_type = 'mentor_vc' or user_type='mentor_ip' ORDER BY name asc ;");
+>>>>>>> f8411d5b80b1715a3feed23b07dc43e9743502c6
             result = stmt.executeQuery();
-
+            
             while (result.next()) {
                 email = result.getString("email");
                 password = result.getString("password");
@@ -138,6 +142,8 @@ public class UserDAO {
                 
                 u = new User(email, password, name, nric, joinedDate, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
+                System.out.println("userDAO getAllMentors: " + users.size());
+                System.out.println("userDAO getAllMentors: " + u.getName());
             }
 
         } catch (SQLException ex) {
@@ -945,8 +951,8 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-       ArrayList<User> mentees = UserDAO.getMentorsByType("Incubation Manager Mentor");
-        for(User m: mentees){
+       ArrayList<User> mentors = UserDAO.getAllMentors();
+        for(User m: mentors){
             System.out.println(m.getEmail());
             System.out.println(m.getPassword());
             System.out.println(m.getName());
