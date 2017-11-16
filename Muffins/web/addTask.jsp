@@ -46,8 +46,9 @@
                             out.println("</h4>");
                         }
                     %>
-                    <h2 class='page-header col-sm-7 col-sm-offset-3'>Add Task</h2>
-                    <div class="col-sm-7 well col-sm-offset-3">
+                    <div class="col-lg-8 col-lg-offset-3">
+                    <h1 class="page-header">Add Task</h1>
+                    <div class="col-sm-12 well">
 
 
                         <div class="form-group">
@@ -92,7 +93,7 @@
                                 if (c != null) {
                                     stage = c.getCurrentStage();
                             %>    
-
+                        
 
                             <div class="col-lg-8 col-lg-offset-9">
                                 <br>
@@ -106,7 +107,7 @@
                         </div>
                     </div>
                     </div>
-
+                                </div>
                 </fieldset>
             </form>
         </div>

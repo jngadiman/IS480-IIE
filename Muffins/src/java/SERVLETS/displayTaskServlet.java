@@ -35,8 +35,10 @@ public class displayTaskServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int task_ID = Integer.parseInt(request.getParameter("taskID"));
-        int company = Integer.parseInt(request.getParameter("companyId"));
+        String taskid = request.getParameter("taskID");
+        int task_ID = Integer.parseInt(taskid);
+        String companyid = request.getParameter("companyId");
+        int company = Integer.parseInt(companyid);
         Task returnTask = taskController.displayTask(task_ID, company);
         request.setAttribute("taskToBeDisplayed", returnTask);
         RequestDispatcher rd = request.getRequestDispatcher("editTask.jsp");

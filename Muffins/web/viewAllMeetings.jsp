@@ -109,7 +109,15 @@
 
                                     </div>
                                     <div class="modal-footer">
+                                         <form action = "editMeetingMinutes.jsp" method ="post">
+                                            <input type ="hidden" name ="meetingIDPassedToEdit" value ="<%=meetingID%>">
+                                            <button type="submit" class="btn btn-default">Edit</button>
+                                        </form>
+                                        <a href="editMeetingMinutes.jsp?id=<%=meetingID%>">
+                                            <button type="button" class="btn btn-default">Edit</button>
+                                        </a>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                                     </div>
                                 </div>
                             </div>
