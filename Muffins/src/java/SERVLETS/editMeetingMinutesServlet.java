@@ -46,6 +46,7 @@ public class editMeetingMinutesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         String meeting = request.getParameter("meeting_id");
+        String minutes = request.getParameter("minutes_id");
         String title = request.getParameter("title");
         String[] tasksCompleted = request.getParameterValues("tasks_completed");
         String comments = request.getParameter("comments");
@@ -76,8 +77,10 @@ public class editMeetingMinutesServlet extends HttpServlet {
         if (mentorRating!=null||!mentorRating.equals("")){
             rating = Integer.parseInt(mentorRating);
         }
+        
         if (currentUser != null) {
-            if (currentUser.getUser_type().equals("mentor")) {
+            System.out.println("EDIT MINUTES SERVLET NO ERROR ------ ");
+            if (currentUser.getUser_type().contains("mentor")) {
                 mentor = currentUser.getEmail();
             } else {
                
@@ -85,11 +88,18 @@ public class editMeetingMinutesServlet extends HttpServlet {
 
                 mentor = current.getMentor_email();
             }
+            System.out.println("----- MENTOR ------ " +mentor);
             
             ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();
             
-            int minutesID = minutesController.getNextId();
+            int minutesID = 0;
+            
+            if (minutes!=null){
+                minutesID = Integer.parseInt(minutes);
+            }
+            
             Meeting meet = meetingController.getMeetingByMeetingID(meetingID);
+            System.out.println("----- MENTOR ------ " +mentor);
             if (tasksCompleted != null && tasksCompleted.length != 0) {
                 
                 for (String task : tasksCompleted) {
@@ -97,11 +107,12 @@ public class editMeetingMinutesServlet extends HttpServlet {
                     int taskID = Integer.parseInt(task);
                     
                     MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating);
-                    System.out.println("MEETING MINUTES OBJECT ------ "+m);
+                    System.out.println("----- MEETING MINUTES OBJECT ------ "+m);
                     meetingMinutes.add(m);
                 }
             }else{
                 MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating);
+                meetingMinutes.add(m);
             }
             
             
@@ -116,11 +127,11 @@ public class editMeetingMinutesServlet extends HttpServlet {
 
         if (errorMsg.size() != 0) {
             request.setAttribute("status", "An error occured, Please try again!");
-            request.getRequestDispatcher("editMeetingMinutes.jsp").forward(request, response);
+            request.getRequestDispatcher("editMeetingMinutes.jsp?mid="+meetingID).forward(request, response);
         } else {
             
             request.setAttribute("status", "Minutes is updated!");
-            request.getRequestDispatcher("editMeetingMinutes.jsp").forward(request, response);
+            request.getRequestDispatcher("editMeetingMinutes.jsp?mid="+meetingID).forward(request, response);
         }
 
     }

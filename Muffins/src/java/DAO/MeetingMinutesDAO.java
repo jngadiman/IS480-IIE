@@ -672,18 +672,20 @@ public class MeetingMinutesDAO {
 
     public static void main(String[] args){
         //MeetingMinutes mm = new MeetingMinutes(3, "Meeting #3", 3, "mentor3@hotmail.com", 4, "done", "b.wee.2008@smu.edu.sg");
-        ArrayList<MeetingMinutes> meetingMinutes = MeetingMinutesDAO.getMeetingMinutes(1);
-
-        for(MeetingMinutes mm : meetingMinutes){
-            System.out.println(mm.getMinutesID()); 
-            System.out.println(mm.getTitle());
-            System.out.println(mm.getMeeting_id()); 
-            System.out.println(mm.getMentor_email()); 
-            System.out.println(mm.getTask_id()); 
-            System.out.println(mm.getComments());
-            System.out.println(mm.getSubmitted_user()); 
-            System.out.println(mm.getMentorRating());
-        }
+//        ArrayList<MeetingMinutes> meetingMinutes = MeetingMinutesDAO.getMeetingMinutes(1);
+//
+//        for(MeetingMinutes mm : meetingMinutes){
+//            System.out.println(mm.getMinutesID()); 
+//            System.out.println(mm.getTitle());
+//            System.out.println(mm.getMeeting_id()); 
+//            System.out.println(mm.getMentor_email()); 
+//            System.out.println(mm.getTask_id()); 
+//            System.out.println(mm.getComments());
+//            System.out.println(mm.getSubmitted_user()); 
+//            System.out.println(mm.getMentorRating());
+//        }
+        
+        boolean status = MeetingMinutesDAO.deleteMeetingMinutes(6);
 
 //            int id = MeetingMinutesDAO.getLastID();
 //            System.out.println(id);

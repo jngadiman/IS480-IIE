@@ -35,6 +35,9 @@
                         System.out.println("CURRENT USER IN THIS JSP " + currentUser);
                         ArrayList<Meeting> userMeetings = new ArrayList<Meeting>();
                         userMeetings = meetingController.getMeetingsOfAttendees(currentUser);
+                        %>
+                        <h2>MEETINGS WITH MINUTES</h2>
+                        <%
                         if (userMeetings != null) {
                             for (Meeting m : userMeetings) {
                                 System.out.println("MEETING OBJECT IN VIEW ALL MEETING JSP ----- " + m);
@@ -47,14 +50,10 @@
                         int meetingID = m.getMeetingID();
                         //only prints when the meeting has ended
                         System.out.println("MEETING STATUS IN VIEW ALL MEETING JSP ----- " + m.getStatus());
-                        if (m.getStatus().equals("confirmed")) {
+                        if (m.getStatus().equals("minuted")) {
                     %>
-                                  
-                    <!---<form action ="testing.jsp" method = "post">
-                        <input type ="hidden" value ="<%=meetingID%>" name ="meetingID">
-                        <button type="submit" value="View Meeting Minutes" class="btn btn-xs btn-default" >View Meeting Minutes </button>
-                    </form>-->
-
+                        
+                    
                     <li><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">View meeting Mins 2</button></li>
                     <div class="row">
                         <!-- Modal -->
@@ -110,12 +109,10 @@
                                     </div>
                                     <div class="modal-footer">
                                          <form action = "editMeetingMinutes.jsp" method ="post">
-                                            <input type ="hidden" name ="meetingIDPassedToEdit" value ="<%=meetingID%>">
+                                            <input type ="hidden" name ="mid" value ="<%=meetingID%>">
                                             <button type="submit" class="btn btn-default">Edit</button>
                                         </form>
-                                        <a href="editMeetingMinutes.jsp?id=<%=meetingID%>">
-                                            <button type="button" class="btn btn-default">Edit</button>
-                                        </a>
+                                        
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
                                     </div>
@@ -124,7 +121,17 @@
                         </div>
                     </div>  
                     <%
-                        }
+                        }else{%>
+                    
+                    <h2>MEETINGS WITHOUT MINUTES</h2>
+                    Meeting Details
+                    <button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">Add Meeting Minutes</button>
+                    
+                    
+                    
+                    <%
+
+}
 
                     %>
 

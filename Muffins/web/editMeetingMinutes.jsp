@@ -32,7 +32,7 @@
     </head>
     <body>
         <% 
-            String meeting = request.getParameter("meetingIDPassedToEdit");
+            String meeting = request.getParameter("mid");
                 System.out.print("EDIT MM ID IS ----- "+meeting);%>
 
         <style>
@@ -86,6 +86,7 @@
                     ArrayList<MeetingMinutes> minutes = minutesController.getMeetingMinutesByMeeting(meeting_id);
                     //get fixed values
                     MeetingMinutes first = minutes.get(0);
+                    int minutes_id = first.getMinutesID();
                     String minutesTitle = first.getTitle();
                     String comments = first.getComments();
                     int rating = first.getMentorRating();
@@ -114,6 +115,7 @@
                         <div class="row">
                             <!-- FOR NOW -->
                             <input type="hidden" value = "<%=meeting_id%>" name ="meeting_id">
+                            <input type="hidden" value = "<%=minutes_id%>" name ="minutes_id">
                             <div class="col-sm-12 form-group">
 
 

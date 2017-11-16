@@ -77,7 +77,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
             rating = Integer.parseInt(mentorRating);
         }
         if (currentUser != null) {
-            if (currentUser.getUser_type().equals("mentor")) {
+            if (currentUser.getUser_type().contains("mentor")) {
                 mentor = currentUser.getEmail();
             } else {
                
@@ -102,6 +102,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
                 }
             }else{
                 MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating);
+                meetingMinutes.add(m);
             }
             
             meetingController.changeStatusOfMeeting("minuted", meetingID);

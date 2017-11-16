@@ -86,23 +86,29 @@ public class minutesController {
             int minutesID = mm.get(0).getMinutesID();
             int meetingID = mm.get(0).getMeeting_id();
             Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
+            System.out.println("MINUTES CONTROLLER ------ meeting "+meeting.getMeetingName());
             int menteeCompany = meeting.getMenteeCompany();
+            
             ArrayList<Integer> taskIDs = MeetingMinutesDAO.getTaskIDsOfMM(minutesID);
+            System.out.println("MINUTES CONTROLLER ------ task loop size "+taskIDs.size());
             if(taskIDs!=null && taskIDs.size()!= 0 ){
                 for(int id:taskIDs){
                    TaskDAO.unCompleteTask(id, menteeCompany);
                    System.out.println("MINUTES CONTROLER TASK THAT WE UNCOMPLETE ----- "+id);
                 }
                 
+            }else{
+                System.out.println("MINUTES CONTROLER NO TASK TO UNCOMPLETE ----- ");
             }
             boolean deleted = MeetingMinutesDAO.deleteMeetingMinutes(minutesID);
+            System.out.println("MINUTES CONTROLER DELETED STATUS ----- "+deleted);
             for(MeetingMinutes m: mm){
                 int taskEdited = m.getTask_id();
-                if (deleted){
+                //if (deleted){
                     status = MeetingMinutesDAO.addMeetingMinutesRow(m);
                     taskController.completeTask(taskEdited, menteeCompany);
                     System.out.println("MINUTES CONTROLER TASK THAT WE COMPLETE ----- "+taskEdited);
-                } 
+                //} 
             }
             
         }
@@ -196,9 +202,11 @@ public class minutesController {
     }
     
     public static void main(String[] args){
-        ArrayList<ArrayList<MeetingMinutes>> meetingMinutes = minutesController.getAllMeetingMinutes();
-        for(ArrayList<MeetingMinutes> mm : meetingMinutes){
-            for(MeetingMinutes m : mm){
+        //ArrayList<ArrayList<MeetingMinutes>> meetingMinutes = minutesController.getAllMeetingMinutes();
+       ArrayList<MeetingMinutes> meetingMinutes = minutesController.getMeetingMinutesByMeeting(2);
+        
+        //for(ArrayList<MeetingMinutes> mm : meetingMinutes){
+            for(MeetingMinutes m : meetingMinutes){
                 System.out.println(m.getMinutesID());
                 System.out.println(m.getTitle());
                 System.out.println(m.getMeeting_id());
@@ -207,6 +215,6 @@ public class minutesController {
                 System.out.println(m.getComments());
                 System.out.println(m.getSubmitted_user());
             }
-        }
+        //}
     }
 }
