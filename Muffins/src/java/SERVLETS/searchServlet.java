@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,9 +40,17 @@ public class searchServlet extends HttpServlet {
         String querys = request.getParameter("queries");
         ArrayList<Mentor> mentorLists = new ArrayList<Mentor>();
         if(querys != null && !querys.isEmpty()){
+            System.out.println(querys);
             queries = querys.split(", ");
             ArrayList<String> queryList = new ArrayList<String>(Arrays.asList(queries));
+            //System.out.println(queryList.size());
             mentorLists = assignmentController.getAllMentorsBySkills(queryList);
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("searchedMentors", mentorLists);
+            response.sendRedirect("displaySearchedMentors.jsp");
+        }else{
+             response.sendRedirect("mentorAssignment.jsp");
         }
     }
     

@@ -73,7 +73,7 @@
                 <div class='pull-right'>
                     <form action="searchServlet" method="post">
                         Keywords : 
-                        <input type='text' name='queries' placeholder="Seach here">
+                        <input type="text" name="queries" placeholder="Search here"/>
                         <input type="submit" class="btn btn-xs btn-info " name="searchBtn" value="Submit"> 
                     </form>
                 </div>

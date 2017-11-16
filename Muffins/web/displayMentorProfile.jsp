@@ -56,10 +56,9 @@
     <body>
         <%
             String mentorEmail = request.getParameter("mentorEmail");
-            out.println(mentorEmail);
             if (mentorEmail != null && !mentorEmail.isEmpty()) {
                 mentorEmail = (String) request.getParameter("mentorEmail");
-            }
+            
             User userMentor = profileController.displayUserDetails(mentorEmail);
             if (userMentor != null) {
 
@@ -148,7 +147,10 @@
                                 <%
                                     }
                                 }
-            }
+                            }
+                        }else{
+                            out.println("No Mentor is assigned currently!");
+                        }
                                 %>
                                 <br><br>
                             <a href="viewAllMentors.jsp" class="btn btn-success center-block btn-xs" align="middle">Back to Mentor List</a>
