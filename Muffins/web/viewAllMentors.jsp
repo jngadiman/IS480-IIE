@@ -19,6 +19,35 @@
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
+    <style>
+        .profile-pic {
+            border-radius: 50%;
+            height: 110px;
+            width: 110px;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+            vertical-align: middle;
+            text-align: center;
+            color: transparent;
+            transition: all .3s ease;
+            text-decoration: none;
+        }
+
+        .profile-pic:hover {
+            background-color: rgba(0,0,0,.5);
+            z-index: 10000;
+            color: #fff;
+            transition: all .3s ease;
+            text-decoration: none;
+        }
+        .profile-pic label {
+            display: inline-block;
+            padding-top: 10em;
+            padding-bottom: 1.5em;
+            cursor: pointer;
+        }
+    </style>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>All Mentors</title>
@@ -35,36 +64,36 @@
 
     </script>
     <body>
-
         <div class="container">
             <div class="col-lg-8 col-lg-offset-3">
                 <h1 class="page-header">View All Mentors</h1>
                 <div class="row">
-                    <%  int i = 0;
+                    <%                        int i = 0;
                         ArrayList<Mentor> allMentors = mentorController.getMentors();
                         System.out.println("viewAllMentors JSP: " + allMentors);
                         for (Mentor mentor : allMentors) {
-
                     %>
-                    
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-3 well">
-                        <%                        // display the image
-                            imgData = mentor.getProfile_pic();
-                            if (imgData != null) {
-                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
-                                out.println(imgData);
-                        %>
-                        <img width="120" height="120" src="data:image/gif;base64,<%= imgDataBase64%>" alt="Profile Picture" />
-                        <%
-                        } else {
-                        %>
-                        <img src="img/user.png" width="120" height="120" alt=""/>
-                        <%
-                            }
-                        %>
 
-                        <h4><%=mentor.getName()%></h4>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-3 well" align="center">
+                        <%
+                            // getting mentor details
+                            // get profile pic
+                            imgData = mentor.getProfile_pic();
+                            String mentorProfilePic = "";
+                            if (imgData == null) {
+                                mentorProfilePic = "img/user.png";
+                            } else {
+                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                mentorProfilePic = "data:image/gif;base64," + imgDataBase64;
+                            }
+                            // get mentor name
+                            String mentorName = mentor.getName();
+                        %>
+                        <div class="profile-pic" style="background-image: url('<%=mentorProfilePic%>')" width="120px"></div>
+                        
+
+                        <h4><%=mentorName%></h4>
                         <%
 
                             User displayedUser = profileController.displayUserDetails(mentor.getEmail());
@@ -80,7 +109,7 @@
                         %>
                         <form method="post" action="displayMentorProfile.jsp">
                             <input type="hidden" name="mentorEmail" value="<%= mentor.getEmail()%>"/>
-                            <button type="submit" name="viewMentor" value="View Profile" class='pull-right btn btn-success btn-xs'>View Profile</button>
+                            <button type="submit" name="viewMentor" value="View Profile" class='btn btn-success btn-xs'>View Profile</button>
                         </form>
                     </div>
                     <%
@@ -90,9 +119,9 @@
                             }
                         }
                     %>
-                
+
+                </div>
             </div>
-        </div>
 
     </body>
 </html>

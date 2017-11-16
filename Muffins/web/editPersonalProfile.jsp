@@ -64,30 +64,14 @@
         <meta http-eqouiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Personal Profile</title>
         <%@include file="sidenav.jsp" %>
-        <!--
-                <script type="text/javascript">
-                    var degree = document.getElementById('degree');
-                    var opts = degree.options.length;
-                    var value = document.getElementById('degreeText').value;
-                    function onload() {
-                        alert(value);
-                        for (var i = 0; i < opts; i++) {
-                            if (degree.options[i].value === value) {
-                                degree.options[i].selected = true;
-                                break;
-                            }
-                        }
-                    }
-                </script>
-        -->
-
-        <%            User currentUser = (User) session.getAttribute("user");
+        <%            
+            /* User currentUser = (User) session.getAttribute("user");
             User user1 = profileController.getUser(user.getEmail());;
             session.setAttribute("user", user1);
 
             Mentee mentee1 = (Mentee) session.getAttribute("mentee");
             Mentee mentee2 = menteeController.getMentee(mentee1.getEmail());
-            session.setAttribute("mentee", mentee2);
+            session.setAttribute("mentee", mentee2); */
 
             // hardcoded, need to replace with session key later
             ArrayList<String> degrees = new ArrayList<String>();
