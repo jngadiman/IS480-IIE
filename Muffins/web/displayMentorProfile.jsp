@@ -65,7 +65,7 @@
                            
                             <p><strong>Contact Number</strong> : <%= userMentor.getContactNumber()%></p>
 
-                            <p><strong>Type : </strong><%=userMentor.getUser_type()%></p>
+                            <p><strong>Type : </strong><%= profileController.getUserType(userMentor)%></p>
                             
                             
                             

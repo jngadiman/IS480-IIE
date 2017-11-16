@@ -110,9 +110,9 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from user where user_type = 'Entrepreneur Mentor' or user_type = 'Incubation Manager Mentor' or user_type = 'Venture Capitalist Mentor' or user_type='Industry Professional Mentor' ORDER BY `name` asc ;");
+            stmt = conn.prepareStatement("select * from user where user_type = 'mentor_entre' or user_type = 'mentor_im' or user_type = 'mentor_vc' or user_type='mentor_ip' ORDER BY `name` asc ;");
             result = stmt.executeQuery();
-
+            
             while (result.next()) {
                 email = result.getString("email");
                 password = result.getString("password");
@@ -128,7 +128,7 @@ public class UserDAO {
                 }else{
                     equity_percentage = 0;
                 }
-                contact_number = Integer.parseInt(result.getString("contact_number"));
+                contact_number = result.getInt("contact_number");
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
@@ -138,6 +138,8 @@ public class UserDAO {
                 
                 u = new User(email, password, name, nric, joinedDate, profilePic, user_type, company_id, position, equity_percentage, contact_number, nationality);
                 users.add(u);
+                System.out.println("userDAO getAllMentors: " + users.size());
+                System.out.println("userDAO getAllMentors: " + u.getName());
             }
 
         } catch (SQLException ex) {
@@ -945,8 +947,8 @@ public class UserDAO {
     }
     
     public static void main(String[] args){
-       ArrayList<User> mentees = UserDAO.getMentorsByType("Incubation Manager Mentor");
-        for(User m: mentees){
+       ArrayList<User> mentors = UserDAO.getAllMentors();
+        for(User m: mentors){
             System.out.println(m.getEmail());
             System.out.println(m.getPassword());
             System.out.println(m.getName());

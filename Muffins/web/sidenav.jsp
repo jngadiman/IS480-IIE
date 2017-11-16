@@ -81,7 +81,8 @@
                         <%-- displaying of user position --%>
                         <%
                             String userType = user.getUser_type();
-                            if (userType.contains("mentee")) {
+                            System.out.println("sidenav: " + userType);
+                            if (userType.contains("mentee") || userType.contains("mentor")) {
                                 String position = user.getRole();
                                 if (position == null) {
                                     position = "Founder";
@@ -111,7 +112,7 @@
                     <ul class="nav nav-sidebar">
                         <%-- MENTEE SIDEBAR --%>
                         <%
-                            if (userType.contains("mentee")) {
+                            if (userType.contains("mentee") || userType.contains("mentor")) {
                                 Mentee m = (Mentee) session.getAttribute("mentee)");
                         %>
                         <li><a href="home.jsp">Home</a></li>

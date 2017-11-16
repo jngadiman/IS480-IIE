@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="MODELS.Industry"%>
 <%@page import="CONTROLLER.industryController"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -26,12 +27,14 @@
     </head>
     <body>
         <%  String company_id = request.getParameter("company_id");
+            System.out.println("displayEachCompanyProfile: " + company_id);
             int compID = 0;
             if (company_id != null && !company_id.equals("")) {
                 compID = Integer.parseInt(company_id);
             }
-
+            
             Company company = CompanyDAO.getCompany(compID);
+            System.out.println("displayEachCompanyProfile: " + company);
 
         %>
     <body>
@@ -60,7 +63,15 @@
 
                             <p><strong>Description</strong> :<br> 
                                 <%= company.getDescription()%></p>
-                            <p><strong>Company Industry</strong> : <%= industryController.getIndustry(company.getIndustry()).getIndustryName()%></p>
+                            <%
+                                int cIndustryCode = company.getIndustry();
+                                Industry cIndustry = industryController.getIndustry(cIndustryCode);
+                                String cIndustryName = "";
+                                if (cIndustry != null) {
+                                    cIndustry.getIndustryName();
+                                }
+                            %>
+                            <p><strong>Company Industry</strong> : <%= cIndustryName %></p>
                             <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
                             <p><strong>Start Date</strong> : <%=startDate%></p>
                             <%
