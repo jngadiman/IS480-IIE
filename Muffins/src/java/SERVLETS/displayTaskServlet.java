@@ -35,7 +35,6 @@ public class displayTaskServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-<<<<<<< HEAD
         String taskID = request.getParameter("taskID");
         String stageID = request.getParameter("stageID");
         String companyID = request.getParameter("company");
