@@ -35,13 +35,13 @@ public class mentorController {
     
     public static ArrayList<Mentor> getMentorsByType(String type){
         if(type.equals("IncubationManager")){
-            type = "Incubation Manager Mentor";
+            type = "mentor_im";
         }else if(type.equals("VentureCapitalist")){
-            type = "Venture Capitalist Mentor";
+            type = "mentor_vc";
         }else if(type.equals("IndustryProfessional")){
-            type = "Industry Professional Mentor";
+            type = "mentor_ip";
         }else if(type.equals("Entrepreneur")){
-            type = "Entrepreneur Mentor";
+            type = "mentor_entre";
         }
         
         ArrayList<Mentor> mentors = MentorDAO.getMentorsByType(type);

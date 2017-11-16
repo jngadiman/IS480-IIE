@@ -35,12 +35,30 @@ public class displayTaskServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int task_ID = Integer.parseInt(request.getParameter("taskID"));
-        int company = Integer.parseInt(request.getParameter("companyId"));
-        Task returnTask = taskController.displayTask(task_ID, company);
+        String taskID = request.getParameter("taskID");
+        String stageID = request.getParameter("stageID");
+        String companyID = request.getParameter("company");
+        
+        int company_ID = 0;
+        int task_ID = 0;
+        String errorMsg = "";
+        
+        if (taskID==null||taskID.equals("")||companyID==null||companyID.equals("")){       
+            errorMsg = "Task ID or Company ID could not be retrieved!";
+            request.setAttribute("errorMsgForEdit", errorMsg);
+            RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID);
+            rd.forward(request, response);
+        }
+        
+        task_ID = Integer.parseInt(taskID);
+        company_ID = Integer.parseInt(companyID);
+
+        Task returnTask = taskController.displayTask(task_ID, company_ID);
+        System.out.println("Inside Else tag" + returnTask.getName());
         request.setAttribute("taskToBeDisplayed", returnTask);
         RequestDispatcher rd = request.getRequestDispatcher("editTask.jsp");
         rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

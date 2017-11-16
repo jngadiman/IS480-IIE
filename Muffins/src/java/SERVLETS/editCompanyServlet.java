@@ -49,18 +49,18 @@ public class editCompanyServlet extends HttpServlet {
         int numFullTime = Integer.parseInt(request.getParameter("num_fulltime"));
         int numPartTime = Integer.parseInt(request.getParameter("num_parttime"));
         int industry = Integer.parseInt(request.getParameter("industry"));
-        String startDate = request.getParameter("startDate");
+        //String startDate = request.getParameter("startDate");
         
-        Date start_date = null;
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//        Date start_date = null;
+//        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         
-        if (startDate != null || !startDate.isEmpty()){
-            try {
-                start_date = df.parse(startDate);
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-            }
-        }
+//        if (startDate != null || !startDate.isEmpty()){
+//            try {
+//                start_date = df.parse(startDate);
+//            } catch (ParseException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
         
         //int stage = Integer.parseInt(request.getParameter("current-stage"));
         
@@ -122,7 +122,7 @@ public class editCompanyServlet extends HttpServlet {
         System.out.println(c.getBizFile());
         System.out.println(c.getAgreementForm());
         
-        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, start_date, c.getCurrentStage(), companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAgreementForm());
+        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, c.getStartDate(), c.getCurrentStage(), companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAgreementForm());
         
         String status = companyController.editCompany(company);
         request.setAttribute("updateStatus", status);
