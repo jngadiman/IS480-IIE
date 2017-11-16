@@ -53,26 +53,23 @@
                                 out.println("<h3 class='text-center'>" + company.getName() + "</h3>");
                             %>
 
-
-                            <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
-                            <label class="control-label">Start Date</label> : <%=startDate%>
                             <%
                                 String stageName = "";
                                 int stageNo = company.getCurrentStage();
                                 if (stageNo == 1) {
-                                    stageName = "1. Business model validation stage";
+                                    stageName = "1. Business Model Validation Stage";
                                 } else if (stageNo == 2) {
-                                    stageName = "2. Innovation Development stage";
+                                    stageName = "2. Innovation Development Stage";
                                 } else if (stageNo == 3) {
-                                    stageName = "3. Go-To-Market & early customer acquisition stage";
+                                    stageName = "3. Go-To-Market & Early Customer Acquisition Stage";
                                 } else if (stageNo == 4) {
-                                    stageName = "4. Business Plan/Financial Modelling stage";
+                                    stageName = "4. Business Plan/Financial Modelling Stage";
                                 } else {
-
+                                    stageName = Integer.toString(stageNo);
                                 }
 
                             %>
-                            <p><strong>Company Current Stage</strong> : <%=stageName%> </p>
+                            <p><strong>Current Stage</strong> : <%=stageName%> </p>
                             <%Industry industry = industryController.getIndustry(company.getIndustry());
                                 if (industry != null) {
                                     //industry still cannot edit properly%>

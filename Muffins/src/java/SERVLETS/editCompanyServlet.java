@@ -62,7 +62,7 @@ public class editCompanyServlet extends HttpServlet {
             }
         }
         
-        int stage = Integer.parseInt(request.getParameter("stage"));
+        //int stage = Integer.parseInt(request.getParameter("current-stage"));
         
         Company c = companyController.getCompany(companyID);
         
@@ -112,7 +112,7 @@ public class editCompanyServlet extends HttpServlet {
         System.out.println(c.getPartTimers());
         System.out.println(c.getIndustry());
         System.out.println(c.getStartDate());
-        System.out.println(c.getCurrentStage());
+        //System.out.println(c.getCurrentStage());
         System.out.println(c.getCompanyLogo());
         System.out.println(c.getProductDiff());
         System.out.println(c.getRevenueModel());
@@ -122,7 +122,7 @@ public class editCompanyServlet extends HttpServlet {
         System.out.println(c.getBizFile());
         System.out.println(c.getAgreementForm());
         
-        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, start_date, stage, companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAgreementForm());
+        Company company = new Company(companyID, name, description, stakeholders, numFullTime, numPartTime, industry, start_date, c.getCurrentStage(), companyLogo, productDiff, revenueModel, traction, deployOfFunds, c.getAcraFile(), biz_slides, c.getAgreementForm());
         
         String status = companyController.editCompany(company);
         request.setAttribute("updateStatus", status);

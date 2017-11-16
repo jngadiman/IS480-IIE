@@ -67,7 +67,7 @@ public class UserDAO {
                 }else{
                     equity_percentage = 0;
                 }
-                contact_number = Integer.parseInt(result.getString("contact_number"));
+                contact_number = result.getInt("contact_number");
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());
@@ -110,7 +110,11 @@ public class UserDAO {
 
         try {
             conn = ConnectionManager.getConnection();
+<<<<<<< HEAD
             stmt = conn.prepareStatement("select * from user where user_type = 'mentor_entre' or user_type = 'mentor_im' or user_type = 'mentor_vc' or user_type='mentor_ip' ORDER BY `name` asc ;");
+=======
+            stmt = conn.prepareStatement("select * from user where user_type = 'mentor_entre' or user_type = 'mentor_im' or user_type = 'mentor_vc' or user_type='mentor_ip' ORDER BY name asc ;");
+>>>>>>> f8411d5b80b1715a3feed23b07dc43e9743502c6
             result = stmt.executeQuery();
             
             while (result.next()) {
