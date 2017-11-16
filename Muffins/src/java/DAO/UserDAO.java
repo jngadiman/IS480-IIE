@@ -111,7 +111,10 @@ public class UserDAO {
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement("select * from user where user_type = 'mentor_entre' or user_type = 'mentor_im' or user_type = 'mentor_vc' or user_type='mentor_ip' ORDER BY `name` asc ;");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 100b6e48c836965836da0be82744d4f62fe3d2ee
             result = stmt.executeQuery();
             
             while (result.next()) {

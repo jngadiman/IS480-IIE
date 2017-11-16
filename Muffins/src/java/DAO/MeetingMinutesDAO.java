@@ -100,6 +100,45 @@ public class MeetingMinutesDAO {
         }
         return true;
     }
+    
+     //delete one page of MeetingMinutes
+     public static boolean deleteMeetingMinutes(int minutesID){
+        
+        Connection conn = null;
+        int numRecordsUpdated = 0;
+        
+        PreparedStatement stmt0 = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+
+            //check the number of bids made by the student
+            stmt0 = conn.prepareStatement("DELETE FROM meeting_minutes WHERE minutes_id = ?");
+            stmt0.setInt(1, minutesID);
+
+            numRecordsUpdated = stmt0.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (numRecordsUpdated != 1){
+            return false;
+        }
+        return true;
+    }
+     
      
      //get 1 MeetingMinutes row
      public static ArrayList<String> getMeetingMinutesRow(int minutesID, int taskID) {
@@ -398,6 +437,39 @@ public class MeetingMinutesDAO {
         }
         
         return meetingIDs;
+    }
+    
+    //get all the Task IDs of unique meeting minutes id
+    public static ArrayList<Integer> getTaskIDsOfMM(int minutesID){
+        ArrayList<Integer> taskIDs = new ArrayList<Integer>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+       
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("SELECT DISTINCT `task_id` FROM `meeting_minutes` WHERE `minutes_id` = ?;");
+            
+            stmt.setInt(1, minutesID);
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                
+                int id = Integer.parseInt(result.getString("task_id"));
+                taskIDs.add(id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingMinutesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        
+        return taskIDs;
     }
     
     //returns the last ID based on the last MeetingMinutes ID in the db

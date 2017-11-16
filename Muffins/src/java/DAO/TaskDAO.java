@@ -508,6 +508,37 @@ public class TaskDAO {
         return result;
     }
     
+    public static int unCompleteTask(int task_id, int company) {
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet set = null;
+        
+        int result = 0;
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            
+           
+           
+            stmt = conn.prepareStatement("UPDATE task SET  is_completed = ? WHERE task_id = ? AND company_id = ?;");
+            stmt.setString(1, "N");
+            stmt.setInt(2, task_id);
+            stmt.setInt(3, company);
+            
+            
+            result = stmt.executeUpdate();
+            
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt);
+        }
+        return result;
+    }
+    
     public static int updateDeadlineForTask(int task_id, int company, Date deadline){
         int result = 0;
         

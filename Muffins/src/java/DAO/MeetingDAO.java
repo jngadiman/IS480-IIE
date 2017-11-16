@@ -433,12 +433,13 @@ public class MeetingDAO {
     public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
 //        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
-//        //ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfAttendees("example@gmail.com");
-//        for(int id:meetings){
-//            System.out.println("MEETING ID = "+id);
-//        }
+        ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfAttendees("mentor1@hotmail.com");
+        for(int id:meetings){
+            System.out.println("MEETING ID = "+id);
+        }
         
         //MeetingDAO.addMeeting(m);
+        
     }
     
 }

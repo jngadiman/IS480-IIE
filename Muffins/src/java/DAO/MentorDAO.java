@@ -423,10 +423,12 @@ public class MentorDAO {
     }
     
     public static void main(String[] args){
-        Mentor m = new Mentor("founder", "I am abc. ", "445-009-0093", "cooking and baking", "mentor4@hotmail.com", "password", "Mentor 4", "S9876713Y", new Date(), (byte[]) null, "Entrepreneur Mentor", 5, "founder", 100, 91129903, "Singaporean");
+        //Mentor m = new Mentor("founder", "I am abc. ", "445-009-0093", "cooking and baking", "mentor4@hotmail.com", "password", "Mentor 4", "S9876713Y", new Date(), (byte[]) null, "Entrepreneur Mentor", 5, "founder", 100, 91129903, "Singaporean");
         //(String position, String introduction, String bankAccount, String skills, String email, String password, String name, String nric, Date joinedDate, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality)
-        String status = MentorDAO.addMentor(m);
-        System.out.println(status);
+        ArrayList<Mentor> mentors = MentorDAO.getMentors();
+        for(Mentor m: mentors){
+            System.out.println(m.getName());
+        }
         
 //        Mentor m = MentorDAO.getMentorByEmail("hello@hotmail.com");
 //        System.out.println(m.getEmail());

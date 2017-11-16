@@ -50,6 +50,7 @@
                         <div class ="row">
                             <div class="col-sm-12 form-group">
                                 <h3 class='text-center'><%= user.getName()%></h3>
+                                <p><%=user.getEmail()%></p>
                             </div>
                         </div>
                         <div class ="row">

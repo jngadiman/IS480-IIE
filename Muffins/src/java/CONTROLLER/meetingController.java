@@ -42,7 +42,9 @@ public class meetingController {
         ArrayList<Integer> ids= MeetingDAO.getMeetingIDsOfAttendees(email);
         if (ids!=null){
             for(int id: ids){
+                
                 meetings.add(MeetingDAO.getMeeting(id));
+                System.out.println("MEETING SIZE = "+meetings.size());
             }
         }
         return meetings;
@@ -109,5 +111,15 @@ public class meetingController {
     public static int changeStatusOfMeeting(String status, int meetingID) {
         return MeetingDAO.changeStatusOfMeeting(status, meetingID);
     }
+    
+     public static void main(String[] args){
+       // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
+//        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
+        ArrayList<Meeting> meetings = meetingController.getMeetingsOfAttendees("mentor1@hotmail.com");
+        for(Meeting id:meetings){
+            System.out.println("MEETING ID = "+id.getMeetingName());
+            
+        }
+     }
     
 }

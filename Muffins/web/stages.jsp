@@ -138,7 +138,7 @@
                                             <b><%=stageName%></b><br/>
                                         </p>
                                         <p class="text-center">
-                                            <a href="viewTasks.jsp?id=1" class="btn btn-success btn-outline-rounded green">  Stage <%=i%> Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                                            <a href="viewTasks.jsp?id=<%=i%>" class="btn btn-success btn-outline-rounded green">  Stage <%=i%> Tasks <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
                                         </p>
                                     </div>
                             <%

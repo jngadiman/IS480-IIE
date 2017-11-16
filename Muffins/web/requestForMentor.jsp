@@ -21,11 +21,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor List</title>
-        <%@include file="navbar.jsp" %>
+        <%@include file="sidenav.jsp" %>
 
     </head>
     <body>
-        <%            user = (User) session.getAttribute("user");
+        <%            //user = (User) session.getAttribute("user");
             ArrayList<Preference> companyPref = preferenceController.getPreferencesOfCompany(user.getCompanyid());
             if (companyPref == null || companyPref.size() == 0) {
                 //show pop up
@@ -90,7 +90,7 @@
 
                         <%
                             // display the image
-                            byte[] imgData = m.getProfile_pic();
+                            //byte[] imgData = m.getProfile_pic();
                             if (imgData != null) {
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                         %>

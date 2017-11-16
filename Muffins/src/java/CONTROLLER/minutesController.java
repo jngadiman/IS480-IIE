@@ -79,14 +79,34 @@ public class minutesController {
     }
     
     //deletes the MeetingMinutes row from the db and add in a new MeetingMinutes row into db
-    public static int editMeetingMinutes(MeetingMinutes mm) {
+    public static int editMeetingMinutes(ArrayList<MeetingMinutes> mm) {
         
         int status = 0;
-        boolean deleted = MeetingMinutesDAO.deleteMeetingMinutesByRow(mm.getMinutesID(), mm.getTask_id());
-        
-        if (deleted){
-            status = MeetingMinutesDAO.addMeetingMinutesRow(mm);
+        if(mm!=null&&mm.size()!=0){
+            int minutesID = mm.get(0).getMinutesID();
+            int meetingID = mm.get(0).getMeeting_id();
+            Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
+            int menteeCompany = meeting.getMenteeCompany();
+            ArrayList<Integer> taskIDs = MeetingMinutesDAO.getTaskIDsOfMM(minutesID);
+            if(taskIDs!=null && taskIDs.size()!= 0 ){
+                for(int id:taskIDs){
+                   TaskDAO.unCompleteTask(id, menteeCompany);
+                   System.out.println("MINUTES CONTROLER TASK THAT WE UNCOMPLETE ----- "+id);
+                }
+                
+            }
+            boolean deleted = MeetingMinutesDAO.deleteMeetingMinutes(minutesID);
+            for(MeetingMinutes m: mm){
+                int taskEdited = m.getTask_id();
+                if (deleted){
+                    status = MeetingMinutesDAO.addMeetingMinutesRow(m);
+                    taskController.completeTask(taskEdited, menteeCompany);
+                    System.out.println("MINUTES CONTROLER TASK THAT WE COMPLETE ----- "+taskEdited);
+                } 
+            }
+            
         }
+        
         return status;
     }
     
