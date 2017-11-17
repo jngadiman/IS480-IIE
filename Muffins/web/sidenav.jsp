@@ -116,9 +116,15 @@
                         <%
                             if (userType.contains("mentee") || userType.contains("mentor")) {
                                 Mentee m = (Mentee) session.getAttribute("mentee)");
+                                if (userType.contains("mentor")){
+                                    %>
+                        <li><a href="mentorHomepage.jsp">Home</a></li>
+                        <%
+                        }else{
                         %>
                         <li><a href="home.jsp">Home</a></li>
-                            <%
+                        
+                            <%}
                                 Company userCompany = companyController.getCompany(user.getCompanyid());
                                 String companyName = userCompany.getName();
                             %>
