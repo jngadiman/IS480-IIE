@@ -435,13 +435,14 @@ public class TaskDAO {
             }else{
                 status = "N";
             }
-            stmt = conn.prepareStatement("UPDATE task SET  task_name = ?,  task_deadline = ?, program_stage = ?, company_id = ?, is_completed = ? WHERE task_id = ?;");
+            stmt = conn.prepareStatement("UPDATE task SET  task_name = ?,  task_deadline = ?, program_stage = ?, is_completed = ? WHERE task_id = ? and company_id = ?;");
             stmt.setString(1, taskName);
             stmt.setString(2, df.format(deadline));
             stmt.setInt(3, stage);
-            stmt.setInt(4, companyID);
-            stmt.setString(5, status);
-            stmt.setInt(6, taskid);
+            
+            stmt.setString(4, status);
+            stmt.setInt(5, taskid);
+            stmt.setInt(6, companyID);
             
             result = stmt.executeUpdate();
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);

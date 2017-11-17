@@ -11,6 +11,7 @@
 <%@include file="protect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -108,10 +109,21 @@
                                     </div>
                                     
                                     <div class="form-group"> <!-- Date input -->
+                                        
+                                        <%
+                                            String deadlineStr = "";
+                                            if(deadline!=null){
+                                                deadlineStr = new SimpleDateFormat("dd-MM-yyyy").format(deadline);
+                                            }else{
+                                                deadlineStr = "";
+                                            }
+                                            
+                                        %>
                                         <label for="inputDate" class="col-lg-4 control-label">Deadline</label>
                                         <div class="col-lg-7">
-                                            <input class="form-control" id="inputDate" name="deadline" value="<%= new SimpleDateFormat("dd-MM-yyyy").format(deadline)%>" type="text" required/>
+                                            <input class="form-control"  name="deadline" placeholder="DD-MM-YYYY" value = "<%=deadlineStr%>" type="text"/>
                                         </div>
+                                        
                                     </div>
 
                                     <input type="hidden" name="taskId" value="<%= task.getTaskId()%>">

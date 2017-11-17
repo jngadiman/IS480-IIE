@@ -46,7 +46,7 @@ public class editProfileServlet extends HttpServlet {
         String status = "";
         HttpSession session = request.getSession();
         User displayUser = (User) session.getAttribute("user");
-        
+        System.out.println("EDIT PROFILE SEERVLET CHECK------- START");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
@@ -55,6 +55,7 @@ public class editProfileServlet extends HttpServlet {
         String equityPercentage = request.getParameter("percentage");
         String contact= request.getParameter("contactNo");
         String nationality = request.getParameter("nationality");
+        System.out.println("EDIT PROFILE SEERVLET CHECK------- nationality "+nationality);
         // System.out.println("editProfileServlet: " + nationality);
         String role = request.getParameter("role");
         
@@ -73,8 +74,8 @@ public class editProfileServlet extends HttpServlet {
         }else{
            profilePic = displayUser.getProfile_pic();
         }
+        System.out.println("EDIT PROFILE SEERVLET CHECK------- profilePic "+profilePic);
         
-        System.out.println("Edit Profile Servlet: " + profilePic);
         
         int equity = 0;
         if(equityPercentage!=null&&!(equityPercentage.equals(""))){
@@ -88,8 +89,8 @@ public class editProfileServlet extends HttpServlet {
 //        User user = new User(email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
 //        profileController.editUserDetails(user);
         
-        if(displayUser.getUser_type().equals("regular_mentee")){
-            
+        if(displayUser.getUser_type().contains("mentee")){
+            System.out.println("EDIT PROFILE SEERVLET CHECK------- IS MENTEE ");
             String degree = request.getParameter("degree");
             int yearOfGrad = Integer.parseInt(request.getParameter("yearOfGrad"));
             String mentor_email = request.getParameter("mentorEmail");
@@ -106,8 +107,8 @@ public class editProfileServlet extends HttpServlet {
             System.out.println(equity);
             System.out.println(number);
             System.out.println(nationality);
-            System.out.println(degree);
-            System.out.println(yearOfGrad);
+            System.out.println("DEGREE ------- " +degree);
+            System.out.println("YEAR OF GRADDDDD ------- " +yearOfGrad);
             System.out.println(mentor_email);
             
             User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);

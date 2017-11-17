@@ -596,7 +596,12 @@ public class UserDAO {
             stmt.setString(2, u.getNric());
             
             Date joinedDate = u.getJoinedDate();
-            java.sql.Date sqlDate = new java.sql.Date(joinedDate.getTime());
+            java.sql.Date sqlDate = null;
+            if(joinedDate!=null){
+                 sqlDate = new java.sql.Date(joinedDate.getTime());
+                 
+            }
+            
             stmt.setDate(3, sqlDate);
             
             if(u.getProfile_pic() != null){

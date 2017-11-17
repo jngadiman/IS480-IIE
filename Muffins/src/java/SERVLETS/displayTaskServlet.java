@@ -48,16 +48,20 @@ public class displayTaskServlet extends HttpServlet {
             request.setAttribute("errorMsgForEdit", errorMsg);
             RequestDispatcher rd = request.getRequestDispatcher("viewTasks.jsp?id="+stageID);
             rd.forward(request, response);
+        }else{
+            task_ID = Integer.parseInt(taskID);
+            company_ID = Integer.parseInt(companyID);
+
+            Task returnTask = taskController.displayTask(task_ID, company_ID);
+            System.out.println("Inside Else tag" + returnTask.getName());
+            System.out.println("Inside Else tag" + returnTask.getStage());
+            System.out.println("Inside Else tag" + returnTask.getDeadline());
+            request.setAttribute("taskToBeDisplayed", returnTask);
+            RequestDispatcher rd = request.getRequestDispatcher("editTask.jsp");
+            rd.forward(request, response);
         }
         
-        task_ID = Integer.parseInt(taskID);
-        company_ID = Integer.parseInt(companyID);
-
-        Task returnTask = taskController.displayTask(task_ID, company_ID);
-        System.out.println("Inside Else tag" + returnTask.getName());
-        request.setAttribute("taskToBeDisplayed", returnTask);
-        RequestDispatcher rd = request.getRequestDispatcher("editTask.jsp");
-        rd.forward(request, response);
+        
         
     }
 
