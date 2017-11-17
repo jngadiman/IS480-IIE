@@ -5,7 +5,9 @@
  */
 package SERVLETS;
 
+import CONTROLLER.companyController;
 import CONTROLLER.loginController;
+import CONTROLLER.profileController;
 import CONTROLLER.registrationController;
 import DAO.CompanyDAO;
 import MODELS.Company;
@@ -47,14 +49,66 @@ public class addUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User currentUser;
+        HashMap<String, String> errorMessages = new HashMap<String, String>();
+
+        //companyID from register page
+        String comp = request.getParameter("company");
+        int companyID = 0;
+        String founders = "";
+        Company company = null;
+        if (comp != null && !(comp.equals(""))) {
+            companyID = Integer.parseInt(comp);
+            company = companyController.getCompany(companyID);
+            founders = profileController.getFoundersEmails(company);
+        } else {
+            return;
+        }
+
         String name = request.getParameter("name");
+        if (name == null || name.equals("")) {
+            errorMessages.put("name", "Name cannot be blank!");
+        }
+
         String email = request.getParameter("email");
-        //need change this add codes to validate and check
+        if (email == null || email.equals("")) {
+            errorMessages.put("email", "Email cannot be blank!");
+
+        } else if (!email.contains("@")) {
+            errorMessages.put("email", "Email is not valid, it should contain @!");
+        } else if (!founders.contains(email)) {
+            errorMessages.put("email", "Email is not applicable for " + company.getName() + "!");
+        }
+
         String accessCode = request.getParameter("access_code");
+
+        if (accessCode == null || accessCode.equals("")) {
+            errorMessages.put("accessCode", "Invalid Access Code");
+        } else {
+            accessCode = accessCode.trim();
+        }
         String password = request.getParameter("password");
         String confirmPwd = request.getParameter("confirm_password");
+        if (password == null || password.equals("") || confirmPwd == null || confirmPwd.equals("")) {
+            errorMessages.put("passwords", "Passwords cannot be blank!");
+        } else {
+            password = password.trim();
+            confirmPwd = confirmPwd.trim();
+            if (password.length() < 8 || password.length() > 24) {
+                errorMessages.put("passwords", "Password must be between 8-24 characters long!");
+            } else if (!password.equals(confirmPwd)) {
+                errorMessages.put("passwords", "Password do not match!");
+            }
+        }
 
         String nric = request.getParameter("nric");
+        String alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        if (nric != null && !nric.equals("")) {
+            if (nric.length() != 9 || alphabets.indexOf(nric.charAt(0)) == -1 || alphabets.indexOf(nric.charAt(8)) == -1) {
+                errorMessages.put("nric", "Invalid NRIC!");
+            }
+
+        }
+
         byte[] profilePic = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("profile_pic");
@@ -63,65 +117,74 @@ public class addUserServlet extends HttpServlet {
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());
-             
+
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
             profilePic = IOUtils.toByteArray(inputStream);
-        }else{
-           profilePic = null;
+        } else {
+            profilePic = null;
         }
-        String comp = request.getParameter("company");
+
         String role = request.getParameter("role");
         String equityPercentage = request.getParameter("percentage");
+        int equity = 0;
+        if (equityPercentage != null && !equityPercentage.equals("")) {
+            equity = Integer.parseInt(equityPercentage);
+            if (equity <= 0 || equity > 100) {
+                errorMessages.put("percentage", "Please enter a number from 1 to 100!");
+            }
+        }
+
         String contact = request.getParameter("contact");
         String nationality = request.getParameter("nationality");
         String user_type = request.getParameter("user_type");
         String course = request.getParameter("course");
-        if(course.equals("-- select one --")){
+        if (course.equals("-- select one --")) {
             course = "";
         }
         String yrOfGrad = request.getParameter("yrOfGrad");
         String errorMsg = "";
 
-        int companyID = 0;
-        if (comp != null && !(comp.equals(""))) {
-            companyID = Integer.parseInt(comp);
-        }
         int yearOfGrad = 0;
         if (yrOfGrad != null && !(yrOfGrad.equals(""))) {
             yearOfGrad = Integer.parseInt(yrOfGrad);
         }
-        int equity = 0;
-        if (equityPercentage != null && !(equityPercentage.equals(""))) {
-            equity = Integer.parseInt(equityPercentage);
-        }
+
         int number = 0;
         if (contact != null && !(contact.equals(""))) {
             number = Integer.parseInt(contact);
         }
 
-        //validate if the access code is correct
-        currentUser = loginController.validateUser(email, accessCode);
-        if (currentUser == null) {
-            //user is not validated
-            errorMsg = "Invalid email/access code!";
-            request.setAttribute("status", errorMsg);
-            RequestDispatcher rd = request.getRequestDispatcher("registerIncubationUser.jsp");
+        if (!errorMessages.isEmpty()) {
+            request.setAttribute("errorMessages", errorMessages);
+            RequestDispatcher rd = request.getRequestDispatcher("registerIncubationUser.jsp?id="+companyID);
             rd.forward(request, response);
-        
-        }else {
-            User user = new User(email, password, name, nric, new Date(), profilePic, user_type,companyID , role, equity, number, nationality);
-            Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, new Date(), profilePic, user_type, companyID, role, equity, number, nationality);
+        } else {
 
-            //edit user instead of add user because the user is added once activated
-            int status = registrationController.editUser(user);
-            loginController.updateUserPassword(email, password);
-            int result = registrationController.addMentee(mentee);
-            if (result == 1 && status == 1) {
-                request.setAttribute("status", "Registration is successful!");
+            //validate if the access code is correct
+            currentUser = loginController.validateUser(email, accessCode);
+            if (currentUser == null) {
+                //user is not validated
+                errorMessages.put("passwords", "Invalid email/access code!");
+                request.setAttribute("errorMessages", errorMessages);
+                RequestDispatcher rd = request.getRequestDispatcher("registerIncubationUser.jsp?id="+companyID);
+                rd.forward(request, response);
+
+            } else {
+                User user = new User(email, password, name, nric, new Date(), profilePic, user_type, companyID, role, equity, number, nationality);
+                Mentee mentee = new Mentee(course, yearOfGrad, null, email, password, name, nric, new Date(), profilePic, user_type, companyID, role, equity, number, nationality);
+
+                //edit user instead of add user because the user is added once activated
+                int status = registrationController.editUser(user);
+                loginController.updateUserPassword(email, password);
+                int result = registrationController.addMentee(mentee);
+                if (result == 1 && status == 1) {
+                    request.setAttribute("status", "Registration is successful!");
+                }
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
             }
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
+
         }
 
     }
