@@ -27,16 +27,16 @@
 
     <body>
         <div class="container">
-            <div class="col-sm-9 col-sm-offset-2">
-                <h2 class="page-header col-lg-9  col-sm-offset-2">View Meetings </h2>
-                <div class="col-lg-9 well col-sm-offset-2">
+            <div class="col-lg-9 col-sm-offset-4">
+                <h2 class="col-lg-9 page-header">View Meetings </h2>
+                <div class="col-lg-9 well">
                     <%  user = (User) session.getAttribute("user");
                         String currentUser = user.getEmail();
                         System.out.println("CURRENT USER IN THIS JSP " + currentUser);
                         ArrayList<Meeting> userMeetings = new ArrayList<Meeting>();
                         userMeetings = meetingController.getMeetingsOfAttendees(currentUser);
                         %>
-                        <h2>MEETINGS WITH MINUTES</h2>
+                        Meeting with minutes
                         <%
                         if (userMeetings != null) {
                             for (Meeting m : userMeetings) {
@@ -123,7 +123,7 @@
                     <%
                         }else{%>
                     
-                    <h2>MEETINGS WITHOUT MINUTES</h2>
+                    <h2>Meeting without minutes</h2>
                     Meeting Details
                     <button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">Add Meeting Minutes</button>
                     
@@ -145,12 +145,7 @@
                     %>
 
 
-                    <div class="row">
-
-
-                    </div>
-
-
+                   
                 </div>
             </div>
         </div>

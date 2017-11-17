@@ -22,7 +22,7 @@
         <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
-                var date_input = $('input[name="date"]'); //our date input has the name "date"
+                var date_input = $('input[name="inputDate"]'); //our date input has the name "date"
                 var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
                 var options = {
                     format: 'yyyy-mm-dd',

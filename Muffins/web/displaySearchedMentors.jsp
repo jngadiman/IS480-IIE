@@ -21,14 +21,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="sidenav.jsp" %>
     </head>
     <body>
-        <h1>Searched Results</h1>
-        <%@include file="sidenav.jsp" %>
+        <div class="container">
+           
+        <div class="col-lg-8 col-lg-offset-3">
+                 <h1 class="page-header">Searched Result(s)</h1>
+        
         <%
             ArrayList<Mentor> mentors = (ArrayList<Mentor>) session.getAttribute("searchedMentors");
             if(mentors == null || mentors.size() == 0){
-                out.println("No Mentors were found!");
+                out.println("No Mentor found!");
             }else{
                 int i = 0;
                 for(Mentor m: mentors){
@@ -107,12 +111,10 @@
                     </div>
                 </div>
 
-
-            </div>
             <!--<h3 class="col-lg-8 col-lg-offset-3 page-header">System Recommendation</h3>
             <div class="col-lg-8 col-lg-offset-3 well">
-            -->
-            <!--                            
+            
+                                 
     
             <%
                 ArrayList<Mentor> recMentors = assignmentController.getRecommendedMentorsByStartupIndustry(user.getCompanyid());
@@ -143,6 +145,7 @@
                     <td><input type="hidden" name="company_id" value="<%=user.getCompanyid()%>"/></td>
                 </tr>
             </tbody>
+            -->
 
             <%
                 }
@@ -151,5 +154,7 @@
                 }
             
         %>
+            
+            
     </body>
 </html>

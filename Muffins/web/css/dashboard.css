@@ -76,18 +76,20 @@ and open the template in the editor.
 .nav-sidebar-top {
     margin-right: -21px; /* 20px padding + 1px border */
     margin-bottom: 20px;
+    margin-top : -15px;
     margin-left: -20px;
     display: block;
     vertical-align: middle;
-    background-color: #fff;
+    background-color: #003b5b;
 }
 
 .nav-sidebar-top > li > a {
-    color: #003b5b;
+    color: #fff;
     font-weight: bold;
     background-color: transparent;
 }
 .nav-sidebar-top > li > a:hover,a:focus {
+    color: #fff;
     font-weight: bold;
     background-color: transparent;
 }
@@ -104,7 +106,7 @@ and open the template in the editor.
 .nav-sidebar-top > li > ul > li > a:hover,a:focus {
     font-size: 10pt;
     color: #fff;
-    background-color: #44d9e6;
+    background-color: #003b5b;
 }
 
 
@@ -138,7 +140,7 @@ ul.dropdown-menu> li > a {
 ul.dropdown-menu> li > a:hover,a:focus {
     font-size: 10pt;
     color: #fff;
-    background-color: #44d9e6;
+    background-color: #003b5b;
 }
 
 /*.nav-sidebar > .active > a,

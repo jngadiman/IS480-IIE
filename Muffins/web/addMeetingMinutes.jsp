@@ -82,9 +82,9 @@
         
 
         <div class="container">
-            <div class="col-sm-9 col-sm-offset-2">
-                <h2 class="page-header col-lg-9  col-sm-offset-2">Add Meeting Minutes</h2>
-                <div class="col-lg-9 well col-sm-offset-2">
+            <div class="col-sm-9 col-sm-offset-4">
+                <h2 class="page-header col-lg-9 ">Add Meeting Minutes</h2>
+                <div class="col-lg-9 well">
                     <%                        String status = (String) request.getAttribute("status");
                         if (status != null) {%>
                         <font color="red"> <%=status%> </font>

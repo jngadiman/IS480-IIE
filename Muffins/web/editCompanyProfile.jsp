@@ -27,6 +27,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Company Profile</title>
         <%@include file="sidenav.jsp" %>
+        <link href="css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+        <script src="js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                var date_input = $('input[name="start_date"]'); //our date input has the name "date"
+                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                var options = {
+                    format: 'dd/mm/yyyy',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                };
+                date_input.datepicker(options);
+            })
+        </script>
 
     </head>
 
@@ -92,7 +107,11 @@
                                 <label class="control-label">Company Name</label>
                                 <input name="companyName" type="text" placeholder="Enter Company Name Here.." class="form-control" value="<%= company.getName()%>" required>
                             </div>
-                        
+                        <div class="col-sm-6 form-group required"> <!-- Date input -->
+                                <label class="control-label">Start Date</label><br>
+                                <input name="start_date" type="text" class="form-control" value="<%= new SimpleDateFormat("dd/MM/yyyy").format(company.getStartDate())%>" required>
+                            </div>
+
                         </div>
                         <!-- check if the current logged in user is a mentor or mentee. if mentee and regular mentee -> show stage -->
                         <div class="row">
@@ -236,7 +255,7 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label class="control-label">Incubation Pitch Deck Slides 
-                                    </label> <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a>
+                                </label><br> <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />View PDF</a>
                                     </div>
                                     <div class="col-sm-6 form-group">
                             <label class="control-label">Update Slides </label> <br> Format <b>.pdf</b>, Max. 2mb, Guideline <a href="https://image.ibb.co/cFoVFb/Business_Deck_Guidelines_v2.png" target="blank">here</a>

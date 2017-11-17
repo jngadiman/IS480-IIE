@@ -63,8 +63,10 @@
                 <div class="nav col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar-top" style="padding:0px">
                         <%-- displaying of iie logo --%>
-                        <img src="img/iielogopng.png" width="100%" style="vertical-align: middle;" alt=""/>
+                        <img src="img/iielogorounded.png" width="95%" class="center-block" alt=""/>
+
                         <div class="logo">
+                            <br>
                             <%  // displaying of profile picture
                                 byte[] imgData = user.getProfile_pic();
                                 String userPic = "";

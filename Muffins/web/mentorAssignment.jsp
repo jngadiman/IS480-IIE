@@ -60,6 +60,17 @@
            
             <div class="col-lg-8 col-lg-offset-3">
                  <h1 class="page-header">Request for Mentor</h1>
+                   <%                    if (session.getAttribute("addPreferenceStatus") != null) {
+                            String status = (String) session.getAttribute("addPreferenceStatus");
+                    %>
+                    <div class="alert alert-dismissible alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <%=status%>
+                    </div>
+                    <%
+                        }
+%>
+                
                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
                     Filter by
                 </button>
@@ -89,16 +100,8 @@
                                 </div>-->
 
                 <div class='row'>
-                    <%                    if (session.getAttribute("addPreferenceStatus") != null) {
-                            String status = (String) session.getAttribute("addPreferenceStatus");
-                    %>
-                    <div class="alert alert-dismissible alert-success col-lg-10">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <h3 style="color:red;"><strong><%=status%></strong></h3>
-                    </div>
+                  
                     <%
-                        }
-
                         ArrayList<Mentor> mentors = null;
                         if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
                             String mentorType = request.getParameter("mentorType");

@@ -84,6 +84,12 @@
                                 }
                             %>
                             <p><strong>Company Current Mentor</strong> : <%= mentorName%>
+                                <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
+                                <%if(startDate==null||startDate.isEmpty()){
+                                    startDate="To be populated";
+                                }%>
+                            <p><strong>Start Date</strong> : <%=startDate%></p>
+
                                 <%
                                     ArrayList<String> all_founders = UserDAO.getUserEmailsOfCompany(companyID);
                                     String first_founder_email = all_founders.get(0);
@@ -190,7 +196,7 @@
                         <div class="col-sm-6 form-group required">
                             <p><strong>Product Differentiation</strong> :<br> 
                                 <%
-                                    if (company.getProductDiff() == null) {
+                                    if (company.getProductDiff() == null || company.getProductDiff().isEmpty()) {
                                         out.println("To be populated");
                                     } else {
                                         out.println(company.getProductDiff());
@@ -200,7 +206,7 @@
                         <div class="col-sm-6 form-group required">
                             <strong>Revenue Model</strong> :<br> 
                             <%
-                                if (company.getRevenueModel() == null) {
+                                if (company.getRevenueModel() == null || company.getRevenueModel().isEmpty()) {
                                     out.println("To be populated");
                                 } else {
                                     out.println(company.getRevenueModel());
@@ -213,7 +219,7 @@
                         <div class="col-sm-6 form-group required">
                             <strong>Traction</strong> :<br> 
                             <%
-                                if (company.getTraction() == null) {
+                                if (company.getTraction() == null || company.getTraction().isEmpty()) {
                                     out.println("To be populated");
                                 } else {
                                     out.println(company.getTraction());
@@ -223,7 +229,7 @@
                         <div class="col-sm-6 form-group required">
                             <strong>Deployment of Funds</strong> :<br> 
                             <%
-                                if (company.getDeployOfFunds() == null) {
+                                if (company.getDeployOfFunds() == null || company.getDeployOfFunds().isEmpty()) {
                                     out.println("To be populated");
                                 } else {
                                     out.println(company.getDeployOfFunds());
@@ -235,7 +241,7 @@
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label class="control-label">Incubation Pitch Deck Slides : 
-                            </label> <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />PDF</a>
+                            </label> <br><a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />View PDF</a>
                         </div>
                     </div>
                         
