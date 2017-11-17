@@ -23,11 +23,11 @@
         <link href="css/form.css" rel="stylesheet" type="text/css"/>
         <script>
             function validateForm() {
-//                var email = document.forms["registerUser"]["email"].value;
-//                if (email.indexOf('@smu.edu.sg') == -1) {
-//                    alert('Email must be an smu email address (e.g. tom.tan.2014@smu.edu.sg).');
-//                    return false;
-//                }
+                var email = document.forms["registerUser"]["email"].value;
+                if (email.indexOf('@') == -1) {
+                    alert('Please key in a valid email');
+                    return false;
+                }
 
                 var password = document.forms["registerUser"]["password"].value;
                 if (password.length < 8 || password.length > 24) {
@@ -59,6 +59,20 @@
                     alert('Please enter your nric in the correct format!');
                     return false;
                 }
+                
+                var regex = /^[0-9]+$/;
+                var percentage = document.forms["registerUser"]["percentage"].value
+                if (!/^\d*$/.test(percentage)) { 
+                    alert('Please input a number between 1 and 100');
+                    return false;
+                }
+                
+                var percentage = document.forms["registerUser"]["percentage"].value
+                if (percentage < 1 || percentage > 100) {
+                    alert('Please input a number between 1 and 100');
+                    return false;
+                }
+                
             }
 
 
