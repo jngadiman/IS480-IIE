@@ -136,6 +136,7 @@
                             </ul>
                         </li>
                         <li><a href="stages.jsp">Company Progress</a></li>
+                        <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
                             <%
                             } else if (userType.contains("mentor")) {
                             %>
@@ -181,7 +182,7 @@
                         <%
                             }
                         %>
-                        <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
+                        
                         <li><a href="viewAllCompanies.jsp">Start-up Companies</a></li>
                         <li><a href="viewAllMentors.jsp">Mentors</a></li>
                         <hr/>

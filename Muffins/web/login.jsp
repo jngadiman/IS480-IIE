@@ -65,7 +65,7 @@
 
     </style>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid" align="center">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 boxbg">
                     <img src="img/iielogopng.png" width="400" align="middle" alt=""/>
@@ -73,8 +73,14 @@
                     <p id="profile-name" class="profile-name-cazrd"></p>
                     <form class="form-signin" action = "loginServlet" method = "post">
                         <span id="reauth-email" class="reauth-email"></span>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <div class="col-md-10 col-md-offset-1">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
+                        </div>
+                        <div class="col-md-10 col-md-offset-1">
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        </div>
+
+
                         <p align="center"><font color="red"><%=loginResult%></p></font>
 
                         <div id="remember" class="checkbox">
@@ -82,15 +88,20 @@
                                 <input type="checkbox" name = "rememberMe" value="yes"> Remember me
                             </label>
                         </div>-->
-                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                            <div class="col-md-10 col-md-offset-1">
+                                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                            </div>
+
                     </form><!-- /form -->
                     <br/>
-                    <div>
+                    <div class="col-md-10 col-md-offset-1">
                         <a href="forgetPassword.jsp" class="forgot-password">
-                            "Forgot the password?</span>
-                        </a><br/>
-                        No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a>
+                            <h4>Forgot the password?</h4>
+                        </a>
+                        <h4>No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a></h4>
+                        <br>
                     </div>
+                    <br>
                 </div>
             </div>
         </div>

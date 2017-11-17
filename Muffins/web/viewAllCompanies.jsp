@@ -59,10 +59,10 @@
                             <%
                                 }
                             %>
-                        <h4><%=c.getName()%></h4>
+                        <h4><center><%=c.getName()%></center></h4>
                         <form action='displayEachCompanyProfile.jsp' method='post'>
                             <input type='hidden' name='company_id' value=<%=company_id%>>
-                            <button type='submit' class='btn btn-success btn-xs pull-right' name="company_id" value="<%=company_id%>">View Profile</button>
+                            <button type='submit' class='btn btn-success btn-xs center-block' name="company_id" value="<%=company_id%>">View Profile</button>
                         </form>
                     </div>
                     <%      i++;

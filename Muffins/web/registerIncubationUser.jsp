@@ -31,20 +31,21 @@
 
                 var password = document.forms["registerUser"]["password"].value;
                 if (password.length < 8 || password.length > 24) {
-                    alert('password must be between 8-24 characters long!');
+                    alert('Password must be between 8-24 characters long!');
                     return false;
                 }
 
                 var confirmPwd = document.forms["registerUser"]["confirmPassword"].value;
-                if (password !== confirmPwd) {
+                if (password != confirmPwd) {
                     alert('Please key in your password again!');
                     return false;
                 }
 
                 var letters = /^[A-Za-z]+$/;
                 var nric = document.forms["registerUser"]["nric"].value;
+                alert('tessting');
                 if (nric.length != 9) {
-                    alert('nric must be 9 characters long!');
+                    alert('NRIC must be 9 characters long!');
                     return false;
                 }
 
@@ -82,6 +83,7 @@
         <div class="container">
             <h1 class="col-lg-10 col-lg-offset-1 well">User Registration Form</h1>
             <%
+                
                 ArrayList<String> degrees = new ArrayList<String>();
                 degrees.add("-- select one --");
                 degrees.add("Information Systems");
@@ -98,7 +100,7 @@
 
             <div class="col-lg-10 col-lg-offset-1 well">
                 <div class="row">
-                        <form action = "addUserServlet" method ="post" name="registerUser" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <form action = "addUserServlet" onsubmit="return validateForm()" method ="post" name="registerUser" enctype="multipart/form-data" >
                         <div class="col-sm-10 col-lg-offset-1">
                             <div class="row">
                                 <input type = "hidden" name ="user_type" value ="regular_mentee">
@@ -179,7 +181,7 @@
 
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Equity Percentage</label>
-                                    <input id="percentage" type="text" name="percentage" placeholder="Enter Equity % Here.." class="form-control" required>
+                                    <input id="percentage" type="number" name="percentage" placeholder="Enter Equity % Here.." class="form-control" required>
                                 </div>
                             </div>
 

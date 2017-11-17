@@ -103,7 +103,10 @@
                             if (company != null) {
                                 company_name = company.getName();
                         %>
-                        <span class="label label-primary"><%= company_name%></span><br><br>
+                        <div class="col-lg-12">
+                            <span class="label label-primary"><%= company_name%></span><br><br>
+                        </div>
+                        
                         <%
                             }
                         %>
