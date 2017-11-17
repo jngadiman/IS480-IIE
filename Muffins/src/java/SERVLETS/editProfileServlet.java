@@ -117,14 +117,23 @@ public class editProfileServlet extends HttpServlet {
             session.setAttribute("mentee", mentee);
             request.setAttribute("updateStatus", status);
             
-        }else if(user_type.equals("Incubation Manager Mentor") || user_type.equals("Venture Capitalist Mentor") || user_type.equals("Industry Professional Mentor") || user_type.equals("Entrepreneur Mentor")){
+        }else if(user_type.contains("mentor")){
             String position = request.getParameter("position");
             String introduction = request.getParameter("introduction");
             String bankAccount = request.getParameter("bank_account");
             String skills = request.getParameter("skills");
             
+//            String bankAccount = "112234341";
+//            String skills = "Banking";
+            
+            System.out.println(position);
+            System.out.println(introduction);
+            
+            User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             status = profileController.editMentor(m);
+            session.setAttribute("user", user);
+            session.setAttribute("mentor", m);
             request.setAttribute("updateStatus", status);
         }
         

@@ -193,6 +193,12 @@ public class MentorDAO {
     public static int editMentorDetails(Mentor m){
         int result = 0;
         
+        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
+        int userResult = UserDAO.editUser(u);
+        
+        if(userResult == 0){
+            return userResult;
+        }
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -206,9 +212,14 @@ public class MentorDAO {
             stmt.setString(2, m.getIntroduction());
             stmt.setString(3, m.getBankAccount());
             stmt.setString(4, m.getSkills());
-            
+            stmt.setString(5, m.getEmail());
             result = stmt.executeUpdate();
-            
+            System.out.println("editMentorDetails: " + m.getPosition());
+            System.out.println("editMentorDetails: " + m.getIntroduction());
+            //if there is a user record in the User table but no such row in the Mentee table
+            if(userResult == 1 && result == 0){
+                MentorDAO.addMentor(m);
+            }
           
         } catch (SQLException ex) {
             Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);

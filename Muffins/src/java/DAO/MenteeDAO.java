@@ -366,7 +366,12 @@ public class MenteeDAO {
             result = stmt.executeUpdate();
             System.out.println("MenteeDAO editMenteeDetails: " + result);
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
-          
+            
+            //if there is a user record in the User table but no such row in the Mentee table
+            if(userResult == 1 && result == 0){
+                MenteeDAO.addMentee(m);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -159,7 +159,6 @@
                         <input type="hidden" name="email" value="<%= email%>">
                         <input type="hidden" name="password" value="<%= password%>">
                         <input type="hidden" name="name" value="<%= name%>">
-                        <input type="hidden" name="nric" value="<%= nric%>">
                         <input type="hidden" name="user_type" value="<%= userType%>">
                         <input type="hidden" name="companyID" value="<%= companyID%>">
 
