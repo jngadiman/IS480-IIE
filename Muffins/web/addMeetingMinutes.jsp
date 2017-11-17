@@ -23,7 +23,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Add Meeting Minutes</title>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
         <%@include file="sidenav.jsp" %>
         <script>
@@ -79,15 +79,15 @@
             }
 
         </style>
-        
+
 
         <div class="container">
             <div class="col-sm-9 col-sm-offset-4">
                 <h2 class="page-header col-lg-9 ">Add Meeting Minutes</h2>
-                <div class="col-lg-9 well">
+                <div class="col-lg-10">
                     <%                        String status = (String) request.getAttribute("status");
                         if (status != null) {%>
-                        <font color="red"> <%=status%> </font>
+                    <font color="red"> <%=status%> </font>
                     <%}
 
                         String id = request.getParameter("id");
@@ -95,26 +95,33 @@
 
 
                     %>
-                    <div class="dropdown">
+                    <!--<div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose the Meeting Title
                             <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu"> -->
 
-                            <%                User currentUser = (User) session.getAttribute("user");
-                                //System.out.println("CURRENT USER IN ADDMEETINGJSP -----"+ currentUser.getName());
-                                ArrayList<Meeting> meetingWithoutMinutes = meetingController.getMeetingsWithoutMinutes(currentUser.getEmail());
-                                if (meetingWithoutMinutes != null && meetingWithoutMinutes.size() != 0) {
-                                    for (Meeting m : meetingWithoutMinutes) {
-                            %>
-                            <li><a href="addMeetingMinutes.jsp?id=<%=m.getMeetingID()%>"><%=m.getMeetingName()%> (<%=m.getStartTime()%>)</a></li>
-                                <%
-                                        }
-                                    }
 
-                                %>
 
-                        </ul>
-                    </div>
+                    <%                User currentUser = (User) session.getAttribute("user");
+                        //System.out.println("CURRENT USER IN ADDMEETINGJSP -----"+ currentUser.getName());
+                        ArrayList<Meeting> meetingWithoutMinutes = meetingController.getMeetingsWithoutMinutes(currentUser.getEmail());
+                        if (meetingWithoutMinutes != null && meetingWithoutMinutes.size() != 0) {
+                            for (Meeting m : meetingWithoutMinutes) {
+                    %>
+
+
+
+                    <p>
+                    <li><a href="addMeetingMinutes.jsp?id=<%=m.getMeetingID()%>"><%=m.getMeetingName()%> (<%=m.getStartTime()%>)</a></li>
+                    </p>
+
+                    <%
+                            }
+                        }
+
+                    %>
+                    <!--</ul>
+                </div>-->
                     <%} else {%>
 
                     <!-- meeting id to be retrieved from previous page
@@ -145,10 +152,7 @@
                                             mentor_name = myMentor.getName();
                                 %>
                                 <div class="row">
-                                    <div class="col-sm-6 form-group">
-                                        <b>Mentor Name: </b><%=mentor_name%>
-                                    </div>
-
+                                    <p><strong>Mentor Name: </strong><%=mentor_name%></p>
 
                                     <%
                                             } else {
@@ -159,32 +163,33 @@
                                         }
                                     %>
 
-                                    <div class="col-lg-6 form-group">
+                                    <p>
                                         <strong>Mentee Name: </strong><%=user.getName()%>
-                                    </div>
+                                    </p>
+
+
+                                    <%
+                                        Date startTime = currentMeeting.getStartTime();
+                                        Date endTime = currentMeeting.getEndTime();
+
+                                    %>
+                                    <p><strong>Meeting Start Time: </strong><%=currentMeeting.getStartTime()%></p>
+                                    <p><strong>Meeting End Time: </strong><%=currentMeeting.getEndTime()%></p>
+                                    <p><strong>Company Current Stage: </strong><%=currentStageOfCompany%></p>
                                 </div>
-                                <%
-                                    Date startTime = currentMeeting.getStartTime();
-                                    Date endTime = currentMeeting.getEndTime();
-
-                                %>
-                                <p><strong>Meeting Start Time: </strong><%=currentMeeting.getStartTime()%></p>
-                                <p><strong>Meeting End Time: </strong><%=currentMeeting.getEndTime()%></p>
-                                <p><strong>Company Current Stage: </strong><%=currentStageOfCompany%></p>
-
                             </div>
-                        </div>
+                        
                         <!--                                    to insert current stage for company
                         <input id="stage" name="stage" type="text" placeholder="Enter Company Name Here.." class="form-control">-->
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label class="control-label">Title</label>
-                                <input class="col-sm-6 form-control" type ="text" name ="title" placeholder="Enter Title"> <br/>
+                                <input class="col-sm-6 form-control" type ="text" name ="title" value="<%=currentMeeting.getMeetingName()%>"> <br/>
                             </div>
 
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 form-group">
+                            <div class="col-sm-10 form-group">
 
                                 <label class="control-label">Tasks Completed (Please tick beside the tasks)</label><br>
 
@@ -211,31 +216,31 @@
                                     %>
 
                             </div>
-                            <div class="col-sm-6 form-group">
+
+                            <div class="col-sm-10 form-group">
                                 <label class="control-label">Comment(s)</label>
                                 <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <label class="control-label">Mentor Rating</label><br>
-                            <div class="stars">
-
-                                <input class="star star-5" id="star-5" type="radio" name="mentor_rating" value = "5"/>
-                                <label class="star star-5" for="star-5"></label>
-                                <input class="star star-4" id="star-4" type="radio" name="mentor_rating" value = "4"/>
-                                <label class="star star-4" for="star-4"></label>
-                                <input class="star star-3" id="star-3" type="radio" name="mentor_rating" value = "3"/>
-                                <label class="star star-3" for="star-3"></label>
-                                <input class="star star-2" id="star-2" type="radio" name="mentor_rating" value = "2"/>
-                                <label class="star star-2" for="star-2"></label>
-                                <input class="star star-1" id="star-1" type="radio" name="mentor_rating" value = "1"/>
-                                <label class="star star-1" for="star-1"></label>
-
+                            <div class="col-sm-10">
+                                <label class="control-label">Mentor Rating</label><br>
+                                <div class="stars">
+                                    <input class="star star-5" id="star-5" type="radio" name="mentor_rating" value = "5"/>
+                                    <label class="star star-5" for="star-5"></label>
+                                    <input class="star star-4" id="star-4" type="radio" name="mentor_rating" value = "4"/>
+                                    <label class="star star-4" for="star-4"></label>
+                                    <input class="star star-3" id="star-3" type="radio" name="mentor_rating" value = "3"/>
+                                    <label class="star star-3" for="star-3"></label>
+                                    <input class="star star-2" id="star-2" type="radio" name="mentor_rating" value = "2"/>
+                                    <label class="star star-2" for="star-2"></label>
+                                    <input class="star star-1" id="star-1" type="radio" name="mentor_rating" value = "1"/>
+                                    <label class="star star-1" for="star-1"></label>
+                                </div>
                             </div>
 
+</div>
 
-                        </div>
+
+                        
 
                         <!--                            <div class="row">
                                                         <div class="col-sm-6 form-group">
@@ -288,6 +293,7 @@
                         <!---input type="submit" class="btn btn-lg btn-info" onclick ="rating()" value="Submit">-->
                     </form> 
                     <%}%>
+                    </div>
                 </div>
 
             </div>
