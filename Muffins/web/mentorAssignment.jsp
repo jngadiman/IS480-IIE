@@ -57,22 +57,22 @@
 
 
 
-           
-            <div class="col-lg-8 col-lg-offset-3">
-                 <h1 class="page-header">Request for Mentor</h1>
-                   <%                    if (session.getAttribute("addPreferenceStatus") != null) {
-                            String status = (String) session.getAttribute("addPreferenceStatus");
-                    %>
-                    <div class="alert alert-dismissible alert-success">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <%=status%>
-                    </div>
-                    <%
-                        }
-%>
-                
+
+            <div class="col-lg-10 col-lg-offset-3">
+                <h1 class="page-header">Request for Mentor</h1>
+                <%                    if (session.getAttribute("addPreferenceStatus") != null) {
+                        String status = (String) session.getAttribute("addPreferenceStatus");
+                %>
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <%=status%>
+                </div>
+                <%
+                    }
+                %>
+
                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
-                    Filter by
+                    Area of Expertise
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="mentorAssignment.jsp">All</a></li>
@@ -88,173 +88,156 @@
                         <input type="submit" class="btn btn-xs btn-info " name="searchBtn" value="Submit"> 
                     </form>
                 </div>
-
-
-
             </div>
-            <div class="col-lg-8 col-lg-offset-3 well">
+
+            <div class="col-lg-10 col-lg-offset-3 well">
                 <!--                <div class="col-lg-12 well">
                                     <p><strong>Mentee Company: </strong>get Mentee's Company</p>
                                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                                 </div>-->
 
-                <div class='row'>
-                  
-                    <%
-                        ArrayList<Mentor> mentors = null;
-                        if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
-                            String mentorType = request.getParameter("mentorType");
-                            session.setAttribute("mentorType", mentorType);
-                            mentors = mentorController.getMentorsByType(mentorType);
-                            if (mentorType.equals("Entrepreneur")) {
-                                out.print("<div class='col-lg-12'>");
-                                out.print("<h4>Entrepreneur Mentor(s)</h4>");
-                                out.print("</div>");
-                            }else if(mentorType.equals("VentureCapitalist")){
-                                out.print("<div class='col-lg-12'>");
-                                out.print("<h4>Venture Capitalist Mentor(s)</h4>");
-                                out.print("</div>");
-                            }else if(mentorType.equals("IndustryProfessional")){
-                                out.print("<div class='col-lg-12'>");
-                                out.print("<h4>Industry Professional Mentor(s)</h4>");
-                                out.print("</div>");
-                            }else{
-                                out.print("<div class='col-lg-12'>");
-                                out.print("<h4>Incubation Manager Mentor(s)</h4>");
-                                out.print("</div>");
-                            }
-                            
+                <%
+                    ArrayList<Mentor> mentors = null;
+                    if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
+                        String mentorType = request.getParameter("mentorType");
+                        session.setAttribute("mentorType", mentorType);
+                        mentors = mentorController.getMentorsByType(mentorType);
+                        if (mentorType.equals("Entrepreneur")) {
+                            out.print("<div class='col-lg-12'>");
+                            out.print("<h4>Entrepreneur Mentor(s)</h4>");
+                            out.print("</div>");
+                        } else if (mentorType.equals("VentureCapitalist")) {
+                            out.print("<div class='col-lg-12'>");
+                            out.print("<h4>Venture Capitalist Mentor(s)</h4>");
+                            out.print("</div>");
+                        } else if (mentorType.equals("IndustryProfessional")) {
+                            out.print("<div class='col-lg-12'>");
+                            out.print("<h4>Industry Professional Mentor(s)</h4>");
+                            out.print("</div>");
                         } else {
-                            mentors = MentorDAO.getMentors();
+                            out.print("<div class='col-lg-12'>");
+                            out.print("<h4>Incubation Manager Mentor(s)</h4>");
+                            out.print("</div>");
                         }
 
-                        if (mentors == null || mentors.size() == 0) {
-                            out.println("There is no mentor in this category! Please choose another category!");
-                        }
+                    } else {
+                        mentors = MentorDAO.getMentors();
+                    }
 
-                        int i = 0;
-                        for (Mentor m : mentors) {
+                    if (mentors == null || mentors.size() == 0) {
+                        out.println("There is no mentor in this category! Please choose another category!");
+                    }
+                    for (Mentor m : mentors) {
 
+                %>
+                <div class="col-lg-6 well">
+
+
+                    <%                            Company c = companyController.getCompany(m.getCompanyid());
+                        // display the image
+                        byte[] imgDataM = m.getProfile_pic();
+                        if (imgDataM != null) {
+                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataM));
                     %>
 
-
-                    <div class="col-lg-6 ">
-
-                        <%                            Company c = companyController.getCompany(m.getCompanyid());
-                            // display the image
-                            byte[] imgDataM = m.getProfile_pic();
-                            if (imgDataM != null) {
-                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataM));
+                    <div class="col-lg-4 ">
+                        <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
+                        <%
+                        } else {
                         %>
-
-                        <div class="col-lg-6 well">
-
-                            <div class="col-lg-4 ">
-                                <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
-                                <%
-                                } else {
-                                %>
-                                <img src="img/user.png" width="100" height="100" alt=""/>
-                                <%
-                                    }
-                                %>
-
-                                <div class="col-lg-8 ">
-                                    <h5><strong>Name: </strong><%= m.getName()%></h5>
-                                    <h5><strong>Company: </strong><%=c.getName()%></h5>
-                                    <h5><strong>Position: </strong><%= m.getPosition()%></h5>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <h5><strong>Areas of Expertise: </strong></h5>
-                                    <h5> <%=m.getSkills()%></h5>
-                                </div>
-
-
-                                <div class="col-lg-12">
-                                    <div class="col-lg-4 col-lg-offset-4">
-                                        <form action="confirmAssignment.jsp" method="post">
-                                            <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
-                                            <%
-                                                boolean status = false;
-                                                ArrayList<Preference> preferences = PreferenceDAO.getPreferencesOfCompany(user.getCompanyid());
-                                                Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
-                                                if ((preferences != null && preferences.size() != 0) || mentor != null) {
-                                            %>
-                                            <button type="submit" class='btn btn-danger btn-xs' disabled>Not Eligible</button>
-                                            <%
-                                            } else {
-                                                status = true;
-                                            %>
-                                            <button type="submit" class='btn btn-success btn-xs'>Submit Preference</button>          
-                                            <%
-                                                }
-                                            %>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <% i++;
-                                    if (i % 2 == 0) {
-                                        out.println("</div> <br><div class='row'>");
-                                    }
-
-                                }
-                            %>
+                        <img src="img/user.png" width="100" height="100" alt=""/>
+                        <%
+                            }
+                        %>
+                    </div>
+                        
+                        <div class="col-lg-8 ">
+                            <h5><strong>Name: </strong><%= m.getName()%></h5>
+                            <h5><strong>Company: </strong><%=c.getName()%></h5>
+                            <h5><strong>Position: </strong><%= m.getPosition()%></h5>
                         </div>
-                        <br>
-                        <p>* Not eligible: you have existing mentor or you have already previously states your preferences</p>
+
+                        <div class="col-lg-12">
+                            <h5><strong>Areas of Expertise: </strong></h5>
+                            <h5> <%=m.getSkills()%></h5>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="col-lg-4 col-lg-offset-4">
+                                <form action="confirmAssignment.jsp" method="post">
+                                    <input type="hidden" value="<%= m.getEmail()%>" name="mentorEmail">
+                                    <%
+                                        boolean status = false;
+                                        ArrayList<Preference> preferences = PreferenceDAO.getPreferencesOfCompany(user.getCompanyid());
+                                        Mentor mentor = relationshipController.getCurrentMentorOfCompany(user.getCompanyid());
+                                        if ((preferences != null && preferences.size() != 0) || mentor != null) {
+                                    %>
+                                    <button type="submit" class='btn btn-danger btn-xs' disabled>Not Eligible</button>
+
+                                    <%
+                                    } else {
+                                        status = true;
+                                    %>
+                                    <button type="submit" class='btn btn-success btn-xs'>Submit Preference</button>          
+                                    <%
+                                        }
+                                    %>
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
+                <%
+                    }
+                %>
+                <br>
+                <p>* Not eligible: you have existing mentor or you have already previously states your preferences</p>
             </div>
-            <!--<h3 class="col-lg-8 col-lg-offset-3 page-header">System Recommendation</h3>
-            <div class="col-lg-8 col-lg-offset-3 well">
-            -->
-            <!--                            
+    <!--<h3 class="col-lg-8 col-lg-offset-3 page-header">System Recommendation</h3>
+    <div class="col-lg-8 col-lg-offset-3 well">
+    -->
+    <!--                            
     
-            <%
-                ArrayList<Mentor> recMentors = assignmentController.getRecommendedMentorsByStartupIndustry(user.getCompanyid());
-            %>
-            
+    <%
+        ArrayList<Mentor> recMentors = assignmentController.getRecommendedMentorsByStartupIndustry(user.getCompanyid());
+    %>
+    
+    
+    <table class="table table-striped col-lg-9 well">
+        <thead>
+            <tr>
+                <th>Mentor Name</th>
+                <th>Mentor Company</th>
+                <th>Mentor Skill</th>
+                <th>Assign</th>
+            </tr>
+        </thead>
+    <%
+        for (Mentor m : recMentors) {
 
-            <table class="table table-striped col-lg-9 well">
-                <thead>
-                    <tr>
-                        <th>Mentor Name</th>
-                        <th>Mentor Company</th>
-                        <th>Mentor Skill</th>
-                        <th>Assign</th>
-                    </tr>
-                </thead>
-            <%
-                for (Mentor m : recMentors) {
 
-
-            %>
-
-            <tbody>
-                <tr>
-                    <td><%=m.getName()%></td>
-                    <td><%=companyController.getCompany(m.getCompanyid()).getName()%></td>
-                    <td><%=m.getSkills()%></td>
-                    <td><button type="button" class="btn-xs btn-success">View Profile</a></td>
-                    <td><input type="hidden" name="company_id" value="<%=user.getCompanyid()%>"/></td>
-                </tr>
-            </tbody>
-
-            <%
-                }
-            %>
-        </table>
+    %>
+    
+    <tbody>
+        <tr>
+            <td><%=m.getName()%></td>
+            <td><%=companyController.getCompany(m.getCompanyid()).getName()%></td>
+            <td><%=m.getSkills()%></td>
+            <td><button type="button" class="btn-xs btn-success">View Profile</a></td>
+            <td><input type="hidden" name="company_id" value="<%=user.getCompanyid()%>"/></td>
+        </tr>
+    </tbody>
+    
+    <%
+        }
+    %>
+    </table>
+    
+        </div>  
         
-                </div>  
-                
-      </div>-->
+    </div>-->
 
-        </div>
-    </div>
 </body>
 </html>

@@ -224,6 +224,7 @@
                             <div class="col-sm-10">
                                 <label class="control-label">Mentor Rating</label><br>
                                 <div class="stars">
+                                    <div class="row">
                                     <input class="star star-5" id="star-5" type="radio" name="mentor_rating" value = "5"/>
                                     <label class="star star-5" for="star-5"></label>
                                     <input class="star star-4" id="star-4" type="radio" name="mentor_rating" value = "4"/>
@@ -234,6 +235,7 @@
                                     <label class="star star-2" for="star-2"></label>
                                     <input class="star star-1" id="star-1" type="radio" name="mentor_rating" value = "1"/>
                                     <label class="star star-1" for="star-1"></label>
+                                    </div>
                                 </div>
                             </div>
 
