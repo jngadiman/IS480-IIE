@@ -72,26 +72,24 @@
                     <!--<h1>IIE Portal</h1>-->
                     <p id="profile-name" class="profile-name-cazrd"></p>
                     <form class="form-signin" action = "loginServlet" method = "post">
-                        <div class="col-md-10 col-md-offset-1">
                         <span id="reauth-email" class="reauth-email"></span>
-                        
-                            <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-                        </div>
                         <div class="col-md-10 col-md-offset-1">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
+
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        </div>
 
 
-                        <p align="center"><font color="red"><%=loginResult%></p></font>
 
-                        <div id="remember" class="checkbox">
-                            <!--<label>
-                                <input type="checkbox" name = "rememberMe" value="yes"> Remember me
-                            </label>
-                        </div>-->
-                            <div class="col-md-10 col-md-offset-1">
+                            <p align="center"><font color="red"><%=loginResult%></p></font>
+
+                            <div id="remember" class="checkbox">
+                                <!--<label>
+                                    <input type="checkbox" name = "rememberMe" value="yes"> Remember me
+                                </label>
+                            </div>-->
                                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                             </div>
+                        </div>
 
                     </form><!-- /form -->
                     <br/>
