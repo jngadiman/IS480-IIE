@@ -72,8 +72,9 @@
                     <!--<h1>IIE Portal</h1>-->
                     <p id="profile-name" class="profile-name-cazrd"></p>
                     <form class="form-signin" action = "loginServlet" method = "post">
-                        <span id="reauth-email" class="reauth-email"></span>
                         <div class="col-md-10 col-md-offset-1">
+                        <span id="reauth-email" class="reauth-email"></span>
+                        
                             <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
                         </div>
                         <div class="col-md-10 col-md-offset-1">
@@ -96,9 +97,9 @@
                     <br/>
                     <div class="col-md-10 col-md-offset-1">
                         <a href="forgetPassword.jsp" class="forgot-password">
-                            <h4>Forgot the password?</h4>
+                            <h4><strong>Forgot the password?</strong></h4>
                         </a>
-                        <h4>No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a></h4>
+                        <h4><strong>No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a></strong></h4>
                         <br>
                     </div>
                     <br>
