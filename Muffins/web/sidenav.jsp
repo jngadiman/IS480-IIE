@@ -114,7 +114,7 @@
                     <ul class="nav nav-sidebar">
                         <%-- MENTEE SIDEBAR --%>
                         <%
-                            if (userType.contains("mentee") || userType.contains("mentor")) {
+                            if (userType.contains("mentee")) {
                                 Mentee m = (Mentee) session.getAttribute("mentee)");
                                 if (userType.contains("mentor")){
                                     %>
@@ -137,8 +137,12 @@
                         </li>
                         <li><a href="stages.jsp">Company Progress</a></li>
                             <%
-                                }
+                            } else if (userType.contains("mentor")) {
                             %>
+                        <li><a href="home.jsp">Home</a></li>
+                        <%
+                        }
+                        %>
 
                         <%-- ADMIN SIDEBAR --%>
                         <%
