@@ -4,6 +4,7 @@
     Author     : Xinyao
 --%>
 
+<%@page import="java.util.Set"%>
 <%@page import="CONTROLLER.companyController"%>
 <%@page import="MODELS.Company"%>
 <%@page import="java.util.ArrayList"%>
@@ -59,20 +60,6 @@
                     alert('Please enter your nric in the correct format!');
                     return false;
                 }
-                
-                var regex = /^[0-9]+$/;
-                var percentage = document.forms["registerUser"]["percentage"].value
-                if (!/^\d*$/.test(percentage)) { 
-                    alert('Please input a number between 1 and 100');
-                    return false;
-                }
-                
-                var percentage = document.forms["registerUser"]["percentage"].value
-                if (percentage < 1 || percentage > 100) {
-                    alert('Please input a number between 1 and 100');
-                    return false;
-                }
-                
             }
 
 
@@ -82,6 +69,36 @@
         <div class="container">
             <h1 class="col-lg-10 col-lg-offset-1 well">User Registration Form</h1>
             <%
+                HashMap <String, String> hm = (HashMap <String, String>) request.getAttribute("errorMessages");
+                String nameErr = "";
+                String emailErr = "";
+                String accessCodeErr = "";
+                String passErr = "";
+                String icErr = "";
+                String percentageErr = "";
+                if(hm!=null && !hm.isEmpty()){
+                  if(hm.containsKey("name")){
+                      nameErr = hm.get("name");
+                  }
+                  if(hm.containsKey("email")){
+                      emailErr = hm.get("email");
+                  }
+                  if(hm.containsKey("accessCode")){
+                      accessCodeErr = hm.get("accessCode");
+                  }
+                  if(hm.containsKey("passwords")){
+                      passErr = hm.get("passwords");
+                  }
+                  if(hm.containsKey("nric")){
+                      icErr = hm.get("nric");
+                  }
+                  if(hm.containsKey("percentage")){
+                      percentageErr = hm.get("percentage");
+                  }
+                                   
+                }       
+                
+                
                 ArrayList<String> degrees = new ArrayList<String>();
                 degrees.add("-- select one --");
                 degrees.add("Information Systems");
@@ -98,22 +115,31 @@
 
             <div class="col-lg-10 col-lg-offset-1 well">
                 <div class="row">
-                        <form action = "addUserServlet" method ="post" name="registerUser" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    <form action = "addUserServlet" method ="post" name="registerUser" enctype="multipart/form-data" onsubmit="return validateForm()">
                         <div class="col-sm-10 col-lg-offset-1">
                             <div class="row">
                                 <input type = "hidden" name ="user_type" value ="regular_mentee">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Full Name</label> 
+                                    
+                                        <font color = red >  <%=nameErr%></font>
+                                    
                                     <input id="name" type="text" name="name" placeholder="Enter Full Name Here.." class="form-control" required>
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Email Address</label>
+                                    
+                                        <font color = red >  <%=emailErr%></font>
+                                    
                                     <input id="email" type="email" name="email" placeholder="Enter Email Address Here.." class="form-control" data-fv-emailaddress-message="The value is not a valid email address" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Access Code</label> check email 
+                                    
+                                        <font color = red >  <%=accessCodeErr%></font>
+                                    
                                     <input id="access_code" type="password" name="access_code" placeholder="Enter Access Code Here.." class="form-control" required>
                                 </div>
                                 <div class="col-sm-4 form-group required">
@@ -124,15 +150,22 @@
                                     <label class="control-label">Confirm Password</label> 
                                     <input id="confirm_password" name="confirm_password" type="password" placeholder="Re-enter Password Here.." class="form-control" required>
                                 </div>
+                                   
+                                        <font color = red >  <%=passErr%></font>
+                                    
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">NRIC</label>
+                                    
+                                        <font color = red >  <%=icErr%></font>
+                                    
                                     <input id="nric" type="text" name="nric" placeholder="Enter NRIC Here.." class="form-control" required>
                                 </div>	
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Contact Number</label>
-                                    <input id="contact" type="text" name="contact" placeholder="Enter Contact Here.." class="form-control" required>
+                                    <input type="text" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" name="contact" placeholder="Enter Contact Here.." class="form-control" required />
+                                    
                                 </div>	
                             </div>
                             <div class="row">
@@ -147,29 +180,28 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 form-group required">
-                                    
-                                    <%
-                                        int companyid = 0;
+
+                                    <%                                        int companyid = 0;
                                         String id = request.getParameter("id");
-                                        if(id!=null){
+                                        if (id != null) {
                                             companyid = Integer.parseInt(id);
                                         }
                                         Company company = companyController.getCompany(companyid);
                                         String companyName = "";
-                                        if(company!=null){
+                                        if (company != null) {
                                             companyName = company.getName();
                                         }
                                     %>
                                     <input type ="hidden" name ="company" value ="<%=companyid%>" >
                                     <label class="control-label">Company: <%=companyName%></label> 
                                     <!--select class="form-control" id="select" name="company" required>
-                                        <%--
-                                            ArrayList<Company> companies = loginController.getAllCompanies();
-                                            for (Company c : companies) {
-                                                out.println("<option value='" + c.getId() + "'>" + c.getName() + "</option>");
-                                            }
-                                        --%>
-                                    </select>-->
+                                    <%--
+                                        ArrayList<Company> companies = loginController.getAllCompanies();
+                                        for (Company c : companies) {
+                                            out.println("<option value='" + c.getId() + "'>" + c.getName() + "</option>");
+                                        }
+                                    --%>
+                                </select>-->
                                 </div>	
 
                                 <div class="col-sm-4 form-group required">
@@ -179,7 +211,11 @@
 
                                 <div class="col-sm-4 form-group required">
                                     <label class="control-label">Equity Percentage</label>
-                                    <input id="percentage" type="text" name="percentage" placeholder="Enter Equity % Here.." class="form-control" required>
+                                    
+                                        <font color = red >  <%=percentageErr%></font>
+                                    
+                                    <input type="text" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" placeholder="Enter Equity % Here.." class="form-control" name="percentage" required />
+                                    
                                 </div>
                             </div>
 
@@ -207,7 +243,8 @@
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Year of Graduation</label>
-                                    <input id="yrOfGrad" type="text" name="yrOfGrad" placeholder="Enter Year Of Graduation Here.." class="form-control" >
+                                    
+                                    <input id="yrOfGrad" type="text" name="yrOfGrad" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" placeholder="Enter Year Of Graduation Here.." class="form-control" >
                                 </div>
 
                             </div>
