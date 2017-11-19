@@ -18,7 +18,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         <%@include file="sidenav.jsp" %>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <%
@@ -87,13 +86,20 @@
                         <div class="col-xs-6 col-sm-3 placeholder">
                             <%session.setAttribute("mentor_email", mentorEmail);%>
                             <a href="displayMentorProfile.jsp">
-                                <img src="img/manager.png" width="100"   alt=""/>
+                                <img src="img/manager.png" width="100"/>
                             </a>
                             
                             <h4>Assigned Mentor</h4>
                             <span class="text-muted"><%=mentorName%></span>
+                            <%
+                                String currentUserMentorResult = (String) request.getAttribute("currentUserMentorResult");
+                                if (currentUserMentorResult != null) {
+                                    %>
+                                    <span class="text-muted"><%=currentUserMentorResult%></span>
+                                    <%
+                                }
+                            %>
                         </div>
-
                     </div>
                 </div>
             </div>

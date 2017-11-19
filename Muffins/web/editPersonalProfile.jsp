@@ -64,15 +64,13 @@
         <meta http-eqouiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Personal Profile</title>
         <%@include file="sidenav.jsp" %>
-        <%            
-            /* User currentUser = (User) session.getAttribute("user");
+        <%            /* User currentUser = (User) session.getAttribute("user");
             User user1 = profileController.getUser(user.getEmail());;
             session.setAttribute("user", user1);
 
             Mentee mentee1 = (Mentee) session.getAttribute("mentee");
             Mentee mentee2 = menteeController.getMentee(mentee1.getEmail());
             session.setAttribute("mentee", mentee2); */
-
             // hardcoded, need to replace with session key later
             ArrayList<String> degrees = new ArrayList<String>();
             degrees.add("Information Systems");
@@ -83,14 +81,14 @@
             degrees.add("Social Sciences");
         %>
         <div class="container">
-            <%
-                String status = (String) request.getAttribute("updateStatus");
-                if (status != null && !status.isEmpty()) {
-                    out.println("<div align='center'>" + status + "</div>");
-                }
-            %>
             <div class="col-sm-8 col-sm-offset-3">
                 <h2 class="page-header">Edit Personal Profile</h2>
+                <%
+                    String status = (String) request.getAttribute("updateStatus");
+                    if (status != null && !status.isEmpty()) {
+                        out.println("<div align='center'>" + status + "</div>");
+                    }
+                %>
                 <div class="col-lg-12 well">
                     <form action="editProfileServlet" method="post" enctype="multipart/form-data">
                         <%  // getting variables to display
@@ -158,24 +156,42 @@
                         <%-- forms to pass in data to servlet --%>
                         <input type="hidden" name="email" value="<%= email%>">
                         <input type="hidden" name="password" value="<%= password%>">
-                        <input type="hidden" name="name" value="<%= name%>">
                         <input type="hidden" name="user_type" value="<%= userType%>">
                         <input type="hidden" name="companyID" value="<%= companyID%>">
 
                         <%-- displaying of profile picture --%>
-                        <div class="col-sm-6 col-sm-offset-3" align="center">
+                        <div class="col-lg-12" align="center">
                             <div class="profile-pic" style="background-image: url('<%=profilePic%>')" width="200px">
                                 <label for="upload-photo">Change Photo</label>
                                 <input type="file" name="profilePhoto" id="upload-photo">
                             </div>
                         </div>
-                        <div class="col-sm-4 col-sm-offset-4">
-                            <h3 class='text-center'><%=name%></h3>
-                        </div><br/><br/>
+                        <div class="col-lg-12" align="center">
+                            <h3 id="displayName"><%=name%></h3>
+                            <h4 style="font-style: italic"><%=email%></h4><br>
+                                <script>
+                                    document.getElementById("name").onkeyup = function () {
+                                        liveUpdate()
+                                    };
+                                    function liveUpdate() {
+                                        var x = document.getElementById("name");
+                                        document.getElementById("displayName").innerHTML = x.value;
+                                    }
+                                </script>
+                        </div><br/><br/><br/>
                         <div class='row'>
                             <div class="col-sm-6 form-group">
-                                <label>Email Address</label>
-                                <input name="email" type="text" placeholder="Enter Email Address.." class="form-control" value="<%= email%>" required>
+                                <label>Name</label>
+                                <input type="text" id ="name" name="name" placeholder="Enter Name.." class="form-control" value="<%=name%>" required>
+                                <script>
+                                    document.getElementById("name").onkeyup = function () {
+                                        liveUpdate()
+                                    };
+                                    function liveUpdate() {
+                                        var x = document.getElementById("name");
+                                        document.getElementById("displayName").innerHTML = x.value;
+                                    }
+                                </script>
                             </div>
 
                             <div class="col-sm-6 form-group">
@@ -196,8 +212,7 @@
                                 <%@include file="nationality.jsp" %>
                             </div>
                         </div>
-                        <%
-                            // if user is mentee, get other mentee details
+                        <%                            // if user is mentee, get other mentee details
                             if (userType.contains("mentee")) {
                                 Mentee currentMentee = MenteeDAO.getMenteeByEmail(email);
                                 System.out.println("editPersonalProfile currentMentee: " + currentMentee);
@@ -213,51 +228,53 @@
                                     cMentorEmail = "";
                                 }
                         %>
-                                <div class='row'>
-                                    <div class="col-sm-6 form-group">
-                                        <p><strong>Company </strong> : <%= companyName%></p>
-                                    </div>
-                                    <div class="col-sm-6 form-group">
-                                        <p><strong>Mentor </strong> : <%= cMentorEmail%></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 form-group">
-                                        <label>Company Position</label>
-                                        <input name="role" type="text" placeholder="Enter Company Position.." class="form-control" value="<%= position%>" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 form-group">
-                                        <label>Year of Graduation</label>
-                                        <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= gradYear%>" required>
-                                    </div>
+                        <div class='row'>
+                            <div class="col-sm-6 form-group">
+                                <p><strong>Company</strong>: <%= companyName%></p>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <p><strong>Mentor</strong>: <%= cMentorEmail%></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Company Position</label>
+                                <input name="role" type="text" placeholder="Enter Company Position.." class="form-control" value="<%= position%>" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Year of Graduation</label>
+                                <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= gradYear%>" required>
+                            </div>
 
-                                    <div class="col-sm-6 form-group required">
-                                        <label  class="control-label">Degree</label>
-                                        <select class="form-control" name="degree" required>
-                                            <option selected value = <%=degree%> ><%=degree%></option>
-                                            <%
-                                                for (String d : degrees) { 
-                                            %>
-                                                    <option value="<%=d%>"><%=d%></option>
-                                            <%      
-                                                }
-                                            %>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="col-sm-6 form-group required">
+                                <label  class="control-label">Degree</label>
+                                <select class="form-control" name="degree" required>
+                                    <option selected value = "<%=degree%>"><%=degree%></option>
+                                    <%
+                                        System.out.println("editPersonalProfile: " + degree);
+                                        for (String d : degrees) {
+                                    %>
+                                    <option value="<%=d%>"><%=d%></option>
+                                    <%
+                                            System.out.println("editPersonalProfile: " + d);
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                        </div>
                         <%
                             }
                         %>
-                        <%  
+                        <%
                             if (userType.contains("mentor")) {
-                            Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
-                            String company_name = "";
-                            if (mentor.getCompanyid() != 0) {
-                                Company c = companyController.getCompany(mentor.getCompanyid());
-                                company_name = c.getName();
-                            }
+                                Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
+                                String company_name = "";
+                                if (mentor.getCompanyid() != 0) {
+                                    Company c = companyController.getCompany(mentor.getCompanyid());
+                                    company_name = c.getName();
+                                }
                         %> 
                         <div class="row">
                             <div class="col-sm-6 form-group">

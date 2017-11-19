@@ -56,108 +56,141 @@
     <body>
         <%
             String mentorEmail = request.getParameter("mentorEmail");
-            if (mentorEmail != null && !mentorEmail.isEmpty()) {
-                mentorEmail = (String) request.getParameter("mentorEmail");
-            
-            User userMentor = profileController.displayUserDetails(mentorEmail);
-            if (userMentor != null) {
-
-
+            System.out.println("displayMentorProfile get mentorEmail1: " + mentorEmail);
+            User currentUserMentor = null;
+            // if the mentorEmail is not null
+            // user accessed dMP through mentors list
+            // set currentUserMentor to the selected mentor
+            if (mentorEmail != null) {
+                currentUserMentor = profileController.displayUserDetails(mentorEmail);
+            }
+            // if mentorEmail is null
+            // user accessed dMP through mentee homepage
+            // check if the mentee currently have a mentor
+            if (mentorEmail == null) {
+                String cMenteeMentorEmail = "";
+                if (userType.contains("mentee")) {
+                    String cMenteeEmail = user.getEmail();
+                    Mentee currentMentee = MenteeDAO.getMenteeByEmail(cMenteeEmail);
+                    cMenteeMentorEmail = currentMentee.getMentor_email();
+                    System.out.println("displayMentorProfile cMenteeMentorEmail: " + cMenteeMentorEmail);
+                }
+                // if cMenteeMentorEmail is null, mentee currently doesn't have mentor
+                // if cMenteeMentorEmail is not null, mentee currently have mentor
+                // set that mentor to currentUserMentor
+                if (cMenteeMentorEmail != null) {
+                    currentUserMentor = profileController.displayUserDetails(cMenteeMentorEmail);
+                }
+            }
+            // if currentUserMentor is not null, display mentor details
+            // else redirect back to mentee home page
+            if (currentUserMentor != null) {
         %>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
+                            <div class="col-sm-11 well">
+                                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                    <%  // displaying of profile picture
+                                        byte[] imgDataMentor = currentUserMentor.getProfile_pic();
+                                        String mentorProfilePic = "";
+                                        if (imgDataMentor == null) {
+                                            mentorProfilePic = "img/user.png";
+                                        } else {
+                                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataMentor));
+                                            mentorProfilePic = "data:image/gif;base64," + imgDataBase64;
+                                        }
+                                        // getting mentor details
+                                        String mentorName = currentUserMentor.getName();
+                                        int mentorCompanyID = currentUserMentor.getCompanyid();
+                                        Company mentorCompany = CompanyDAO.getCompany(mentorCompanyID);
+                                        String mentorCompanyName = "";
+                                        if (mentorCompany != null) {
+                                            mentorCompanyName = mentorCompany.getName();
+                                        }
+                                        mentorEmail = currentUserMentor.getEmail();
+                                        int mentorContactNo = currentUserMentor.getContactNumber();
+                                        String mentorContactNoStr = "N/A";
+                                        if (mentorContactNo != 0) {
+                                            mentorContactNoStr = mentorContactNo + "";
+                                        }
+                                        String mentorType = profileController.getUserType(currentUserMentor);
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-6">
-                    <div class="col-sm-11 well">
-                        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                            <%  // displaying of profile picture
-                                byte[] imgDataMentor = userMentor.getProfile_pic();
-                                String mentorProfilePic = "";
-                                if (imgDataMentor == null) {
-                                    mentorProfilePic = "img/user.png";
-                                } else {
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataMentor));
-                                    mentorProfilePic = "data:image/gif;base64," + imgDataBase64;
-                                }
-                                // getting mentor details
-                                String mentorName = userMentor.getName();
-                                int mentorCompanyID = userMentor.getCompanyid();
-                                Company mentorCompany = CompanyDAO.getCompany(mentorCompanyID);
-                                String mentorCompanyName = "";
-                                if (mentorCompany != null) {
-                                    mentorCompanyName = mentorCompany.getName();
-                                }
-                                mentorEmail = userMentor.getEmail();
-                                int mentorContactNo = userMentor.getContactNumber();
-                                String mentorContactNoStr = "N/A";
-                                if (mentorContactNo != 0) {
-                                    mentorContactNoStr = mentorContactNo + "";
-                                }
-                                String mentorType = profileController.getUserType(userMentor);
-                                
-                                Mentor mentor = MentorDAO.getMentorByEmail(mentorEmail);
-                                String mentorPosition = mentor.getPosition();
-                                if (mentorPosition != null || !mentorPosition.isEmpty()) {
-                                    mentorPosition += ", ";
-                                }
-                                String mentorIntrodction = mentor.getIntroduction();
-                                String mentorSkills = mentor.getSkills();
-                            %>
-                            <center><div class="profile-pic" style="background-image: url('<%=mentorProfilePic%>')" width="200px" height="200" align="center">
-                                </div></center>
-                            <h3 class="text-center"><%= mentorName %></h3>
-                            <p class="text-center" style="font-style: italic"><%= mentorPosition %> <br> <%= mentorCompanyName %></p>
+                                        Mentor mentor = MentorDAO.getMentorByEmail(mentorEmail);
+                                        String mentorPosition = mentor.getRole();
+                                        if (mentorPosition != null || !mentorPosition.isEmpty()) {
+                                            mentorPosition += ", ";
+                                        }
+                                        String mentorIntrodction = mentor.getIntroduction();
+                                        String mentorSkills = mentor.getSkills();
+                                    %>
+                                    <center><div class="profile-pic" style="background-image: url('<%=mentorProfilePic%>')" width="200px" height="200" align="center">
+                                        </div></center>
+                                    <h3 class="text-center"><%= mentorName%></h3>
+                                    <p class="text-center" style="font-style: italic"><%= mentorPosition%> <br> <%= mentorCompanyName%></p>
 
-                            <p><strong>Email Address</strong>: <%= mentorEmail %></p>
+                                    <p><strong>Email Address</strong>: <%= mentorEmail%></p>
 
-                            <p><strong>Contact Number</strong>: <%= mentorContactNoStr %></p>
+                                    <p><strong>Contact Number</strong>: <%= mentorContactNoStr%></p>
 
-                            <p><strong>Type: </strong><%= mentorType %></p>
+                                    <p><strong>Type: </strong><%= mentorType%></p>
 
-                            <p><strong>Skill(s)</strong> : <%= mentorSkills %></p>
-                            <br>
-                            <%
-                                if (userType.contains("admin")) {
-                                    ArrayList<Relationship> mentorRS = RelationshipDAO.getAllRelationshipsForMentor(mentorEmail);
-                                    ArrayList<Integer> currentMentees = new ArrayList<Integer>();
-                                    ArrayList<Integer> pastMentees = new ArrayList<Integer>();
-                                    if (mentorRS != null || !mentorRS.isEmpty()) {
-                                        for (Relationship rs : mentorRS) {
-                                            String rsStatus = rs.getStatus();
-                                            if (rsStatus.contains("assigned")) {
-                                                currentMentees.add(rs.getCompanyID());
+                                    <p><strong>Skill(s)</strong>: <%= mentorSkills%></p><br>
+                                    <%
+                                        if (userType.contains("admin")) {
+                                            ArrayList<Relationship> mentorRS = RelationshipDAO.getAllRelationshipsForMentor(mentorEmail);
+                                            ArrayList<Integer> currentMentees = new ArrayList<Integer>();
+                                            ArrayList<Integer> pastMentees = new ArrayList<Integer>();
+                                            if (mentorRS != null || !mentorRS.isEmpty()) {
+                                                for (Relationship rs : mentorRS) {
+                                                    String rsStatus = rs.getStatus();
+                                                    if (rsStatus.contains("assigned")) {
+                                                        currentMentees.add(rs.getCompanyID());
+                                                    }
+                                                    if (rsStatus.contains("over")) {
+                                                        pastMentees.add(rs.getCompanyID());
+                                                    }
+                                                }
                                             }
-                                            if (rsStatus.contains("over")) {
-                                                pastMentees.add(rs.getCompanyID());
+                                    %>
+                                            <p><strong>Current Relationships:</strong>
+                                        <%
+                                            for (int i = 0; i < currentMentees.size(); i++) {
+                                                int cCompanyID = currentMentees.get(i);
+                                                Company cMenteeCompany = CompanyDAO.getCompany(cCompanyID);
+                                                String cMenteeCompanyName = "";
+                                                if (cMenteeCompany != null) {
+                                                    cMenteeCompanyName = cMenteeCompany.getName();
+                                                }
+                                        %>
+                                                <%= cMenteeCompanyName%>
+                                        <%
                                             }
                                         }
-                                    }
-                            %>
-                            <p><strong>Current Relationships:</strong>
-                                <%
-                                    for (int i = 0; i < currentMentees.size(); i++) {
-                                        int cCompanyID = currentMentees.get(i);
-                                        Company cMenteeCompany = CompanyDAO.getCompany(cCompanyID);
-                                        String cMenteeCompanyName = "";
-                                        if (cMenteeCompany != null) {
-                                            cMenteeCompanyName = cMenteeCompany.getName();
-                                        } 
+                                        if (userType.contains("mentee")) {
+                                            String currentUserMenteeEmail = user.getEmail();
+                                            Mentee currentUserMentee = MenteeDAO.getMenteeByEmail(currentUserMenteeEmail);
+                                            String currentUserMenteeMentorEmail = currentUserMentee.getMentor_email();
+                                            if (currentUserMenteeMentorEmail != null) {
+                                                if (currentUserMenteeMentorEmail.equals(mentorEmail)) {
                                         %>
-                                        <%= cMenteeCompanyName %>
-                                <%
-                                    }
-                                }
-                            }
-                        }else{
-                            out.println("No Mentor is assigned currently!");
-                        }
-                                %>
-                                <br><br>
-                            <a href="viewAllMentors.jsp" class="btn btn-success center-block btn-xs" align="middle">Back to Mentor List</a>
-                        </div>             
+                                        <button class="btn btn-primary center-block btn-xs" align="middle">Current Mentor</button>
+                                        <%
+                                                }
+                                            }
+                                        }
+                } else {
+
+                    request.setAttribute("currentUserMentorResult", "Currently no assigned mentor!");
+                    request.getRequestDispatcher("home.jsp").forward(request, response);
+                }
+                                        %>
+                                <br>
+                                <a href="viewAllMentors.jsp" class="btn btn-success center-block btn-xs" align="middle">Back to Mentor List</a>
+                                    </div>             
+                                </div>
+                            </div>
+                        </div>                 
                     </div>
-                </div>
-            </div>                 
-        </div>
     </body>
 </html>

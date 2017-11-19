@@ -48,17 +48,24 @@ public class editProfileServlet extends HttpServlet {
         User displayUser = (User) session.getAttribute("user");
         System.out.println("EDIT PROFILE SEERVLET CHECK------- START");
         String email = request.getParameter("email");
+        System.out.println("editProfileServlet get email: " + email);
         String password = request.getParameter("password");
+        System.out.println("editProfileServlet get password: " + password);
         String name = request.getParameter("name");
+        System.out.println("editProfileServlet get name: " + name);
         String nric = request.getParameter("nric");
+        System.out.println("editProfileServlet get nric: " + nric);
         String user_type = request.getParameter("user_type");
+        System.out.println("editProfileServlet get userType: " + user_type);
         String equityPercentage = request.getParameter("percentage");
-        String contact= request.getParameter("contactNo");
+        System.out.println("editProfileServlet get equityPercentage: " + equityPercentage);
+        String contact = request.getParameter("contactNo");
+        System.out.println("editProfileServlet get contactNo: " + contact);
         String nationality = request.getParameter("nationality");
-        System.out.println("EDIT PROFILE SEERVLET CHECK------- nationality "+nationality);
-        // System.out.println("editProfileServlet: " + nationality);
+        System.out.println("editProfileServlet get nationality: " + nationality);
         String role = request.getParameter("role");
-        
+        System.out.println("editProfileServlet get role: " + role);
+
         byte[] profilePic = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("profilePhoto");
@@ -67,69 +74,68 @@ public class editProfileServlet extends HttpServlet {
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());
-             
+
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
             profilePic = IOUtils.toByteArray(inputStream);
-        }else{
-           profilePic = displayUser.getProfile_pic();
+        } else {
+            profilePic = displayUser.getProfile_pic();
         }
-        System.out.println("EDIT PROFILE SEERVLET CHECK------- profilePic "+profilePic);
-        
-        
+        System.out.println("editProfileServlet get profilePic " + profilePic);
+
         int equity = 0;
-        if(equityPercentage!=null&&!(equityPercentage.equals(""))){
-           equity = Integer.parseInt(equityPercentage);
+        if (equityPercentage != null && !(equityPercentage.equals(""))) {
+            equity = Integer.parseInt(equityPercentage);
         }
         int number = 0;
-        if(contact!=null&&!(contact.equals(""))){
-           number = Integer.parseInt(contact);
+        if (contact != null && !(contact.equals(""))) {
+            number = Integer.parseInt(contact);
         }
         int companyID = Integer.parseInt(request.getParameter("companyID"));
 //        User user = new User(email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
 //        profileController.editUserDetails(user);
-        
-        if(displayUser.getUser_type().contains("mentee")){
+
+        if (displayUser.getUser_type().contains("mentee")) {
             System.out.println("EDIT PROFILE SEERVLET CHECK------- IS MENTEE ");
             String degree = request.getParameter("degree");
+            System.out.println("editProfileServlet get degree: " + degree);
             int yearOfGrad = Integer.parseInt(request.getParameter("yearOfGrad"));
+            System.out.println("editProfileServlet get yearOfGrad: " + yearOfGrad);
             String mentor_email = request.getParameter("mentorEmail");
-            
-            System.out.println(email);
-            System.out.println(password);
-            System.out.println(name);
-            System.out.println(nric);
-            System.out.println(displayUser.getJoinedDate());
-            System.out.println(profilePic);
-            System.out.println(user_type);
-            System.out.println(companyID);
-            System.out.println(role);
-            System.out.println(equity);
-            System.out.println(number);
-            System.out.println(nationality);
-            System.out.println("DEGREE ------- " +degree);
-            System.out.println("YEAR OF GRADDDDD ------- " +yearOfGrad);
-            System.out.println(mentor_email);
-            
+            System.out.println("editProfileServlet get mentorEmail: " + mentor_email);
+
+            System.out.println("editProfileServlet submit email: " + email);
+            System.out.println("editProfileServlet submit password: " + password);
+            System.out.println("editProfileServlet submit name: " + name);
+            System.out.println("editProfileServlet submit nric: " + nric);
+            System.out.println("editProfileServlet submit profilePic " + profilePic);
+            System.out.println("editProfileServlet submit user type: " + user_type);
+            System.out.println("editProfileServlet submit percentage: " + equityPercentage);
+            System.out.println("editProfileServlet submit contact num: " + contact);
+            System.out.println("editProfileServlet submit nationality: " + nationality);
+            System.out.println("editProfileServlet submit role: " + role);
+            System.out.println("editProfileServlet submit degree: " + degree);
+            System.out.println("editProfileServlet submit yearOfGrad: " + yearOfGrad);
+            System.out.println("editProfileServlet submit mentorEmail: " + mentor_email);
+
             User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             status = profileController.editMentee(mentee);
             session.setAttribute("user", user);
             session.setAttribute("mentee", mentee);
             request.setAttribute("updateStatus", status);
-            
-        }else if(user_type.contains("mentor")){
+
+        } else if (user_type.contains("mentor")) {
             String position = request.getParameter("position");
             String introduction = request.getParameter("introduction");
             String bankAccount = request.getParameter("bank_account");
             String skills = request.getParameter("skills");
-            
+
 //            String bankAccount = "112234341";
 //            String skills = "Banking";
-            
             System.out.println(position);
             System.out.println(introduction);
-            
+
             User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             status = profileController.editMentor(m);
@@ -137,7 +143,7 @@ public class editProfileServlet extends HttpServlet {
             session.setAttribute("mentor", m);
             request.setAttribute("updateStatus", status);
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher("editPersonalProfile.jsp");
         rd.forward(request, response);
     }

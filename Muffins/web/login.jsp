@@ -60,9 +60,9 @@
             border-radius: 3%;
             align-content: center;
         }
-
-
-
+        .form-control {
+            font-size: 12;
+        }
     </style>
     <body>
         <div class="container-fluid" align="center">
@@ -77,9 +77,7 @@
                             <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
 
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
-
-
-
+                            
                             <p align="center"><font color="red"><%=loginResult%></p></font>
 
                             <div id="remember" class="checkbox">
@@ -87,7 +85,7 @@
                                     <input type="checkbox" name = "rememberMe" value="yes"> Remember me
                                 </label>
                             </div>-->
-                                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                                <button class="btn btn-m btn-primary btn-block btn-signin" type="submit">Sign in</button>
                             </div>
                         </div>
 
