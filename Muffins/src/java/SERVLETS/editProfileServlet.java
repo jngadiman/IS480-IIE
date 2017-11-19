@@ -57,7 +57,7 @@ public class editProfileServlet extends HttpServlet {
         System.out.println("editProfileServlet get nric: " + nric);
         String user_type = request.getParameter("user_type");
         System.out.println("editProfileServlet get userType: " + user_type);
-        String equityPercentage = request.getParameter("percentage");
+        String equityPercentage = request.getParameter("equityPercentage");
         System.out.println("editProfileServlet get equityPercentage: " + equityPercentage);
         String contact = request.getParameter("contactNo");
         System.out.println("editProfileServlet get contactNo: " + contact);
@@ -127,14 +127,28 @@ public class editProfileServlet extends HttpServlet {
 
         } else if (user_type.contains("mentor")) {
             String position = request.getParameter("position");
+            System.out.println("editProfileServlet get position: " + position);
             String introduction = request.getParameter("introduction");
+            System.out.println("editProfileServlet get introduction: " + introduction);
             String bankAccount = request.getParameter("bank_account");
+            System.out.println("editProfileServlet get bank_account: " + bankAccount);
             String skills = request.getParameter("skills");
+            System.out.println("editProfileServlet get skills: " + skills);
 
-//            String bankAccount = "112234341";
-//            String skills = "Banking";
-            System.out.println(position);
-            System.out.println(introduction);
+            System.out.println("editProfileServlet submit email: " + email);
+            System.out.println("editProfileServlet submit password: " + password);
+            System.out.println("editProfileServlet submit name: " + name);
+            System.out.println("editProfileServlet submit nric: " + nric);
+            System.out.println("editProfileServlet submit profilePic " + profilePic);
+            System.out.println("editProfileServlet submit user type: " + user_type);
+            System.out.println("editProfileServlet submit percentage: " + equityPercentage);
+            System.out.println("editProfileServlet submit contact num: " + contact);
+            System.out.println("editProfileServlet submit nationality: " + nationality);
+            System.out.println("editProfileServlet submit role: " + role);
+            System.out.println("editProfileServlet submit position: " + position);
+            System.out.println("editProfileServlet submit introduction: " + introduction);
+            System.out.println("editProfileServlet submit bank_account: " + bankAccount);
+            System.out.println("editProfileServlet submit skills: " + skills);
 
             User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
             Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);

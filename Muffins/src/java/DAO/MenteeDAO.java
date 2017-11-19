@@ -503,7 +503,7 @@ public class MenteeDAO {
                 while (result.next()) {
                     email = result.getString("email");
                     degree = result.getString("degree");
-                    yearOfGrad = Integer.parseInt(result.getString("year_of_grad"));
+                    yearOfGrad = result.getInt("year_of_grad");
                     mentor_email = result.getString("mentor_email");
                 }
                 

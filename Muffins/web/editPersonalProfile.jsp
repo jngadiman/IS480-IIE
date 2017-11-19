@@ -143,6 +143,10 @@
                             Company company = CompanyDAO.getCompany(companyID);
                             String companyName = company.getName();
                             System.out.println("editPersonalProfile company: " + company);
+                            
+                            // user equity percentage
+                            int equityPercentage = user.getEquityPercentage();
+                            System.out.println("editPersonalProfile percentage: "+ equityPercentage);
 
                             // if user is mentor, get mentor's mentees
                             if (userType.contains("mentor")) {
@@ -169,15 +173,6 @@
                         <div class="col-lg-12" align="center">
                             <h3 id="displayName"><%=name%></h3>
                             <h4 style="font-style: italic"><%=email%></h4><br>
-                                <script>
-                                    document.getElementById("name").onkeyup = function () {
-                                        liveUpdate()
-                                    };
-                                    function liveUpdate() {
-                                        var x = document.getElementById("name");
-                                        document.getElementById("displayName").innerHTML = x.value;
-                                    }
-                                </script>
                         </div><br/><br/><br/>
                         <div class='row'>
                             <div class="col-sm-6 form-group">
@@ -239,7 +234,11 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Company Position</label>
-                                <input name="role" type="text" placeholder="Enter Company Position.." class="form-control" value="<%= position%>" required>
+                                <input name="position" type="text" placeholder="Enter Company Position..." class="form-control" value="<%= position%>" required>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Equity Percentage</label>
+                                <input name="equityPercentage" type="text" placeholder="Enter Equity Percentage..." class="form-control" value="<%= equityPercentage%>" required>
                             </div>
                         </div>
                         <div class="row">
@@ -269,23 +268,47 @@
                         %>
                         <%
                             if (userType.contains("mentor")) {
-                                Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
-                                String company_name = "";
-                                if (mentor.getCompanyid() != 0) {
-                                    Company c = companyController.getCompany(mentor.getCompanyid());
-                                    company_name = c.getName();
-                                }
+                                Mentor currentMentor = MentorDAO.getMentorByEmail(user.getEmail());
+                                // mentor introduction
+                                String mentorIntroduction = currentMentor.getIntroduction();
+                                // mentor type
+                                String mentorType = profileController.getUserType(currentMentor);
+                                // mentor skills
+                                String mentorSkills = currentMentor.getSkills();
+                                // getting mentor's mentees
+                                ArrayList<Mentee> currentMentorMentees = new ArrayList<Mentee>();
+                                // mentor position
+                                String mentorPosition = currentMentor.getPosition();
+                                // mentor bank account number
+                                String mentorBankAcc = currentMentor.getBankAccount();
+
                         %> 
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label>Position in the Company</label>
-                                <input name="position" type="text" placeholder="Enter your position in your company" class="form-control" value="<%= mentor.getPosition()%>" required>
+                                <label>Bank Account</label>
+                                <input name="bank_account" type="text" placeholder="Enter Bank Account Number..." class="form-control" value="<%= mentorBankAcc%>" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 form-group">
+                                <label>Company Position</label>
+                                <input name="position" type="text" placeholder="Enter Company Position..." class="form-control" value="<%= mentorPosition%>" required>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Equity Percentage</label>
+                                <input name="equityPercentage" type="text" placeholder="Enter Equity Percentage..." class="form-control" value="<%= equityPercentage%>" required>
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label>Skills</label>
+                                <textarea name="skills" type="text" rows="4" placeholder="Enter your skills, your area of expertise and what you specialize in..." class="form-control" required><%= mentorSkills%></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
                                 <label>Introduction</label>
-                                <textarea name="introduction" type="text" rows="4" placeholder="Enter an introduction of yourself, what industries you have been and what can you bring or teach the mentees.." class="form-control" required><%= mentor.getIntroduction()%></textarea>
+                                <textarea name="introduction" type="text" rows="4" placeholder="Enter an introduction of yourself, what industries you have been and what can you bring or teach the mentees.." class="form-control" required><%= mentorIntroduction%></textarea>
                             </div>
                         </div>
                         <%

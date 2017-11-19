@@ -60,7 +60,7 @@ public class UserDAO {
                 joinedDate = result.getDate("joined_date");
                 profile_pic = result.getBlob("profile_pic");
                 user_type = result.getString("user_type");
-                company_id = Integer.parseInt(result.getString("company_id"));
+                company_id = result.getInt("company_id");
                 position = result.getString("position");
                 if(result.getString("equity_percentage") != null){
                     equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
@@ -240,20 +240,31 @@ public class UserDAO {
 
             while (result.next()) {
                 email = result.getString("email");
+                System.out.println("from UserDAO email: " + email);
                 password = result.getString("password");
+                System.out.println("from UserDAO password: " + password);
                 name = result.getString("name");
+                System.out.println("from UserDAO name: " + name);
                 nric = result.getString("nric");
+                System.out.println("from UserDAO nric: " + nric);
                 joinedDate = result.getDate("joined_date");
+                System.out.println("from UserDAO joined_date: " + joinedDate);
                 profile_pic = result.getBlob("profile_pic");
+                System.out.println("from UserDAO profile_pic: " + profile_pic);
                 user_type = result.getString("user_type");
-                company_id = Integer.parseInt(result.getString("company_id"));
+                System.out.println("from UserDAO user_type: " + user_type);
+                company_id = result.getInt("company_id");
+                System.out.println("from UserDAO company_id: " + company_id);
                 position = result.getString("position");
+                System.out.println("from UserDAO position: " + position);
                 if(result.getString("equity_percentage") != null){
                     equity_percentage = Integer.parseInt(result.getString("equity_percentage"));
                 }else{
                     equity_percentage = 0;
                 }
-                contact_number = Integer.parseInt(result.getString("contact_number"));
+                System.out.println("from UserDAO equity_percentage: " + equity_percentage);
+                contact_number = result.getInt("contact_number");
+                System.out.println("from UserDAO contact_number: " + contact_number);
                 nationality = result.getString("nationality");
                 if(profile_pic != null){
                     profilePic = profile_pic.getBytes(1, (int) profile_pic.length());

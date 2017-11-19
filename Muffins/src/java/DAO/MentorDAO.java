@@ -195,6 +195,7 @@ public class MentorDAO {
         
         User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
         int userResult = UserDAO.editUser(u);
+        System.out.println("from MentorDAO editMentorDetails: " + userResult);
         
         if(userResult == 0){
             return userResult;
@@ -207,15 +208,18 @@ public class MentorDAO {
         try {
             conn = ConnectionManager.getConnection();
             
-            stmt = conn.prepareStatement("UPDATE Mentor SET position = ?, introduction = ?, bank_account = ?, skills = ? WHERE email = ?;");
+            stmt = conn.prepareStatement("UPDATE mentor SET position = ?, introduction = ?, bank_account = ?, skills = ? WHERE email = ?;");
             stmt.setString(1, m.getPosition());
             stmt.setString(2, m.getIntroduction());
             stmt.setString(3, m.getBankAccount());
             stmt.setString(4, m.getSkills());
             stmt.setString(5, m.getEmail());
+            System.out.println("from MentorDAO editMentorDetails: " + m.getPosition());
+            System.out.println("from MentorDAO editMentorDetails: " + m.getIntroduction());
+            System.out.println("from MentorDAO editMentorDetails: " + m.getSkills());
+            System.out.println("from MentorDAO editMentorDetails: " + m.getEmail());
             result = stmt.executeUpdate();
-            System.out.println("editMentorDetails: " + m.getPosition());
-            System.out.println("editMentorDetails: " + m.getIntroduction());
+            System.out.println("from MentorDAO editMentorDetails: " + result);
             //if there is a user record in the User table but no such row in the Mentee table
             if(userResult == 1 && result == 0){
                 MentorDAO.addMentor(m);

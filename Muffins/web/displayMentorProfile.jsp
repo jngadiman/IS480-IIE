@@ -101,33 +101,45 @@
                                             mentorProfilePic = "data:image/gif;base64," + imgDataBase64;
                                         }
                                         // getting mentor details
+                                        // mentor name
                                         String mentorName = currentUserMentor.getName();
+                                        // mentor company, company name
                                         int mentorCompanyID = currentUserMentor.getCompanyid();
                                         Company mentorCompany = CompanyDAO.getCompany(mentorCompanyID);
                                         String mentorCompanyName = "";
                                         if (mentorCompany != null) {
                                             mentorCompanyName = mentorCompany.getName();
                                         }
+                                        // mentor email
                                         mentorEmail = currentUserMentor.getEmail();
+                                        // mentor contact number
                                         int mentorContactNo = currentUserMentor.getContactNumber();
                                         String mentorContactNoStr = "N/A";
                                         if (mentorContactNo != 0) {
                                             mentorContactNoStr = mentorContactNo + "";
                                         }
+                                        // mentor type
                                         String mentorType = profileController.getUserType(currentUserMentor);
-
+                                        
+                                        // mentor position
                                         Mentor mentor = MentorDAO.getMentorByEmail(mentorEmail);
                                         String mentorPosition = mentor.getRole();
                                         if (mentorPosition != null || !mentorPosition.isEmpty()) {
                                             mentorPosition += ", ";
                                         }
+                                        // mentor introduction
                                         String mentorIntrodction = mentor.getIntroduction();
+                                        if (mentorIntrodction == null || mentorIntrodction.isEmpty()) {
+                                            mentorIntrodction = "";
+                                        }
+                                        // mentor skills
                                         String mentorSkills = mentor.getSkills();
                                     %>
                                     <center><div class="profile-pic" style="background-image: url('<%=mentorProfilePic%>')" width="200px" height="200" align="center">
                                         </div></center>
-                                    <h3 class="text-center"><%= mentorName%></h3>
-                                    <p class="text-center" style="font-style: italic"><%= mentorPosition%> <br> <%= mentorCompanyName%></p>
+                                    <h3 class="text-center"><%= mentorName%><br>
+                                    <%= mentorPosition%><%= mentorCompanyName%></h3>
+                                    <p class="text-center" style="font-style: italic"><%= mentorIntrodction%></p>
 
                                     <p><strong>Email Address</strong>: <%= mentorEmail%></p>
 
