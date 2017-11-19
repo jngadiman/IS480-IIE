@@ -124,7 +124,7 @@
                                         // mentor position
                                         Mentor mentor = MentorDAO.getMentorByEmail(mentorEmail);
                                         String mentorPosition = mentor.getRole();
-                                        if (mentorPosition != null || !mentorPosition.isEmpty()) {
+                                        if (mentorPosition != null && !mentorPosition.isEmpty()) {
                                             mentorPosition += ", ";
                                         }
                                         // mentor introduction

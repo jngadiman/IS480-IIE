@@ -566,24 +566,34 @@ public class CompanyDAO {
     }
 
     public static int getNextCompanyID() {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        int companyID = 0;
-        int next = 0;
-
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from company order by company_id desc;");
-            result = stmt.executeQuery();
-            result.next();
-            companyID = result.getInt("company_id");
-            next = companyID + 1;
-        } catch (SQLException ex) {
-            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionManager.close(conn, stmt, result);
-        }
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//        int companyID = 0;
+        int next = (int) (new Date().getTime()/1000);
+//        DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
+//        Date date = new Date();
+//        String nextStr = dateFormat.format(date).toString();
+//        try{
+//            nextStr = dateFormat.format(date).toString();
+//            next = Integer.valueOf(nextStr);
+//       }catch (Exception ex ){
+//            System.out.println(ex);
+//       }
+        
+//        next =  Integer.valueOf(nextStr);
+//        try {
+//            conn = ConnectionManager.getConnection();
+//            stmt = conn.prepareStatement("select * from company order by company_id desc;");
+//            result = stmt.executeQuery();
+//            result.next();
+//            companyID = result.getInt("company_id");
+//            next = companyID + 1;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            ConnectionManager.close(conn, stmt, result);
+//        }
 
         return next;
     }
@@ -710,19 +720,17 @@ public class CompanyDAO {
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDs();
-        for (Integer i : companyIDs) {
-            System.out.println(i);
-        }
+//        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDs();
+//        for (Integer i : companyIDs) {
+//            System.out.println(i);
+//        }
 
         //String[] stringArray = new String[2];
 //        String[] founders = new String[]{"mentor1@gmail.com","bla@abc.com"};
 //        Company c = new Company(10, "comany name", "sell food looajdvjvn..",founders, 11, 12, 302020, new Date(), 2, null, "hi", "hi1", "hi2", "hi3", null, null, null);
 //        int result = CompanyDAO.editCompanyDetails(c);
 //        System.out.println(result);
-        Company c = CompanyDAO.getCompany(1);
-        System.out.println(c.getId());
-        System.out.println(c.getName());
-        System.out.println(c.getCurrentStage());
+        int companyID = CompanyDAO.getNextCompanyID();
+        System.out.println(companyID);
     }
 }
