@@ -566,36 +566,30 @@ public class CompanyDAO {
     }
 
     public static int getNextCompanyID() {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet result = null;
-//        int companyID = 0;
-        int next = (int) (new Date().getTime()/1000);
-//        DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
-//        Date date = new Date();
-//        String nextStr = dateFormat.format(date).toString();
-//        try{
-//            nextStr = dateFormat.format(date).toString();
-//            next = Integer.valueOf(nextStr);
-//       }catch (Exception ex ){
-//            System.out.println(ex);
-//       }
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet count = null;
         
-//        next =  Integer.valueOf(nextStr);
-//        try {
-//            conn = ConnectionManager.getConnection();
-//            stmt = conn.prepareStatement("select * from company order by company_id desc;");
-//            result = stmt.executeQuery();
-//            result.next();
-//            companyID = result.getInt("company_id");
-//            next = companyID + 1;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            ConnectionManager.close(conn, stmt, result);
-//        }
-
-        return next;
+        
+        DateFormat dateFormat = new SimpleDateFormat("ddMM");
+        Date date = new Date();
+        String nextStr = dateFormat.format(date);
+        
+        int counter = 0;
+        try{
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select count(*) from company;");
+            count = stmt.executeQuery();
+            count.next();
+            nextStr += count.getInt(1)+1;
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, count);
+        }
+        
+        int companyID = Integer.parseInt(nextStr);
+        return companyID;
     }
 
     public static boolean deleteCompany(int companyID) {

@@ -22,14 +22,7 @@
     </head>
     <body>
         <%
-            String registerStatus = (String) request.getAttribute("registerCompanyStatus");
-                if (registerStatus != null && !registerStatus.isEmpty()) {
-                    if(registerStatus.equals("Success!")){
-                        out.println("<h5 class='col-lg-10 col-sm-offset-3'>Your company application is successful, please check your email for confirmation!</h5>");
-                    }else{
-                    out.println("<h5 class='col-lg-10 col-sm-offset-3'> Your company application is not successful, pleaase try again </h5>");
-                    }
-                }
+            
             
             HashMap <String, String> hm = (HashMap <String, String>) request.getAttribute("errorMessages");
                 String nameErr = "";
@@ -51,13 +44,21 @@
                   if(hm.containsKey("pitchDeck")){
                       pitchDeckErr = hm.get("pitchDeck");
                   }                
-                }  
+                }
             ArrayList<Industry> industries = industryController.getIndustries();
 
         %>
         <div class="container">
             <h1 class="col-lg-10  col-sm-offset-2 page-header">Startup Company Registration Form</h1>
-            <%                
+            <%      
+                String registerStatus = (String) request.getAttribute("registerCompanyStatus");
+                if (registerStatus != null && !registerStatus.isEmpty()) {
+                    if (registerStatus.equals("Success!")) {
+                        out.println("<h5 class='col-lg-10 col-sm-offset-3'>Your company application is successful, please check your email for confirmation!</h5>");
+                    } else {
+                        out.println("<h5 class='col-lg-10 col-sm-offset-3'> Your company application is not successful, pleaase try again </h5>");
+                    }
+                }
             %>
             <div class="col-lg-10 well col-sm-offset-2">
                 <div class="row">
@@ -71,7 +72,7 @@
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Company Logo</label>
-                                    </br>
+                                    
                                     <font color = red >  <%=logoErr%></font></br>
                                     <input class="form-control" type="file" name="company_logo" id="company_logo" accept="image/*">
                                 </div>
