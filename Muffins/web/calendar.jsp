@@ -27,7 +27,7 @@
         <script type='text/javascript' src='fullcalendar/gcal.js'></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Calendar</title>
-        <%@include file="sidenav.jsp" %>
+        <!-- <%@include file="sidenav.jsp" %> -->
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
