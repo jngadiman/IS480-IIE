@@ -244,7 +244,7 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Year of Graduation</label>
-                                <input name="yearOfGrad" type="text" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= gradYear%>" required>
+                                <input name="yearOfGrad" type="text" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" placeholder="Enter Year of Graduation Here.." class="form-control" value="<%= gradYear%>" required>
                             </div>
 
                             <div class="col-sm-6 form-group required">

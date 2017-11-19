@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -46,6 +47,8 @@ public class registerCompanyServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HashMap<String, String> errorMessages = new HashMap<String, String>();
         int companyID = registrationController.getNextCompanyID();
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -58,17 +61,8 @@ public class registerCompanyServlet extends HttpServlet {
         ArrayList<Company> allCompanies = companyController.getAllCompanies();
         for(Company c: allCompanies){
             if(name.equals(c.getName())){
-                request.setAttribute("registerCompanyStatus", "Company Name already exist!");
-                if(companyType.equals("incubator")){
-                    RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
-                    rd.forward(request, response);
-                    return;
-                }else{
-                    RequestDispatcher rd = request.getRequestDispatcher("registerOpenCompany.jsp");
-                    rd.forward(request, response);
-                    return;
-                }
-                
+                errorMessages.put("name", "Company Name already exist!");
+
             }
         }
         
@@ -77,13 +71,23 @@ public class registerCompanyServlet extends HttpServlet {
         Part filePart = request.getPart("company_logo");
         if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
             // prints out some information for debugging
-            System.out.println(filePart.getName());
+            System.out.println("PICTURE INFORMATION NAME   "+filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());
-             
-            // obtains input stream of the upload file
-            inputStream = filePart.getInputStream();
-            companyLogo = IOUtils.toByteArray(inputStream);
+            
+            String contentType = filePart.getContentType();
+            
+                contentType = contentType.substring(0, 5);
+                System.out.println("CONTENT TYPE "+contentType);
+                if(contentType.equals("image")){
+                    // obtains input stream of the upload file
+                    inputStream = filePart.getInputStream();
+                    companyLogo = IOUtils.toByteArray(inputStream);
+                }else{
+                    errorMessages.put("logo", "Company Logo has to be an image!");
+                }
+            
+            
         }   
         
         String productDiff = request.getParameter("product_differetiation");
@@ -97,10 +101,17 @@ public class registerCompanyServlet extends HttpServlet {
                 System.out.println(filePart2.getName());
                 System.out.println(filePart2.getSize());
                 System.out.println(filePart2.getContentType());
-
-                // obtains input stream of the upload file
-                inputStream2 = filePart2.getInputStream();
-                acraFile = IOUtils.toByteArray(inputStream2);
+                String contentType = filePart2.getContentType();
+                contentType = contentType.substring(contentType.length()-3,contentType.length());
+                System.out.println("CONTENT TYPE "+contentType);
+                if(contentType.equals("pdf")){
+                    // obtains input stream of the upload file
+                    inputStream2 = filePart2.getInputStream();
+                    acraFile = IOUtils.toByteArray(inputStream2);
+                }else{
+                    errorMessages.put("acra", "File has to be in PDF format!");
+                }
+                
             }
         }
     
@@ -110,46 +121,70 @@ public class registerCompanyServlet extends HttpServlet {
         if(filePart3 != null){
             if (filePart3.getSubmittedFileName() != null && !filePart3.getSubmittedFileName().isEmpty()) {
                 // prints out some information for debugging
+                System.out.println("FILE INFORMATION NAME   "+filePart3.getName());
                 System.out.println(filePart3.getName());
                 System.out.println(filePart3.getSize());
                 System.out.println(filePart3.getContentType());
-
-                // obtains input stream of the upload file
-                inputStream3 = filePart3.getInputStream();
-                bizSlides = IOUtils.toByteArray(inputStream3);
+                String contentType = filePart3.getContentType();
+                contentType = contentType.substring(contentType.length()-3,contentType.length());
+                System.out.println("CONTENT TYPE "+contentType);
+                if(contentType.equals("pdf")){
+                    // obtains input stream of the upload file
+                    inputStream3 = filePart3.getInputStream();
+                    bizSlides = IOUtils.toByteArray(inputStream3);
+                }else{
+                    errorMessages.put("pitchDeck", "File has to be in PDF format!");
+                }
+    
             }
         }
+        
         String [] stakeholders = shareholders.split(",");
-        Date startDate = new Date();
-        Company c = new Company(companyID, name, description, stakeholders, 0, 0, industry, startDate, current_stage, companyLogo, productDiff, null, null, null, acraFile, bizSlides, null);
-        String status = registrationController.addCompany(c);
+            int count = shareholders.length() - shareholders.replace("@", "").length();
+            System.out.println("TESTING THE COUNT FOR SHARE HOLDERS--- "+count);
         
-        
-        
-        //email admin and founders that the company is registered
-        String [] admin = {"jiatung1218@gmail.com", "huimin.sim.2015@smu.edu.sg"};
-        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear founders of "+name+ ", \n Application to IIE is currently being proccessed, we will send you an email once the application is accepted! \n Thank you! ", stakeholders, "IIE Portal Application Success")){
-            System.out.println("email has been sent successfully");
-        }else{
-            System.out.println("email could not be sent");
-        }
-        
-        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear EIR, \n"+name+ " has applied to IIE. \n Kindly review the company details through the portal \n Thank you!", admin, "IIE Portal Notification")){
-            System.out.println("email has been sent successfully");
-        }else{
-            System.out.println("email could not be sent");
-        }
-        
-        
-        if(companyType.equals("incubator")){
+        //email admin and founders that the company is registered AFTER COMPANY IS REGISTERED
+        if(errorMessages.isEmpty()){
+            
+            Date startDate = new Date();
+            Company c = new Company(companyID, name, description, stakeholders, 0, 0, industry, startDate, current_stage, companyLogo, productDiff, null, null, null, acraFile, bizSlides, null);
+            String status = registrationController.addCompany(c);
+            String [] admin = {"huimin.sim.2015@smu.edu.sg"};
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear founders of "+name+ ", \n Application to IIE is currently being proccessed, we will send you an email once the application is accepted! \n Thank you! ", stakeholders, "IIE Portal Application Success")){
+                System.out.println("email has been sent successfully");
+            }else{
+                System.out.println("email could not be sent");
+            }
+
+            if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", "Dear EIR, \n"+name+ " has applied to IIE. \n Kindly review the company details through the portal \n Thank you!", admin, "IIE Portal Notification")){
+                System.out.println("email has been sent successfully");
+            }else{
+                System.out.println("email could not be sent");
+                
+            }
+            
+            if(companyType.equals("incubator")){
             request.setAttribute("registerCompanyStatus", status);
+            request.setAttribute("errorMessages", errorMessages);
             RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
             rd.forward(request, response);
+            }else{
+                request.setAttribute("registerCompanyStatus", status);
+                request.setAttribute("errorMessages", errorMessages);
+                RequestDispatcher rd = request.getRequestDispatcher("registerOpenCompany.jsp");
+                rd.forward(request, response);
+            }
+            
         }else{
-            request.setAttribute("registerCompanyStatus", status);
-            RequestDispatcher rd = request.getRequestDispatcher("registerOpenCompany.jsp");
+            request.setAttribute("registerCompanyStatus", "Failed!");
+            request.setAttribute("errorMessages", errorMessages);
+            RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
             rd.forward(request, response);
         }
+        
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -30,31 +30,43 @@
             <div class="col-lg-9 col-sm-offset-4">
                 <h2 class="col-lg-9 page-header">View Meetings </h2>
                 <div class="col-lg-9 well">
-                    <%  user = (User) session.getAttribute("user");
-                        String currentUser = user.getEmail();
+                    <%                        String currentUser = user.getEmail();
                         System.out.println("CURRENT USER IN THIS JSP " + currentUser);
                         ArrayList<Meeting> userMeetings = new ArrayList<Meeting>();
                         userMeetings = meetingController.getMeetingsOfAttendees(currentUser);
-                        %>
-                        Meeting with minutes
-                        <%
+                    %>
+                    <h2>Meeting with Minutes</h2>
+                    <%
                         if (userMeetings != null) {
                             for (Meeting m : userMeetings) {
-                                System.out.println("MEETING OBJECT IN VIEW ALL MEETING JSP ----- " + m);
+                                if (m.getStatus().equals("minuted")) {
                                 System.out.println("MEETING NAME IN USERMEETINGS -----" + m.getMeetingName());
-                    %>
 
-                                Meeting Name: <!--EACH = <%=m.getMeetingName()%> DELETE --></br>
-                                Meeting Date & Time: <!--EACH = <%=m.getMeetingName()%> DELETE --></br>
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                                Date startDate = m.getStartTime();
+                                Date endDate = m.getStartTime();
+                                String starttime = df.format(startDate);
+                                String endtime = df.format(startDate);
+                                int meetingID = m.getMeetingID();
+                                
+
+                    %>
+                    
+                    <p><strong>Meeting Name: </strong><%=m.getMeetingName()%></p>
+                    <p><strong>Meeting Start Time: </strong><%=starttime%></p>
+                    <p><strong>Meeting End Time: </strong><%=endtime%></p>  
+                    <p><strong>Attendees: </strong><%=m.getAttendees()%></p> can print in names??
+                    <button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">View Meeting Minutes</button>
+                    
                     <%
-                        int meetingID = m.getMeetingID();
+                        
                         //only prints when the meeting has ended
                         System.out.println("MEETING STATUS IN VIEW ALL MEETING JSP ----- " + m.getStatus());
-                        if (m.getStatus().equals("minuted")) {
-                    %>
                         
+                    %>
+
+
                     
-                    <li><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">View meeting Mins 2</button></li>
                     <div class="row">
                         <!-- Modal -->
                         <div id="view<%=meetingID%>" class="modal fade" role="dialog">
@@ -70,9 +82,7 @@
                                         <%                    
 
                                             Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
-                                            Date startdate = meeting.getStartTime();
-                                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                                            String date = df.format(startdate);
+
                                             int company = meeting.getMenteeCompany();
                                             //one sheet of meeting minutes
                                             ArrayList<MeetingMinutes> minutes = minutesController.getMeetingMinutesByMeeting(meetingID);
@@ -83,11 +93,22 @@
 
                                                 //to get the fixed values 
                                                 MeetingMinutes first = minutes.get(0);
+                                                String mName = "";
+                                                if (first != null) {
+                                                    String email = first.getMentor_email();
+                                                    if (email != null || !email.equals("")) {
+                                                        Mentor mentor = mentorController.getMentor(email);
+                                                        if (mentor != null) {
+                                                            mName = mentor.getName();
+                                                        }
+                                                    }
+
+                                                }
 
 
                                         %>
                                         Title : <%=first.getTitle()%><br>
-                                        Mentor : <%=mentorController.getMentor(first.getMentor_email()).getName()%><br>
+                                        Mentor : <%= mName%><br>
                                         Comments : <%=first.getComments()%><br>
                                         Completed Tasks :
                                         <%
@@ -108,11 +129,11 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                         <form action = "editMeetingMinutes.jsp" method ="post">
+                                        <form action = "editMeetingMinutes.jsp" method ="post">
                                             <input type ="hidden" name ="mid" value ="<%=meetingID%>">
                                             <button type="submit" class="btn btn-default">Edit</button>
                                         </form>
-                                        
+
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
                                     </div>
@@ -121,17 +142,33 @@
                         </div>
                     </div>  
                     <%
-                        }else{%>
+                    }
+}
+                            for (Meeting m : userMeetings) {
+
+                                System.out.println("MEETING NAME IN USERMEETINGS -----" + m.getMeetingName());
+
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                                Date startDate = m.getStartTime();
+                                Date endDate = m.getStartTime();
+                                String starttime = df.format(startDate);
+                                String endtime = df.format(startDate);
+                                int meetingID = m.getMeetingID();
                     
+                    if(m.getStatus().equals("confirmed")){
+                    %>
+
                     <h2>Meeting without minutes</h2>
-                    Meeting Details
-                    <button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">Add Meeting Minutes</button>
-                    
-                    
-                    
+                    <p><strong>Meeting Name: </strong><%=m.getMeetingName()%></p>
+                    <p><strong>Meeting Start Time: </strong><%=starttime%></p>
+                    <p><strong>Meeting End Time: </strong><%=endtime%></p>  
+                    <a href = "addMeetingMinutes.jsp?id=<%=meetingID%>"> <button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">Add Meeting Minutes</button></a>
+
+
+
                     <%
 
-}
+                        }
 
                     %>
 
@@ -145,7 +182,7 @@
                     %>
 
 
-                   
+
                 </div>
             </div>
         </div>

@@ -144,27 +144,31 @@
                             <div class="col-sm-12 form-group">
 
 
-                                <% if (type.equals("regular_mentee") || type.equals("light_mentee")) {
+                                <%
+                                    String mentor_name = "";
+                                    if (type.equals("regular_mentee") || type.equals("light_mentee")) {
                                         Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
-                                        String mentor_name = "";
+
                                         if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
                                             Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
                                             mentor_name = myMentor.getName();
                                 %>
-                                <div class="row">
-                                    <p><strong>Mentor Name: </strong><%=mentor_name%></p>
 
-                                    <%
-                                            } else {
-                                                out.println("");
-                                            }
+
+                                <%
                                         } else {
                                             out.println("");
                                         }
-                                    %>
-
+                                    } else if (userType.contains("mentor")) {
+                                        mentor_name = user.getName();
+                                    }
+                                    
+                                    
+                                %>
+                                <div class="row">
+                                    <p><strong>Mentor Name: </strong><%=mentor_name%></p>
                                     <p>
-                                        <strong>Mentee Name: </strong><%=user.getName()%>
+                                        <strong>Company Name: </strong><%=comp.getName()%>
                                     </p>
 
 
@@ -178,128 +182,128 @@
                                     <p><strong>Company Current Stage: </strong><%=currentStageOfCompany%></p>
                                 </div>
                             </div>
-                        
-                        <!--                                    to insert current stage for company
-                        <input id="stage" name="stage" type="text" placeholder="Enter Company Name Here.." class="form-control">-->
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <label class="control-label">Title</label>
-                                <input class="col-sm-6 form-control" type ="text" name ="title" value="<%=currentMeeting.getMeetingName()%>"> <br/>
+
+                            <!--                                    to insert current stage for company
+                            <input id="stage" name="stage" type="text" placeholder="Enter Company Name Here.." class="form-control">-->
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label class="control-label">Title</label>
+                                    <input class="col-sm-6 form-control" type ="text" name ="title" value="<%=currentMeeting.getMeetingName()%>"> <br/>
+                                </div>
+
                             </div>
+                            <div class="row">
+                                <div class="col-sm-10 form-group">
 
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-10 form-group">
+                                    <label class="control-label">Tasks Completed (Please tick beside the tasks)</label><br>
 
-                                <label class="control-label">Tasks Completed (Please tick beside the tasks)</label><br>
-
-                                <%
-                                    int uncompleteTask = 0;
-                                    ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageOfCompany, menteeCompany);
-                                    if (tasks == null || tasks.size() == 0) {
-                                        out.println("No task assigned!");
-                                    } else {
-                                        for (Task t : tasks) {
-                                            if (!t.isIsCompleted()) {
-                                %>
-                                <p><%=t.getName()%> <input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"></p>
                                     <%
-                                                    uncompleteTask++;
-                                                }
-
-                                            }
-                                            if (uncompleteTask == 0) {
-                                                out.println("No uncomplete task!");
-                                            }
-                                        }
-
+                                        int uncompleteTask = 0;
+                                        ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(currentStageOfCompany, menteeCompany);
+                                        if (tasks == null || tasks.size() == 0) {
+                                            out.println("No task assigned!");
+                                        } else {
+                                            for (Task t : tasks) {
+                                                if (!t.isIsCompleted()) {
                                     %>
+                                    <p><%=t.getName()%> <input class type="checkbox" name="tasks_completed" value="<%=t.getTaskId()%>"></p>
+                                        <%
+                                                        uncompleteTask++;
+                                                    }
 
-                            </div>
+                                                }
+                                                if (uncompleteTask == 0) {
+                                                    out.println("No uncomplete task!");
+                                                }
+                                            }
 
-                            <div class="col-sm-10 form-group">
-                                <label class="control-label">Comment(s)</label>
-                                <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
-                            </div>
-                            <div class="col-sm-10">
-                                <label class="control-label">Mentor Rating</label><br>
-                                <div class="stars">
-                                    <div class="row">
-                                    <input class="star star-5" id="star-5" type="radio" name="mentor_rating" value = "5"/>
-                                    <label class="star star-5" for="star-5"></label>
-                                    <input class="star star-4" id="star-4" type="radio" name="mentor_rating" value = "4"/>
-                                    <label class="star star-4" for="star-4"></label>
-                                    <input class="star star-3" id="star-3" type="radio" name="mentor_rating" value = "3"/>
-                                    <label class="star star-3" for="star-3"></label>
-                                    <input class="star star-2" id="star-2" type="radio" name="mentor_rating" value = "2"/>
-                                    <label class="star star-2" for="star-2"></label>
-                                    <input class="star star-1" id="star-1" type="radio" name="mentor_rating" value = "1"/>
-                                    <label class="star star-1" for="star-1"></label>
+                                        %>
+
+                                </div>
+
+                                <div class="col-sm-10 form-group">
+                                    <label class="control-label">Comment(s)</label>
+                                    <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="control-label">Mentor Rating</label><br>
+                                    <div class="stars">
+                                        <div class="row">
+                                            <input class="star star-5" id="star-5" type="radio" name="mentor_rating" value = "5"/>
+                                            <label class="star star-5" for="star-5"></label>
+                                            <input class="star star-4" id="star-4" type="radio" name="mentor_rating" value = "4"/>
+                                            <label class="star star-4" for="star-4"></label>
+                                            <input class="star star-3" id="star-3" type="radio" name="mentor_rating" value = "3"/>
+                                            <label class="star star-3" for="star-3"></label>
+                                            <input class="star star-2" id="star-2" type="radio" name="mentor_rating" value = "2"/>
+                                            <label class="star star-2" for="star-2"></label>
+                                            <input class="star star-1" id="star-1" type="radio" name="mentor_rating" value = "1"/>
+                                            <label class="star star-1" for="star-1"></label>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
 
-</div>
 
 
-                        
 
-                        <!--                            <div class="row">
-                                                        <div class="col-sm-6 form-group">
-                                                            <label>Date</label>
-                                                            <input id="date" name="date" type="text" placeholder="Enter Date" class="form-control">
+                            <!--                            <div class="row">
+                                                            <div class="col-sm-6 form-group">
+                                                                <label>Date</label>
+                                                                <input id="date" name="date" type="text" placeholder="Enter Date" class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 form-group">
-                                                            <label>Purpose</label>
-                                                            <select class="form-control" id="industry" name="industry">
-                                                                <option value="validateModel">Validate Business Model Canvas</option>
-                                                                <option value="compAnalysis">Competitor Analysis</option>
-                                                                <option value="marketSizing">Market Sizing</option>
-                                                                <option value="defineTargetAudience">Define Target Audience</option>
-                                                                <option value="ensureProductMarketFit">Ensure Product-market-fit(Value proposition for identified target audience)</option>
-                                                                <option value="defineRevenueModel">Define Revenue model</option>
-                                                                <option value="defineDistributionChannel">Define Distribution Channels</option>
-                                                                <option value="others">Others</option>
-                                                            </select>
+                                                        <div class="row">
+                                                            <div class="col-sm-6 form-group">
+                                                                <label>Purpose</label>
+                                                                <select class="form-control" id="industry" name="industry">
+                                                                    <option value="validateModel">Validate Business Model Canvas</option>
+                                                                    <option value="compAnalysis">Competitor Analysis</option>
+                                                                    <option value="marketSizing">Market Sizing</option>
+                                                                    <option value="defineTargetAudience">Define Target Audience</option>
+                                                                    <option value="ensureProductMarketFit">Ensure Product-market-fit(Value proposition for identified target audience)</option>
+                                                                    <option value="defineRevenueModel">Define Revenue model</option>
+                                                                    <option value="defineDistributionChannel">Define Distribution Channels</option>
+                                                                    <option value="others">Others</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                        
-                                                    <div class="row">
-                                                        <div class="col-sm-6 form-group">
-                                                            <label>Comment</label>
-                                                            <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
+                            
+                                                        <div class="row">
+                                                            <div class="col-sm-6 form-group">
+                                                                <label>Comment</label>
+                                                                <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                        
-                                                    <div class="row">
-                                                        <div class="col-sm-6 form-group">
-                                                            <label>Deliverables</label> *to be retrieve from database
-                                                             <select class="form-control" id="deliverables" name="deliverables">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                            </select>
-                                                            
+                            
+                                                        <div class="row">
+                                                            <div class="col-sm-6 form-group">
+                                                                <label>Deliverables</label> *to be retrieve from database
+                                                                 <select class="form-control" id="deliverables" name="deliverables">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                </select>
+                                                                
+                                                            </div>
                                                         </div>
-                                                    </div>
-                        
-                                                    <div class="row">
-                                                        <div class="col-sm-6 form-group">
-                                                            <label>Dateline</label>
-                                                            <input id="date" name="date" type="text" placeholder="Enter Dateline" class="form-control">
-                                                        </div>
-                                                    </div>-->
+                            
+                                                        <div class="row">
+                                                            <div class="col-sm-6 form-group">
+                                                                <label>Dateline</label>
+                                                                <input id="date" name="date" type="text" placeholder="Enter Dateline" class="form-control">
+                                                            </div>
+                                                        </div>-->
 
-                        <button type="submit" value="Submit" class="btn btn-xs btn-default" >Submit</button>
-                        <!---input type="submit" class="btn btn-lg btn-info" onclick ="rating()" value="Submit">-->
+                            <button type="submit" value="Submit" class="btn btn-xs btn-default" >Submit</button>
+                            <!---input type="submit" class="btn btn-lg btn-info" onclick ="rating()" value="Submit">-->
                     </form> 
                     <%}%>
-                    </div>
                 </div>
-
             </div>
+
         </div>
-    </body>
+    </div>
+</body>
 </html>
 <%@include file="browserCloseEvent.jsp" %>
