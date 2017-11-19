@@ -93,6 +93,15 @@ public class Company {
         this.companyLogo = companyLogo;
     }
 
+    public Company(int id, String name, String[] stakeholders) {
+        this.id = id;
+        this.name = name;
+        this.description = "Mentor Company";
+        this.stakeholders = stakeholders;
+    }
+    
+    
+
     public Company(int company_id, String company_name, String company_description, int fulltimers, int parttimers, int industry, Date date, int currentstage, byte[] companyLogo, String productDiff, byte[] acraFile, byte[] bizSlides) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -496,7 +496,12 @@ public class CompanyDAO {
             stmt.setInt(5, c.getFullTimers());
             stmt.setInt(6, c.getPartTimers());
             stmt.setInt(7, c.getIndustry());
-            stmt.setString(8, df.format(c.getStartDate()));
+            if(c.getStartDate()!=null){
+                stmt.setString(8, df.format(c.getStartDate()));
+            }else{
+                stmt.setString(8, null);
+            }
+            
             stmt.setInt(9, c.getCurrentStage());
 
             if (companyLogo != null) {

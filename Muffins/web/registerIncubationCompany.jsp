@@ -56,7 +56,7 @@
                     if (registerStatus.equals("Success!")) {
                         out.println("<h5 class='col-lg-10 col-sm-offset-3'>Your company application is successful, please check your email for confirmation!</h5>");
                     } else {
-                        out.println("<h5 class='col-lg-10 col-sm-offset-3'> Your company application is not successful, pleaase try again </h5>");
+                        out.println("<font color = 'red' ><h5 class='col-lg-10 col-sm-offset-3'> Your company application is not successful, pleaase try again </h5></font>");
                     }
                 }
             %>
