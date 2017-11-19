@@ -116,15 +116,10 @@
                         <%
                             if (userType.contains("mentee")) {
                                 Mentee m = (Mentee) session.getAttribute("mentee)");
-                                if (userType.contains("mentor")){
-                                    %>
-                        <li><a href="mentorHomepage.jsp">Home</a></li>
-                        <%
-                        }else{
-                        %>
-                        <li><a href="home.jsp">Home</a></li>
+                        %>        
+                                <li><a href="home.jsp">Home</a></li>
                         
-                            <%}
+                            <%
                                 Company userCompany = companyController.getCompany(user.getCompanyid());
                                 String companyName = userCompany.getName();
                             %>
@@ -137,10 +132,10 @@
                         </li>
                         <li><a href="stages.jsp">Company Progress</a></li>
                         <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
-                            <%
-                            } else if (userType.contains("mentor")) {
-                            %>
-                        <li><a href="home.jsp">Home</a></li>
+                        <%
+                        } else if (userType.contains("mentor")) {
+                        %>
+                        <li><a href="mentorHomepage.jsp">Home</a></li>
                         <%
                         }
                         %>

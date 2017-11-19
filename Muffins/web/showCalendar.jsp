@@ -55,9 +55,9 @@
                     <button id="authorize-button" class="btn btn-xs btn-info center-block">Authorize</button>
                     <br>
                     <button id="signout-button" style="display: none;">Sign Out</button>
-
-                    <!--<pre id="content"></pre> -->
+                    <pre id="content"></pre>
                     <script type="text/javascript">
+                        var calendarId = 'incogiieportal@gmail.com';
                         var now = new Date();
                         var today = now.toISOString();
 
@@ -114,7 +114,7 @@
                             if (isSignedIn) {
                                 authorizeButton.style.display = 'none';
                                 signoutButton.style.display = 'block';
-
+                                listUpcomingEvents();
 
                             } else {
                                 authorizeButton.style.display = 'block';
@@ -126,7 +126,7 @@
                          *  Sign in the user upon button click.
                          */
                         function handleAuthClick(event) {
-                            gapi.auth2.getAuthInstance().signIn();
+                            gapi.auth2.getAuthInstance().signIn();  
                         }
 
                         /**
@@ -152,11 +152,11 @@
                         }
 
                         function makeApiCall() {
-
+                            
                             requestList = gapi.client.calendar.events.list({
-                                'calendarId': calendarId
+                                'calendarId': calendarId,
                             });
-
+                            
                             console.log('--- eventsList ---');
                             console.log(eventsList);
                             uiCalendarConfig.calendars['myCalendar'].fullCalendar('removeEventSource', eventsList);
@@ -197,7 +197,54 @@
 
                         // setup event details
                         var resource = {};
+                        
+                        
+                        
+                        //display messages in element called "content" by appending
+                        function appendPre(message) {
+                            var pre = document.getElementById('content');
+                            var textContent = document.createTextNode(message + '\n');
+                            pre.appendChild(textContent);
+                        }
+                        
+                        //get the upcoming events in the calendar
+                        var occupiedStartDates = new Array();
+                        var occupiedEndDates = new Array();
+                        function listUpcomingEvents() {
+                          gapi.client.calendar.events.list({  
+                            'calendarId': calendarId,
+                            'timeMin': (new Date()).toISOString(),
+                            'showDeleted': false,
+                            'singleEvents': true,
+                            'maxResults': 100,
+                            'orderBy': 'startTime'
+                          }).then(function(response) {
+                            var events = response.result.items;
+                            event = events;
+                            appendPre('Upcoming events:');
 
+                            if (events.length > 0) {
+                              for (i = 0; i < events.length; i++) {
+                                var event = events[i];
+                                var when = event.start.dateTime;
+                                var end = event.end.dateTime;
+                                //document.write("TO SEE THE START DATETIME"+when);
+                                if (!when) {
+                                  when = event.start.date;
+                                }
+                                occupiedStartDates.push(when);
+                                appendPre(event.summary + ' (' + when + ')')
+                                occupiedEndDates.push(end);
+                              }
+                            } else {
+                              appendPre('No upcoming events found.');
+                            }
+                          });
+                        }
+                        
+                        function loadCalendarApi() {
+                            gapi.client.load('calendar', 'v3', listUpcomingEvents());
+                        }
                     </script>
 
                     <script>
@@ -233,7 +280,24 @@
 
                     </script>
                     <script>
+                        //get meeting details keyed in by the user and create an event in google calendar
                         function bookMeeting() {
+                            var req = {
+                                "calendarId": calendarId,
+                                "resource": {
+                                    "role": "writer",
+                                    "scope": {
+                                      "type": "user",
+                                      "value": "sexyorangelove@gmail.com"
+                                    }
+                                }
+                            }
+                            alert("HELLO Request to book meeting!");
+                            var request = gapi.client.calendar.acl.insert(req);
+                            request.execute(function(resp) {
+                              console.log(resp);
+                            });
+        
                             var start = document.getElementById("start_date").value;
                             var end = document.getElementById("end_date").value;
                             var summary = document.getElementById("meetingName").value;
@@ -277,7 +341,7 @@
                             alert("location: " + location);
                             alert("status: " + status);
                             alert("attendees: " + attendeesStr);
-
+                            
                             resource = {
                                 "summary": summary,
                                 "start": {
@@ -327,10 +391,10 @@
                             
                             window.location.reload(true);
                         }
+                        
                     </script>
                     <script async defer src="https://apis.google.com/js/api.js"
-                            onload="this.onload = function () {};
-                        handleClientLoad();"
+                            onload="this.onload = function(){};handleClientLoad();listUpcomingEvents()"
                             onreadystatechange="if (this.readyState === 'complete') this.onload()">
                     </script>
                     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
@@ -440,7 +504,7 @@
                             <div class="modal-footer">
                                 <button type="submit" value="Book Timeslot" class="btn btn-xs btn-default" onclick="bookMeeting()">Submit</button>
                             </div>
-                                </form>
+                        </form>
                         </div>
                     </div>
                 </div>
