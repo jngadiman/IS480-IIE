@@ -151,21 +151,21 @@
                         }
                     %>
                     <h2 class="col-lg-12 page-header"></h2>
-                    <h2>Meeting without minutes</h2>
+                    
                     <%
                         for (Meeting m : userMeetings) {
 
-                            System.out.println("MEETING NAME IN USERMEETINGS -----" + m.getMeetingName());
-
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-                            Date startDate = m.getStartTime();
-                            Date endDate = m.getStartTime();
-                            String starttime = df.format(startDate);
-                            String endtime = df.format(startDate);
-                            int meetingID = m.getMeetingID();
-
                             if (m.getStatus().equals("confirmed")) {
+                                System.out.println("MEETING NAME IN USERMEETINGS -----" + m.getMeetingName());
+
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                                Date startDate = m.getStartTime();
+                                Date endDate = m.getStartTime();
+                                String starttime = df.format(startDate);
+                                String endtime = df.format(startDate);
+                                int meetingID = m.getMeetingID();
                     %>
+                    <h2>Meeting without minutes</h2>
                     <div class="col-lg-6 well">
                         <p><strong>Meeting Name: </strong><%=m.getMeetingName()%></p>
                         <p><strong>Meeting Start Time: </strong><%=starttime%></p>
