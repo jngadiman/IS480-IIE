@@ -19,14 +19,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Display Meeting Minutes</title>
         <%@include file="sidenav.jsp" %>
     </head>
 
 <body>
     <div class="container">
         <div class="col-sm-9 col-sm-offset-2">
-            <h2 class="page-header col-lg-9  col-sm-offset-2">View Meeting Minutes</h2>
+            <h2 class="page-header">View Meeting Minutes</h2>
             <div class="col-lg-9 well col-sm-offset-2">
 
                 <%           ArrayList<ArrayList<MeetingMinutes>> minutes = minutesController.getAllMeetingMinutes();

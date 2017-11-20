@@ -47,6 +47,8 @@
             padding-bottom: 1.5em;
             cursor: pointer;
         }
+
+      
     </style>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -79,19 +81,19 @@
                         <%
                             // getting mentor details
                             // get profile pic
-                            imgData = mentor.getProfile_pic();
+                            byte[] mentorImg = mentor.getProfile_pic();
                             String mentorProfilePic = "";
-                            if (imgData == null) {
+                            if (mentorImg == null) {
                                 mentorProfilePic = "img/user.png";
                             } else {
-                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
+                                String imgDataBase64 = new String(Base64.getEncoder().encode(mentorImg));
                                 mentorProfilePic = "data:image/gif;base64," + imgDataBase64;
                             }
                             // get mentor name
                             String mentorName = mentor.getName();
                         %>
                         <div class="profile-pic" style="background-image: url('<%=mentorProfilePic%>')" width="120px"></div>
-                        
+
 
                         <h4><%=mentorName%></h4>
                         <%
@@ -103,10 +105,10 @@
                             if (company != null) {
                                 company_name = company.getName();
                         %>
-                        <div class="col-lg-12">
-                            <span class="label label-primary"><%= company_name%></span><br><br>
-                        </div>
-                        
+
+                       <h5><%= company_name%></h5><br><br>
+
+
                         <%
                             }
                         %>
