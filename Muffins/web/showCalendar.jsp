@@ -4,6 +4,9 @@
     Author     : JJAY
 --%>
 <%@include file="sidenav.jsp" %>  
+<%@page import="com.google.api.client.http.HttpTransport"%>
+<%@page import="com.google.api.client.json.jackson2.JacksonFactory"%>
+<%@page import="com.google.api.client.json.JsonFactory"%>
 <html>
     <head>
         <meta charset='utf-8' />
@@ -18,7 +21,6 @@
         <script src="css/fullcalendar.min.js"></script>
         <script type='text/javascript' src='css/gcal.js'></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
-
         <style>
 
             body {
@@ -229,7 +231,8 @@
                                 var when = event.start.dateTime;
                                 var end = event.end.dateTime;
                                 var eventid = event.id;
-                                var attendees = event.attendees;
+                                var attendees = [];
+                                attendees = event.attendees;
                                 //document.write("TO SEE THE START DATETIME"+when);
                                 if (!when) {
                                   when = event.start.date;
@@ -242,8 +245,8 @@
                                     //check if in the attendees have the current logged in user for google calendar login
                                     //then get the id? or the event index in this loop, and then call only these indexes 
                                     //from the event list and display
-                                    var currentUserEmail = GoogleUser.getBasicProfile().getEmail();
-                                    appendPre('currentUser: ' + currentUserEmail)
+                                    //var currentUserEmail = GoogleUser.getBasicProfile().getEmail();
+                                    //appendPre('currentUser: ' + currentUserEmail)
                                 }
                               }
                             } else {
@@ -276,15 +279,15 @@
                                     left: 'prev,next today myCustomButton',
                                     center: 'title',
                                     right: 'month,agendaWeek,agendaDay'
-                                },
-                                eventClick: function(resource, element) {  
-                                    event.title = "CLICKED!";
-                                    if (resource.url) {
-                                        return false;
-                                    }
-                                    $('#calendar').fullCalendar('updateEvent', event);
-                                    alert("Event: " + resource.summary);
                                 }
+//                                eventClick: function(resource, element) {  
+//                                    event.title = "CLICKED!";
+//                                    if (resource.url) {
+//                                        return false;
+//                                    }
+//                                    $('#calendar').fullCalendar('updateEvent', event);
+//                                    alert("Event: " + resource.summary);
+//                                }
                             });
                         });
 
@@ -302,8 +305,11 @@
                             var personArr = attendees.split(", ");
                             var numberspaces = attendees.split(", ").length;
                             var attendeesArr = [];
+                            
                             for (i = 0; i < numberspaces; i++) {
-                                attendeesArr.push("{ 'email' : \'" + personArr[i] + "\'}");
+                                var person = new Object();
+                                person.email = personArr[i];
+                                attendeesArr.push(person);
                                 //personArr[0] -> every email
                             }
                             //break up the attendees string into different variables for each attendees. 
@@ -345,16 +351,10 @@
                                 "status": status,
                                 "transparency": transparency,
                                 "visibility": visibility,
-                                "attendees": [
-                                    //attendeesArr
-                                
-                                    {
-                                        "email": attendees
-                                    }
-                                ]
+                                "attendees": attendeesArr
                             };
 
-                            gapi.client.load('calendar', 'v3', function () { // load the calendar api (version 3)
+                            gapi.client.load('calendar', 'V3', function () { // load the calendar api (version 3)
                                 var request = gapi.client.calendar.events.insert(
                                         {
                                             'calendarId': 'incogiieportal@gmail.com', // calendar ID  
