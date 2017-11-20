@@ -104,32 +104,12 @@
                                 <th>Attendees</th>
                                 <th>Status</th>
                                 <th>Edit</th>
-                                <th>View Meeting Minutes</th>
+                                <th>Meeting Minutes</th>
                             </tr>
                         </thead>
                         <tbody>
                             <%
                                 for (Meeting m : meetings) {
-
-                                    Meeting meeting = meetingController.getMeetingByMeetingID(m.getMeetingID());
-
-                                    int company = meeting.getMenteeCompany();
-                                    //one sheet of meeting minutes
-                                    ArrayList<MeetingMinutes> minutes = minutesController.getMeetingMinutesByMeeting(m.getMeetingID());
-                                    //to get the fixed values of meeting minutes
-                                    MeetingMinutes first = minutes.get(0);
-                                    String mName = "";
-                                    if (first != null) {
-                                        String email = first.getMentor_email();
-                                        if (email != null && !email.equals("")) {
-                                            Mentor mentor = mentorController.getMentor(email);
-                                            if (mentor != null) {
-                                                mName = mentor.getName();
-                                            }
-
-                                        }
-
-                                    }
 
                                     out.println("<tr>");
                                     out.println("<td>" + m.getMeetingName() + "</td>");
@@ -139,9 +119,85 @@
                                     out.println("<td>" + m.getStatus() + "</td>");
                                     out.println("<td><button type='submit' class='btn btn-xs btn-warning center-block' data-toggle='modal' data-target='#editMeeting" + m.getMeetingID() + "'>Edit</button></td>");
                                     if (m.getStatus().equals("minuted")) {
-                                        out.println("<td><button type='submit' class='btn btn-xs btn-warning center-block' data-toggle='modal' data-target='#viewMeetingMinutes" + m.getMeetingID() + "'>View Meeting Minutes</button></td>");
+                                        int company = m.getMenteeCompany();
+                                        //one sheet of meeting minutes
+                                        ArrayList<MeetingMinutes> minutes = minutesController.getMeetingMinutesByMeeting(m.getMeetingID());
+                                        //to get the fixed values of meeting minutes
+                                        MeetingMinutes first = minutes.get(0);
+                                        String mName = "";
+                                        if (first != null) {
+                                            String email = first.getMentor_email();
+                                            if (email != null && !email.equals("")) {
+                                                Mentor mentor = mentorController.getMentor(email);
+                                                if (mentor != null) {
+                                                    mName = mentor.getName();
+                                                }
+
+                                            }
+
+                                        }
+                                        out.println("<td><button type='submit' class='btn btn-xs btn-warning center-block' data-toggle='modal' data-target='#viewMeetingMinutes" + m.getMeetingID() + "'>View </button></td>");
+                                        %>
+                            <!--MODAL TO VIEW MEETING MINUTES -->
+                        <div id="viewMeetingMinutes<%=m.getMeetingID()%>" class="modal fade" role="dialog">
+
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Meeting Minutes <%=m.getMeetingID()%></h4>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Title of Meeting Minutes</label>
+                                            <%=first.getTitle()%>
+
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Mentor Name</label>
+                                            <%= mName%>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Comments</label>
+                                            Comments : <%=first.getComments()%><br>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Mentor Rating</label>
+                                            <%=first.getMentorRating()%><br>
+                                        </div>
+                                        <div class="col-sm-6 form-group required">
+                                            <label class="control-label">Mentor Rating Comments</label>
+                                            <%=first.getMentorRatingComment()%><br>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <form action = "editMeetingMinutes.jsp" method ="post">
+                                            <input type ="hidden" name ="mid" value ="<%=m.getMeetingID()%>">
+                                            <button type="submit" class="btn btn-default">Edit</button>
+                                        </form>
+
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                            
+                            
+                            <%
                                     } else {
-                                        out.println("<td><a href = 'addMeetingMinutes.jsp?id=" + m.getMeetingID() + "'><button type='submit' class='btn btn-xs btn-warning center-block>Add Meeting Minutes</button></a></td>");
+                                        
+                                        out.println("<td><a href = 'addMeetingMinutes.jsp?id=" + m.getMeetingID() + "'><button type='submit' class='btn btn-xs btn-warning center-block'>Add </button></a></td>");
                                     }
 
                                     out.println("</tr>");
@@ -202,58 +258,7 @@
                             </div>
                         </div>
 
-                        <!--MODAL TO VIEW MEETING MINUTES -->
-                        <div id="viewMeetingMinutes<%=m.getMeetingID()%>" class="modal fade" role="dialog">
-
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Meeting Minutes <%=m.getMeetingID()%></h4>
-                                    </div>
-
-                                    <div class="modal-body">
-
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Title of Meeting Minutes</label>
-                                            <%=first.getTitle()%>
-                                            
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Mentor Name</label>
-                                            <%= mName%>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Comments</label>
-                                            Comments : <%=first.getComments()%><br>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Mentor Rating</label>
-                                            <%=first.getMentorRating()%><br>
-                                        </div>
-                                        <div class="col-sm-6 form-group required">
-                                            <label class="control-label">Mentor Rating Comments</label>
-                                            <%=first.getMentorRatingComment()%><br>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <form action = "editMeetingMinutes.jsp" method ="post">
-                                            <input type ="hidden" name ="mid" value ="<%=m.getMeetingID()%>">
-                                            <button type="submit" class="btn btn-default">Edit</button>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <%
+                                                <%
                                 }
                             } else {
                                 out.println("No Meeting Found");

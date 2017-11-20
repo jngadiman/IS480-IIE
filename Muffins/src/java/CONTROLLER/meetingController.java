@@ -115,7 +115,12 @@ public class meetingController {
      public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
 //        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
-        ArrayList<Meeting> meetings = meetingController.getMeetingsOfAttendees("mentor1@hotmail.com");
+//        ArrayList<Meeting> meetings = meetingController.getMeetingsOfAttendees("mentor1@hotmail.com");
+//        for(Meeting id:meetings){
+//            System.out.println("MEETING ID = "+id.getMeetingName());
+//            
+//        }
+        ArrayList<Meeting> meetings = meetingController.getMeetingsOfCompany(21112);
         for(Meeting id:meetings){
             System.out.println("MEETING ID = "+id.getMeetingName());
             
