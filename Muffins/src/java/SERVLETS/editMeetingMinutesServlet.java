@@ -51,6 +51,8 @@ public class editMeetingMinutesServlet extends HttpServlet {
         String[] tasksCompleted = request.getParameterValues("tasks_completed");
         String comments = request.getParameter("comments");
         String mentorRating = request.getParameter("mentor_rating");
+        String rating_comments = request.getParameter("rating_comments");
+        
         System.out.println("MENTOR RATING : "+mentorRating);
 
         ArrayList<String> errorMsg = new ArrayList<String>();
@@ -106,12 +108,12 @@ public class editMeetingMinutesServlet extends HttpServlet {
 
                     int taskID = Integer.parseInt(task);
                     
-                    MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating);
+                    MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating, rating_comments);
                     System.out.println("----- MEETING MINUTES OBJECT ------ "+m);
                     meetingMinutes.add(m);
                 }
             }else{
-                MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating);
+                MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating, rating_comments);
                 meetingMinutes.add(m);
             }
             

@@ -4,6 +4,7 @@
     Author     : Jennefer Ngadiman
 --%>
 
+<%@page import="MODELS.Industry"%>
 <%@page import="CONTROLLER.mentorController"%>
 <%@page import="CONTROLLER.assignmentController"%>
 <%@page import="CONTROLLER.industryController"%>
@@ -49,7 +50,15 @@
                 <h3 class="text-center"><%= c.getName()%></h3><br>
                 <div class="row col-lg-offset">
                     <div class="col-sm-12 form-group required">
-                         <label>Industry : </label><%=industryController.getIndustry(c.getIndustry()).getIndustryName()%> </div>
+                        <%
+                            int industryID = c.getIndustry();
+                            Industry i = industryController.getIndustry(industryID);
+                            String industryName = "";
+                            if(i!=null){
+                                industryName = i.getIndustryName();
+                            }
+                        %>
+                         <label>Industry : </label><%=industryName%> </div>
 
                 </div>
                 <div class="row col-lg-offset">

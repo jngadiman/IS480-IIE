@@ -85,6 +85,7 @@ public class addUserServlet extends HttpServlet {
             errorMessages.put("accessCode", "Invalid Access Code");
         } else {
             accessCode = accessCode.trim();
+            System.out.println("ACCESS CODE IS ----- "+ accessCode);
         }
         String password = request.getParameter("password");
         String confirmPwd = request.getParameter("confirm_password");

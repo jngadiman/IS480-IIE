@@ -73,7 +73,6 @@
                                 <p class="narrow text-center">
                                     Welcome!<br/>
                                     <%                                         int stage = 0;
-                                        user = (User) session.getAttribute("user");
                                         Company c = CompanyDAO.getCompany(user.getCompanyid());
                                         if (c != null) {
                                             stage = c.getCurrentStage();%>
@@ -91,7 +90,7 @@
                                 </div>
                                 <%} else if (stage == 2) {%>
 
-                                <div class="progress ">
+                                <div class="progress">
                                     <div class="progress-bar progress-bar-striped active" role="progressbar"
                                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:25%">
                                         25%
@@ -100,16 +99,20 @@
 
                                 <%
                                 } else if (stage == 3) {%>
+                                <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
                                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
                                     50%
                                 </div>
+                                </div>
 
                                 <%
                                 } else if (stage == 4) {%>
+                                <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
                                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">
                                     75%
+                                </div>
                                 </div>
                                 <%}
                                 %> 

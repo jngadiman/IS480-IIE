@@ -20,8 +20,9 @@ public class MeetingMinutes {
     private String comments;
     private String submitted_user;
     private int mentorRating;
+    private String mentorRatingComment;
 
-    public MeetingMinutes(int minutesID, String title, int meeting_id, String mentor_email, int task_id, String comments, String submitted_user, int mentorRating) {
+    public MeetingMinutes(int minutesID, String title, int meeting_id, String mentor_email, int task_id, String comments, String submitted_user, int mentorRating, String mentorRatingComment) {
         this.minutesID = minutesID;
         this.title = title;
         this.meeting_id = meeting_id;
@@ -30,6 +31,7 @@ public class MeetingMinutes {
         this.comments = comments;
         this.submitted_user = submitted_user;
         this.mentorRating = mentorRating;
+        this.mentorRatingComment = mentorRatingComment;
     }
 
     public int getMinutesID() {
@@ -94,6 +96,14 @@ public class MeetingMinutes {
 
     public void setMentorRating(int mentorRating) {
         this.mentorRating = mentorRating;
+    }
+
+    public String getMentorRatingComment() {
+        return mentorRatingComment;
+    }
+
+    public void setMentorRatingComment(String mentorRatingComment) {
+        this.mentorRatingComment = mentorRatingComment;
     }
     
     

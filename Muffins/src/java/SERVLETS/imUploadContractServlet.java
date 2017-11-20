@@ -43,6 +43,9 @@ public class imUploadContractServlet extends HttpServlet {
         Part filePart = request.getPart("contract");
         if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
             // prints out some information for debugging
+            System.out.println("WHAT IS THIS THE FILE PATH??  "+filePart);
+            System.out.println("WHAT IS THIS THE FILE PATH??2  "+filePart.getSubmittedFileName());
+            System.out.println("WHAT IS THIS THE FILE PATH??33  "+filePart.getInputStream());
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());

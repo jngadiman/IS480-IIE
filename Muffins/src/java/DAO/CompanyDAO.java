@@ -712,6 +712,34 @@ public class CompanyDAO {
         return companyIDs;
     }
 
+    public static ArrayList<Integer> getConfirmedCompanyIDs() {
+        ArrayList<Integer> companyIDs = new ArrayList<Integer>();
+
+        Company c = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int company_id = 0;
+
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select company_id from Company where current_stage>0 and current_stage<5;");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                company_id = Integer.parseInt(result.getString("company_id"));
+                companyIDs.add(company_id);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+
+        return companyIDs;
+    }
+
     public static void main(String[] args) {
 //        ArrayList<Integer> companyIDs = CompanyDAO.getAllCompanyIDs();
 //        for (Integer i : companyIDs) {

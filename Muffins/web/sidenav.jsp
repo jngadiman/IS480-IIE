@@ -157,6 +157,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Schedule<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="viewAllMeetings.jsp">My Schedule</a></li>
+                                <li><a href="displayMeetings.jsp">My Meetings</a></li>
                                 <li><a href="showCalendar.jsp">Schedule Meeting</a></li>
                                 <li><a href="addMeetingMinutes.jsp">Add Meeting Minutes</a></li>
                             </ul>

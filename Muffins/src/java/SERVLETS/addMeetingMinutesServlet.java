@@ -46,11 +46,14 @@ public class addMeetingMinutesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         String meeting = request.getParameter("meeting_id");
+        System.out.println("meeting_id  "+meeting);
         String title = request.getParameter("title");
         String[] tasksCompleted = request.getParameterValues("tasks_completed");
-        String comments = request.getParameter("comments");
+        String comments = request.getParameter("notes");
+        System.out.println("COMMENTS ----- "+comments);
         String mentorRating = request.getParameter("mentor_rating");
         System.out.println("MENTOR RATING : "+mentorRating);
+        String rating_comments = request.getParameter("rating_comments");
 
         ArrayList<String> errorMsg = new ArrayList<String>();
         ArrayList<Integer> taskIDs = new ArrayList<Integer>();
@@ -88,7 +91,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
             
             ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();
             
-            int minutesID = minutesController.getNextId();
+            int minutesID = meetingID;
             Meeting meet = meetingController.getMeetingByMeetingID(meetingID);
             if (tasksCompleted != null && tasksCompleted.length != 0) {
                 
@@ -96,12 +99,12 @@ public class addMeetingMinutesServlet extends HttpServlet {
 
                     int taskID = Integer.parseInt(task);
                     taskController.completeTask(taskID, meet.getMenteeCompany());
-                    MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating);
+                    MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comments, currentUser.getEmail(), rating, rating_comments);
                     System.out.println("MEETING MINUTES OBJECT ------ "+m);
                     meetingMinutes.add(m);
                 }
             }else{
-                MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating);
+                MeetingMinutes m =new MeetingMinutes(minutesID, title, meetingID, mentor, 0, comments, currentUser.getEmail(), rating, rating_comments);
                 meetingMinutes.add(m);
             }
             

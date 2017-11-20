@@ -37,7 +37,7 @@ public class preferenceController {
         
         if(result == 1){
             status = "Preference has been edited!";
-            Relationship r = new Relationship(relationshipController.getNextRlsID(), p.getCompany_id(), p.getMentor_email(),"incubation", p.getStart_date(), p.getEnd_date(), "requesting");
+            Relationship r = new Relationship(relationshipController.getNextRlsID(), p.getCompany_id(), p.getMentor_email(),"incubation", p.getStart_date(), p.getEnd_date(), "assigned");
             status += relationshipController.addRelationship(r);
         }else{
             status = "Preference could not be edited!";

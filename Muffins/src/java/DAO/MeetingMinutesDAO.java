@@ -39,11 +39,12 @@ public class MeetingMinutesDAO {
         String comment = minutes.getComments();
         String submitted_user = minutes.getSubmitted_user();
         int rating = minutes.getMentorRating();
+        String ratingComments = minutes.getMentorRatingComment();
         
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("INSERT INTO meeting_minutes VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO meeting_minutes VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, minutesID);
             stmt.setString(2,title);
             stmt.setInt(3,meetingID);
@@ -52,6 +53,7 @@ public class MeetingMinutesDAO {
             stmt.setString(6, comment);
             stmt.setString(7, submitted_user);
             stmt.setInt(8, rating);
+            stmt.setString(9, ratingComments);
             
             status = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -140,49 +142,53 @@ public class MeetingMinutesDAO {
     }
      
      
-     //get 1 MeetingMinutes row
-     public static ArrayList<String> getMeetingMinutesRow(int minutesID, int taskID) {
-   
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        String title = "";
-        String meetingID = "";
-        String comment = "";
-        String mentor = "";
-        String user = "";
-        
-        ArrayList<String> details = new ArrayList<String>();
-        
-        try {
-            conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select title, meeting_id, mentor, comment, submitted_user, from meeting_minutes where minutes_id = ? and task_id = ?;");
-            stmt.setInt(1, minutesID);
-            stmt.setInt(2, taskID);
-            
-            result = stmt.executeQuery();
-
-            while (result.next()) {
-                title = result.getString("title");
-                meetingID = result.getString("meeting_id");
-                mentor = result.getString("mentor");
-                comment = result.getString("comment");
-                user = result.getString("submitted_user");
-                
-                details.add(title);
-                details.add(meetingID);
-                details.add(comment);
-                details.add(user);
-                details.add(mentor);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(MeetingMinutesDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionManager.close(conn, stmt, result);
-        }
-        return details;
-    }
+//     //get 1 MeetingMinutes row
+//     public static ArrayList<String> getMeetingMinutesRow(int minutesID, int taskID) {
+//   
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//        String title = "";
+//        String meetingID = "";
+//        String comment = "";
+//        String mentor = "";
+//        String user = "";
+//        int rating = 0;
+//        String ratingComments ="";
+//        
+//        ArrayList<String> details = new ArrayList<String>();
+//        
+//        try {
+//            conn = ConnectionManager.getConnection();
+//            stmt = conn.prepareStatement("select title, meeting_id, mentor, comment, submitted_user, mentor_rating, mentor_rating_comments from meeting_minutes where minutes_id = ? and task_id = ?;");
+//            stmt.setInt(1, minutesID);
+//            stmt.setInt(2, taskID);
+//            
+//            result = stmt.executeQuery();
+//
+//            while (result.next()) {
+//                title = result.getString("title");
+//                meetingID = result.getString("meeting_id");
+//                mentor = result.getString("mentor");
+//                comment = result.getString("comment");
+//                user = result.getString("submitted_user");
+//                rating = result.getInt("mentor_rating");
+//                ratingComments = result.getString("mentor_rating_comments");
+//                
+//                details.add(title);
+//                details.add(meetingID);
+//                details.add(comment);
+//                details.add(user);
+//                details.add(mentor);
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MeetingMinutesDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            ConnectionManager.close(conn, stmt, result);
+//        }
+//        return details;
+//    }
      
      //delete the whole set of MeetingMinutes rowss
      public static boolean deleteMeetingMinutesByID(int minutesID){
@@ -239,6 +245,7 @@ public class MeetingMinutesDAO {
         String comments = "";
         String submitted_user = "";
         int rating = 0;
+        String ratingComments = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -256,7 +263,8 @@ public class MeetingMinutesDAO {
                 comments = result.getString("comment");
                 submitted_user = result.getString("submitted_user");
                 rating = result.getInt("mentor_rating");
-                mm = new MeetingMinutes(minutesID, title, meetingID, mentorEmail, taskID, comments, submitted_user, rating);
+                ratingComments = result.getString("mentor_rating_comments");
+                mm = new MeetingMinutes(minutesID, title, meetingID, mentorEmail, taskID, comments, submitted_user, rating,ratingComments);
                 meetingMinutes.add(mm);
             }
 
@@ -285,6 +293,7 @@ public class MeetingMinutesDAO {
         String comments = "";
         String submitted_user = "";
         int rating = 0;
+        String ratingComments = "";
 
         try {
             conn = ConnectionManager.getConnection();
@@ -302,7 +311,8 @@ public class MeetingMinutesDAO {
                 comments = result.getString("comment");
                 submitted_user = result.getString("submitted_user");
                 rating = result.getInt("mentor_rating");
-                mm = new MeetingMinutes(minutesID, title, meetingID, mentorEmail, taskID, comments, submitted_user, rating);
+                ratingComments = result.getString("mentor_rating_comments");
+                mm = new MeetingMinutes(minutesID, title, meetingID, mentorEmail, taskID, comments, submitted_user, rating,ratingComments);
                 meetingMinutes.add(mm);
             }
 
@@ -362,6 +372,7 @@ public class MeetingMinutesDAO {
         String comment = "";
         String submittedUser = "";
         int rating = 0;
+        String ratingComments = "";
         ArrayList<MeetingMinutes> minutesByTask = new ArrayList<MeetingMinutes>();
         
         try {
@@ -380,9 +391,11 @@ public class MeetingMinutesDAO {
                 comment = result.getString("comment");
                 submittedUser = result.getString("submitted_user");
                 rating = result.getInt("mentor_rating");
+                ratingComments = result.getString("mentor_rating_comments");
                 
                 
-                MeetingMinutes mm = new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comment, submittedUser, rating);
+                
+                MeetingMinutes mm = new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comment, submittedUser, rating, ratingComments);
                 minutesByTask.add(mm);
             }
             
@@ -478,7 +491,7 @@ public class MeetingMinutesDAO {
         PreparedStatement stmt = null;
         ResultSet result = null;
         int minutes_id = 0;
-        int next = 0;
+        int next = 1;
         
         try{
             conn = ConnectionManager.getConnection();
@@ -509,6 +522,7 @@ public class MeetingMinutesDAO {
         String comment = "";
         String submittedUser = "";
         int rating = 0;
+        String ratingComments = "";
         
         ArrayList<MeetingMinutes> minutes = new ArrayList<MeetingMinutes>();
         
@@ -529,7 +543,8 @@ public class MeetingMinutesDAO {
                 comment = result.getString("comment");
                 submittedUser = result.getString("submitted_user");
                 rating = result.getInt("mentor_rating");
-                MeetingMinutes mm = new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comment, submittedUser, rating);
+                ratingComments = result.getString("mentor_rating_comments");
+                MeetingMinutes mm = new MeetingMinutes(minutesID, title, meetingID, mentor, taskID, comment, submittedUser, rating, ratingComments);
                 minutes.add(mm);
             }
             

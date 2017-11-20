@@ -57,7 +57,7 @@
                     <button id="authorize-button" class="btn btn-xs btn-info center-block" onClick="handleAuthClick">Authorize</button>
                     <br>
                     <button id="signout-button" style="display: none;" onClick="handleSignoutClick">Sign Out</button>
-                    <pre id="content"></pre>
+<!--                    <pre id="content"></pre>-->
                     <script type="text/javascript">
                         var calendarId = 'incogiieportal@gmail.com';
                         var now = new Date();
@@ -413,7 +413,7 @@
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Location</label>
-                                    <input class="form-control" id="location" name="location" type="text" placeholder="Enter The Meeting Location" class="form-control" required>
+                                    <input class="form-control" id="location" name="location" type="text" value="SMU BIG Incubator" class="form-control" disabled required>
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Start Date</label>
@@ -467,7 +467,8 @@
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Location</label>
-                                    <input class="form-control" id="location" name="location" type="text" placeholder="Enter The Meeting Location" class="form-control" value="SMU BIG Incubator At SOA Basement" disabled/>
+                                    <input class="form-control" id="location" name="location" type="text" value="SMU BIG Incubator" class="form-control" disabled required>
+
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Start Date</label>
