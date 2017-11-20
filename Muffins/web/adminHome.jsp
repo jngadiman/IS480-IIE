@@ -37,9 +37,10 @@
                                 String stageName = ProgramStageDAO.getStage(i);
                         %>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <h1 style="font-style: italic;"><%=i%></h1>
-                            <%=stageName%><br/><br/>
-                            <button href="#<%=i%>" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies.size()%></button>
+                            <h1><u><%="Stage " + i%></u></h1>
+                            <h4><%=stageName%></h4>
+                            <br>
+                            <button href="#<%=i%>" class="btn btn-default btn-s" data-toggle="collapse"><%=companies.size()%></button>
                             <div id="<%=i%>" class="collapse">
 
                                 <%
@@ -60,6 +61,30 @@
                             }
                         %>
                     </div>
+                    <br>
+                    <div class="row placeholders">
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="adminViewAllRequests.jsp">
+                                <img src="img/manager.png" width="100"/></a>
+                            <h4>Pending Mentor Requests</h4>
+                        </div>
+                        
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="EIRAssignMentor.jsp"><img src="img/link.png" width="100"/></a>
+                            <h4>Assign Mentor</h4>
+                        </div>
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="adminShowRelationships.jsp"><img src="img/relationship.png" width="100"/></a>
+                            <h4>View Relationships</h4>
+                        </div>
+                        
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="viewAllMeetings.jsp"><img src="img/calendar.png" width="100"/></a>
+                            <h4>Upcoming Meetings</h4>
+                        </div>
+                    </div>
+                        
+                    
                 </div>
             </div>
         </div>

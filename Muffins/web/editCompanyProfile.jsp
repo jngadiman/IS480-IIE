@@ -93,7 +93,7 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-3">
+                <div class="col-lg-10 col-sm-offset-1">
                     <h1 class="page-header">Edit Company Profile</h1>
                     <%                String status = (String) request.getAttribute("updateStatus");
                         if (status != null && !status.isEmpty()) {
