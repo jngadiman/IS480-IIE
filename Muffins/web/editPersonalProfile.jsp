@@ -226,17 +226,17 @@
                             if (userType.contains("regular_mentee")) {
                                 Mentee currentMentee = MenteeDAO.getMenteeByEmail(email);
                                 
-                                out.println("editPersonalProfile currentMentee: " + currentMentee.getName());
+                                //out.println("editPersonalProfile currentMentee: " + currentMentee.getName());
                                 // get degree
                                 String degree = currentMentee.getDegree();
-                                out.println("editPersonalProfile degree: " + degree);
+                                //out.println("editPersonalProfile degree: " + degree);
                                 // get year of grad
                                 int gradYear = currentMentee.getYear_of_grad();
-                                out.println("editPersonalProfile gradYear: " + gradYear);
+                                //out.println("editPersonalProfile gradYear: " + gradYear);
                                 // get mentor email
                                 String cMentorEmail = currentMentee.getMentor_email();
                                 String cMentorName = "";
-                                if (cMentorEmail != null) {
+                                if (cMentorEmail != null && !cMentorEmail.isEmpty()) {
                                     Mentor cMenteeMentor = MentorDAO.getMentorByEmail(cMentorEmail);
                                     cMentorName = cMenteeMentor.getName();
                                 }

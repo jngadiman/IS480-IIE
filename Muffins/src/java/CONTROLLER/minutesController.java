@@ -203,7 +203,7 @@ public class minutesController {
     
     public static void main(String[] args){
         //ArrayList<ArrayList<MeetingMinutes>> meetingMinutes = minutesController.getAllMeetingMinutes();
-       ArrayList<MeetingMinutes> meetingMinutes = minutesController.getMeetingMinutesByMeeting(2);
+       ArrayList<MeetingMinutes> meetingMinutes = minutesController.getMeetingMinutesByMeeting(1);
         
         //for(ArrayList<MeetingMinutes> mm : meetingMinutes){
             for(MeetingMinutes m : meetingMinutes){

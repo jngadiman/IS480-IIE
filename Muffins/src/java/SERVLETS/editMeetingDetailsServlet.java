@@ -5,28 +5,20 @@
  */
 package SERVLETS;
 
-import CONTROLLER.taskController;
-import MODELS.Task;
-import MODELS.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Hui Min
  */
-@WebServlet(name = "addTaskServlet", urlPatterns = {"/addTaskServlet"})
-public class addTaskServlet extends HttpServlet {
+@WebServlet(name = "editMeetingDetailsServlet", urlPatterns = {"/editMeetingDetailsServlet"})
+public class editMeetingDetailsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,40 +31,19 @@ public class addTaskServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        int taskID = taskController.getNextTaskID();
-        String taskName = request.getParameter("taskName");
-        
-        int stage = Integer.parseInt(request.getParameter("taskStage"));
-        String deadline = request.getParameter("date");
-        System.out.println(deadline +"<-- MY DEADLINE PASSED");
-        
-        //temp company id variable for testing --> NEED CHANGE ONCE HOMEPAGE IS UP!
-        User currentUser = (User)session.getAttribute("user");
-        int companyID = currentUser.getCompanyid();
-        
-        Date dateDeadline = null;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        
-        boolean isCompleted = false;
-        if(deadline!=null|| !deadline.equals("")){
-          try {
-            dateDeadline = df.parse(deadline);
-            System.out.println(dateDeadline +"<-- AFTER PARSING");
-            
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }  
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet editMeetingDetailsServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet editMeetingDetailsServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-//        int companyID = currentUser.getCompanyid();
-        
-        Task task = new Task(taskID, taskName, dateDeadline, stage, companyID, isCompleted);
-        String resultMsg =  taskController.addTaskToCompany(task);
-        
-        request.setAttribute("status", resultMsg);
-        request.getRequestDispatcher("addTask.jsp").forward(request, response);
-            //String username = currentUser.getUsername();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
