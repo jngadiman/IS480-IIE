@@ -102,32 +102,33 @@
                                                         if (mentor != null) {
                                                             mName = mentor.getName();
                                                         }
+                                                        
                                                     }
 
-                                                }
+                                                } 
 
 
                                         %>
                                         <div class="col-lg-6 well">
-                                        Title : <%=first.getTitle()%><br>
-                                        Mentor : <%= mName%><br>
-                                        Comments : <%=first.getComments()%><br>
-                                        Completed Tasks :
-                                        <%
-                                            // to get the completed tasks
-                                            for (MeetingMinutes temp : minutes) {
+                                            Title : <%=first.getTitle()%><br>
+                                            Mentor : <%= mName%><br>
+                                            Comments : <%=first.getComments()%><br>
+                                            Completed Tasks :
+                                            <%
+                                                // to get the completed tasks
+                                                for (MeetingMinutes temp : minutes) {
 
-                                                Task current = taskController.displayTask(temp.getTask_id(), company);
-                                                if (current != null) {
+                                                    Task current = taskController.displayTask(temp.getTask_id(), company);
+                                                    if (current != null) {
 
 
-                                        %>
-                                        <%= current.getName()%>
-                                        <%
+                                            %>
+                                            <%= current.getName()%>
+                                            <%
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        %>
+                                            %>
                                         </div>
 
                                     </div>
@@ -146,6 +147,7 @@
                     </div>  
                     <%
                             }
+
                         }
                     %>
                     <h2 class="col-lg-12 page-header"></h2>
@@ -183,7 +185,7 @@
                     %>
 
                     <%
-                        }
+                        } 
 
                     %>
 

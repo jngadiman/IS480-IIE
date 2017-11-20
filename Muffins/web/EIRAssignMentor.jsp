@@ -58,11 +58,11 @@
                         <%
                             }
                         %>
-                    <h4><%=company.getName()%></h4>
+                    <h4><center><%=company.getName()%></center></h4>
                     <form method="post" action="EIRAssignment.jsp">
 
                         <input type="hidden" name="companyWNoMentor" value="<%= company.getId()%>"/>
-                        <button type="submit" class="pull-right btn-xs btn-primary" name="setMentorBtn">Assign</button>
+                        <button type="submit" class="center-block btn-xs btn-primary" name="setMentorBtn">Assign</button>
 
                     </form>
                 </div>
