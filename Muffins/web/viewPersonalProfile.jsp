@@ -156,7 +156,7 @@
                                 if (cMentorEmail == null) {
                                     cMentorEmail = "";
                                 }
-                                if (cMentorEmail != null) {
+                                if (cMentorEmail != null && !cMentorEmail.isEmpty()) {
                                     Mentor cMentor = MentorDAO.getMentorByEmail(cMentorEmail);
                                     cMentorName = cMentor.getName();
                                 }

@@ -6,8 +6,13 @@
 package SERVLETS;
 
 import CONTROLLER.preferenceController;
+import DAO.CompanyDAO;
+import DAO.MentorDAO;
+import MODELS.Company;
+import MODELS.Mentor;
 import MODELS.Preference;
 import MODELS.User;
+import Utility.EmailSender;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -38,12 +43,26 @@ public class confirmMentorPreferenceServlet extends HttpServlet {
             throws ServletException, IOException {
         String need = request.getParameter("reason");
         String mentorEmail = request.getParameter("mentorEmail");
+        Mentor m = MentorDAO.getMentorByEmail(mentorEmail);
+        String mentorName = m.getName();
+        
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int company_id = user.getCompanyid();
+        Company c = CompanyDAO.getCompany(company_id);
+        String companyName = c.getName();
         
         Preference p = new Preference(company_id, mentorEmail, null, null, need, new Date());
         String status = preferenceController.addPreference(p);
+        
+        //send email of the unhashed accessCode to founders
+        String [] admin = {"incogiieportal@gmail.com"};
+        if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", companyName + " have just requested for " + mentorName + " as their preferred mentor.", admin,"IIE Portal Notification")){
+            System.out.println("email has been sent successfully");
+        }else{
+            System.out.println("email could not be sent");
+        }
+        
         session.setAttribute("addPreferenceStatus", status);
         response.sendRedirect("mentorAssignment.jsp");
     }

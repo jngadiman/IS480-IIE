@@ -347,7 +347,7 @@
                                 "end": {
                                     "dateTime": endDateStr
                                 },
-                                "location": location,
+                                "location": "SMU BIG Incubator At SOA Basement",
                                 "status": status,
                                 "transparency": transparency,
                                 "visibility": visibility,
@@ -467,7 +467,7 @@
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Location</label>
-                                    <input class="form-control" id="location" name="location" type="text" placeholder="Enter The Meeting Location" class="form-control" required>
+                                    <input class="form-control" id="location" name="location" type="text" placeholder="Enter The Meeting Location" class="form-control" value="SMU BIG Incubator At SOA Basement" disabled/>
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Start Date</label>
