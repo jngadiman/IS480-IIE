@@ -428,12 +428,106 @@ public class MeetingDAO {
         }
         return result;
     }
+    //get all meetings of the company w EIR
+    public static ArrayList<Integer> getMeetingIDsOfCompanyWEIR(int companyID, String eirEmail) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        boolean status = false;
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where mentee_company_id = ? AND `attendees` LIKE ?;");
+            stmt.setInt(1,companyID);
+            stmt.setString(2,"'%" + eirEmail + "%'");
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+    }
+    
+    //get all meetings of w EIR
+    public static ArrayList<Integer> getMeetingIDsOfEIR(String eirEmail) {
+   
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int meetingID = 0;
+        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        boolean status = false;
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select meeting_id from meeting where `attendees` LIKE ?;");
+            stmt.setString(1,"'%" + eirEmail + "%'");
+            
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingIDs.add(meetingID);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return meetingIDs;
+    }
+    
+    //get the nearest 2 upcoming meetings
+//    public static ArrayList<Integer> getMeetingIDsOfCompany(int companyID) {
+//   
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet result = null;
+//        int meetingID = 0;
+//        ArrayList<Integer> meetingIDs = new ArrayList<Integer>();
+//        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//        boolean status = false;
+//        
+//        try {
+//            conn = ConnectionManager.getConnection();
+//            stmt = conn.prepareStatement("select meeting_id from meeting where mentee_company_id = ?;");
+//            stmt.setInt(1,companyID);
+//            
+//            result = stmt.executeQuery();
+//
+//            while (result.next()) {
+//                meetingID = Integer.parseInt(result.getString("meeting_id"));
+//                meetingIDs.add(meetingID);
+//                
+//               
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MeetingDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            ConnectionManager.close(conn, stmt, result);
+//        }
+//        return meetingIDs;
+//    }
     
     
     public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
 //        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
-        ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfAttendees("mentor1@hotmail.com");
+        ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfEIR("incogiieportal@gmail.com");
         for(int id:meetings){
             System.out.println("MEETING ID = "+id);
         }
