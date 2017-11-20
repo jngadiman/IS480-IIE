@@ -166,6 +166,7 @@ public class registerCompanyServlet extends HttpServlet {
             if(companyType.equals("incubator")){
             request.setAttribute("registerCompanyStatus", status);
             request.setAttribute("errorMessages", errorMessages);
+            System.out.println("I HAVE NO ERROR MY STATUS IS---- "+status);
             RequestDispatcher rd = request.getRequestDispatcher("registerIncubationCompany.jsp");
             rd.forward(request, response);
             }else{

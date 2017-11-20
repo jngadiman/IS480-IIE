@@ -6,6 +6,7 @@
 package CONTROLLER;
 
 import DAO.MentorDAO;
+import DAO.UserDAO;
 import MODELS.Mentor;
 import java.util.ArrayList;
 
@@ -50,6 +51,14 @@ public class mentorController {
     
     public static String addMentor(Mentor m){
         String status = MentorDAO.addMentor(m);
+        return status;
+    }
+    
+    public static boolean deleteMentor(String email){
+        boolean status = MentorDAO.deleteMentor(email);
+        if(status){
+            UserDAO.deleteUser(email);
+        }
         return status;
     }
     

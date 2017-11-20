@@ -192,7 +192,7 @@
                                     <a href="" class="btn btn-success center-block btn-sm" align="middle">Edit Mentor Profile</a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <a href="" class="btn btn-danger center-block btn-sm" align="middle">Delete Mentor Profile</a>
+                                    <a href="eleteMentorServlet?email=<%=mentorEmail%>" class="btn btn-danger center-block btn-sm" align="middle">Delete Mentor Profile</a>
                                 </div><br/>
                                 </div>
                             <%

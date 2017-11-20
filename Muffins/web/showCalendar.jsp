@@ -3,10 +3,12 @@
     Created on : Oct 4, 2017, 8:57:59 PM
     Author     : JJAY
 --%>
+<%@include file="sidenav.jsp" %>  
+<%@page import="com.google.api.client.http.HttpTransport"%>
+<%@page import="com.google.api.client.json.jackson2.JacksonFactory"%>
+<%@page import="com.google.api.client.json.JsonFactory"%>
 <html>
     <head>
-
-        <%@include file="sidenav.jsp" %>  
         <meta charset='utf-8' />
         <script src='js/jquery-3.2.1.min.js'></script>
         <script src='css/fullcalendar.min.js'></script>
@@ -18,7 +20,7 @@
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="css/fullcalendar.min.js"></script>
         <script type='text/javascript' src='css/gcal.js'></script>
-
+        <script src="js/bootstrap.js" type="text/javascript"></script>
         <style>
 
             body {
@@ -52,9 +54,9 @@
                 <div id='calendar'></div>
                 <div class="col-lg-10 col-lg-offset-1">
                     <br>
-                    <button id="authorize-button" class="btn btn-xs btn-info center-block">Authorize</button>
+                    <button id="authorize-button" class="btn btn-xs btn-info center-block" onClick="handleAuthClick">Authorize</button>
                     <br>
-                    <button id="signout-button" style="display: none;">Sign Out</button>
+                    <button id="signout-button" style="display: none;" onClick="handleSignoutClick">Sign Out</button>
                     <pre id="content"></pre>
                     <script type="text/javascript">
                         var calendarId = 'incogiieportal@gmail.com';
@@ -126,7 +128,7 @@
                          *  Sign in the user upon button click.
                          */
                         function handleAuthClick(event) {
-                            gapi.auth2.getAuthInstance().signIn();  
+                            gapi.auth2.getAuthInstance().signIn();
                         }
 
                         /**
@@ -228,6 +230,9 @@
                                 var event = events[i];
                                 var when = event.start.dateTime;
                                 var end = event.end.dateTime;
+                                var eventid = event.id;
+                                var attendees = [];
+                                attendees = event.attendees;
                                 //document.write("TO SEE THE START DATETIME"+when);
                                 if (!when) {
                                   when = event.start.date;
@@ -235,6 +240,14 @@
                                 occupiedStartDates.push(when);
                                 appendPre(event.summary + ' (' + when + ')')
                                 occupiedEndDates.push(end);
+                                for(j = 0; j < attendees.length; j++){
+                                    appendPre('attendees: ' + attendees[j].email)
+                                    //check if in the attendees have the current logged in user for google calendar login
+                                    //then get the id? or the event index in this loop, and then call only these indexes 
+                                    //from the event list and display
+                                    //var currentUserEmail = GoogleUser.getBasicProfile().getEmail();
+                                    //appendPre('currentUser: ' + currentUserEmail)
+                                }
                               }
                             } else {
                               appendPre('No upcoming events found.');
@@ -242,9 +255,9 @@
                           });
                         }
                         
-                        function loadCalendarApi() {
-                            gapi.client.load('calendar', 'v3', listUpcomingEvents());
-                        }
+//                        function loadCalendarApi() {
+//                            gapi.client.load('calendar', 'v3', listUpcomingEvents());
+//                        }
                     </script>
 
                     <script>
@@ -266,15 +279,15 @@
                                     left: 'prev,next today myCustomButton',
                                     center: 'title',
                                     right: 'month,agendaWeek,agendaDay'
-                                },
-                                eventClick: function(resource, element) {  
-                                    event.title = "CLICKED!";
-                                    if (resource.url) {
-                                        return false;
-                                    }
-                                    $('#calendar').fullCalendar('updateEvent', event);
-                                    alert("Event: " + resource.summary);
                                 }
+//                                eventClick: function(resource, element) {  
+//                                    event.title = "CLICKED!";
+//                                    if (resource.url) {
+//                                        return false;
+//                                    }
+//                                    $('#calendar').fullCalendar('updateEvent', event);
+//                                    alert("Event: " + resource.summary);
+//                                }
                             });
                         });
 
@@ -282,22 +295,6 @@
                     <script>
                         //get meeting details keyed in by the user and create an event in google calendar
                         function bookMeeting() {
-                            var req = {
-                                "calendarId": calendarId,
-                                "resource": {
-                                    "role": "writer",
-                                    "scope": {
-                                      "type": "user",
-                                      "value": "sexyorangelove@gmail.com"
-                                    }
-                                }
-                            }
-                            alert("HELLO Request to book meeting!");
-                            var request = gapi.client.calendar.acl.insert(req);
-                            request.execute(function(resp) {
-                              console.log(resp);
-                            });
-        
                             var start = document.getElementById("start_date").value;
                             var end = document.getElementById("end_date").value;
                             var summary = document.getElementById("meetingName").value;
@@ -307,12 +304,12 @@
 
                             var personArr = attendees.split(", ");
                             var numberspaces = attendees.split(", ").length;
-                            var attendeesStr = "";
+                            var attendeesArr = [];
+                            
                             for (i = 0; i < numberspaces; i++) {
-                                attendeesStr += "{ 'email' : \'" + personArr[i] + "\'}";
-                                if (numberspaces > 1 && i != numberspaces - 1) {
-                                    attendeesStr += ", \n";
-                                }
+                                var person = new Object();
+                                person.email = personArr[i];
+                                attendeesArr.push(person);
                                 //personArr[0] -> every email
                             }
                             //break up the attendees string into different variables for each attendees. 
@@ -340,7 +337,7 @@
                             alert("summary: " + summary);
                             alert("location: " + location);
                             alert("status: " + status);
-                            alert("attendees: " + attendeesStr);
+                            alert("attendees: " + attendees);
                             
                             resource = {
                                 "summary": summary,
@@ -354,15 +351,10 @@
                                 "status": status,
                                 "transparency": transparency,
                                 "visibility": visibility,
-                                "attendees": [
-                                    //attendeesStr
-                                    {
-                                        "email": attendees
-                                    }
-                                ]
+                                "attendees": attendeesArr
                             };
 
-                            gapi.client.load('calendar', 'v3', function () { // load the calendar api (version 3)
+                            gapi.client.load('calendar', 'V3', function () { // load the calendar api (version 3)
                                 var request = gapi.client.calendar.events.insert(
                                         {
                                             'calendarId': 'incogiieportal@gmail.com', // calendar ID  

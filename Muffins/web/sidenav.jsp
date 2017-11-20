@@ -16,7 +16,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <style>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <style>
         .user-pic {
             border-radius: 50%;
             height: 110px;
@@ -45,13 +52,6 @@
             cursor: pointer;
         }
     </style>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link href="css/cosmos.css" rel="stylesheet" type="text/css"/>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
         <%
