@@ -162,7 +162,7 @@
                                         <option value="cancelled">cancelled</option>
                                     </select>
                                 </div>
-                                <input type="hidden" id="meeting_id" name="meeting_id" value=<%=m.getMeetingID()%>>
+                                <input type="hidden" id="meetingID" name="meeting_id" value=<%=m.getMeetingID()%>>
                                     
                                 
                             </div>
