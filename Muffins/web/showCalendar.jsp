@@ -332,12 +332,12 @@
                             //        var twoHoursLater = new Date(now.getTime() + (2*1000*60*60));
                             //        twoHoursLater = twoHoursLater.toISOString();
 
-                            alert("start: " + startDateStr);
-                            alert("end: " + endDateStr);
-                            alert("summary: " + summary);
-                            alert("location: " + location);
-                            alert("status: " + status);
-                            alert("attendees: " + attendees);
+//                            alert("start: " + startDateStr);
+//                            alert("end: " + endDateStr);
+//                            alert("summary: " + summary);
+//                            alert("location: " + location);
+//                            alert("status: " + status);
+//                            alert("attendees: " + attendees);
                             
                             resource = {
                                 "summary": summary,

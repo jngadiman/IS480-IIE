@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-10 col-lg-offset-3 well">
+            <div class="col-lg-10 col-lg-offset-1 well">
                 <%
                     ArrayList<Mentor> mentors = null;
                     if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
@@ -159,12 +159,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                
                 <%
                     }
                 %>
+                </div>
                 <br>
-                <p>* Not eligible: you have existing mentor or you have already previously states your preferences</p>
+                <!--<p>* Not eligible: you have existing mentor or you have already previously states your preferences</p>-->
             </div>
     
     <%
