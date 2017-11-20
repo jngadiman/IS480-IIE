@@ -97,6 +97,7 @@ public class Company {
         this.id = id;
         this.name = name;
         this.description = "Mentor Company";
+        this.currentStage = 6;
         this.stakeholders = stakeholders;
     }
     
