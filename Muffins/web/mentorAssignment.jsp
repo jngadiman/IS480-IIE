@@ -60,7 +60,8 @@
 
             <div class="col-lg-10 col-lg-offset-1">
                 <h1 class="page-header">Request for Mentor</h1>
-                <%                    if (session.getAttribute("addPreferenceStatus") != null) {
+                <%                    
+                    if (session.getAttribute("addPreferenceStatus") != null) {
                         String status = (String) session.getAttribute("addPreferenceStatus");
                 %>
                 <div class="alert alert-dismissible alert-success">
@@ -81,14 +82,13 @@
                     <li><a href="mentorAssignment.jsp?mentorType=VentureCapitalist">Venture Capitalist</a></li>
                     <li><a href="mentorAssignment.jsp?mentorType=IndustryProfessional">Industry Professional</a></li>
                     <li><a href="mentorAssignment.jsp?mentorType=Entrepreneur">Entrepreneur</a></li>
-                    
                 </ul>
                 
                 <div class='pull-right'>
                     <form action="searchServlet" method="post">
                         Keywords : 
                         <input type="text" name="queries" placeholder="Search here"/>
-                        <input type="submit" class="btn btn-xs btn-info " name="searchBtn" value="Submit"> 
+                        <input type="submit" class="btn btn-xs btn-info " name="searchBtn" value="Submit"/> 
                     </form>
                 </div>
             </div>

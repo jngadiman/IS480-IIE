@@ -441,13 +441,13 @@ public class MeetingDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select meeting_id from meeting where mentee_company_id = ? AND `attendees` LIKE ?;");
+            stmt = conn.prepareStatement("select meeting_id from meeting where mentee_company_id = ? AND attendees LIKE ?");
             stmt.setInt(1,companyID);
-            stmt.setString(2,"'%" + eirEmail + "%'");
+            stmt.setString(2,"%" + eirEmail + "%");
             result = stmt.executeQuery();
 
             while (result.next()) {
-                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingID = result.getInt("meeting_id");
                 meetingIDs.add(meetingID);
             }
 
@@ -472,13 +472,13 @@ public class MeetingDAO {
         
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select meeting_id from meeting where `attendees` LIKE ?;");
-            stmt.setString(1,"'%" + eirEmail + "%'");
-            
+            stmt = conn.prepareStatement("select meeting_id from meeting where attendees LIKE ?;");
+            stmt.setString(1,"%" + eirEmail + "%");
             result = stmt.executeQuery();
-
+            
             while (result.next()) {
-                meetingID = Integer.parseInt(result.getString("meeting_id"));
+                meetingID = result.getInt("meeting_id");
+                System.out.println("meetingID: " + meetingID);
                 meetingIDs.add(meetingID);
             }
 
@@ -527,8 +527,10 @@ public class MeetingDAO {
     public static void main(String[] args){
        // Meeting m = new Meeting(5, "meetingname", "Incubation", new Date(), new Date(), "example@gmail.com,people@gmail.com", "accepted", 3);
 //        ArrayList<Integer> meetings = MeetingDAO.getMeetingOfCompanyByMonthNYear(9, 2017, 3);
-        ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfEIR("incogiieportal@gmail.com");
-        for(int id:meetings){
+        String email = "incogiieportal@gmail.com";
+        ArrayList<Integer> meetings = MeetingDAO.getMeetingIDsOfEIR(email);
+        System.out.println(meetings.size());
+        for(Integer id:meetings){
             System.out.println("MEETING ID = "+id);
         }
         
