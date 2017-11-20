@@ -52,7 +52,7 @@ public class addTaskServlet extends HttpServlet {
         int companyID = currentUser.getCompanyid();
         
         Date dateDeadline = null;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         
         boolean isCompleted = false;
         if(deadline!=null|| !deadline.equals("")){

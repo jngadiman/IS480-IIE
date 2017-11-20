@@ -611,8 +611,14 @@ public class TaskDAO {
     }
             
     public static void main(String[] args){
-        int result= TaskDAO.updateDeadlineForTask(101, 7, new Date());
-        System.out.println(result);
+//        int result= TaskDAO.updateDeadlineForTask(101, 7, new Date());
+//        System.out.println(result);
+
+        ArrayList<Task> stageTasks = TaskDAO.getTasksByCompanyAndStage(1, 21112);
+        for(Task t: stageTasks ){
+            System.out.println("TASK NAME IS "+ t.getName());
+        }
+        
     }
 
 }
