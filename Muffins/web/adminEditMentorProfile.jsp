@@ -70,6 +70,11 @@
                                 <textarea name="introduction" type="text" rows="4" placeholder="Enter an introduction of yourself, what industries you have been and what can you bring or teach the mentees.." class="form-control" required>replace with introduction</textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <button type="submit" class="btn btn-md btn-success center-block">Save</button>					
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

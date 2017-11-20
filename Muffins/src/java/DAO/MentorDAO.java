@@ -437,6 +437,44 @@ public class MentorDAO {
         return status;
     }
     
+    public static boolean deleteMentor(String email){
+        
+        
+        Connection conn = null;
+        int numRecordsUpdated = 0;
+        
+        PreparedStatement stmt0 = null;
+
+        try {
+            conn = ConnectionManager.getConnection();
+
+            //check the number of bids made by the student
+            stmt0 = conn.prepareStatement("DELETE FROM mentor WHERE email = ?");
+            stmt0.setString(1, email);
+
+            numRecordsUpdated = stmt0.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (numRecordsUpdated != 1){
+            return false;
+        }
+        return true;
+    }
+    
     public static void main(String[] args){
         //Mentor m = new Mentor("founder", "I am abc. ", "445-009-0093", "cooking and baking", "mentor4@hotmail.com", "password", "Mentor 4", "S9876713Y", new Date(), (byte[]) null, "Entrepreneur Mentor", 5, "founder", 100, 91129903, "Singaporean");
         //(String position, String introduction, String bankAccount, String skills, String email, String password, String name, String nric, Date joinedDate, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality)
