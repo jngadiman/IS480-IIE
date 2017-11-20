@@ -56,7 +56,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-sm-offset-3">
+                <div class="col-lg-10 col-sm-offset-1">
                     <div class="col-lg-8 well">
                         <div class ="row">
                             <div class="col-lg-12" align="center">
@@ -156,7 +156,7 @@
                                 if (cMentorEmail == null) {
                                     cMentorEmail = "";
                                 }
-                                if (cMentorEmail != null) {
+                                if (cMentorEmail != null && !cMentorEmail.isEmpty()) {
                                     Mentor cMentor = MentorDAO.getMentorByEmail(cMentorEmail);
                                     cMentorName = cMentor.getName();
                                 }

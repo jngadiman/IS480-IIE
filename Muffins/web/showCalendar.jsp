@@ -347,7 +347,7 @@
                                 "end": {
                                     "dateTime": endDateStr
                                 },
-                                "location": location,
+                                "location": "SMU BIG Incubator At SOA Basement",
                                 "status": status,
                                 "transparency": transparency,
                                 "visibility": visibility,
@@ -468,6 +468,7 @@
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Location</label>
                                     <input class="form-control" id="location" name="location" type="text" value="SMU BIG Incubator" class="form-control" disabled required>
+
                                 </div>
                                 <div class="col-sm-6 form-group required">
                                     <label class="control-label">Start Date</label>

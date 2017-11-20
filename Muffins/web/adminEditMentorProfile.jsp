@@ -13,6 +13,7 @@
         <%@include file="sidenav.jsp" %>
     </head>
     <body>
+        
         <div class="container">
             <div class="col-lg-10 col-lg-offset-1">
                 <h1 class="page-header col-lg-10 col-lg-offset-1">Mentor Profile</h1>

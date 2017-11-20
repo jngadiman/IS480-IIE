@@ -57,7 +57,7 @@
     %>
     <body>
         <div class="container">
-            <div class="col-lg-8 col-lg-offset-3">
+            <div class="col-lg-10 col-sm-offset-1">
                 <h1 class="page-header">View Company Profile</h1>
                 <div class="col-lg-12 well">
                     <div class="row">

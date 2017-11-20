@@ -223,15 +223,16 @@
                             </div>
                         </div>
                         <%                            // if user is mentee, get other mentee details
-                            if (userType.contains("mentee")) {
+                            if (userType.contains("regular_mentee")) {
                                 Mentee currentMentee = MenteeDAO.getMenteeByEmail(email);
-                                System.out.println("editPersonalProfile currentMentee: " + currentMentee);
+                                
+                                out.println("editPersonalProfile currentMentee: " + currentMentee.getName());
                                 // get degree
                                 String degree = currentMentee.getDegree();
-                                System.out.println("editPersonalProfile degree: " + degree);
+                                out.println("editPersonalProfile degree: " + degree);
                                 // get year of grad
                                 int gradYear = currentMentee.getYear_of_grad();
-                                System.out.println("editPersonalProfile gradYear: " + gradYear);
+                                out.println("editPersonalProfile gradYear: " + gradYear);
                                 // get mentor email
                                 String cMentorEmail = currentMentee.getMentor_email();
                                 String cMentorName = "";
@@ -240,6 +241,7 @@
                                     cMentorName = cMenteeMentor.getName();
                                 }
                         %>
+                      
                         <div class='row'>
                             <div class="col-sm-6 form-group">
                                 <p><strong>Company</strong>: <%= companyName%></p>

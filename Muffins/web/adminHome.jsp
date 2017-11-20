@@ -23,23 +23,52 @@
     </head>
     <body>
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <!-- <img src="img/smu.jpg" alt="" width="70%"/> -->
                     <h1 class="page-header" style="font-family: serif; font-style: italic">Institute of Innovation & Entrepreneurship</h1>
+                    
+                    <br>
+                    
+                    <div class="row placeholders">
+                        
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="EIRAssignMentor.jsp"><img src="img/link.png" width="100"/></a>
+                            <h4>Assign Mentor</h4>
+                        </div>
+                        
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="adminViewAllRequests.jsp">
+                                <img src="img/manager.png" width="100"/></a>
+                            <h4>Pending Mentor Requests</h4>
+                        </div>
+                        
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="adminShowRelationships.jsp"><img src="img/relationship.png" width="100"/></a>
+                            <h4>View Relationships</h4>
+                        </div>
+
+                        <div class="col-xs-3 col-sm-3">
+                            <a href="viewAllMeetings.jsp"><img src="img/calendar.png" width="100"/></a>
+                            <h4>Upcoming Meetings</h4>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
 
                     <div class="row placeholders">
-                        <%                            
-                            int numStages = 4;
+                        <%                            int numStages = 4;
                             for (int i = 1; i <= numStages; i++) {
                                 ArrayList<Company> companies = new ArrayList<Company>();
                                 companies = companyController.getCompaniesInStage(i);
                                 String stageName = ProgramStageDAO.getStage(i);
                         %>
                         <div class="col-xs-6 col-sm-3 placeholder">
-                            <h1 style="font-style: italic;"><%=i%></h1>
-                            <%=stageName%><br/><br/>
-                            <button href="#<%=i%>" class="btn btn-default btn-xs" data-toggle="collapse"><%=companies.size()%></button>
+                            <h1><u><%="Stage " + i%></u></h1>
+                            <h4><%=stageName%></h4>
+                            <br>
+                            <button href="#<%=i%>" class="btn btn-default btn-s" data-toggle="collapse"><%=companies.size()%></button>
                             <div id="<%=i%>" class="collapse">
 
                                 <%
@@ -60,6 +89,10 @@
                             }
                         %>
                     </div>
+
+
+
+
                 </div>
             </div>
         </div>

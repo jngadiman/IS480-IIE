@@ -93,16 +93,15 @@
                         String id = request.getParameter("id");
                         if (id == null) {
 
-
                     %>
                     <!--<div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose the Meeting Title
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu"> -->
 
-
-
-                    <%                User currentUser = (User) session.getAttribute("user");
+                    <%                
+                        
+                        User currentUser = (User) session.getAttribute("user");
                         //System.out.println("CURRENT USER IN ADDMEETINGJSP -----"+ currentUser.getName());
                         ArrayList<Meeting> meetingWithoutMinutes = meetingController.getMeetingsWithoutMinutes(currentUser.getEmail());
                         if (meetingWithoutMinutes != null && meetingWithoutMinutes.size() != 0) {

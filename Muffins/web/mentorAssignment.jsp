@@ -58,7 +58,7 @@
 
 
 
-            <div class="col-lg-10 col-lg-offset-3">
+            <div class="col-lg-10 col-lg-offset-1">
                 <h1 class="page-header">Request for Mentor</h1>
                 <%                    if (session.getAttribute("addPreferenceStatus") != null) {
                         String status = (String) session.getAttribute("addPreferenceStatus");
@@ -70,6 +70,7 @@
                 <%
                     }
                 %>
+                
 
                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
                     Area of Expertise
@@ -80,7 +81,9 @@
                     <li><a href="mentorAssignment.jsp?mentorType=VentureCapitalist">Venture Capitalist</a></li>
                     <li><a href="mentorAssignment.jsp?mentorType=IndustryProfessional">Industry Professional</a></li>
                     <li><a href="mentorAssignment.jsp?mentorType=Entrepreneur">Entrepreneur</a></li>
+                    
                 </ul>
+                
                 <div class='pull-right'>
                     <form action="searchServlet" method="post">
                         Keywords : 
@@ -96,11 +99,13 @@
                                     <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
                                     <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
                                 </div>-->
+                    
 
                 <%
                     ArrayList<Mentor> mentors = null;
                     if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
                         String mentorType = request.getParameter("mentorType");
+                        
                         session.setAttribute("mentorType", mentorType);
                         mentors = mentorController.getMentorsByType(mentorType);
                         if (mentorType.equals("Entrepreneur")) {
@@ -120,6 +125,7 @@
                             out.print("<h4>Incubation Manager Mentor(s)</h4>");
                             out.print("</div>");
                         }
+                        
 
                     } else {
                         mentors = MentorDAO.getMentors();
@@ -131,6 +137,7 @@
                     for (Mentor m : mentors) {
 
                 %>
+                
                 <div class="col-lg-6 well">
 
 

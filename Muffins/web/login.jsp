@@ -95,7 +95,7 @@
                         <a href="forgetPassword.jsp" class="forgot-password">
                             <h4><strong>Forgot the password?</strong></h4>
                         </a>
-                        <h4><strong>No account? Sign your company up <a href="registerIncubationCompany.jsp">here</a></strong></h4>
+                        <h4><strong>No account? Sign your company up <a href="registerIncubationCompany.jsp">HERE</a></strong></h4>
                         <br>
                     </div>
                     <br>
