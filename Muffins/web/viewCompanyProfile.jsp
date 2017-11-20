@@ -1,4 +1,6 @@
 
+<%@page import="java.util.Date"%>
+<%@page import="DAO.ProgramStageDAO"%>
 <%-- 
     Document   : viewMentorProfile
     Created on : Jul 15, 2017, 4:30:40 PM
@@ -21,6 +23,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <style>
+        .company-logo {
+            border-radius: 50%;
+            height: 200px;
+            width: 200px;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+            vertical-align: middle;
+            text-align: center;
+            color: transparent;
+            transition: all .3s ease;
+            text-decoration: none;
+        }
+
+        .company-logo:hover {
+            background-color: rgba(0,0,0,.5);
+            z-index: 10000;
+            color: #fff;
+            transition: all .3s ease;
+            text-decoration: none;
+        }
+    </style>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Company Profile</title>
@@ -38,43 +63,42 @@
                     <div class="row">
                         <div class="col-sm-12 form-group">
 
-                            <%  // display the image
-                                byte[] imgDataComp = company.getCompanyLogo();
-                                if (imgDataComp != null) {
-                                    String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataComp));
-                            %>
-                            <img width="200" src="data:image/gif;base64,<%= imgDataBase64%>"  class="img-responsive center-block" alt="images Here" />
-                            <%
-                            } else {
-                            %>
-                            <img width="200" src="img/factory.png"  class="img-responsive center-block" alt="images Here" /><%
-                                }
-
-                                out.println("<h3 class='text-center'>" + company.getName() + "</h3>");
-                            %>
-
-                            <%
-                                String stageName = "";
-                                int stageNo = company.getCurrentStage();
-                                if (stageNo == 1) {
-                                    stageName = "1. Business Model Validation Stage";
-                                } else if (stageNo == 2) {
-                                    stageName = "2. Innovation Development Stage";
-                                } else if (stageNo == 3) {
-                                    stageName = "3. Go-To-Market & Early Customer Acquisition Stage";
-                                } else if (stageNo == 4) {
-                                    stageName = "4. Business Plan/Financial Modelling Stage";
+                            <%  // displaying of profile picture
+                                byte[] companyLogo = company.getCompanyLogo();
+                                String companyLogoImg = "";
+                                if (companyLogo == null) {
+                                    companyLogoImg = "img/building.png";
                                 } else {
-                                    stageName = Integer.toString(stageNo);
+                                    String imgDataBase64 = new String(Base64.getEncoder().encode(companyLogo));
+                                    companyLogoImg = "data:image/gif;base64," + imgDataBase64;
                                 }
 
-                            %>
-                            <p><strong>Current Stage</strong> : <%=stageName%> </p>
-                            <%Industry industry = industryController.getIndustry(company.getIndustry());
-                                if (industry != null) {
-                                    //industry still cannot edit properly%>
-                            <p><strong>Industry</strong> : <%=industry.getIndustryName()%></p>
-                            <%  }
+                                // getting company fields to be displayed
+                                String companyName = company.getName();
+                                String description = company.getDescription();
+                                if (description == null) {
+                                    description = companyName;
+                                }
+                                int cIndustryCode = company.getIndustry();
+                                Industry cIndustry = industryController.getIndustry(cIndustryCode);
+                                String cIndustryName = "";
+                                if (cIndustry != null) {
+                                    cIndustryName = cIndustry.getIndustryName();
+                                }
+                                Date startDate = company.getStartDate();
+                                String startDateStr = "";
+                                if (startDate != null) {
+                                    startDateStr = new SimpleDateFormat("dd-MMM-yyyy").format(startDate);
+                                }
+                                int companyStage = company.getCurrentStage();
+                                String stageName = ProgramStageDAO.getStage(companyStage);
+                                String fullStageName = companyStage + ". " + stageName;
+                                /*int numStages = ProgramStageDAO.getStages().size();
+                                for (int i = 1; i <= numStages; i++) {
+                                    ArrayList<Company> companies = new ArrayList<Company>();
+                                    companies = companyController.getCompaniesInStage(i);
+                                    String stageName = ProgramStageDAO.getStage(i);
+                                } */
                                 Mentor m = relationshipController.getCurrentMentorOfCompany(company.getId());
                                 String mentorName = "";
                                 if (m != null) {
@@ -83,37 +107,49 @@
                                     mentorName = "Currently No Mentor";
                                 }
                             %>
-                            <p><strong>Company Current Mentor</strong> : <%= mentorName%>
-                                <%String startDate = new SimpleDateFormat("dd-MM-yyyy").format(company.getStartDate());%>
-                                <%if(startDate==null||startDate.isEmpty()){
-                                    startDate="To be populated";
-                                }%>
-                            <p><strong>Start Date</strong> : <%=startDate%></p>
+                            <center><div class="company-logo" style="background-image: url('<%=companyLogoImg%>')" width="200px" height="200" align="center">
+                                </div></center>
+                            <h3 class='text-center'><%= companyName%></h3>
 
-                                <%
-                                    ArrayList<String> all_founders = UserDAO.getUserEmailsOfCompany(companyID);
-                                    String first_founder_email = all_founders.get(0);
-                                    User first_user = UserDAO.getUserByEmail(first_founder_email);
+                            <p class="text-center" style="font-style: italic"><%= description%></p>
+                            <br>
 
-                                    String first_user_type = first_user.getUser_type();
+                            <p><strong>Current Mentor</strong> : <%= mentorName%>
 
-                                    /*    if (first_user!= null&&first_user_type.equals("mentee")) {
-                                     Mentee first_user_mentee = (Mentee) first_user;
-                                     String mentor_email = first_user_mentee.getMentor_email();
-                                     if (mentor_email !=null && !mentor_email.equals("")){
-                                     Mentor mentor2 = MentorDAO.getMentorByEmail(mentor_email);
-                                     String mentor2_name = mentor2.getName();
-                                     String mentor2_email = mentor2.getEmail();
-                                     out.println(" <a href='displayProfile.jsp?email=" + mentor2_email + " class='btn btn-success btn-xs'>" + mentor2_name + "</a>");
-                                     }
+                            <p><strong>Current Stage</strong> : <%=fullStageName%> </p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p><strong>Industry</strong> : <%=cIndustryName%></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p><strong>Start Date</strong> : <%=startDateStr%></p>
+                                </div>
+                            </div>
 
-                                     } else{
-                                     out.println("Company is owned by mentor");
-                                     }
+                            <%
+                                ArrayList<String> all_founders = UserDAO.getUserEmailsOfCompany(companyID);
+                                String first_founder_email = all_founders.get(0);
+                                User first_user = UserDAO.getUserByEmail(first_founder_email);
+
+                                String first_user_type = first_user.getUser_type();
+
+                                /*    if (first_user!= null&&first_user_type.equals("mentee")) {
+                                 Mentee first_user_mentee = (Mentee) first_user;
+                                 String mentor_email = first_user_mentee.getMentor_email();
+                                 if (mentor_email !=null && !mentor_email.equals("")){
+                                 Mentor mentor2 = MentorDAO.getMentorByEmail(mentor_email);
+                                 String mentor2_name = mentor2.getName();
+                                 String mentor2_email = mentor2.getEmail();
+                                 out.println(" <a href='displayProfile.jsp?email=" + mentor2_email + " class='btn btn-success btn-xs'>" + mentor2_name + "</a>");
+                                 }
+
+                                 } else{
+                                 out.println("Company is owned by mentor");
+                                 }
                                             
-                                     */
+                                 */
 
-                                %></p>
+                            %></p>
                         </div>
                     </div>
 
@@ -141,16 +177,8 @@
 
                     <div class="row">
                         <div class="col-sm-12 form-group required">
-                            <p><strong>Company Description</strong> :<br> 
-                            <p><%= company.getDescription()%></p>
-                        </div>	
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12 form-group required">
                             <p><strong>Stakeholder(s)</strong> :<br> 
-                                <%
-                                    String[] stakeholders;
+                                <%                                    String[] stakeholders;
                                     stakeholders = company.getStakeholders();
 
                                     if (stakeholders != null && stakeholders.length != 0) {
@@ -191,64 +219,66 @@
                             <p><strong>Number of Part-Time Employees</strong> : <%= company.getPartTimers()%></p>
                         </div>	
                     </div>
+                    <%
+                        String toBePopulated = "To Be Populated";
+
+                        String productDiff = "";
+                        String revenueModel = "";
+                        String traction = "";
+                        String deploymentOfFunds = "";
+
+                        //productDiff = revenueModel = traction = deploymentOfFunds = toBePopulated;
+                        productDiff = company.getProductDiff();
+                        revenueModel = company.getRevenueModel();
+                        traction = company.getTraction();
+                        deploymentOfFunds = company.getDeployOfFunds();
+                        
+                        if (productDiff == null || productDiff.isEmpty()) {
+                            productDiff = toBePopulated;
+                        }
+                        if (revenueModel == null || revenueModel.isEmpty()) {
+                            revenueModel = toBePopulated;
+                        }
+                        if (traction == null || traction.isEmpty()) {
+                            traction = toBePopulated;
+                        }
+                        if (deploymentOfFunds == null || deploymentOfFunds.isEmpty()) {
+                            deploymentOfFunds = toBePopulated;
+                        }
+                    %>
 
                     <div class="row">
                         <div class="col-sm-6 form-group required">
-                            <p><strong>Product Differentiation</strong> :<br> 
-                                <%
-                                    if (company.getProductDiff() == null || company.getProductDiff().isEmpty()) {
-                                        out.println("To be populated");
-                                    } else {
-                                        out.println(company.getProductDiff());
-                                    }
-                                %>
+                            <p><strong>Product Differentiation</strong>:<br>
+                                <span style="font-style:italic"><%=productDiff%></span></p>
                         </div>	
                         <div class="col-sm-6 form-group required">
-                            <strong>Revenue Model</strong> :<br> 
-                            <%
-                                if (company.getRevenueModel() == null || company.getRevenueModel().isEmpty()) {
-                                    out.println("To be populated");
-                                } else {
-                                    out.println(company.getRevenueModel());
-                                }
-                            %>
+                            <p><strong>Revenue Model</strong>:<br>  
+                            <span style="font-style:italic"><%=revenueModel%></span></p>
                         </div>	
                     </div>
 
                     <div class="row">
                         <div class="col-sm-6 form-group required">
-                            <strong>Traction</strong> :<br> 
-                            <%
-                                if (company.getTraction() == null || company.getTraction().isEmpty()) {
-                                    out.println("To be populated");
-                                } else {
-                                    out.println(company.getTraction());
-                                }
-                            %>
+                            <p><strong>Traction</strong>:<br>
+                            <span style="font-style:italic"><%=traction%></span></p>
                         </div>	
                         <div class="col-sm-6 form-group required">
-                            <strong>Deployment of Funds</strong> :<br> 
-                            <%
-                                if (company.getDeployOfFunds() == null || company.getDeployOfFunds().isEmpty()) {
-                                    out.println("To be populated");
-                                } else {
-                                    out.println(company.getDeployOfFunds());
-                                }
-                            %>
+                            <p><strong>Deployment of Funds</strong>:<br>
+                            <span style="font-style:italic"><%=deploymentOfFunds%></span></p>
                         </div>	
                     </div>
 
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <label class="control-label">Incubation Pitch Deck Slides : 
-                            </label> <br><a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />View PDF</a>
+                            <label class="control-label">Incubation Pitch Deck Slides:</label>  <a href="displayPdf.jsp?companyId=<%=company.getId()%>" target="blank" />View PDF</a>
                         </div>
                     </div>
-                        
-                    <a href="editCompanyProfile.jsp" class="btn btn-success btn-xs text-center">Edit Company Profile</a>
+
+                    <div class="col-lg-12" align="center"><a href="editCompanyProfile.jsp" class="btn-sm btn-success">Edit Company Profile</a></div>
                 </div>
             </div>
-          
+
 
         </div>
         <!--

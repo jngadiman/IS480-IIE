@@ -212,7 +212,7 @@
                             }
                         %>
                         <br/>
-                        <div class="col-lg-12" align="center"><a href="editPersonalProfile.jsp" class="btn-m btn-success">Edit Profile</a></div>
+                        <div class="col-lg-12" align="center"><a href="editPersonalProfile.jsp" class="btn btn-sm btn-success">Edit Profile</a></div>
                     </div>    
                 </div>
             </div>

@@ -188,9 +188,9 @@
                                 %>
                             <div class="row">
                                 <br/>
-                                <div class="col-sm-6">
+                                <!--<div class="col-sm-6">
                                     <a href="" class="btn btn-success center-block btn-sm" align="middle">Edit Mentor Profile</a>
-                                </div>
+                                </div>-->
                                 <div class="col-sm-6">
                                     <a href="eleteMentorServlet?email=<%=mentorEmail%>" class="btn btn-danger center-block btn-sm" align="middle">Delete Mentor Profile</a>
                                 </div><br/>
@@ -205,7 +205,7 @@
                                     if (currentUserMenteeMentorEmail != null) {
                                         if (currentUserMenteeMentorEmail.equals(mentorEmail)) {
                             %>
-                            <button class="btn btn-success center-block btn-xs" align="middle">Current Mentor</button>
+                            <button class="btn btn-primary center-block btn-xs" align="middle">Current Mentor</button>
                             <%
                                             }
                                         }
@@ -218,7 +218,7 @@
                                 }
                             %>
                             <br>
-                            <a href="viewAllMentors.jsp" class="btn btn-primary center-block btn-sm" align="middle">Back to Mentor List</a>
+                            <a href="viewAllMentors.jsp" class="btn btn-success center-block btn-sm" align="middle">Back to Mentor List</a>
                         </div>             
                     </div>
                 </div>
