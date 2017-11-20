@@ -63,8 +63,8 @@ public class editProfileServlet extends HttpServlet {
         System.out.println("editProfileServlet get contactNo: " + contact);
         String nationality = request.getParameter("nationality");
         System.out.println("editProfileServlet get nationality: " + nationality);
-        String role = request.getParameter("role");
-        System.out.println("editProfileServlet get role: " + role);
+        String position = request.getParameter("position");
+        System.out.println("editProfileServlet get position: " + position);
 
         byte[] profilePic = null;
         InputStream inputStream = null; // input stream of the upload file
@@ -113,20 +113,20 @@ public class editProfileServlet extends HttpServlet {
             System.out.println("editProfileServlet submit percentage: " + equityPercentage);
             System.out.println("editProfileServlet submit contact num: " + contact);
             System.out.println("editProfileServlet submit nationality: " + nationality);
-            System.out.println("editProfileServlet submit role: " + role);
+            System.out.println("editProfileServlet submit position: " + position);
             System.out.println("editProfileServlet submit degree: " + degree);
             System.out.println("editProfileServlet submit yearOfGrad: " + yearOfGrad);
             System.out.println("editProfileServlet submit mentorEmail: " + mentor_email);
 
-            User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
-            Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
+            User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, position, equity, number, nationality);
+            Mentee mentee = new Mentee(degree, yearOfGrad, mentor_email, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, position, equity, number, nationality);
             status = profileController.editMentee(mentee);
             session.setAttribute("user", user);
             session.setAttribute("mentee", mentee);
             request.setAttribute("updateStatus", status);
 
         } else if (user_type.contains("mentor")) {
-            String position = request.getParameter("position");
+            //String position = request.getParameter("position");
             System.out.println("editProfileServlet get position: " + position);
             String introduction = request.getParameter("introduction");
             System.out.println("editProfileServlet get introduction: " + introduction);
@@ -144,14 +144,14 @@ public class editProfileServlet extends HttpServlet {
             System.out.println("editProfileServlet submit percentage: " + equityPercentage);
             System.out.println("editProfileServlet submit contact num: " + contact);
             System.out.println("editProfileServlet submit nationality: " + nationality);
-            System.out.println("editProfileServlet submit role: " + role);
+            System.out.println("editProfileServlet submit position: " + position);
             System.out.println("editProfileServlet submit position: " + position);
             System.out.println("editProfileServlet submit introduction: " + introduction);
             System.out.println("editProfileServlet submit bank_account: " + bankAccount);
             System.out.println("editProfileServlet submit skills: " + skills);
 
-            User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
-            Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, role, equity, number, nationality);
+            User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, position, equity, number, nationality);
+            Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, position, equity, number, nationality);
             status = profileController.editMentor(m);
             session.setAttribute("user", user);
             session.setAttribute("mentor", m);

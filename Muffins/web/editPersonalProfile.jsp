@@ -55,7 +55,7 @@
             padding-bottom: 1.5em;
             cursor: pointer;
         }
-        #upload-photo {
+        #profilePhoto {
             opacity: 0;
             position: absolute;
         }
@@ -83,10 +83,15 @@
         <div class="container">
             <div class="col-sm-8 col-sm-offset-3">
                 <h2 class="page-header">Edit Personal Profile</h2>
-                <%
-                    String status = (String) request.getAttribute("updateStatus");
+                <%                String status = (String) request.getAttribute("updateStatus");
                     if (status != null && !status.isEmpty()) {
-                        out.println("<div align='center'>" + status + "</div>");
+                %>
+
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <%=status%>
+                </div>
+                <%
                     }
                 %>
                 <div class="col-lg-12 well">
@@ -143,10 +148,10 @@
                             Company company = CompanyDAO.getCompany(companyID);
                             String companyName = company.getName();
                             System.out.println("editPersonalProfile company: " + company);
-                            
+
                             // user equity percentage
                             int equityPercentage = user.getEquityPercentage();
-                            System.out.println("editPersonalProfile percentage: "+ equityPercentage);
+                            System.out.println("editPersonalProfile percentage: " + equityPercentage);
 
                             // if user is mentor, get mentor's mentees
                             if (userType.contains("mentor")) {
@@ -165,10 +170,20 @@
 
                         <%-- displaying of profile picture --%>
                         <div class="col-lg-12" align="center">
-                            <div class="profile-pic" style="background-image: url('<%=profilePic%>')" width="200px">
-                                <label for="upload-photo">Change Photo</label>
-                                <input type="file" name="profilePhoto" id="upload-photo">
+                            <div class="profile-pic" style="background-image: url('<%=profilePic%>')" width="200px" id="displayPic">
+                                <label for="profilePhoto">Change Photo</label>
+                                <input type="file" name="profilePhoto" id="profilePhoto">
                             </div>
+                            <script>
+                                document.getElementById("profilePhoto").oninput = function () {
+                                    previewPhoto()
+                                };
+                                function previewPhoto() {
+                                    var x = document.getElementById("profilePhoto").value;
+                                    var y = x.replace(/\\/g, "/");
+                                    document.getElementById("displayPic").style.backgroundImage = "url('"+y+"')";
+                                }
+                            </script>
                         </div>
                         <div class="col-lg-12" align="center">
                             <h3 id="displayName"><%=name%></h3>
@@ -199,7 +214,7 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Contact Number</label>
-                                <input name="contactNo" type="text" placeholder="Enter Contact Number.." class="form-control" value="<%=numStr%>" required>
+                                <input name="contactNo" type="text" placeholder="Enter Contact Number.." class="form-control" value="<%=numStr%>" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" required>
 
                             </div>
                             <div class="col-sm-6 form-group">
@@ -219,8 +234,10 @@
                                 System.out.println("editPersonalProfile gradYear: " + gradYear);
                                 // get mentor email
                                 String cMentorEmail = currentMentee.getMentor_email();
-                                if (cMentorEmail == null) {
-                                    cMentorEmail = "";
+                                String cMentorName = "";
+                                if (cMentorEmail != null) {
+                                    Mentor cMenteeMentor = MentorDAO.getMentorByEmail(cMentorEmail);
+                                    cMentorName = cMenteeMentor.getName();
                                 }
                         %>
                         <div class='row'>
@@ -228,7 +245,7 @@
                                 <p><strong>Company</strong>: <%= companyName%></p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Mentor</strong>: <%= cMentorEmail%></p>
+                                <p><strong>Mentor</strong>: <%= cMentorName%></p>
                             </div>
                         </div>
                         <div class="row">
@@ -238,7 +255,7 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Equity Percentage</label>
-                                <input name="equityPercentage" type="text" placeholder="Enter Equity Percentage..." class="form-control" value="<%= equityPercentage%>" required>
+                                <input name="equityPercentage" type="text" placeholder="Enter Equity Percentage..." class="form-control" value="<%= equityPercentage%>" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" required>
                             </div>
                         </div>
                         <div class="row">
@@ -281,12 +298,23 @@
                                 String mentorPosition = currentMentor.getPosition();
                                 // mentor bank account number
                                 String mentorBankAcc = currentMentor.getBankAccount();
-
                         %> 
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Bank Account</label>
                                 <input name="bank_account" type="text" placeholder="Enter Bank Account Number..." class="form-control" value="<%= mentorBankAcc%>" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group required">
+                                <label>Mentor Type</label>
+                                <select class="form-control" name="user_type" value="<%=mentorType%>" required>
+                                    <option selected value="<%=mentorType%>"><%=mentorType%></option>
+                                    <option value = "mentor_im" >Incubation Manager</option>
+                                    <option value = "mentor_vc" >Venture Capitalist</option>
+                                    <option value = "mentor_ip" >Industry Professional</option>
+                                    <option value = "mentor_entre" >Entrepreneur</option>
+                                </select> 
                             </div>
                         </div>
                         <div class="row">
@@ -296,10 +324,10 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Equity Percentage</label>
-                                <input name="equityPercentage" type="text" placeholder="Enter Equity Percentage..." class="form-control" value="<%= equityPercentage%>" required>
+                                <input name="equityPercentage" type="text" placeholder="Enter Equity Percentage..." class="form-control" value="<%= equityPercentage%>" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));"required>
                             </div>
                         </div>
-                            <div class="row">
+                        <div class="row">
                             <div class="col-sm-12 form-group">
                                 <label>Skills</label>
                                 <textarea name="skills" type="text" rows="4" placeholder="Enter your skills, your area of expertise and what you specialize in..." class="form-control" required><%= mentorSkills%></textarea>
@@ -314,7 +342,7 @@
                         <%
                             }
                         %>
-                        <button type="submit" class="btn btn-md btn-success center-block">Save</button>
+                        <button type="submit" class="btn btn-sm btn-success center-block">Save</button>
                         <!-- <div class="row">
                             <div class="col-sm-6 col-sm-offset-4">
                                 <button value="cancel" class="btn btn-default">Cancel</button> 

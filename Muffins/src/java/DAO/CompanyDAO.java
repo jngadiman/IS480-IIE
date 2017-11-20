@@ -54,13 +54,11 @@ public class CompanyDAO {
         byte[] agreementForm = null;
         Date date = new Date();
         int currentstage = 0;
-        System.out.println("companyDAO: hello1");
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement("select * from Company where company_id = ?;");
             stmt.setInt(1, companyID);
             result = stmt.executeQuery();
-            System.out.println("companyDAO: hello2");
             while (result.next()) {
                 company_id = Integer.parseInt(result.getString("company_id"));
                 company_name = result.getString("company_name");
@@ -70,8 +68,7 @@ public class CompanyDAO {
                 parttimers = result.getInt("num_parttime");
                 industry = result.getInt("industry");
                 start_date = result.getString("start_date");
-                System.out.println("companyDAO: hello3");
-                System.out.println("companyDAO: " + start_date);
+                //System.out.println("companyDAO: " + start_date);
                 SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
                 if (start_date != null) {
                     try {
@@ -80,20 +77,17 @@ public class CompanyDAO {
                         e.printStackTrace();
                     }
                 }
-                System.out.println("companyDAO: hello4");
                 if (result.getString("current_stage") != null) {
                     currentstage = Integer.parseInt(result.getString("current_stage"));
                 } else {
                     currentstage = 0;
                 }
-                System.out.println("companyDAO: hello5");
                 company_logo = result.getBlob("company_logo");
                 if (company_logo != null) {
                     companyLogo = company_logo.getBytes(1, (int) company_logo.length());
                 } else {
                     companyLogo = null;
                 }
-                System.out.println("companyDAO: hello6");
                 productDiff = result.getString("product_differentiation");
                 revenueModel = result.getString("revenue_model");
                 traction = result.getString("traction");
