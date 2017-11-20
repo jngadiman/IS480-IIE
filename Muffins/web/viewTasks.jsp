@@ -41,7 +41,6 @@
 
                     if (stage >= 1) {
                         ArrayList<Task> tasks = taskController.displayTasksByStageAndCompany(stage, user.getCompanyid());
-
                         if (tasks != null) {
                             if (tasks.isEmpty()) {
                                 out.println("<h4>No tasks found</h4>");
