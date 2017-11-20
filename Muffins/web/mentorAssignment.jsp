@@ -18,46 +18,16 @@
 <%@page import="MODELS.Mentor"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="protect.jsp" %>
+<%@include file="sidenav.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mentor Assignment</title>
-        <%@include file="sidenav.jsp" %>
     </head>
     <body>
         <div class="container">
-            <!--
-                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Small button
-                            </button>
-                            <div class="dropdown-menu">
-                                <li><a href="#">Entrepreneur</a></li>
-                                <li><a href="#">Venture Capitalist</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                            </div>
-                            <div class="col-lg-10 col-lg-offset-1 well">
-                                <div class ="row">
-                                    <div class="col-sm-6 form-group required">
-                                        <label class="control-label">State your reason for request </label>
-                                        <input class="form-control" id="reason" name="reason" type="text" placeholder="Enter Reason Here (Compulsory)" class="form-control" required>
-                                        <input type="submit" class="btn btn-xs btn-info" value="Submit">       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-10 col-lg-offset-1 well">
-                                            <div class="col-lg-12 well">
-                                                <p><strong>Mentee Company: </strong>get Mentee's Company</p>
-                                                <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
-                                                <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
-                                            </div>-->
-
-
-
-
             <div class="col-lg-10 col-lg-offset-1">
                 <h1 class="page-header">Request for Mentor</h1>
                 <%                    
@@ -84,7 +54,7 @@
                     <li><a href="mentorAssignment.jsp?mentorType=Entrepreneur">Entrepreneur</a></li>
                 </ul>
                 
-                <div class='pull-right'>
+                <div class="pull-right">
                     <form action="searchServlet" method="post">
                         Keywords : 
                         <input type="text" name="queries" placeholder="Search here"/>
@@ -94,18 +64,10 @@
             </div>
 
             <div class="col-lg-10 col-lg-offset-3 well">
-                <!--                <div class="col-lg-12 well">
-                                    <p><strong>Mentee Company: </strong>get Mentee's Company</p>
-                                    <p><strong>Mentorship Period: </strong>get mentorship period indicated</p>
-                                    <p><strong>Preferred Mentors: </strong>get the list of preferred mentors</ps>
-                                </div>-->
-                    
-
                 <%
                     ArrayList<Mentor> mentors = null;
                     if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {
                         String mentorType = request.getParameter("mentorType");
-                        
                         session.setAttribute("mentorType", mentorType);
                         mentors = mentorController.getMentorsByType(mentorType);
                         if (mentorType.equals("Entrepreneur")) {
@@ -137,18 +99,20 @@
                     for (Mentor m : mentors) {
 
                 %>
-                
                 <div class="col-lg-6 well">
 
 
-                    <%                            Company c = companyController.getCompany(m.getCompanyid());
-                        // display the image
-                        byte[] imgDataM = m.getProfile_pic();
-                        if (imgDataM != null) {
-                            String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataM));
+                    <%                            
+                        Company c = companyController.getCompany(m.getCompanyid());
                     %>
 
                     <div class="col-lg-4 ">
+                        <%
+                            // display the image
+                            byte[] imgDataM = m.getProfile_pic();
+                            if (imgDataM != null) {
+                                String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataM));
+                        %>
                         <img src="data:image/gif;base64,<%= imgDataBase64%>" width="100" height="100" alt="Profile Picture" />
                         <%
                         } else {
@@ -202,17 +166,13 @@
                 <br>
                 <p>* Not eligible: you have existing mentor or you have already previously states your preferences</p>
             </div>
-    <!--<h3 class="col-lg-8 col-lg-offset-3 page-header">System Recommendation</h3>
-    <div class="col-lg-8 col-lg-offset-3 well">
-    -->
-    <!--                            
     
     <%
         ArrayList<Mentor> recMentors = assignmentController.getRecommendedMentorsByStartupIndustry(user.getCompanyid());
     %>
     
     
-    <table class="table table-striped col-lg-9 well">
+    <!--<table class="table table-striped col-lg-9 well">
         <thead>
             <tr>
                 <th>Mentor Name</th>
