@@ -97,7 +97,7 @@
                                                 String mName = "";
                                                 if (first != null) {
                                                     String email = first.getMentor_email();
-                                                    if (email != null || !email.equals("")) {
+                                                    if (email != null && !email.equals("")) {
                                                         Mentor mentor = mentorController.getMentor(email);
                                                         if (mentor != null) {
                                                             mName = mentor.getName();
