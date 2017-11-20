@@ -55,7 +55,7 @@
                             <%
                             } else {
                             %>
-                        <div align="center"><img width="120" height="120" src="img/factory.png"  alt="Profile Picture" /></div>
+                        <div align="center"><img width="120" height="120" src="img/building.png"  alt="Profile Picture" /></div>
                             <%
                                 }
                             %>

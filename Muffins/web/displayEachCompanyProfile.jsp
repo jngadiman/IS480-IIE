@@ -109,7 +109,7 @@
                             <p><strong>Current Stage</strong>: <%= stageName %></p>
                             <br>
 
-                            <a href="viewAllCompanies.jsp" class="btn btn-success center-block btn-xs" align="middle">Return to Company List</a>
+                            <a href="viewAllCompanies.jsp" class="btn btn-success center-block btn-sm" align="middle">Return to Company List</a>
                         </div>
                     </div>
                 </div>
