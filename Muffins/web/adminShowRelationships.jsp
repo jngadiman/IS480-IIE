@@ -27,7 +27,7 @@
                         if (pendingRelationship != null && pendingRelationship.size() != 0) {
                     %>
                     <div class="col-lg-9 well col-sm-offset-2">
-                        <div class ="row">
+                        <div class ="col-lg-9 row">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

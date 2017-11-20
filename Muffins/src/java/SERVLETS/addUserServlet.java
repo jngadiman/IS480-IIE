@@ -69,6 +69,7 @@ public class addUserServlet extends HttpServlet {
             errorMessages.put("name", "Name cannot be blank!");
         }
 
+
         String email = request.getParameter("email");
         if (email == null || email.equals("")) {
             errorMessages.put("email", "Email cannot be blank!");
@@ -78,7 +79,6 @@ public class addUserServlet extends HttpServlet {
         } else if (!founders.contains(email)) {
             errorMessages.put("email", "Email is not applicable for " + company.getName() + "!");
         }
-
         String accessCode = request.getParameter("access_code");
 
         if (accessCode == null || accessCode.equals("")) {

@@ -50,6 +50,7 @@ public class adminPendingRequestServlet extends HttpServlet {
         String status = "";
         
         //get mentee details frm the relationship using the company
+            //get values from pop up for the start and end date of the 
         //request is approved
         if(request.getParameter("approve") != null){
             
