@@ -478,7 +478,7 @@ public class MeetingMinutesDAO {
         PreparedStatement stmt = null;
         ResultSet result = null;
         int minutes_id = 0;
-        int next = 0;
+        int next = 1;
         
         try{
             conn = ConnectionManager.getConnection();

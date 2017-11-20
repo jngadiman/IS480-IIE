@@ -46,9 +46,11 @@ public class addMeetingMinutesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         String meeting = request.getParameter("meeting_id");
+        System.out.println("meeting_id  "+meeting);
         String title = request.getParameter("title");
         String[] tasksCompleted = request.getParameterValues("tasks_completed");
-        String comments = request.getParameter("comments");
+        String comments = request.getParameter("notes");
+        System.out.println("COMMENTS ----- "+comments);
         String mentorRating = request.getParameter("mentor_rating");
         System.out.println("MENTOR RATING : "+mentorRating);
 
@@ -88,7 +90,7 @@ public class addMeetingMinutesServlet extends HttpServlet {
             
             ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();
             
-            int minutesID = minutesController.getNextId();
+            int minutesID = meetingID;
             Meeting meet = meetingController.getMeetingByMeetingID(meetingID);
             if (tasksCompleted != null && tasksCompleted.length != 0) {
                 

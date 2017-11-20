@@ -69,6 +69,7 @@ public class registerCompanyServlet extends HttpServlet {
         byte[] companyLogo = null;
         InputStream inputStream = null; // input stream of the upload file
         Part filePart = request.getPart("company_logo");
+        
         if (filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
             // prints out some information for debugging
             System.out.println("PICTURE INFORMATION NAME   "+filePart.getName());

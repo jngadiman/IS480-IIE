@@ -101,7 +101,7 @@
                         }
                     %>
                     <div class="col-lg-8">
-                        <button href='#' class='btn btn-default btn-md'><%=mentor.getName()%></button>
+                        <button  class='btn btn-default btn-md'><%=mentor.getName()%></button>
                         <p>List of Mentoring Companies:</p>
                         <%
 
