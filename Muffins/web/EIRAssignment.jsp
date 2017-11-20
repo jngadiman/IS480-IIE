@@ -76,7 +76,7 @@
                 <div class="row">
 <div class="col-sm-12 form-group required">
     <label>Select Mentor Assigned to This Company</label>
-                    <form action="adminAssignmentServlet" method="post">
+                    <form action="adminPendingRequestServlet" method="post">
                         <input type ="hidden" name ="company_id" value ="<%=c.getId()%>">
                        
                             <select  id="mentor" name="mentor_email" required>

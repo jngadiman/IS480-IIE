@@ -90,6 +90,7 @@
                     String minutesTitle = first.getTitle();
                     String comments = first.getComments();
                     int rating = first.getMentorRating();
+                    String ratingComments = first.getMentorRatingComment();
 
                     Meeting currentMeeting = meetingController.getMeetingByMeetingID(meeting_id);
                     int menteeCompany = currentMeeting.getMenteeCompany();
@@ -243,7 +244,10 @@
 
                             </div>
 
-
+                                <div class="col-sm-10 form-group">
+                                        <label class="control-label">Comments for your Mentor</label>
+                                        <textarea class="form-control" rows="3" id="rating_comments" name="rating_comments" placeholder=""><%=ratingComments%></textarea>
+                                    </div>
                         </div>
 
                         <button type="submit" value="Submit" class="btn btn-xs btn-default" >Submit</button>

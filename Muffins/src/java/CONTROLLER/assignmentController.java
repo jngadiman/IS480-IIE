@@ -59,7 +59,7 @@ public class assignmentController {
     public static ArrayList<Company> getCompaniesWNoMentorNPref(){
         ArrayList<Company> companies = new ArrayList<Company>();
         
-        ArrayList<Integer> allCompanyIDs = CompanyDAO.getAllCompanyIDs();
+        ArrayList<Integer> allCompanyIDs = CompanyDAO.getConfirmedCompanyIDs();
         ArrayList<Integer> companyIDsWPref = PreferenceDAO.getAllCompanyIDsWPreference();
         ArrayList<Integer> companyIDsWMentor = RelationshipDAO.getCompanyIDsWithMentor();
         

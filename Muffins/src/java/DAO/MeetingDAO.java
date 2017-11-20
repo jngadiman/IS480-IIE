@@ -381,7 +381,7 @@ public class MeetingDAO {
         PreparedStatement stmt = null;
         ResultSet result = null;
         int meeting_id = 0;
-        int next = 0;
+        int next = 1;
         
         try{
             conn = ConnectionManager.getConnection();

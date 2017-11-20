@@ -224,6 +224,7 @@
                                     <label class="control-label">Comment(s)</label>
                                     <textarea class="form-control" rows="3" id="comment" name="notes" placeholder="Enter Comment"></textarea>
                                 </div>
+                                        
                                 <div class="col-sm-10">
                                     <label class="control-label">Mentor Rating</label><br>
                                     <div class="stars">
@@ -240,6 +241,12 @@
                                             <label class="star star-1" for="star-1"></label>
                                         </div>
                                     </div>
+                                    
+                                    <div class="col-sm-10 form-group">
+                                        <label class="control-label">Comments for your Mentor</label>
+                                        <textarea class="form-control" rows="3" id="rating_comments" name="rating_comments" placeholder="How do you feel about the mentoring session?"></textarea>
+                                    </div>
+                                    
                                 </div>
 
                             </div>
