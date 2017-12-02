@@ -28,7 +28,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="col-lg-10 col-lg-offset-1">
+            <div class="col-lg-10 col-lg-offset-2">
                 <h1 class="page-header">Request for Mentor</h1>
                 <%                    
                     if (session.getAttribute("addPreferenceStatus") != null) {
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-10 col-lg-offset-1 well">
+            <div class="col-lg-10 col-lg-offset-2 well">
                 <%
                     ArrayList<Mentor> mentors = null;
                     if (request.getParameter("mentorType") != null && !request.getParameter("mentorType").isEmpty()) {

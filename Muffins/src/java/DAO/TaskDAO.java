@@ -583,12 +583,47 @@ public class TaskDAO {
         
         int programstage = 0;
         
-        
-        
         try {
             conn = ConnectionManager.getConnection();
             stmt = conn.prepareStatement("select * from predefined_task order by task_id;"); 
 
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                taskid = Integer.parseInt(result.getString("task_id"));
+                taskname = result.getString("task_name");
+                programstage = Integer.parseInt(result.getString("program_stage"));
+                
+                Task task = new Task(taskid, taskname, null, programstage, company_id, false);
+                tasks.add(task);
+            }
+            
+            //print += "TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted;
+            //System.out.println("TASK TABLE"+ taskid + ", " +taskname + ", "+ taskdesc + ", "+ deadline + ", " + programstage + ", "+ iscompleted);
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionManager.close(conn, stmt, result);
+        }
+        return tasks;
+    }
+    public static ArrayList<Task> getAllPredefinedTasksByStage(int company_id, int stageNo) {
+
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int taskid = 0;
+        String taskname = "";
+        
+        int programstage = 0;
+        
+        
+        
+        try {
+            conn = ConnectionManager.getConnection();
+            stmt = conn.prepareStatement("select * from predefined_task WHERE program_stage = ? order by task_id;"); 
+            stmt.setInt(1, stageNo);
             result = stmt.executeQuery();
 
             while (result.next()) {

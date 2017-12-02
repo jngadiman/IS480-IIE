@@ -30,7 +30,7 @@
     </script>
     <body>
         <div class="container">
-                <div class="col-lg-10 col-sm-offset-1">
+                <div class="col-lg-8 col-sm-offset-2">
                 <h1 class="page-header">View All Companies</h1>
                 <div class ='row'>
                     <%  int i = 0;
@@ -45,7 +45,7 @@
                     %>
                     
                     <div class="col-lg-1"></div>
-                    <div class="col-lg-3 well">
+                    <div class="col-lg-3 well" ailgn="center">
                         <%  // display the image
                             byte[] imgDataComp = c.getCompanyLogo();
                             if (imgDataComp != null) {

@@ -92,7 +92,7 @@ public class confirmCompanyServlet extends HttpServlet {
             companyController.changeCompanyStage(1, companyID);
             
             //add the predefined tasks here
-            ArrayList<Task> predefined_task = taskController.getAllPredefinedTask(companyID);
+            ArrayList<Task> predefined_task = taskController.getAllPredefinedTasks(companyID);
             if (predefined_task!=null){
                 for(Task t : predefined_task){
                     taskController.addTaskToCompany(t);

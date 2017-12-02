@@ -89,7 +89,7 @@
                     </div>
                     <div class="row placeholders">
                         <div class="col-xs-4 col-sm-4 placeholder">
-                            <%session.setAttribute("mentor_email", mentorEmail);%>
+                            <%session.setAttribute("mentorEmail", mentorEmail);%>
                             <a href="displayMentorProfile.jsp">
                                 <img src="img/manager.png" width="100"/>
                             </a>
@@ -97,7 +97,7 @@
                             <h4>Assigned Mentor</h4>
                             <span class="text-muted"><%=mentorName%></span>
                             <%
-                                String currentUserMentorResult = (String) request.getAttribute("currentUserMentorResult");
+                                String currentUserMentorResult = (String) session.getAttribute("currentUserMentorResult");
                                 if (currentUserMentorResult != null) {
                             %>
                             <span class="text-muted"><%=currentUserMentorResult%></span>

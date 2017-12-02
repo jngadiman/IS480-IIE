@@ -83,7 +83,8 @@
         <div class="container">
             <div class="col-sm-8 col-sm-offset-3">
                 <h2 class="page-header">Edit Personal Profile</h2>
-                <%                String status = (String) request.getAttribute("updateStatus");
+                <%                String status = (String) session.getAttribute("updateProfileStatus");
+                    System.out.println("editPersonalProfile status: "+ status);
                     if (status != null && !status.isEmpty()) {
                 %>
 

@@ -51,13 +51,14 @@
         <title>Company Profile</title>
         <%@include file="sidenav.jsp" %>
     </head>
-    <%            user = (User) session.getAttribute("user");
+    <%
+        user = (User) session.getAttribute("user");
         int companyID = user.getCompanyid();
         Company company = CompanyDAO.getCompany(companyID);
     %>
     <body>
         <div class="container">
-            <div class="col-lg-10 col-sm-offset-1">
+            <div class="col-lg-8 col-sm-offset-2">
                 <h1 class="page-header">View Company Profile</h1>
                 <div class="col-lg-12 well">
                     <div class="row">

@@ -46,6 +46,8 @@ public class editCompanyServlet extends HttpServlet {
         String name = request.getParameter("companyName");
         String description = request.getParameter("description");
         String shareholders = request.getParameter("shareholders");
+        String testing = request.getParameter("testing[]");
+        System.out.println("HELLO testing editCompanyServlet: " + testing);
         int numFullTime = Integer.parseInt(request.getParameter("num_fulltime"));
         int numPartTime = Integer.parseInt(request.getParameter("num_parttime"));
         int industry = Integer.parseInt(request.getParameter("industry"));

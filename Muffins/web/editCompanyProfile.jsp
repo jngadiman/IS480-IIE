@@ -93,7 +93,7 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-lg-10 col-sm-offset-1">
+                <div class="col-lg-8 col-sm-offset-2">
                     <h1 class="page-header">Edit Company Profile</h1>
                     <%                String status = (String) request.getAttribute("updateStatus");
                         if (status != null && !status.isEmpty()) {
@@ -152,12 +152,12 @@
                     %>
 
                     <form action="editCompanyServlet" method="post" enctype="multipart/form-data">
-                        <div class="col-sm-12 well">
+                        <div class="col-lg-12 well">
                             <div class="row">
 
                                 <input type="hidden" name="companyID" value="<%= company.getId()%>">
                                 <br/>
-                                <div class="col-sm-12 form-group required">
+                                <div class="col-lg12 form-group required">
                                     <div class="col-lg-12" align="center">
                                         <div class="company-logo" style="background-image: url('<%=companyLogoImg%>')" width="200px" id="displayLogo">
                                             <label for="companyLogo">Change Photo</label>
@@ -234,16 +234,19 @@
                                     <div class="row">
 
                                         <div class="col-sm-12 form-group required">
+
                                             <label class="control-label">Stakeholders E-mails</label>
                                             <%
                                                 String[] stakeholders;
                                                 stakeholders = company.getStakeholders();
+                                                System.out.println("editCompanyProfile: " + stakeholders);
 
                                                 if (stakeholders != null && stakeholders.length != 0) {
 
                                                     String stakeholderFull = stakeholders[0];
                                                     for (int i = 1; i < stakeholders.length; i++) {
                                                         stakeholderFull = stakeholderFull + ',' + stakeholders[i];
+                                                        System.out.println("editCompanyProfile: " + stakeholders[i]);
                                                     }
                                             %>
                                             <input id="shareholders" name="shareholders" type="text" placeholder="Enter emails separated by , (comma)" class="form-control" value="<%=stakeholderFull%>" required multiple>
@@ -256,7 +259,6 @@
                                             <%
                                                 }
                                             %>
-
                                         </div>
                                     </div>
 

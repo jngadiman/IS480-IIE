@@ -67,7 +67,7 @@
     </script>
     <body>
         <div class="container">
-            <div class="col-lg-8 col-lg-offset-3">
+            <div class="col-lg-8 col-lg-offset-2">
                 <h1 class="page-header">View All Mentors</h1>
                 <div class="row">
                     <%                        int i = 0;

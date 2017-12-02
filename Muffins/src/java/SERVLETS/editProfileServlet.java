@@ -123,7 +123,7 @@ public class editProfileServlet extends HttpServlet {
             status = profileController.editMentee(mentee);
             session.setAttribute("user", user);
             session.setAttribute("mentee", mentee);
-            request.setAttribute("updateStatus", status);
+            session.setAttribute("updateProfileStatus", status);
 
         } else if (user_type.contains("mentor")) {
             //String position = request.getParameter("position");
@@ -153,13 +153,14 @@ public class editProfileServlet extends HttpServlet {
             User user = new User(email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, position, equity, number, nationality);
             Mentor m = new Mentor(position, introduction, bankAccount, skills, email, password, name, nric, displayUser.getJoinedDate(), profilePic, user_type, companyID, position, equity, number, nationality);
             status = profileController.editMentor(m);
+            System.out.println("editProfileServlet status: "+status);
             session.setAttribute("user", user);
             session.setAttribute("mentor", m);
-            request.setAttribute("updateStatus", status);
+            session.setAttribute("updateProfileStatus", status);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("editPersonalProfile.jsp");
-        rd.forward(request, response);
+        
+        response.sendRedirect("editPersonalProfile.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
