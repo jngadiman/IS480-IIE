@@ -615,9 +615,9 @@ public class UserDAO {
             }
             stmt.setDate(3, sqlDate);
 
-            if (u.getProfile_pic() != null) {
-                Blob blob = new SerialBlob(u.getProfile_pic());
-                System.out.println("profile pic: " + u.getProfile_pic());
+            if (u.getProfilePic() != null) {
+                Blob blob = new SerialBlob(u.getProfilePic());
+                System.out.println("profile pic: " + u.getProfilePic());
                 stmt.setBlob(4, blob);
             } else {
                 System.out.println("NO Profile Pic");
@@ -633,9 +633,9 @@ public class UserDAO {
             stmt.setString(9, u.getNationality());
             stmt.setString(10, u.getEmail());
              */
-            stmt.setString(5, u.getUser_type());
+            stmt.setString(5, u.getUserType());
             stmt.setInt(6, u.getCompanyid());
-            stmt.setString(7, u.getRole());
+            stmt.setString(7, u.getPosition());
             stmt.setInt(8, u.getEquityPercentage());
             stmt.setInt(9, u.getContactNumber());
             stmt.setString(10, u.getNationality());
@@ -645,9 +645,9 @@ public class UserDAO {
             System.out.println("from UserDAO editUser name: " + u.getName());
             System.out.println("from UserDAO editUser nric: " + u.getNric());
             System.out.println("from UserDAO editUser joinDate: " + sqlDate);
-            System.out.println("from UserDAO editUser userType: " + u.getUser_type());
+            System.out.println("from UserDAO editUser userType: " + u.getUserType());
             System.out.println("from UserDAO editUser companyID: " + u.getCompanyid());
-            System.out.println("from UserDAO editUser role: " + u.getRole());
+            System.out.println("from UserDAO editUser role: " + u.getPosition());
             System.out.println("from UserDAO editUser eqPer: " + u.getEquityPercentage());
             System.out.println("from UserDAO editUser contactNo: " + u.getContactNumber());
             System.out.println("from UserDAO editUser nationality: " + u.getNationality());
@@ -689,8 +689,8 @@ public class UserDAO {
         String name = user.getName();
         String nric = user.getNric();
         Date joinedDate = user.getJoinedDate();
-        String user_type = user.getUser_type();
-        byte[] profilePic = user.getProfile_pic();
+        String user_type = user.getUserType();
+        byte[] profilePic = user.getProfilePic();
 
         int company_id = user.getCompanyid();
         Blob blob = null;
@@ -733,13 +733,13 @@ public class UserDAO {
             }
 
             //set user_type
-            stmt.setString(7, user.getUser_type());
+            stmt.setString(7, user.getUserType());
 
             //set company id
             stmt.setInt(8, user.getCompanyid());
 
             //set position
-            stmt.setString(9, user.getRole());
+            stmt.setString(9, user.getPosition());
 
             //set equity
             stmt.setInt(10, user.getEquityPercentage());
@@ -976,10 +976,10 @@ public class UserDAO {
             System.out.println(m.getName());
             System.out.println(m.getNric());
             System.out.println(m.getJoinedDate());
-            System.out.println(m.getProfile_pic());
-            System.out.println(m.getUser_type());
+            System.out.println(m.getProfilePic());
+            System.out.println(m.getUserType());
             System.out.println(m.getCompanyid());
-            System.out.println(m.getRole());
+            System.out.println(m.getPosition());
             System.out.println(m.getEquityPercentage());
             System.out.println(m.getContactNumber());
             System.out.println(m.getNationality());

@@ -21,37 +21,37 @@ import javax.sql.rowset.serial.SerialBlob;
  * @author Hui Min
  */
 public class ContractDAO {
-    public static Contract getContract(int rlsID){
+    public static Contract getContract(int relationshipID){
         Contract c = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
-        int rls_id = 0;
-        String rlsidStr = "";
-        Blob contract_file = null;
+        int rlsID = 0;
+        String rlsIDStr = "";
+        Blob rlsContractFile = null;
         byte[] contractFile = null;
 
         try {
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from Contract where rlsID = ?;");
-            stmt.setInt(1, rlsID);
+            stmt = conn.prepareStatement("select * from contract where rlsID = ?;");
+            stmt.setInt(1, relationshipID);
             result = stmt.executeQuery();
             
             while (result.next()) {
-                rlsidStr = result.getString("rlsID");
-                if(rlsidStr != null && !rlsidStr.isEmpty()){
-                    rls_id = Integer.parseInt(rlsidStr);
+                rlsIDStr = result.getString("rlsID");
+                if(rlsIDStr != null && !rlsIDStr.isEmpty()){
+                    rlsID = Integer.parseInt(rlsIDStr);
                 }else{
-                    rls_id = 0;
+                    rlsID = 0;
                 }
-                contract_file = result.getBlob("contractFile");
-                if(contract_file != null){
-                    contractFile = contract_file.getBytes(1, (int) contract_file.length());
+                rlsContractFile = result.getBlob("contractFile");
+                if(rlsContractFile != null){
+                    contractFile = rlsContractFile.getBytes(1, (int) rlsContractFile.length());
                 }else{
                     contractFile = null;
                 }
                 
-                c = new Contract(rlsID, contractFile);
+                c = new Contract(relationshipID, contractFile);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);

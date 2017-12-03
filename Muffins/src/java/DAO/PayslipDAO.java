@@ -45,10 +45,10 @@ public class PayslipDAO {
             
             stmt = conn.prepareStatement("INSERT INTO payment_voucher VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, payslip.getVoucherNumber());
-            stmt.setString(2, payslip.getMentor_email());
-            stmt.setInt(3, payslip.getMentee_company());
-            stmt.setString(4, df.format(payslip.getStart_period()));
-            stmt.setString(5, df.format(payslip.getEnd_period()));
+            stmt.setString(2, payslip.getMentorEmail());
+            stmt.setInt(3, payslip.getMenteeCompany());
+            stmt.setString(4, df.format(payslip.getStartPeriod()));
+            stmt.setString(5, df.format(payslip.getEndPeriod()));
             stmt.setString(6, payslip.getTypeOfPayment());
             stmt.setString(7, payslip.getMethodToDeliverCheque());
             stmt.setDouble(8, payslip.getAmount());

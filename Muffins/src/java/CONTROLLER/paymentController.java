@@ -78,11 +78,11 @@ public class paymentController {
             }
         }
         //get the number of meeting minutes count within the period
-        int count = paymentController.getCountMeetingMinutesByMentorNCompany(current.getStart_date(), current.getEnd_date(), company_id, mentor_email);
+        int count = paymentController.getCountMeetingMinutesByMentorNCompany(current.getStartDate(), current.getEndDate(), company_id, mentor_email);
         //get where voucher number = 0 which stores the base amount
         double base_amount = PayslipDAO.getPayslip(0).getAmount();
         double amount = count*base_amount;
-        Payslip payslip = new Payslip(voucher_no,mentor_email,company_id, current.getStart_date(), current.getEnd_date(), amount, "");
+        Payslip payslip = new Payslip(voucher_no,mentor_email,company_id, current.getStartDate(), current.getEndDate(), amount, "");
         //add the payslip into the db
         PayslipDAO.addPayslip(payslip);
         relationshipController.changeRelationshipStatus(current.getRelationshipID(), "over");
@@ -95,7 +95,7 @@ public class paymentController {
         ArrayList<String> returnMsg = new ArrayList<String>();
         String result = "";
         int voucher_no = payslip.getVoucherNumber();
-        String mentor_email = payslip.getMentor_email();
+        String mentor_email = payslip.getMentorEmail();
         Mentor mentor = mentorController.getMentor(mentor_email);
         String mentor_name = "";
         String bank_acc_str = "";
@@ -121,7 +121,7 @@ public class paymentController {
             bank_address = bank_details[5];
         }
         
-        int mentee_company = payslip.getMentee_company();
+        int mentee_company = payslip.getMenteeCompany();
         Company mentee = companyController.getCompany(mentee_company);
         String company_name = "";
         if(mentee!=null){
@@ -129,8 +129,8 @@ public class paymentController {
         }
         
         SimpleDateFormat df = new  SimpleDateFormat("yyyy-MM-dd");
-        Date start_period = payslip.getStart_period();
-        Date end_period = payslip.getEnd_period();
+        Date start_period = payslip.getStartPeriod();
+        Date end_period = payslip.getEndPeriod();
         
         String start ="";
         String end ="";

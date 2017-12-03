@@ -56,8 +56,8 @@ public class MentorDAO {
                     skills = result.getString("skills");
                     bankAccount = result.getString("bank_account");
                 }
-                System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                System.out.println(u.getName() + ": " + u.getProfilePic());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -98,8 +98,8 @@ public class MentorDAO {
                     bankAccount = result.getString("bank_account");
                     skills = result.getString("skills");
                 }
-                System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                System.out.println(u.getName() + ": " + u.getProfilePic());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -140,8 +140,8 @@ public class MentorDAO {
                     bankAccount = result.getString("bank_account");
                     skills = result.getString("skills");
                 }
-                System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                System.out.println(u.getName() + ": " + u.getProfilePic());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -181,7 +181,7 @@ public class MentorDAO {
                 skills = result.getString("skills");
             }
             
-            m = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            m = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
         } catch (SQLException ex) {
             Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -193,7 +193,7 @@ public class MentorDAO {
     public static int editMentorDetails(Mentor m){
         int result = 0;
         
-        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
+        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfilePic(), m.getUserType(), m.getCompanyid(), m.getPosition(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
         int userResult = UserDAO.editUser(u);
         System.out.println("from MentorDAO editMentorDetails: " + userResult);
         
@@ -354,8 +354,8 @@ public class MentorDAO {
                     skills = result.getString("skills");
                     bankAccount = result.getString("bank_account");
                 }
-                System.out.println(u.getName() + ": " + u.getProfile_pic());
-                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                System.out.println(u.getName() + ": " + u.getProfilePic());
+                mentor = new Mentor(position, introduction, bankAccount, skills, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MentorDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -371,7 +371,7 @@ public class MentorDAO {
     public static String addMentor(Mentor m){
         int result = 0;
         String status = "";
-        User user = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
+        User user = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfilePic(), m.getUserType(), m.getCompanyid(), m.getPosition(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
         result = UserDAO.addUser(user);
         int result1 = 0;
         String email = m.getEmail();

@@ -31,13 +31,13 @@ public class MeetingMinutesDAO {
         ResultSet result = null;
         int status = 0;
         
-        int taskID = minutes.getTask_id();
+        int taskID = minutes.getTaskID();
         int minutesID = minutes.getMinutesID();
         String title = minutes.getTitle();
         int meetingID = minutes.getMinutesID();
-        String mentor = minutes.getMentor_email();
+        String mentor = minutes.getMentorEmail();
         String comment = minutes.getComments();
-        String submitted_user = minutes.getSubmitted_user();
+        String submitted_user = minutes.getSubmittedUser();
         int rating = minutes.getMentorRating();
         String ratingComments = minutes.getMentorRatingComment();
         
@@ -401,7 +401,7 @@ public class MeetingMinutesDAO {
             
             for(int i = 0; i < minutesByTask.size(); i++){
                 MeetingMinutes mm = minutesByTask.get(i);
-                String email = mm.getSubmitted_user();
+                String email = mm.getSubmittedUser();
                 User user = UserDAO.getUserByEmail(email);
                 int companyID = user.getCompanyid();
                 if(companyID != company_id){

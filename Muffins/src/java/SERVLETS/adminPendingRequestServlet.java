@@ -97,7 +97,7 @@ public class adminPendingRequestServlet extends HttpServlet {
                 status = preferenceController.addPreference(pref);
             }
             System.out.println("need: " + pref.getNeed());
-            System.out.println(pref.getCompany_id());
+            System.out.println(pref.getCompanyID());
             
             System.out.println("status: " + status);
             if(!status.equals("")){

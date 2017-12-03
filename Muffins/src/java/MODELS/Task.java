@@ -12,22 +12,22 @@ import java.util.Date;
  * @author Hui Min
  */
 public class Task {
-    private int taskid;
+    private int taskID;
     private String name;
     private Date deadline;
     private int stage;
     private int companyID;
     private boolean isCompleted;
     
-    public Task(int taskid, String name, Date deadline, boolean isCompleted) {
-        this.taskid = taskid;
+    public Task(int taskID, String name, Date deadline, boolean isCompleted) {
+        this.taskID = taskID;
         this.name = name;
         this.deadline = deadline;
         this.isCompleted = isCompleted;
     }
     
-    public Task(int taskid, String name, Date deadline, int stage, int companyID, boolean isCompleted) {
-        this.taskid = taskid;
+    public Task(int taskID, String name, Date deadline, int stage, int companyID, boolean isCompleted) {
+        this.taskID = taskID;
         this.name = name;
         this.deadline = deadline;
         this.stage = stage;
@@ -36,11 +36,11 @@ public class Task {
     }
     
     public int getTaskId() {
-        return taskid;
+        return taskID;
     }
 
-    public void setTaskid(int taskid) {
-        this.taskid = taskid;
+    public void setTaskId(int taskid) {
+        this.taskID = taskid;
     }
     
     public String getName() {
@@ -50,7 +50,6 @@ public class Task {
     public void setName(String name) {
         this.name = name;
     }
-
     
 
     public Date getDeadline() {

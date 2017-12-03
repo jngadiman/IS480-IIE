@@ -13,17 +13,15 @@ import java.util.*;
  */
 public class Mentee extends User{
     private String degree;
-    private int year_of_grad;
-    private String mentor_email;
+    private int yearOfGrad;
+    private String mentorEmail;
 
-    public Mentee(String degree, int year_of_grad, String mentor_email, String email, String password, String name, String nric, Date joinedDate, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality) {
-        super(email, password, name, nric, joinedDate, profile_pic, user_type, companyid, role, equityPercentage, contactNumber, nationality);
+    public Mentee(String degree, int yearOfGrad, String mentorEmail, String email, String password, String name, String nric, Date joinedDate, byte[] profilePic, String userType, int companyid, String role, int equityPercentage, int contactNumber, String nationality) {
+        super(email, password, name, nric, joinedDate, profilePic, userType, companyid, role, equityPercentage, contactNumber, nationality);
         this.degree = degree;
-        this.year_of_grad = year_of_grad;
-        this.mentor_email = mentor_email;
+        this.yearOfGrad = yearOfGrad;
+        this.mentorEmail = mentorEmail;
     }
-
-    
     
     public String getDegree() {
         return degree;
@@ -33,19 +31,19 @@ public class Mentee extends User{
         this.degree = degree;
     }
 
-    public int getYear_of_grad() {
-        return year_of_grad;
+    public int getYearOfGrad() {
+        return yearOfGrad;
     }
 
-    public void setYear_of_grad(int year_of_grad) {
-        this.year_of_grad = year_of_grad;
+    public void setYearOfGrad(int yearOfGrad) {
+        this.yearOfGrad = yearOfGrad;
     }
     
-    public String getMentor_email() {
-        return mentor_email;
+    public String getMentorEmail() {
+        return mentorEmail;
     }
 
-    public void setMentor_email(String mentor_email) {
-        this.mentor_email = mentor_email;
+    public void setMentorEmail(String mentorEmail) {
+        this.mentorEmail = mentorEmail;
     }
 }

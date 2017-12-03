@@ -18,26 +18,26 @@ public class User {
     private String name;
     private String nric;
     private Date joinedDate;
-    private byte[] profile_pic;
-    private String user_type;
+    private byte[] profilePic;
+    private String userType;
     private int companyid;
-    private String role;
+    private String position;
     private int equityPercentage;
     private int contactNumber;
     private String nationality;
     
     //constructor for add new user
 
-    public User(String email, String password, String name, String nric, Date joinedDate, byte[] profile_pic, String user_type, int companyid, String role, int equityPercentage, int contactNumber, String nationality) {
+    public User(String email, String password, String name, String nric, Date joinedDate, byte[] profilePic, String userType, int companyid, String position, int equityPercentage, int contactNumber, String nationality) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.nric = nric;
         this.joinedDate = joinedDate;
-        this.profile_pic = profile_pic;
-        this.user_type = user_type;
+        this.profilePic = profilePic;
+        this.userType = userType;
         this.companyid = companyid;
-        this.role = role;
+        this.position = position;
         this.equityPercentage = equityPercentage;
         this.contactNumber = contactNumber;
         this.nationality = nationality;
@@ -49,9 +49,9 @@ public class User {
         this.companyid = companyid;
         this.nric = "";
         this.joinedDate = null;
-        this.profile_pic = null;
-        this.user_type = "regular_mentee";
-        this.role = "";
+        this.profilePic = null;
+        this.userType = "regular_mentee";
+        this.position = "";
         this.equityPercentage = 0;
         this.contactNumber = 0;
         this.nationality = "";
@@ -78,16 +78,16 @@ public class User {
         return joinedDate;
     }
     
-    public String getUser_type() {
-        return user_type;
+    public String getUserType() {
+        return userType;
     }
     
     public int getCompanyid() {
         return companyid;
     }
 
-    public byte[] getProfile_pic() {
-        return profile_pic;
+    public byte[] getProfilePic() {
+        return profilePic;
     }
     
     public void setEmail(String email){
@@ -110,24 +110,24 @@ public class User {
         this.joinedDate = joinedDate;
     }
     
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
     
     public void setCompanyid(int companyid) {
         this.companyid = companyid;
     }
     
-    public void setProfile_pic(byte[] profile_pic) {
-        this.profile_pic = profile_pic;
+    public void setProfilePic(byte[] profilePic) {
+        this.profilePic = profilePic;
     }
 
-    public String getRole() {
-        return role;
+    public String getPosition() {
+        return position;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public int getEquityPercentage() {

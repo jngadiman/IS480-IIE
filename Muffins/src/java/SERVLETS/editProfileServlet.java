@@ -79,7 +79,7 @@ public class editProfileServlet extends HttpServlet {
             inputStream = filePart.getInputStream();
             profilePic = IOUtils.toByteArray(inputStream);
         } else {
-            profilePic = displayUser.getProfile_pic();
+            profilePic = displayUser.getProfilePic();
         }
         System.out.println("editProfileServlet get profilePic " + profilePic);
 
@@ -95,7 +95,7 @@ public class editProfileServlet extends HttpServlet {
 //        User user = new User(email, password, name, nric, profilePic, user_type, companyID, role, equity, number, nationality);
 //        profileController.editUserDetails(user);
 
-        if (displayUser.getUser_type().contains("mentee")) {
+        if (displayUser.getUserType().contains("mentee")) {
             System.out.println("EDIT PROFILE SEERVLET CHECK------- IS MENTEE ");
             String degree = request.getParameter("degree");
             System.out.println("editProfileServlet get degree: " + degree);

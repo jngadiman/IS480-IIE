@@ -13,26 +13,26 @@ import java.util.Date;
  */
 public class Payslip {
     private int voucherNumber;
-    private String mentor_email; //payee name (mentor name)
-    private int mentee_company; 
-    private Date start_period; 
-    private Date end_period; //Business Mentorship Payment – (name of mentee company) for period dd mm yyyy to dd mm yyyy 
+    private String mentorEmail; //payee name (mentor name)
+    private int menteeCompany; 
+    private Date startPeriod; 
+    private Date endPeriod; //Business Mentorship Payment – (name of mentee company) for period dd mm yyyy to dd mm yyyy 
     private String typeOfPayment; 
     private String methodToDeliverCheque; 
     
     private double amount; //amount in payment/payslip
-    private String costCentre; //C249 no need?
-    private String gstTotalAmtPayable; //NA no need?
-    private String internalOrder; //ZIE1MOECA1 no need?
+    private String costCentre; // C249 no need?
+    private String gstTotalAmtPayable; // NA no need?
+    private String internalOrder; // ZIE1MOECA1 no need?
     private String path; // the voucher path
     //private double baseAmount; //store base amount where voucher no = 0
 
-    public Payslip(int voucherNumber, String mentor_email, int mentee_company, Date start_period, Date end_period, double amount, String path) {
+    public Payslip(int voucherNumber, String mentorEmail, int menteeCompany, Date startPeriod, Date endPeriod, double amount, String path) {
         this.voucherNumber = voucherNumber;
-        this.mentor_email = mentor_email;
-        this.mentee_company = mentee_company;
-        this.start_period = start_period;
-        this.end_period = end_period;
+        this.mentorEmail = mentorEmail;
+        this.menteeCompany = menteeCompany;
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
         this.amount = amount;
         this.path = path;
         this.typeOfPayment = "giro";
@@ -51,36 +51,36 @@ public class Payslip {
         this.voucherNumber = voucherNumber;
     }
 
-    public String getMentor_email() {
-        return mentor_email;
+    public String getMentorEmail() {
+        return mentorEmail;
     }
 
-    public void setMentor_email(String mentor_email) {
-        this.mentor_email = mentor_email;
+    public void setMentorEmail(String mentorEmail) {
+        this.mentorEmail = mentorEmail;
     }
 
-    public int getMentee_company() {
-        return mentee_company;
+    public int getMenteeCompany() {
+        return menteeCompany;
     }
 
-    public void setMentee_company(int mentee_company) {
-        this.mentee_company = mentee_company;
+    public void setMenteeCompany(int menteeCompany) {
+        this.menteeCompany = menteeCompany;
     }
 
-    public Date getStart_period() {
-        return start_period;
+    public Date getStartPeriod() {
+        return startPeriod;
     }
 
-    public void setStart_period(Date start_period) {
-        this.start_period = start_period;
+    public void setStartPeriod(Date startPeriod) {
+        this.startPeriod = startPeriod;
     }
 
-    public Date getEnd_period() {
-        return end_period;
+    public Date getEndPeriod() {
+        return endPeriod;
     }
 
-    public void setEnd_period(Date end_period) {
-        this.end_period = end_period;
+    public void setEndPeriod(Date endPeriod) {
+        this.endPeriod = endPeriod;
     }
 
     public String getTypeOfPayment() {

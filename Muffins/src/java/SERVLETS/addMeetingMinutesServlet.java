@@ -80,13 +80,13 @@ public class addMeetingMinutesServlet extends HttpServlet {
             rating = Integer.parseInt(mentorRating);
         }
         if (currentUser != null) {
-            if (currentUser.getUser_type().contains("mentor")) {
+            if (currentUser.getUserType().contains("mentor")) {
                 mentor = currentUser.getEmail();
             } else {
                
                 Mentee current = MenteeDAO.getMenteeByEmail(currentUser.getEmail());
 
-                mentor = current.getMentor_email();
+                mentor = current.getMentorEmail();
             }
             
             ArrayList<MeetingMinutes> meetingMinutes = new ArrayList<>();

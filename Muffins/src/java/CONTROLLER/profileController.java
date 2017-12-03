@@ -29,7 +29,7 @@ public class profileController {
     public static String editUserDetails(User u){
         String status = "";
         int result = UserDAO.editUser(u);
-        System.out.println("controller: " + u.getProfile_pic());
+        System.out.println("controller: " + u.getProfilePic());
         if(result == 1){
             status = "Changes have been saved successfully!";
         }else{
@@ -42,9 +42,9 @@ public class profileController {
     public static String editMentee(Mentee m){
         String status = "";
         int userResult = UserDAO.editUser(m);
-        System.out.println("profileController editMentee: " + m.getProfile_pic());
+        System.out.println("profileController editMentee: " + m.getProfilePic());
         System.out.println("profileController editMentee: " + m.getDegree());
-        System.out.println("profileController editMentee: " + m.getYear_of_grad());
+        System.out.println("profileController editMentee: " + m.getYearOfGrad());
         System.out.println("profileController editMentee: " + m.getNationality()); 
         int result = MenteeDAO.editMenteeDetails(m);
         if(result == 1 && userResult == 1){
@@ -91,7 +91,7 @@ public class profileController {
     
     public static String getUserType(User user) {
         String userType = "";
-        String userTypeDB = user.getUser_type();
+        String userTypeDB = user.getUserType();
         HashMap<String, String> allUserTypes = new HashMap<String, String>();
         allUserTypes.put("admin_im", "IIE Incubation Manager");
         allUserTypes.put("admin_eir", "Entrepreneur In Residence");

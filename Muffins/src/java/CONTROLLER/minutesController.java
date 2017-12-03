@@ -56,7 +56,7 @@ public class minutesController {
         for(int i = 0; i < meetingMinutes.size(); i++){
             ArrayList<MeetingMinutes> mm = meetingMinutes.get(i);
             MeetingMinutes m = mm.get(0);
-            String email = m.getSubmitted_user();
+            String email = m.getSubmittedUser();
             User user = UserDAO.getUserByEmail(email);
             int companyID = user.getCompanyid();
             if(companyID != company_id){
@@ -84,7 +84,7 @@ public class minutesController {
         int status = 0;
         if(mm!=null&&mm.size()!=0){
             int minutesID = mm.get(0).getMinutesID();
-            int meetingID = mm.get(0).getMeeting_id();
+            int meetingID = mm.get(0).getMeetingID();
             Meeting meeting = meetingController.getMeetingByMeetingID(meetingID);
             System.out.println("MINUTES CONTROLLER ------ meeting "+meeting.getMeetingName());
             int menteeCompany = meeting.getMenteeCompany();
@@ -103,7 +103,7 @@ public class minutesController {
             boolean deleted = MeetingMinutesDAO.deleteMeetingMinutes(minutesID);
             System.out.println("MINUTES CONTROLER DELETED STATUS ----- "+deleted);
             for(MeetingMinutes m: mm){
-                int taskEdited = m.getTask_id();
+                int taskEdited = m.getTaskID();
                 //if (deleted){
                     status = MeetingMinutesDAO.addMeetingMinutesRow(m);
                     taskController.completeTask(taskEdited, menteeCompany);
@@ -209,11 +209,11 @@ public class minutesController {
             for(MeetingMinutes m : meetingMinutes){
                 System.out.println(m.getMinutesID());
                 System.out.println(m.getTitle());
-                System.out.println(m.getMeeting_id());
-                System.out.println(m.getMentor_email());
-                System.out.println(m.getTask_id());
+                System.out.println(m.getMeetingID());
+                System.out.println(m.getMentorEmail());
+                System.out.println(m.getTaskID());
                 System.out.println(m.getComments());
-                System.out.println(m.getSubmitted_user());
+                System.out.println(m.getSubmittedUser());
             }
         //}
     }

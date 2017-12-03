@@ -32,7 +32,6 @@ public class Company {
     private byte[] agreementForm;
     
     //constructor for incubator registration
-
     public Company(int id, String name, String description, String [] stakeholders, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, String productDiff, String revenueModel, String traction, String deployOfFunds, byte[] acraFile, byte[] bizFile, byte[] agreementForm) {
         this.id = id;
         this.name = name;
@@ -52,8 +51,6 @@ public class Company {
         this.bizFile = bizFile;
         this.agreementForm = agreementForm;
     }
-
-    
     
     public Company(int id, String name, String description, int partTimers, int fullTimers, int industry, Date startDate, int currentStage, byte[] companyLogo, byte[] acraFile, byte[] bizFile) {    
         this.id = id;
@@ -103,7 +100,7 @@ public class Company {
     
     
 
-    public Company(int company_id, String company_name, String company_description, int fulltimers, int parttimers, int industry, Date date, int currentstage, byte[] companyLogo, String productDiff, byte[] acraFile, byte[] bizSlides) {
+    public Company(int companyID, String companyName, String companyDescription, int fullTimers, int partTimers, int industry, Date date, int currentStage, byte[] companyLogo, String productDiff, byte[] acraFile, byte[] bizSlides) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -139,8 +136,6 @@ public class Company {
         this.stakeholders = stakeholders;
     }
     
-    
-
     public int getPartTimers() {
         return partTimers;
     }

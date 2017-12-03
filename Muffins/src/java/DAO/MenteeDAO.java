@@ -51,7 +51,7 @@ public class MenteeDAO {
                     mentor_email = result.getString("mentor_email");
                 }
                 
-                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -91,7 +91,7 @@ public class MenteeDAO {
                     mentor_email = result.getString("mentor_email");
                 }
                 
-                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -131,7 +131,7 @@ public class MenteeDAO {
                     mentor_email = result.getString("mentor_email");
                 }
                 
-                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -331,7 +331,7 @@ public class MenteeDAO {
                 mentor_email = result.getString("mentor_email");
             }
             
-            m = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+            m = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             
         } catch (SQLException ex) {
             Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -344,7 +344,7 @@ public class MenteeDAO {
     public static int editMenteeDetails(Mentee m){
         int result = 0;
         
-        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfile_pic(), m.getUser_type(), m.getCompanyid(), m.getRole(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
+        User u = new User(m.getEmail(), m.getPassword(), m.getName(), m.getNric(), m.getJoinedDate(), m.getProfilePic(), m.getUserType(), m.getCompanyid(), m.getPosition(), m.getEquityPercentage(), m.getContactNumber(), m.getNationality());
         int userResult = UserDAO.editUser(u);
         
         if(userResult == 0){
@@ -360,7 +360,7 @@ public class MenteeDAO {
             
             stmt = conn.prepareStatement("UPDATE mentee SET degree = ?, year_of_grad = ? WHERE email = ?;");
             stmt.setString(1, m.getDegree());
-            stmt.setInt(2, m.getYear_of_grad());
+            stmt.setInt(2, m.getYearOfGrad());
             stmt.setString(3, m.getEmail());
             
             result = stmt.executeUpdate();
@@ -410,8 +410,8 @@ public class MenteeDAO {
         
         String email = m.getEmail();
         String degree = m.getDegree();
-        int yrOfGrad = m.getYear_of_grad();
-        String mentor_email = m.getMentor_email();
+        int yrOfGrad = m.getYearOfGrad();
+        String mentor_email = m.getMentorEmail();
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -507,7 +507,7 @@ public class MenteeDAO {
                     mentor_email = result.getString("mentor_email");
                 }
                 
-                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfile_pic(), u.getUser_type(), u.getCompanyid(), u.getRole(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
+                mentee = new Mentee(degree, yearOfGrad, mentor_email, email, u.getPassword(), u.getName(), u.getNric(), u.getJoinedDate(), u.getProfilePic(), u.getUserType(), u.getCompanyid(), u.getPosition(), u.getEquityPercentage(), u.getContactNumber(),u.getNationality());
             } catch (SQLException ex) {
                 Logger.getLogger(MenteeDAO.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -540,16 +540,16 @@ public class MenteeDAO {
             System.out.println(m.getName());
             System.out.println(m.getNric());
             System.out.println(m.getJoinedDate());
-            System.out.println(m.getProfile_pic());
-            System.out.println(m.getUser_type());
+            System.out.println(m.getProfilePic());
+            System.out.println(m.getUserType());
             System.out.println(m.getCompanyid());
-            System.out.println(m.getRole());
+            System.out.println(m.getPosition());
             System.out.println(m.getEquityPercentage());
             System.out.println(m.getContactNumber());
             System.out.println(m.getNationality());
             System.out.println(m.getDegree());
-            System.out.println(m.getYear_of_grad());
-            System.out.println(m.getMentor_email());
+            System.out.println(m.getYearOfGrad());
+            System.out.println(m.getMentorEmail());
         }
     }
 }

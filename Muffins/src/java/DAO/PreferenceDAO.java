@@ -322,17 +322,17 @@ public class PreferenceDAO {
             conn = ConnectionManager.getConnection();
             
             stmt = conn.prepareStatement("INSERT INTO mentor_preference (company_id, mentor_email, start_date, end_date, reason, date_sent)" + "VALUES (?, ?, ?, ?, ?, ?);");
-            stmt.setInt(1, p.getCompany_id());
-            stmt.setString(2, p.getMentor_email());
+            stmt.setInt(1, p.getCompanyID());
+            stmt.setString(2, p.getMentorEmail());
             
-            if(p.getStart_date() != null){
-                stmt.setString(3, df.format(p.getStart_date()));
+            if(p.getStartDate() != null){
+                stmt.setString(3, df.format(p.getStartDate()));
             }else{
                 stmt.setString(3, null);
             }
             
-            if(p.getEnd_date() != null){
-                stmt.setString(4, df.format(p.getEnd_date()));
+            if(p.getEndDate() != null){
+                stmt.setString(4, df.format(p.getEndDate()));
             }else{
                 stmt.setString(4, null);
             }
@@ -406,14 +406,14 @@ public class PreferenceDAO {
             
             
             stmt = conn.prepareStatement("UPDATE mentor_preference SET  mentor_email = ?, start_date = ?, end_date = ?, reason = ?, date_sent = ? WHERE company_id = ?;");
-            stmt.setString(1, p.getMentor_email());
-            if(p.getStart_date() != null){
-                stmt.setString(2, df.format(p.getStart_date()));
+            stmt.setString(1, p.getMentorEmail());
+            if(p.getStartDate() != null){
+                stmt.setString(2, df.format(p.getStartDate()));
             }else{
                 stmt.setString(2, null);
             }
-            if(p.getEnd_date() != null){
-                stmt.setString(3, df.format(p.getEnd_date()));
+            if(p.getEndDate() != null){
+                stmt.setString(3, df.format(p.getEndDate()));
             }else{
                 stmt.setString(3, null);
             }
@@ -424,7 +424,7 @@ public class PreferenceDAO {
             }else{
                 stmt.setString(5, null);
             }
-            stmt.setInt(6, p.getCompany_id());
+            stmt.setInt(6, p.getCompanyID());
             
             result = stmt.executeUpdate();
             //task = new Task(taskName, desc, deadline, stage,companyID, isCompleted);
@@ -545,10 +545,10 @@ public class PreferenceDAO {
 //        ArrayList<Preference> preferences = PreferenceDAO.getUnApprovedPreferences();
 //        for(Preference p: preferences){
             Preference p = PreferenceDAO.getPreferenceByCompany(7);
-            System.out.println(p.getCompany_id());
-            System.out.println(p.getMentor_email());
-            System.out.println(p.getStart_date());
-            System.out.println(p.getEnd_date());
+            System.out.println(p.getCompanyID());
+            System.out.println(p.getMentorEmail());
+            System.out.println(p.getStartDate());
+            System.out.println(p.getEndDate());
             System.out.println(p.getNeed());
             System.out.println(p.getDate_sent());
 //        }

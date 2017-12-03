@@ -16,17 +16,17 @@ public class Relationship {
     private int companyID;
     private String mentorEmail;
     private String type;
-    private Date start_date;
-    private Date end_date;
+    private Date startDate;
+    private Date endDate;
     private String status;
 
-    public Relationship(int relationshipID, int companyID, String mentorEmail, String type, Date start_date, Date end_date, String status) {
+    public Relationship(int relationshipID, int companyID, String mentorEmail, String type, Date startDate, Date endDate, String status) {
         this.relationshipID = relationshipID;
         this.companyID = companyID;
         this.mentorEmail = mentorEmail;
         this.type = type;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.status = status;
     }
 
@@ -62,20 +62,20 @@ public class Relationship {
         this.type = type;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getStatus() {

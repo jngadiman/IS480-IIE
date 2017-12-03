@@ -22,10 +22,10 @@ public class industryController {
         return industries;
     }
     
-    public static Industry getIndustry(int industry_code){
+    public static Industry getIndustry(int industryCode){
         Industry i = null;
         
-        i = IndustryDAO.getIndustry(industry_code);
+        i = IndustryDAO.getIndustry(industryCode);
         System.out.println("industryController: " + i);
         
         return i;

@@ -58,7 +58,7 @@ public class loginServlet extends HttpServlet {
             System.out.println("USERNAME AND EMAIL NOT NULL" );
             if ((currentUser = loginController.validateUser(email, password)) != null) {
                 System.out.println("USER IS VALIDATED" );
-                String userType = currentUser.getUser_type();
+                String userType = currentUser.getUserType();
                 if(userType!=null){
                     if(userType.contains("mentee")){
                     Mentee m = menteeController.getMentee(email);
@@ -72,11 +72,11 @@ public class loginServlet extends HttpServlet {
                 }
                 
                 session.setAttribute("user", currentUser);
-                if(currentUser.getUser_type().contains("admin")){
+                if(currentUser.getUserType().contains("admin")){
                     response.sendRedirect("adminHome.jsp");
-                }else if(currentUser.getUser_type().contains("mentee")){
+                }else if(currentUser.getUserType().contains("mentee")){
                     response.sendRedirect("home.jsp");
-                }else if(currentUser.getUser_type().contains("mentor")){
+                }else if(currentUser.getUserType().contains("mentor")){
                     response.sendRedirect("mentorHomepage.jsp");
                 }else{
                     response.sendRedirect("index.jsp");

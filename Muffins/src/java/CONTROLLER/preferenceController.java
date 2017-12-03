@@ -37,7 +37,7 @@ public class preferenceController {
         
         if(result == 1){
             status = "Preference has been edited!";
-            Relationship r = new Relationship(relationshipController.getNextRlsID(), p.getCompany_id(), p.getMentor_email(),"incubation", p.getStart_date(), p.getEnd_date(), "assigned");
+            Relationship r = new Relationship(relationshipController.getNextRlsID(), p.getCompanyID(), p.getMentorEmail(),"incubation", p.getStartDate(), p.getEndDate(), "assigned");
             status += relationshipController.addRelationship(r);
         }else{
             status = "Preference could not be edited!";
@@ -83,7 +83,7 @@ public class preferenceController {
         ArrayList<Company> companies = new ArrayList<Company>();
         ArrayList<Preference> preferences = PreferenceDAO.getAllPreferences();
         for(Preference p: preferences){
-            int company_id = p.getCompany_id();
+            int company_id = p.getCompanyID();
             Company c = CompanyDAO.getCompany(company_id);
             companies.add(c);
         }
@@ -101,10 +101,10 @@ public class preferenceController {
 //        String status = preferenceController.editPreference(p);
 //        System.out.println(status);
         Preference p = preferenceController.getPreferenceByCompany(7);
-        System.out.println(p.getCompany_id());
-        System.out.println(p.getMentor_email());
-        System.out.println(p.getStart_date());
-        System.out.println(p.getEnd_date());
+        System.out.println(p.getCompanyID());
+        System.out.println(p.getMentorEmail());
+        System.out.println(p.getStartDate());
+        System.out.println(p.getEndDate());
         System.out.println(p.getNeed());
         System.out.println(p.getDate_sent());
 //        ArrayList<Preference> preferences = preferenceController.getUnapprovedPreferences();

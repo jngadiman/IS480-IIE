@@ -82,13 +82,13 @@ public class editMeetingMinutesServlet extends HttpServlet {
         
         if (currentUser != null) {
             System.out.println("EDIT MINUTES SERVLET NO ERROR ------ ");
-            if (currentUser.getUser_type().contains("mentor")) {
+            if (currentUser.getUserType().contains("mentor")) {
                 mentor = currentUser.getEmail();
             } else {
                
                 Mentee current = MenteeDAO.getMenteeByEmail(currentUser.getEmail());
 
-                mentor = current.getMentor_email();
+                mentor = current.getMentorEmail();
             }
             System.out.println("----- MENTOR ------ " +mentor);
             

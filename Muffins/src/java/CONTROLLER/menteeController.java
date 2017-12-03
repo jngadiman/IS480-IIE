@@ -71,16 +71,16 @@ public class menteeController {
             System.out.println(m.getName());
             System.out.println(m.getNric());
             System.out.println(m.getJoinedDate());
-            System.out.println(m.getProfile_pic());
-            System.out.println(m.getUser_type());
+            System.out.println(m.getProfilePic());
+            System.out.println(m.getUserType());
             System.out.println(m.getCompanyid());
-            System.out.println(m.getRole());
+            System.out.println(m.getPosition());
             System.out.println(m.getEquityPercentage());
             System.out.println(m.getContactNumber());
             System.out.println(m.getNationality());
             System.out.println(m.getDegree());
-            System.out.println(m.getYear_of_grad());
-            System.out.println(m.getMentor_email());
+            System.out.println(m.getYearOfGrad());
+            System.out.println(m.getMentorEmail());
         }
     }
 }

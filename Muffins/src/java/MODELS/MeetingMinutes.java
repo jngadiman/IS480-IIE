@@ -14,22 +14,22 @@ import java.util.ArrayList;
 public class MeetingMinutes {
     private int minutesID;
     private String title;
-    private int meeting_id;
-    private String mentor_email;
-    private int task_id;
+    private int meetingID;
+    private String mentorEmail;
+    private int taskID;
     private String comments;
-    private String submitted_user;
+    private String submittedUser;
     private int mentorRating;
     private String mentorRatingComment;
 
-    public MeetingMinutes(int minutesID, String title, int meeting_id, String mentor_email, int task_id, String comments, String submitted_user, int mentorRating, String mentorRatingComment) {
+    public MeetingMinutes(int minutesID, String title, int meetingID, String mentorEmail, int taskID, String comments, String submittedUser, int mentorRating, String mentorRatingComment) {
         this.minutesID = minutesID;
         this.title = title;
-        this.meeting_id = meeting_id;
-        this.mentor_email = mentor_email;
-        this.task_id = task_id;
+        this.meetingID = meetingID;
+        this.mentorEmail = mentorEmail;
+        this.taskID = taskID;
         this.comments = comments;
-        this.submitted_user = submitted_user;
+        this.submittedUser = submittedUser;
         this.mentorRating = mentorRating;
         this.mentorRatingComment = mentorRatingComment;
     }
@@ -50,28 +50,28 @@ public class MeetingMinutes {
         this.title = title;
     }
 
-    public int getMeeting_id() {
-        return meeting_id;
+    public int getMeetingID() {
+        return meetingID;
     }
 
-    public void setMeeting_id(int meeting_id) {
-        this.meeting_id = meeting_id;
+    public void setMeetingID(int meetingID) {
+        this.meetingID = meetingID;
     }
 
-    public String getMentor_email() {
-        return mentor_email;
+    public String getMentorEmail() {
+        return mentorEmail;
     }
 
-    public void setMentor_email(String mentor_email) {
-        this.mentor_email = mentor_email;
+    public void setMentorEmail(String mentorEmail) {
+        this.mentorEmail = mentorEmail;
     }
 
-    public int getTask_id() {
-        return task_id;
+    public int getTaskID() {
+        return taskID;
     }
 
-    public void setTask_id(int task_id) {
-        this.task_id = task_id;
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
     }
 
     public String getComments() {
@@ -82,12 +82,12 @@ public class MeetingMinutes {
         this.comments = comments;
     }
 
-    public String getSubmitted_user() {
-        return submitted_user;
+    public String getSubmittedUser() {
+        return submittedUser;
     }
 
-    public void setSubmitted_user(String submitted_user) {
-        this.submitted_user = submitted_user;
+    public void setSubmittedUser(String submittedUser) {
+        this.submittedUser = submittedUser;
     }
 
     public int getMentorRating() {

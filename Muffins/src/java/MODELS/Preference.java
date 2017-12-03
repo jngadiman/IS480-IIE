@@ -12,52 +12,52 @@ import java.util.Date;
  * @author Hui Min
  */
 public class Preference {
-    private int company_id;
-    private String mentor_email;
-    private Date start_date;
-    private Date end_date;
+    private int companyID;
+    private String mentorEmail;
+    private Date startDate;
+    private Date endDate;
     private String need;
-    private Date date_sent;
+    private Date dateSent;
 
-    public Preference(int company_id, String mentor_email, Date start_date, Date end_date, String need, Date date_sent) {
-        this.company_id = company_id;
-        this.mentor_email = mentor_email;
-        this.start_date = start_date;
-        this.end_date = end_date;
+    public Preference(int companyID, String mentorEmail, Date startDate, Date endDate, String need, Date dateSent) {
+        this.companyID = companyID;
+        this.mentorEmail = mentorEmail;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.need = need;
-        this.date_sent = date_sent;
+        this.dateSent = dateSent;
     }
 
-    public int getCompany_id() {
-        return company_id;
+    public int getCompanyID() {
+        return companyID;
     }
 
-    public void setCompany_id(int company_id) {
-        this.company_id = company_id;
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
     }
 
-    public String getMentor_email() {
-        return mentor_email;
+    public String getMentorEmail() {
+        return mentorEmail;
     }
 
-    public void setMentor_email(String mentor_email) {
-        this.mentor_email = mentor_email;
+    public void setMentorEmail(String mentorEmail) {
+        this.mentorEmail = mentorEmail;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getNeed() {
@@ -69,11 +69,11 @@ public class Preference {
     }
 
     public Date getDate_sent() {
-        return date_sent;
+        return dateSent;
     }
 
-    public void setDate_sent(Date date_sent) {
-        this.date_sent = date_sent;
+    public void setDate_sent(Date dateSent) {
+        this.dateSent = dateSent;
     }
 
     

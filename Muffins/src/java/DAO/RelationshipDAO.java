@@ -413,8 +413,8 @@ public class RelationshipDAO {
             stmt.setInt(2, r.getCompanyID());
             stmt.setString(3, r.getMentorEmail());
             stmt.setString(4, r.getType());
-            stmt.setString(5, df.format(r.getStart_date()));
-            stmt.setString(6, df.format(r.getEnd_date()));
+            stmt.setString(5, df.format(r.getStartDate()));
+            stmt.setString(6, df.format(r.getEndDate()));
             stmt.setString(7, r.getStatus());
             
             result = stmt.executeUpdate();
