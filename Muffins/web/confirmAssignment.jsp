@@ -53,7 +53,7 @@
                         
                                                     <div class="col-sm-12 form-group">
                         <%  // display the image
-                            byte[] imgDataUser = displayedUser.getProfile_pic();
+                            byte[] imgDataUser = displayedUser.getProfilePic();
                             if (imgDataUser == null) {
                         %>
                         <img src="img/user.png" width="200px" alt=""/>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                        <%String type = displayedUser.getUser_type(); %>
+                        <%String type = displayedUser.getUserType(); %>
 
                         <%  if (type.equals("Incubation Mentor")) {
                                 Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());

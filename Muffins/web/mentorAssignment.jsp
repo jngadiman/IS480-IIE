@@ -109,7 +109,7 @@
                     <div class="col-lg-4 ">
                         <%
                             // display the image
-                            byte[] imgDataM = m.getProfile_pic();
+                            byte[] imgDataM = m.getProfilePic();
                             if (imgDataM != null) {
                                 String imgDataBase64 = new String(Base64.getEncoder().encode(imgDataM));
                         %>

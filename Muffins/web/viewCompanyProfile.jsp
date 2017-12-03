@@ -132,7 +132,7 @@
                                 String first_founder_email = all_founders.get(0);
                                 User first_user = UserDAO.getUserByEmail(first_founder_email);
 
-                                String first_user_type = first_user.getUser_type();
+                                String first_user_type = first_user.getUserType();
 
                                 /*    if (first_user!= null&&first_user_type.equals("mentee")) {
                                  Mentee first_user_mentee = (Mentee) first_user;

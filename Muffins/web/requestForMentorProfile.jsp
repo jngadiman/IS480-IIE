@@ -53,7 +53,7 @@
                                 <div class="col-sm-6 form-group">
                                     <%
                                         // display the image
-                                        byte[] imgData = mentor.getProfile_pic();
+                                        byte[] imgData = mentor.getProfilePic();
                                         if (imgData != null) {
                                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                                     %>
@@ -78,7 +78,7 @@
                                     <p><strong>Email Address</strong> : <%= mentor.getEmail()%></p>
                                 </div>
                                 <div class="col-sm-6 form-group">
-                                    <p><strong>User Type</strong> : <%= mentor.getUser_type()%></p>
+                                    <p><strong>User Type</strong> : <%= mentor.getUserType()%></p>
                                 </div>
                             </div>
 
@@ -117,7 +117,7 @@
                                 //isCurrentMentor -> check if there is a rls whereby this company and this mentor hass an approved status
                                 //second part -> if regular user wants to requests for another incubator mentor
                                 //then they cannot request for this mentor
-                                if (isCurrentMentor || ((mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()))) {
+                                if (isCurrentMentor || ((mentee.getMentorEmail() != null && !mentee.getMentorEmail().isEmpty()))) {
                             %>
 
                             <input class=" btn btn-xs" type="submit" value="Apply for this Mentor" name="submitBtn" disabled>

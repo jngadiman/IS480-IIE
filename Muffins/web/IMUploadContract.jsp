@@ -68,8 +68,8 @@
                                     <tr>
                                         <td><%=companyName%></td>
                                         <td><%=mentorName%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStart_date())%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEnd_date())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStartDate())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEndDate())%></td>
                                         <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#uploadModal<%=rs.getRelationshipID()%>"/>Upload</button></td>
                                         <%
                                             if (contract != null) {%>

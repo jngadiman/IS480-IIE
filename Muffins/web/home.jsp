@@ -25,7 +25,7 @@
             String mentorEmail = "";
             if (m != null) {
                 menteeCompany = m.getCompanyid();
-                mentorEmail = m.getMentor_email();
+                mentorEmail = m.getMentorEmail();
             }
 
             String mentorName = "";

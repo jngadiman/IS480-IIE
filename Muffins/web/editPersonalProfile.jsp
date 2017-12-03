@@ -135,7 +135,7 @@
                             }
                             System.out.println("editPersonalProfile: " + nationality);
                             // user company position
-                            String position = user.getRole();
+                            String position = user.getPosition();
                             if (position == null) {
                                 if (userType.contains("mentee")) {
                                     position = "Founder";
@@ -232,10 +232,10 @@
                                 String degree = currentMentee.getDegree();
                                 //out.println("editPersonalProfile degree: " + degree);
                                 // get year of grad
-                                int gradYear = currentMentee.getYear_of_grad();
+                                int gradYear = currentMentee.getYearOfGrad();
                                 //out.println("editPersonalProfile gradYear: " + gradYear);
                                 // get mentor email
-                                String cMentorEmail = currentMentee.getMentor_email();
+                                String cMentorEmail = currentMentee.getMentorEmail();
                                 String cMentorName = "";
                                 if (cMentorEmail != null && !cMentorEmail.isEmpty()) {
                                     Mentor cMenteeMentor = MentorDAO.getMentorByEmail(cMentorEmail);

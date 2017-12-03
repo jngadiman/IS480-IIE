@@ -67,8 +67,8 @@
 
 
                 <%
-                    Company c = companyController.getCompany(p.getCompany_id());
-                    String mentor_email = p.getMentor_email();
+                    Company c = companyController.getCompany(p.getCompanyID());
+                    String mentor_email = p.getMentorEmail();
                     Mentor m = mentorController.getMentor(mentor_email);
 
 
@@ -84,8 +84,8 @@
                         <td><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#approve<%=c.getId()%>">Approve</button></td>
                         <td><button type="submit" class="btn-xs btn-primary" data-toggle="modal" data-target="#edit<%=c.getId()%>">Edit</button></td>
                 <form name="form4" action="adminPendingRequestServlet" method="post">    
-                    <input type="hidden" name="company_id" value="<%=p.getCompany_id()%>"/>
-                    <input type="hidden" name="mentor_email" value="<%=p.getMentor_email()%>"/>
+                    <input type="hidden" name="company_id" value="<%=p.getCompanyID()%>"/>
+                    <input type="hidden" name="mentor_email" value="<%=p.getMentorEmail()%>"/>
                     <td><button type="submit" class="btn-xs btn-danger" name="rejectBtn">Reject</button></td>
                 </form>
                 </tr>
@@ -115,8 +115,8 @@
                                         <label class="control-label">End Date</label>
                                         <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
                                     </div>
-                                    <input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/>
-                                    <input type="hidden" name="mentor_email" value="<%= p.getMentor_email()%>"/>
+                                    <input type="hidden" name="company_id" value="<%= p.getCompanyID()%>"/>
+                                    <input type="hidden" name="mentor_email" value="<%= p.getMentorEmail()%>"/>
 
                                 </div>
 
@@ -157,7 +157,7 @@
                                                 ArrayList<Mentor> mentors = mentorController.getMentors();
 
                                                 for (Mentor mentor : mentors) {
-                                                    if (p.getMentor_email().equals(mentor.getEmail())) {
+                                                    if (p.getMentorEmail().equals(mentor.getEmail())) {
                                             %>
                                             <option value="<%= mentor.getEmail()%>" selected><%= mentor.getName()%></option>
                                             <%} else {
@@ -171,7 +171,7 @@
                                         </select>
                                     </div>
 
-                                    <input type="hidden" name="company_id" value="<%= p.getCompany_id()%>"/>
+                                    <input type="hidden" name="company_id" value="<%= p.getCompanyID()%>"/>
 
 
                                 </div>

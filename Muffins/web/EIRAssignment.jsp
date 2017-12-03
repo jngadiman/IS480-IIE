@@ -54,32 +54,32 @@
                             int industryID = c.getIndustry();
                             Industry i = industryController.getIndustry(industryID);
                             String industryName = "";
-                            if(i!=null){
+                            if (i != null) {
                                 industryName = i.getIndustryName();
                             }
                         %>
-                         <label>Industry : </label><%=industryName%> </div>
+                        <label>Industry : </label><%=industryName%> </div>
 
                 </div>
                 <div class="row col-lg-offset">
                     <div class="col-sm-6 form-group required">
-                         <label>Current Stage : </label> <%= c.getCurrentStage()%>
+                        <label>Current Stage : </label> <%= c.getCurrentStage()%>
                     </div>
 
                     <div class="col-sm-6 form-group required">
-                         <label>Pitch Slides : </label> <a href="displayPdf.jsp?companyId=<%=c.getId()%>" target="blank" />PDF</a>
+                        <label>Pitch Slides : </label> <a href="displayPdf.jsp?companyId=<%=c.getId()%>" target="blank" />PDF</a>
                     </div>
 
                 </div>
 
 
                 <div class="row">
-<div class="col-sm-12 form-group required">
-    <label>Select Mentor Assigned to This Company</label>
-                    <form action="adminPendingRequestServlet" method="post">
-                        <input type ="hidden" name ="company_id" value ="<%=c.getId()%>">
-                       
-                            <select  id="mentor" name="mentor_email" required>
+                    <div class="col-sm-12 form-group required">
+                        <label>Select Mentor Assigned to This Company</label>
+                        <form action="adminPendingRequestServlet" method="post">
+                            <input type ="hidden" name ="companyID" value ="<%=c.getId()%>">
+
+                            <select  id="mentor" name="mentorEmail" required>
                                 <%  ArrayList<Mentor> allMentor = mentorController.getMentors();
                                     for (Mentor mentor : allMentor) {
 
@@ -104,11 +104,11 @@
                                         <div class="modal-body">
                                             <div class="col-sm-6 form-group required">
                                                 <label class="control-label">Start Date</label>
-                                                <input class="form-control" id="start_date" name="start_date" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
+                                                <input class="form-control" id="startDate" name="startDate" type="text" placeholder="Enter Start Date DD/MM/YYYY" class="form-control" required>
                                             </div>
                                             <div class="col-sm-6 form-group required">
                                                 <label class="control-label">End Date</label>
-                                                <input class="form-control" id="end_date" name="end_date" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
+                                                <input class="form-control" id="endDate" name="endDate" type="text" placeholder="Enter End Date DD/MM/YYYY" class="form-control" required>
                                             </div>
 
                                             <div class="col-sm-6 form-group required">
@@ -122,13 +122,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                    </div>
                     </form>
 
                 </div>
             </div>
         </div>
-        <!--                            
+        <%--                            
         
         <%
             ArrayList<Mentor> recMentors = assignmentController.getRecommendedMentorsByStartupIndustry(c.getIndustry());
@@ -146,8 +146,6 @@
             </thead>
         <%
             for (Mentor m : recMentors) {
-
-
         %>
 
         <tbody>
@@ -200,13 +198,9 @@
                 </div>
             </div>
         </div>
-    </form>-->
+    </form>
     </div>
 </div> 
-
-</div>
-
-
-
-</body>
+</div>--%>
+    </body>
 </html>

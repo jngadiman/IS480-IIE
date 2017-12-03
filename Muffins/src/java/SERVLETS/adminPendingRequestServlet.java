@@ -54,46 +54,46 @@ public class adminPendingRequestServlet extends HttpServlet {
         //request is approved
         if(request.getParameter("approve") != null){
             
-            int company_id = Integer.parseInt(request.getParameter("company_id"));
-            String mentor_email = request.getParameter("mentor_email");
+            int companyID = Integer.parseInt(request.getParameter("companyID"));
+            String mentorEmail = request.getParameter("mentorEmail");
             
-            Preference p = preferenceController.getPreference(company_id, mentor_email);
-            System.out.println("COMPANY ID" + company_id);
-            System.out.println("Mentor Email" + mentor_email);
+            Preference p = preferenceController.getPreference(companyID, mentorEmail);
+            System.out.println("COMPANY ID" + companyID);
+            System.out.println("Mentor Email" + mentorEmail);
             
             //get values from pop up for the start and end date of the assignment period
-            Date start_date = null;
+            Date startDate = null;
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             
-            String startDate = request.getParameter("start_date");
-            if (startDate != null || !startDate.isEmpty()){
+            String startDateStr = request.getParameter("startDate");
+            if (startDateStr != null || !startDateStr.isEmpty()){
                  try {
-                    start_date = df.parse(startDate);
+                    startDate = df.parse(startDateStr);
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
             }
             
-            System.out.println("start" + start_date);
+            System.out.println("start" + startDate);
             
-            Date end_date = null;
-            String endDate = request.getParameter("end_date");
-            if (endDate != null || !endDate.isEmpty()){
+            Date endDate = null;
+            String endDateStr = request.getParameter("endDate");
+            if (endDateStr != null || !endDateStr.isEmpty()){
                  try {
-                    end_date = df.parse(endDate);
+                    endDate = df.parse(endDateStr);
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
             }
-            System.out.println("end" + end_date);
+            System.out.println("end" + endDate);
             //store in the mentor preference object
             Preference pref = null;
             if(p != null){
-                pref = new Preference(company_id, mentor_email, start_date, end_date, p.getNeed(), p.getDate_sent());
+                pref = new Preference(companyID, mentorEmail, startDate, endDate, p.getNeed(), p.getDate_sent());
                 System.out.println("hi");
                 status = preferenceController.editPreference(pref);
             }else{
-                pref = new Preference(company_id, mentor_email, start_date, end_date, new String("Assigned By EIR"), new Date());
+                pref = new Preference(companyID, mentorEmail, startDate, endDate, new String("Assigned By EIR"), new Date());
                 status = preferenceController.addPreference(pref);
             }
             System.out.println("need: " + pref.getNeed());
@@ -103,21 +103,21 @@ public class adminPendingRequestServlet extends HttpServlet {
             if(!status.equals("")){
                 //add a relationship (requesting)
 //                int rlsid = relationshipController.getNextRlsID();
-//                Relationship rls = new Relationship(rlsid, company_id, mentor_email, "Incubator", start_date, end_date, "requesting");
+//                Relationship rls = new Relationship(rlsid, companyID, mentorEmail, "Incubator", startDate, endDate, "requesting");
                 //relationshipController.addRelationship(rls);
                 //send email the assignment to the mentors, mentee and the IM
-                Company company = companyController.getCompany(company_id);
+                Company company = companyController.getCompany(companyID);
                 System.out.println("COMPANY: ---------"+company);
-                System.out.println("MENTOR EMAIL: ---------"+mentor_email.trim());
-                User mentor = profileController.getUser(mentor_email);
+                System.out.println("MENTOR EMAIL: ---------"+mentorEmail.trim());
+                User mentor = profileController.getUser(mentorEmail);
                 System.out.println("MENTOR: ---------"+mentor);
                 String founders = profileController.getFoundersEmails(company);
-                String emails = mentor_email.trim()+","+founders;
-                System.out.println("ADMIN PENDING REQUEST EMAILS SENDING TO: ---------"+mentor_email.trim());
+                String emails = mentorEmail.trim()+","+founders;
+                System.out.println("ADMIN PENDING REQUEST EMAILS SENDING TO: ---------"+mentorEmail.trim());
                 String [] toSend = emails.split(",");
                 String stakeholders = profileController.getFoundersContactNumber(company);
                 System.out.println("STAKEHOLDERS: "+stakeholders);
-                String message = "Dear "+mentor.getName() +" and "+ company.getName()+", \n You have been paired up to each other by the EIR. We have provided the contact details below to for you to contact one another. \n\n Company Information \n Company Name : "+company.getName()+"\n Company Description : "+company.getDescription()+"\n Company Founders : "+stakeholders+"\n\n Mentor Information \n Mentor Name : "+mentor.getName()+" ( "+profileController.getUser(mentor_email).getContactNumber()+" ) ";
+                String message = "Dear "+mentor.getName() +" and "+ company.getName()+", \n You have been paired up to each other by the EIR. We have provided the contact details below to for you to contact one another. \n\n Company Information \n Company Name : "+company.getName()+"\n Company Description : "+company.getDescription()+"\n Company Founders : "+stakeholders+"\n\n Mentor Information \n Mentor Name : "+mentor.getName()+" ( "+profileController.getUser(mentorEmail).getContactNumber()+" ) ";
                 if(EmailSender.sendMail("incogiieportal@gmail.com", "iieportal2017", message, toSend,"IIE Portal Mentor Assignment")){
                     System.out.println("email has been sent successfully");
                 }else{

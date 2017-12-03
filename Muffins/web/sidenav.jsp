@@ -68,7 +68,7 @@
                         <div class="logo">
                             <br>
                             <%  // displaying of profile picture
-                                byte[] imgData = user.getProfile_pic();
+                                byte[] imgData = user.getProfilePic();
                                 String userPic = "";
                                 if (imgData == null) {
                                     userPic = "img/user.png";
@@ -82,10 +82,10 @@
                         </div> 
                         <%-- displaying of user position --%>
                         <%
-                            String userType = user.getUser_type();
+                            String userType = user.getUserType();
                             System.out.println("sidenav: " + userType);
                             if (userType.contains("mentee") || userType.contains("mentor")) {
-                                String position = user.getRole();
+                                String position = user.getPosition();
                                 if (position == null) {
                                     position = "Founder";
                                 }
@@ -183,7 +183,7 @@
                         <li><a href="viewAllMentors.jsp">Mentors</a></li>
                         <hr/>
                         <%
-                            if (user.getUser_type().equals("admin_eir")) {
+                            if (user.getUserType().equals("admin_eir")) {
                         %>
                         <li><a href="adminViewAllRequests.jsp">Pending Mentor Request</a></li>
                         <li><a href="EIRAssignMentor.jsp">Assign Mentor</a></li>
@@ -194,7 +194,7 @@
                         %>
 
                         <%
-                            if (user.getUser_type().equals("admin_im")) {
+                            if (user.getUserType().equals("admin_im")) {
                         %>
                         <li><a href="confirmCompany.jsp">Pending Registration Requests</a></li>
                         <li><a href="mentorRegistration.jsp">Register New Mentor</a></li>

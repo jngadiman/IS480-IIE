@@ -41,7 +41,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <%
                         User user = (User) session.getAttribute("user");
-                        if (user.getUser_type().equals("regular_mentee") || user.getUser_type().equals("light_mentee")) {
+                        if (user.getUserType().equals("regular_mentee") || user.getUserType().equals("light_mentee")) {
                             Mentee m = (Mentee) session.getAttribute("mentee");
                     %>    
                     <ul class="nav navbar-nav navbar-right">
@@ -50,7 +50,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <%
-                                    if (user.getUser_type().equals("regular_mentee")) {
+                                    if (user.getUserType().equals("regular_mentee")) {
                                 %>
                                 <li><a href="stages.jsp">Progress</a></li>
                                 <%
@@ -62,11 +62,11 @@
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                                     <%
                                         if (user != null) {
-                                            if (user.getUser_type().equals("regular_mentee")) {
+                                            if (user.getUserType().equals("regular_mentee")) {
                                     %>
                                 <li><a href="mentorAssignment.jsp">Request For Mentor</a></li>
                                     <%
-                                            }else if(user.getUser_type().equals("light_mentee")){
+                                            }else if(user.getUserType().equals("light_mentee")){
                                         
                                     %>
                                 <li><a href="mentorAssignment.jsp">Open Mentorship Request</a></li>
@@ -80,7 +80,7 @@
                         <li><a href="logout.jsp">Logout</a></li>
                     </ul>
                     <%
-                    } else if (user.getUser_type().equals("admin")) {
+                    } else if (user.getUserType().equals("admin")) {
                         
                         ArrayList<Relationship> pendingRequests = relationshipController.getAllRelationshipByStatus("requesting");
                     %>
@@ -107,7 +107,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <%
-                                    if (user.getUser_type().equals("regular_mentee")) {
+                                    if (user.getUserType().equals("regular_mentee")) {
                                 %>
                                 <li><a href="stages.jsp">Progress</a></li>
                                 <%
@@ -118,7 +118,7 @@
                                 <li><a href="viewCompanyProfile.jsp">View Company Profile</a></li>
                                 <li><a href="viewAllCompanies.jsp">View All Companies</a></li>
                                 <%
-                                    if (user.getUser_type().equals("admin")) {
+                                    if (user.getUserType().equals("admin")) {
                                 %>
                                 <li><a href="viewAllMentees.jsp">View All Mentees</a></li>
                                 <%
@@ -126,7 +126,7 @@
                                 %>
                                 <li><a href="viewAllMentors.jsp">View All Mentors</a></li>
                                 <%
-                                    if (user.getUser_type().equals("regular_mentee")) {
+                                    if (user.getUserType().equals("regular_mentee")) {
                                 %>
                                 <li><a href="confirmCompany.jsp">Pending Company</a></li>
                                 <%

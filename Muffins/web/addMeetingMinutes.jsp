@@ -135,7 +135,7 @@
                             Company comp = CompanyDAO.getCompany(menteeCompany);
                             int currentStageOfCompany = comp.getCurrentStage();
 
-                            String type = user.getUser_type();%>
+                            String type = user.getUserType();%>
 
                         <div class="row">
                             <!-- FOR NOW -->
@@ -148,8 +148,8 @@
                                     if (type.equals("regular_mentee") || type.equals("light_mentee")) {
                                         Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
 
-                                        if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
-                                            Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
+                                        if (mentee.getMentorEmail() != null && !mentee.getMentorEmail().isEmpty()) {
+                                            Mentor myMentor = mentorController.getMentor(mentee.getMentorEmail());
                                             mentor_name = myMentor.getName();
                                 %>
 

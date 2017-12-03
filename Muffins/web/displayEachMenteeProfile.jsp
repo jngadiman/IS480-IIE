@@ -30,7 +30,7 @@
                         <div class ="row">
                             <div class="col-sm-12 form-group">
                                 <%  // display the image
-                                    byte[] profilePic = currentMentee.getProfile_pic();
+                                    byte[] profilePic = currentMentee.getProfilePic();
                                     if (profilePic == null) {
                                 %>
                                 <img src="img/user.png" class="img-responsive center-block" width="200px" alt=""/>
@@ -50,7 +50,7 @@
                         <div class ="row">
 
                             <%
-                                if (user.getUser_type().equals("admin_im") || user.getUser_type().equals("admin_eir")) {
+                                if (user.getUserType().equals("admin_im") || user.getUserType().equals("admin_eir")) {
                             %>
                             <div class="col-sm-6 form-group">
                                 <p><strong>Email Address</strong> : <%= currentMentee.getEmail()%></p>
@@ -72,8 +72,8 @@
                         <%
                             Mentee mentee = MenteeDAO.getMenteeByEmail(currentMentee.getEmail());
                             String mentor_name = "";
-                            if (currentMentee.getMentor_email() != null && !currentMentee.getMentor_email().isEmpty()) {
-                                Mentor myMentor = mentorController.getMentor(currentMentee.getMentor_email());
+                            if (currentMentee.getMentorEmail() != null && !currentMentee.getMentorEmail().isEmpty()) {
+                                Mentor myMentor = mentorController.getMentor(currentMentee.getMentorEmail());
                                 mentor_name = myMentor.getName();
                             } else {
                                 mentor_name = "None";
@@ -99,7 +99,7 @@
                                 <p><strong>Company </strong> : <%= company_name%></p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Role in Company</strong> : <%= currentMentee.getRole()%></p>
+                                <p><strong>Role in Company</strong> : <%= currentMentee.getPosition()%></p>
                             </div>
 
                         </div>
@@ -115,7 +115,7 @@
                                 <p><strong>Primary Degree</strong> : <%= currentMentee.getDegree()%></p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <p><strong>Year of Graduation</strong> : <%= currentMentee.getYear_of_grad()%></p>
+                                <p><strong>Year of Graduation</strong> : <%= currentMentee.getYearOfGrad()%></p>
                             </div>
                         </div>
 

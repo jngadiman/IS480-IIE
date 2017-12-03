@@ -71,7 +71,7 @@
                 <br>
                     <h4>Due Payment(s)</h4>
             <%for (Relationship r : overdue) {
-                    if (r.getEnd_date().before(todayDate)) {
+                    if (r.getEndDate().before(todayDate)) {
                         String mentorEmail = r.getMentorEmail();
                         Mentor mentor = mentorController.getMentor(mentorEmail);
                         
@@ -81,7 +81,7 @@
                 <div class="row">
                 <div class="col-lg-7 well">
                     <%                        // display the image
-                        imgData = mentor.getProfile_pic();
+                        imgData = mentor.getProfilePic();
                         if (imgData != null) {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             out.print(imgData);
@@ -111,7 +111,7 @@
                             if (company != null) {
                                 company_name = company.getName();
                                 
-                                int badge = paymentController.getCountMeetingMinutesByMentorNCompany(r.getStart_date(), r.getEnd_date(), companyID, mentorEmail);
+                                int badge = paymentController.getCountMeetingMinutesByMentorNCompany(r.getStartDate(), r.getEndDate(), companyID, mentorEmail);
                         %>
 
                         <form action ="mentorPaymentServlet" method ="post">
@@ -186,7 +186,7 @@
                     <div class="col-lg-4">
                 
                     <%                        // display the image
-                        imgData = mentor.getProfile_pic();
+                        imgData = mentor.getProfilePic();
                         if (imgData != null) {
                             String imgDataBase64 = new String(Base64.getEncoder().encode(imgData));
                             out.print(imgData);

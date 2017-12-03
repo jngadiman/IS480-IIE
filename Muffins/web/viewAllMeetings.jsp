@@ -96,7 +96,7 @@
                                                 MeetingMinutes first = minutes.get(0);
                                                 String mName = "";
                                                 if (first != null) {
-                                                    String email = first.getMentor_email();
+                                                    String email = first.getMentorEmail();
                                                     if (email != null && !email.equals("")) {
                                                         Mentor mentor = mentorController.getMentor(email);
                                                         if (mentor != null) {
@@ -118,7 +118,7 @@
                                                 // to get the completed tasks
                                                 for (MeetingMinutes temp : minutes) {
 
-                                                    Task current = taskController.displayTask(temp.getTask_id(), company);
+                                                    Task current = taskController.displayTask(temp.getTaskID(), company);
                                                     if (current != null) {
 
 

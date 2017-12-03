@@ -49,8 +49,8 @@
                                     <tr>
                                         <td><%=companyName%></td>
                                         <td><%=mentorName%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStart_date())%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEnd_date())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStartDate())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEndDate())%></td>
                                     </tr>
                                     <%
                                         }
@@ -91,8 +91,8 @@
                                     <tr>
                                         <td><%=companyName%></td>
                                         <td><%=mentorName%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStart_date())%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEnd_date())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStartDate())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEndDate())%></td>
                                     </tr>
                                     <%
                                         }
@@ -134,8 +134,8 @@
                                     <tr>
                                         <td><%=companyName%></td>
                                         <td><%=mentorName%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStart_date())%></td>
-                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEnd_date())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getStartDate())%></td>
+                                        <td><%=new SimpleDateFormat("dd-MM-yyyy").format(rs.getEndDate())%></td>
                                     </tr>
                                     <%
                                         }

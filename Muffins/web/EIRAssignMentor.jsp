@@ -39,8 +39,8 @@
                     ArrayList<Company> companyWoMentor = assignmentController.getCompaniesWNoMentorNPref();
                     if (companyWoMentor != null && !companyWoMentor.isEmpty()) {
                         for (Company company : companyWoMentor) {
-                            int company_id = company.getId();
-                            if(company_id==0){
+                            int companyID = company.getId();
+                            if(companyID==0){
                                 continue;
                             }
                 %>

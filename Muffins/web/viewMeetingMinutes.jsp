@@ -54,7 +54,7 @@
 //                                    taskList.add(taskController.displayTask(m.getTask_id()).getName());
 //                                    }
 //                                }
-                            String date = new SimpleDateFormat("dd-MM-yyyy").format(meetingController.getMeetingByMeetingID(mm.getMeeting_id()).getStartTime());
+                            String date = new SimpleDateFormat("dd-MM-yyyy").format(meetingController.getMeetingByMeetingID(mm.getMeetingID()).getStartTime());
                            %>
                            <li><button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=mm.getMinutesID()%>"><%=date%></button></li>
                            <!-- Modal -->
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="modal-body">
                                         Title : <%=mm.getTitle()%><br>
-                                        Mentor : <%=mentorController.getMentor(mm.getMentor_email()).getName()%><br>
+                                        Mentor : <%=mentorController.getMentor(mm.getMentorEmail()).getName()%><br>
                                       Comments : <%=mm.getComments()%><br>
 <!--                                        Tasks : -->
                                         <%

@@ -81,7 +81,7 @@
                         <%
                             // getting mentor details
                             // get profile pic
-                            byte[] mentorImg = mentor.getProfile_pic();
+                            byte[] mentorImg = mentor.getProfilePic();
                             String mentorProfilePic = "";
                             if (mentorImg == null) {
                                 mentorProfilePic = "img/user.png";

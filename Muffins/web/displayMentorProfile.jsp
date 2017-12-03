@@ -71,7 +71,7 @@
                 if (userType.contains("mentee")) {
                     String cMenteeEmail = user.getEmail();
                     Mentee currentMentee = MenteeDAO.getMenteeByEmail(cMenteeEmail);
-                    cMenteeMentorEmail = currentMentee.getMentor_email();
+                    cMenteeMentorEmail = currentMentee.getMentorEmail();
                     System.out.println("displayMentorProfile cMenteeMentorEmail: " + cMenteeMentorEmail);
                 }
                 // if cMenteeMentorEmail is null, mentee currently doesn't have mentor
@@ -94,7 +94,7 @@
                     <div class="col-sm-11 well">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                             <%  // displaying of profile picture
-                                byte[] imgDataMentor = currentUserMentor.getProfile_pic();
+                                byte[] imgDataMentor = currentUserMentor.getProfilePic();
                                 String mentorProfilePic = "";
                                 if (imgDataMentor == null) {
                                     mentorProfilePic = "img/user.png";
@@ -201,7 +201,7 @@
                                 if (userType.contains("mentee")) {
                                     String currentUserMenteeEmail = user.getEmail();
                                     Mentee currentUserMentee = MenteeDAO.getMenteeByEmail(currentUserMenteeEmail);
-                                    String currentUserMenteeMentorEmail = currentUserMentee.getMentor_email();
+                                    String currentUserMenteeMentorEmail = currentUserMentee.getMentorEmail();
                                     if (currentUserMenteeMentorEmail != null) {
                                         if (currentUserMenteeMentorEmail.equals(mentorEmail)) {
                             %>

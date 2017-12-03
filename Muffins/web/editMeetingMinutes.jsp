@@ -97,7 +97,7 @@
                     Company comp = CompanyDAO.getCompany(menteeCompany);
                     int currentStageOfCompany = comp.getCurrentStage();
 
-                    String type = user.getUser_type();
+                    String type = user.getUserType();
 
 
             %>
@@ -123,8 +123,8 @@
                                 <% if (type.contains("mentee")) {
                                         Mentee mentee = MenteeDAO.getMenteeByEmail(user.getEmail());
                                         String mentor_name = "";
-                                        if (mentee.getMentor_email() != null && !mentee.getMentor_email().isEmpty()) {
-                                            Mentor myMentor = mentorController.getMentor(mentee.getMentor_email());
+                                        if (mentee.getMentorEmail() != null && !mentee.getMentorEmail().isEmpty()) {
+                                            Mentor myMentor = mentorController.getMentor(mentee.getMentorEmail());
                                             mentor_name = myMentor.getName();
                                 %>
                                 <div class="row">
@@ -173,7 +173,7 @@
 
                                 <%
                                     for (MeetingMinutes temp : minutes) {
-                                                int currentID = temp.getTask_id();
+                                                int currentID = temp.getTaskID();
                                                 Task current = taskController.displayTask(currentID, menteeCompany);
                                                 if (current != null) {
                                                     %>

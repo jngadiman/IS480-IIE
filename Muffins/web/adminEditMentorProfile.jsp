@@ -49,7 +49,7 @@
                         <input type="hidden" name="password" value="<%= user.getPassword()%>">
                         <input type="hidden" name="name" value="<%= user.getName()%>">
                         <input type="hidden" name="nric" value="<%= user.getNric()%>">
-                        <input type="hidden" name="userType" value="<%= user.getUser_type()%>">
+                        <input type="hidden" name="userType" value="<%= user.getUserType()%>">
                         <input type="hidden" name="mentorEmail" value="replace with mentor email">
                         <%  //} else if (user.getUser_type().equals("mentor")) {
                             //Mentor mentor = MentorDAO.getMentorByEmail(user.getEmail());
