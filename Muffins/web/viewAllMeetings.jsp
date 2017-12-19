@@ -4,6 +4,7 @@
     Author     : JJAY
 --%>
 
+<%@page import="CONTROLLER.profileController"%>
 <%@page import="java.util.Date"%>
 <%@page import="MODELS.Meeting"%>
 <%@page import="CONTROLLER.taskController"%>
@@ -56,7 +57,22 @@
                     <p><strong>Meeting Name: </strong><%=m.getMeetingName()%></p>
                     <p><strong>Meeting Start Time: </strong><%=starttime%></p>
                     <p><strong>Meeting End Time: </strong><%=endtime%></p>  
-                    <p><strong>Attendees: </strong><%=m.getAttendees()%></p> can print in names??
+                    <p><strong>Attendees: </strong>
+                        <%  
+                            String attendeesStr = m.getAttendees();
+                            String[] attendeesArr= attendeesStr.split(", ");
+                            for(int i = 0; i < attendeesArr.length; i++){
+                                String attendee = attendeesArr[i];
+                                if(!attendee.equals("incogiieportal@gmail.com")){
+                                    User guest = profileController.getUser(attendee);
+                                    out.println(guest.getName());
+                                    if(i != attendeesArr.length-1){
+                                        out.println(" ");
+                                    }
+                                }
+                            }
+                        %>
+                    </p>
                     <button type="submit" class="btn-xs btn-success" data-toggle="modal" data-target="#view<%=meetingID%>">View Meeting Minutes</button>
 
                     <%
@@ -151,13 +167,12 @@
                         }
                     %>
                     <h2 class="col-lg-12 page-header"></h2>
-                    
+                    <h2>Meeting without minutes</h2>
                     <%
                         for (Meeting m : userMeetings) {
 
                             if (m.getStatus().equals("confirmed")) {
                                 System.out.println("MEETING NAME IN USERMEETINGS -----" + m.getMeetingName());
-
                                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                                 Date startDate = m.getStartTime();
                                 Date endDate = m.getStartTime();
@@ -165,7 +180,6 @@
                                 String endtime = df.format(startDate);
                                 int meetingID = m.getMeetingID();
                     %>
-                    <h2>Meeting without minutes</h2>
                     <div class="col-lg-6 well">
                         <p><strong>Meeting Name: </strong><%=m.getMeetingName()%></p>
                         <p><strong>Meeting Start Time: </strong><%=starttime%></p>
