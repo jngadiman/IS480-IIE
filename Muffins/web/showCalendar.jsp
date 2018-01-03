@@ -279,14 +279,60 @@
                                     left: 'prev,next today myCustomButton',
                                     center: 'title',
                                     right: 'month,agendaWeek,agendaDay'
-                                }
-//                                eventClick: function(resource, element) {  
+                                },
+                                eventClick:function(calEvent, jsEvent, view){ 
+                                    //$(this).toggleClass('newColor');
+//                                    event.preventDefault();
+                                    alert('Event id: ' + calEvent.id); //event ID
+                                    // "id" if it is set by the event object, will be here.
+                                    $('#editEvents').modal('show'); 
+                                    //stuff for updating an event
+                                    return false;
+                                    var event = {
+                                        'summary': summaryTxt,
+                                        'location': locationTxt,
+                                        'description': ' ',
+                                        'start': {
+                                          'dateTime': datetime,
+                                        },
+                                        'end': {
+                                          'dateTime': datimeEnd,
+                                        },
+
+
+                                        'reminders': {
+                                          'useDefault': false,
+                                          'overrides': [
+                                            {'method': 'email', 'minutes': 24 * 60},
+                                            {'method': 'popup', 'minutes': 10}
+                                          ]
+                                        }
+                                      };
+                                      
+                                    var request = gapi.client.calendar.events.update({
+                                        'calendarId': 'primary',
+                                        'eventId':google_event_id,
+                                        'resource': event
+                                      });
+                                      
+                                    request.execute(function(event) {
+                                        alert('Event updated successfully' );
+                                    });
+                                    //ends here - still testing in process
+                                    //console.log(this);  // is the div element that was clicked on
+                                } 
+                                        
+//                                        function(resource, element) {
+//                                    event.preventDefault();
 //                                    event.title = "CLICKED!";
-//                                    if (resource.url) {
-//                                        return false;
-//                                    }
-//                                    $('#calendar').fullCalendar('updateEvent', event);
-//                                    alert("Event: " + resource.summary);
+//                                    //if (resource.url) {
+//                                        alert("Event: " + event.title);
+//                                        //alert("Event ID: " + event.fullCalendar( 'getEventSourceById', id ));
+//                                        //$('#editEvents').modal('show'); 
+//                                        //return false;
+//                                    //}
+//                                    //$('#calendar').fullCalendar('updateEvent', event);
+//                                    
 //                                }
                             });
                         });
